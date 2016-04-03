@@ -59,7 +59,10 @@ public class Denizen2Core {
     }
 
     public static void runString(String cmd) {
-        CommandScriptSection.forLine(cmd).toQueue().start();
+        CommandScriptSection sec = CommandScriptSection.forLine(cmd);
+        if (sec != null) {
+            sec.toQueue().start();
+        }
     }
 
     public static Argument splitToArgument(String input, boolean wasQuoted) {

@@ -1,14 +1,22 @@
 package org.mcmonkey.denizen2core.commands;
 
+import org.mcmonkey.denizen2core.utilities.debugging.Debug;
+
 /**
  * Represents a section of a script.
  */
 public class CommandScriptSection {
 
     public static CommandScriptSection forLine(String line) {
-        CommandEntry[] cmds = new CommandEntry[1];
-        cmds[0] = CommandEntry.forLine(line);
-        return new CommandScriptSection(new CommandStackEntry(cmds));
+        try {
+            CommandEntry[] cmds = new CommandEntry[1];
+            cmds[0] = CommandEntry.forLine(line);
+            return new CommandScriptSection(new CommandStackEntry(cmds));
+        }
+        catch (Exception ex) {
+            Debug.error("Compiling script <single line>: " + ex.getMessage());
+            return null;
+        }
     }
 
     public final CommandStackEntry created;

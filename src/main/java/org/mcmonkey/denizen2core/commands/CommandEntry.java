@@ -2,6 +2,7 @@ package org.mcmonkey.denizen2core.commands;
 
 import org.mcmonkey.denizen2core.Denizen2Core;
 import org.mcmonkey.denizen2core.arguments.Argument;
+import org.mcmonkey.denizen2core.commands.commoncommands.DebugInvalidCommand;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ public class CommandEntry {
     public final AbstractCommand command;
 
     public final ArrayList<Argument> arguments;
+
+    public final String originalLine;
 
     public String getArgument(CommandQueue queue, int index) {
         return arguments.get(index).getString();
@@ -63,21 +66,22 @@ public class CommandEntry {
         String cmd = CoreUtilities.toLowerCase(fargs.get(0).getString());
         AbstractCommand tcmd = Denizen2Core.getCommands().get(cmd);
         if (tcmd == null) {
-            throw new RuntimeException("Invalid command '" + cmd + "'!"); // TODO: Neater error. DebugInvalidOutputCommand?
+            return new CommandEntry(DebugInvalidCommand.instance, fargs, input);
         }
         fargs.remove(0);
-        return new CommandEntry(tcmd, fargs);
+        return new CommandEntry(tcmd, fargs, input);
     }
 
-    public CommandEntry(AbstractCommand cmd, ArrayList<Argument> args) {
+    public CommandEntry(AbstractCommand cmd, ArrayList<Argument> args, String original) {
         command = cmd;
         arguments = args;
+        originalLine = original;
         if (args.size() < cmd.getMinimumArguments()) {
-            throw new RuntimeException("Not enough arguments!");
+            throw new RuntimeException("Not enough arguments, expected: " + cmd.getArguments());
         }
         int max = cmd.getMaximumArguments();
         if (max >= 0 && args.size() > max) {
-            throw new RuntimeException("Too many arguments!");
+            throw new RuntimeException("Too many arguments, expected: " + cmd.getArguments());
         }
     }
 }

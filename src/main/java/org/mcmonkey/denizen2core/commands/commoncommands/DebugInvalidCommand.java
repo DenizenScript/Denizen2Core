@@ -1,0 +1,41 @@
+package org.mcmonkey.denizen2core.commands.commoncommands;
+
+import org.mcmonkey.denizen2core.Denizen2Core;
+import org.mcmonkey.denizen2core.commands.AbstractCommand;
+import org.mcmonkey.denizen2core.commands.CommandEntry;
+import org.mcmonkey.denizen2core.commands.CommandQueue;
+
+public class DebugInvalidCommand extends AbstractCommand {
+
+    public static final DebugInvalidCommand instance = new DebugInvalidCommand();
+
+    @Override
+    public String getName() {
+        return "\0DebugOutputInvalidCommand";
+    }
+
+    @Override
+    public String getArguments() {
+        return "<invalid command>";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Reports that a command is invalid.";
+    }
+
+    @Override
+    public int getMinimumArguments() {
+        return 1;
+    }
+
+    @Override
+    public int getMaximumArguments() {
+        return -1;
+    }
+
+    @Override
+    public void execute(CommandQueue queue, CommandEntry entry) {
+        Denizen2Core.getImplementation().outputInvalid(queue, entry);
+    }
+}

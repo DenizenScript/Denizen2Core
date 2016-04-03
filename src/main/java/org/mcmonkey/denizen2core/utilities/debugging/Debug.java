@@ -1,11 +1,17 @@
 package org.mcmonkey.denizen2core.utilities.debugging;
 
+import org.mcmonkey.denizen2core.Denizen2Core;
+
 /**
  * Quick helper to output debug information.
  */
 public class Debug {
 
     public static void exception(Exception ex) {
-        ex.printStackTrace(); // TODO: Implement me for real!
+        Denizen2Core.getImplementation().outputException(ex);
+    }
+
+    public static void error(String message) {
+        Denizen2Core.getImplementation().outputError(message);
     }
 }
