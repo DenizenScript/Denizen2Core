@@ -1,5 +1,7 @@
 package org.mcmonkey.denizen2core;
 
+import org.mcmonkey.denizen2core.arguments.Argument;
+import org.mcmonkey.denizen2core.arguments.TextArgumentBit;
 import org.mcmonkey.denizen2core.commands.AbstractCommand;
 import org.mcmonkey.denizen2core.commands.CommandScriptSection;
 import org.mcmonkey.denizen2core.commands.commoncommands.EchoCommand;
@@ -11,7 +13,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 
 /**
- * The main entry class for Denizen 2's core engine.
+ * The main entry class for Denizen2's core engine.
  */
 public class Denizen2Core {
 
@@ -58,5 +60,11 @@ public class Denizen2Core {
 
     public static void runString(String cmd) {
         CommandScriptSection.forLine(cmd).toQueue().start();
+    }
+
+    public static Argument splitToArgument(String input, boolean wasQuoted) {
+        Argument arg = new Argument();
+        arg.addBit(new TextArgumentBit(input, wasQuoted));
+        return arg;
     }
 }

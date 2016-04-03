@@ -14,7 +14,7 @@ public class EchoCommand extends AbstractCommand {
     // @Updated 2016/04/02
     // @Authors mcmonkey
     // @Group Common
-    // @Minium 1
+    // @Minimum 1
     // @Maximum 1
     // @Description
     // Echoes text back to the input command line.
