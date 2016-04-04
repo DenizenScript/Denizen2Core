@@ -53,6 +53,6 @@ public class EchoCommand extends AbstractCommand {
 
     @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
-        Denizen2Core.getImplementation().outputInfo(entry.getArgument(queue, 0));
+        Denizen2Core.getImplementation().outputInfo(entry.getArgumentObject(queue, 0).toString());
     }
 }

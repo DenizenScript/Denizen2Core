@@ -1,11 +1,14 @@
 package org.mcmonkey.denizen2core.commands;
 
+import org.mcmonkey.denizen2core.DebugMode;
 import org.mcmonkey.denizen2core.Denizen2Core;
 import org.mcmonkey.denizen2core.arguments.Argument;
 import org.mcmonkey.denizen2core.commands.commoncommands.DebugInvalidCommand;
+import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Represents a single entry in a CommandQueue.
@@ -18,8 +21,8 @@ public class CommandEntry {
 
     public final String originalLine;
 
-    public String getArgument(CommandQueue queue, int index) {
-        return arguments.get(index).getString();
+    public AbstractTagObject getArgumentObject(CommandQueue queue, int index) {
+        return arguments.get(index).parse(new HashMap<>(), DebugMode.FULL, queue.error);
     }
 
     public static CommandEntry forLine(String input) {
@@ -63,8 +66,8 @@ public class CommandEntry {
         if (fargs.size() == 0) {
             throw new RuntimeException("Invalid command line - looks blank!");
         }
-        String cmd = CoreUtilities.toLowerCase(fargs.get(0).getString());
-        AbstractCommand tcmd = Denizen2Core.getCommands().get(cmd);
+        String cmd = CoreUtilities.toLowerCase(fargs.get(0).toString());
+        AbstractCommand tcmd = Denizen2Core.commands.get(cmd);
         if (tcmd == null) {
             return new CommandEntry(DebugInvalidCommand.instance, fargs, input);
         }

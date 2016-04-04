@@ -14,7 +14,8 @@ public class CommandScriptSection {
             return new CommandScriptSection(new CommandStackEntry(cmds));
         }
         catch (Exception ex) {
-            Debug.error("Compiling script <single line>: " + ex.getMessage());
+            Debug.error("Compiling script <single line>: ");
+            Debug.exception(ex);
             return null;
         }
     }
