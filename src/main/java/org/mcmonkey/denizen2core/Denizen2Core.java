@@ -7,18 +7,28 @@ import org.mcmonkey.denizen2core.arguments.TextArgumentBit;
 import org.mcmonkey.denizen2core.commands.AbstractCommand;
 import org.mcmonkey.denizen2core.commands.CommandScriptSection;
 import org.mcmonkey.denizen2core.commands.commoncommands.EchoCommand;
+import org.mcmonkey.denizen2core.scripts.CommandScript;
+import org.mcmonkey.denizen2core.scripts.ScriptHelper;
+import org.mcmonkey.denizen2core.scripts.commontypes.TaskScript;
 import org.mcmonkey.denizen2core.tags.AbstractTagBase;
 import org.mcmonkey.denizen2core.tags.handlers.IntegerTagBase;
 import org.mcmonkey.denizen2core.tags.handlers.SystemTagBase;
 import org.mcmonkey.denizen2core.tags.handlers.TextTagBase;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
+import org.mcmonkey.denizen2core.utilities.Function2;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
+import org.mcmonkey.denizen2core.utilities.yaml.StringHolder;
 import org.mcmonkey.denizen2core.utilities.yaml.YAMLConfiguration;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.nio.file.FileVisitOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * The main entry class for Denizen2's core engine.
@@ -47,9 +57,13 @@ public class Denizen2Core {
 
     private static Denizen2Implementation implementation;
 
+    public final static HashMap<String, CommandScript> currentScripts = new HashMap<>();
+
     public final static HashMap<String, AbstractCommand> commands = new HashMap<>();
 
     public final static HashMap<String, AbstractTagBase> tagBases = new HashMap<>();
+
+    public final static HashMap<String, Function2<String, YAMLConfiguration, CommandScript>> scriptTypeGetters = new HashMap<>();
 
     public static Denizen2Implementation getImplementation() {
         return implementation;
@@ -63,7 +77,15 @@ public class Denizen2Core {
         tagBases.put(tagbase.getName(), tagbase);
     }
 
+    public static void register(String type, Function2<String, YAMLConfiguration, CommandScript> func) {
+        scriptTypeGetters.put(type, func);
+    }
+
     public static void init(Denizen2Implementation impl) {
+        commands.clear();
+        tagBases.clear();
+        currentScripts.clear();
+        scriptTypeGetters.clear();
         implementation = impl;
         // Common Commands
         register(new EchoCommand());
@@ -71,6 +93,71 @@ public class Denizen2Core {
         register(new SystemTagBase());
         register(new TextTagBase());
         register(new IntegerTagBase());
+        // Common script types
+        register("task", TaskScript::new);
+    }
+
+    public static void reload() {
+        currentScripts.clear();
+        load();
+    }
+
+    private static void loadSection(String scriptName, YAMLConfiguration section) {
+        String type = CoreUtilities.toLowerCase(section.getString("TYPE", "_NOT SET_"));
+        Function2<String, YAMLConfiguration, CommandScript> getter = scriptTypeGetters.get(type);
+        if (getter == null) {
+            Debug.error("Unknown type '" + type + "' for script " + scriptName);
+            return;
+        }
+        CommandScript script = getter.apply(scriptName, section);
+        if (script.init()) {
+            currentScripts.put(scriptName, script);
+        }
+    }
+
+    private static void loadFile(String fname, String file) {
+        try {
+            YAMLConfiguration config = YAMLConfiguration.load(ScriptHelper.ClearComments(file));
+            if (config == null) {
+                Debug.error("Invalid YAML for script " + fname);
+                return;
+            }
+            Set<StringHolder> strs = config.getKeys(false);
+            for (StringHolder strh : strs) {
+                loadSection(strh.low, config.getConfigurationSection(strh.str));
+            }
+        }
+        catch (Exception ex) {
+            Debug.error("Failed to load scirpt: " + fname);
+            Debug.exception(ex);
+        }
+    }
+
+    public static void load() {
+        File folder = getImplementation().getScriptsFolder();
+        try {
+            if (!folder.exists()) {
+                Debug.error("Scripts folder non-existent!");
+                return;
+            }
+            Stream<Path> paths = Files.walk(folder.toPath(), FileVisitOption.FOLLOW_LINKS);
+            Iterator<Path> pathi = paths.iterator();
+            while (pathi.hasNext()) {
+                Path p = pathi.next();
+                if (!CoreUtilities.toLowerCase(p.toString()).endsWith(".yml")) {
+                    continue;
+                }
+                File f = p.toFile();
+                if (f.exists() && !f.isDirectory()) {
+                    FileInputStream fis = new FileInputStream(f);
+                    loadFile(f.getName(), CoreUtilities.streamToString(fis));
+                    fis.close();
+                }
+            }
+        }
+        catch (IOException ex) {
+            Debug.exception(ex);
+        }
     }
 
     public static void runString(String cmd) {

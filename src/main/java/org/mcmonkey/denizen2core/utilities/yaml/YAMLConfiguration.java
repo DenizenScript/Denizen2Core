@@ -70,7 +70,7 @@ public class YAMLConfiguration {
     }
 
     private static List<String> patchListNonsense(List<Object> objs) {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         for (Object o : objs) {
             if (o == null) {
                 list.add("null");

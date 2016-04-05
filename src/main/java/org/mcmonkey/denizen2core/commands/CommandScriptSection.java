@@ -2,6 +2,11 @@ package org.mcmonkey.denizen2core.commands;
 
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
 /**
  * Represents a section of a script.
  */
@@ -15,6 +20,37 @@ public class CommandScriptSection {
         }
         catch (Exception ex) {
             Debug.error("Compiling script <single line>: ");
+            Debug.exception(ex);
+            return null;
+        }
+    }
+
+    private static List<CommandEntry> getEntries(List<Object> lines) {
+        List<CommandEntry> entries = new ArrayList<>();
+        for (Object obj : lines) {
+            if (obj instanceof String) {
+                entries.add(CommandEntry.forLine((String) obj));
+            }
+            else if (obj instanceof Map) {
+                Map map = (Map) obj;
+                Object key = map.keySet().iterator().next();
+                List<Object> innards = (List<Object>) map.get(key);
+                List<CommandEntry> inentries = getEntries(innards);
+                // TODO: Finish impl. for sub-command sections.
+            }
+        }
+        return entries;
+    }
+
+    public static CommandScriptSection forSection(String scriptName, List<Object> lines) {
+        try {
+            List<CommandEntry> entries = getEntries(lines);
+            CommandEntry[] cmds = new CommandEntry[entries.size()];
+            cmds = entries.toArray(cmds);
+            return new CommandScriptSection(new CommandStackEntry(cmds));
+        }
+        catch (Exception ex) {
+            Debug.error("Compiling script '" + scriptName + "': ");
             Debug.exception(ex);
             return null;
         }

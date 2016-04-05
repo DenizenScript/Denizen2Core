@@ -14,11 +14,11 @@ public class CommandStackEntry implements Cloneable {
     }
 
     public boolean run(CommandQueue queue) {
+        // TODO: Impl.
         for (int i = 0; i < entries.length; i++) {
             entries[i].command.execute(queue, entries[i]);
         }
         return true;
-        // TODO: Impl.
     }
 
     @Override
