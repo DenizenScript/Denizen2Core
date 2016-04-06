@@ -1,6 +1,8 @@
 package org.mcmonkey.denizen2core.scripts;
 
+import org.mcmonkey.denizen2core.DebugMode;
 import org.mcmonkey.denizen2core.commands.CommandScriptSection;
+import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 import org.mcmonkey.denizen2core.utilities.yaml.StringHolder;
 import org.mcmonkey.denizen2core.utilities.yaml.YAMLConfiguration;
@@ -21,13 +23,31 @@ public abstract class CommandScript {
         contents = section;
     }
 
+    public DebugMode getDebugMode() {
+        String dbm = CoreUtilities.toUpperCase(contents.getString("debug", "FULL"));
+        if (dbm.equals("TRUE")) {
+            return DebugMode.FULL;
+        }
+        else if (dbm.equals("FALSE")) {
+            return DebugMode.MINIMAL;
+        }
+        try {
+            return DebugMode.valueOf(dbm);
+        }
+        catch (IllegalArgumentException ex) {
+            Debug.error("'" + dbm + "' is not a valid debug mode, defaulting to FULL! Also permitted: NONE, MINIMAL.");
+            return DebugMode.FULL;
+        }
+    }
+
     public boolean init() {
         for (StringHolder strh : contents.getKeys(true)) {
             Object obj = contents.get(strh.str);
             if (obj instanceof List
                     && isExecutable(strh.low)) {
                 try {
-                    CommandScriptSection sect = CommandScriptSection.forSection(title + "." + strh.str, (List<Object>) obj);
+                    CommandScriptSection sect = CommandScriptSection.forSection(title + "." + strh.str,
+                            (List<Object>) obj, getDebugMode());
                     if (sect == null) {
                         Debug.error("Null script section for script '" + title + "', in path '" + strh.str + "'.");
                     }
@@ -36,10 +56,11 @@ public abstract class CommandScript {
                 catch (Exception ex) {
                     Debug.error("Error in script section for script '" + title + "', in path '" + strh.str + "'.");
                     Debug.exception(ex);
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 
     public abstract boolean isExecutable(String str);

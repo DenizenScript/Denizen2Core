@@ -1,5 +1,6 @@
 package org.mcmonkey.denizen2core.commands;
 
+import org.mcmonkey.denizen2core.DebugMode;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 
 import java.util.ArrayList;
@@ -42,12 +43,14 @@ public class CommandScriptSection {
         return entries;
     }
 
-    public static CommandScriptSection forSection(String scriptName, List<Object> lines) {
+    public static CommandScriptSection forSection(String scriptName, List<Object> lines, DebugMode debugMode) {
         try {
             List<CommandEntry> entries = getEntries(lines);
             CommandEntry[] cmds = new CommandEntry[entries.size()];
             cmds = entries.toArray(cmds);
-            return new CommandScriptSection(new CommandStackEntry(cmds));
+            CommandStackEntry cse = new CommandStackEntry(cmds);
+            cse.setDebugMode(debugMode);
+            return new CommandScriptSection(cse);
         }
         catch (Exception ex) {
             Debug.error("Compiling script '" + scriptName + "': ");

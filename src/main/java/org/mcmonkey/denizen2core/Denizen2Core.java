@@ -7,6 +7,7 @@ import org.mcmonkey.denizen2core.arguments.TextArgumentBit;
 import org.mcmonkey.denizen2core.commands.AbstractCommand;
 import org.mcmonkey.denizen2core.commands.CommandScriptSection;
 import org.mcmonkey.denizen2core.commands.commoncommands.EchoCommand;
+import org.mcmonkey.denizen2core.commands.queuecommands.RunCommand;
 import org.mcmonkey.denizen2core.scripts.CommandScript;
 import org.mcmonkey.denizen2core.scripts.ScriptHelper;
 import org.mcmonkey.denizen2core.scripts.commontypes.TaskScript;
@@ -89,6 +90,8 @@ public class Denizen2Core {
         implementation = impl;
         // Common Commands
         register(new EchoCommand());
+        // Queue Commands
+        register(new RunCommand());
         // Common Tag Handlers
         register(new SystemTagBase());
         register(new TextTagBase());
@@ -103,7 +106,7 @@ public class Denizen2Core {
     }
 
     private static void loadSection(String scriptName, YAMLConfiguration section) {
-        String type = CoreUtilities.toLowerCase(section.getString("TYPE", "_NOT SET_"));
+        String type = CoreUtilities.toLowerCase(section.getString("type", "_not set_"));
         Function2<String, YAMLConfiguration, CommandScript> getter = scriptTypeGetters.get(type);
         if (getter == null) {
             Debug.error("Unknown type '" + type + "' for script " + scriptName);
@@ -111,7 +114,11 @@ public class Denizen2Core {
         }
         CommandScript script = getter.apply(scriptName, section);
         if (script.init()) {
+            getImplementation().outputInfo("Loaded script '" + scriptName + "'");
             currentScripts.put(scriptName, script);
+        }
+        else {
+            Debug.error("Failed to load script '" + scriptName + "'!");
         }
     }
 

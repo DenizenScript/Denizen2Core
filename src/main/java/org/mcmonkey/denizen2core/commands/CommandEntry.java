@@ -21,6 +21,10 @@ public class CommandEntry {
 
     public final String originalLine;
 
+    public final String cmdName;
+
+    public final boolean waitFor;
+
     public AbstractTagObject getArgumentObject(CommandQueue queue, int index) {
         return arguments.get(index).parse(new HashMap<>(), DebugMode.FULL, queue.error);
     }
@@ -67,18 +71,25 @@ public class CommandEntry {
             throw new RuntimeException("Invalid command line - looks blank!");
         }
         String cmd = CoreUtilities.toLowerCase(fargs.get(0).toString());
+        boolean wf = false;
+        if (cmd.startsWith("&")) {
+            wf = true;
+            cmd = cmd.substring(1);
+        }
         AbstractCommand tcmd = Denizen2Core.commands.get(cmd);
         if (tcmd == null) {
-            return new CommandEntry(DebugInvalidCommand.instance, fargs, input);
+            return new CommandEntry(DebugInvalidCommand.instance, fargs, input, fargs.get(0).toString(), false);
         }
         fargs.remove(0);
-        return new CommandEntry(tcmd, fargs, input);
+        return new CommandEntry(tcmd, fargs, input, tcmd.getName(), wf);
     }
 
-    public CommandEntry(AbstractCommand cmd, ArrayList<Argument> args, String original) {
+    public CommandEntry(AbstractCommand cmd, ArrayList<Argument> args, String original, String name, boolean wf) {
         command = cmd;
         arguments = args;
         originalLine = original;
+        cmdName = name;
+        waitFor = wf;
         if (args.size() < cmd.getMinimumArguments()) {
             throw new RuntimeException("Not enough arguments, expected: " + cmd.getArguments());
         }

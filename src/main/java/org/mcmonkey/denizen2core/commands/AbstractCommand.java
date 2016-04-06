@@ -15,5 +15,7 @@ public abstract class AbstractCommand {
 
     public abstract int getMaximumArguments();
 
+    public abstract boolean isWaitable();
+
     public abstract void execute(CommandQueue queue, CommandEntry entry);
 }

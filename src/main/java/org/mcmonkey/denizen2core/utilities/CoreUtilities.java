@@ -92,6 +92,16 @@ public class CoreUtilities {
         return new String(data);
     }
 
+    public static String toUpperCase(String input) {
+        char[] data = input.toCharArray();
+        for (int i = 0; i < data.length; i++) {
+            if (data[i] >= 'a' && data[i] <= 'z') {
+                data[i] -= 'a' - 'A';
+            }
+        }
+        return new String(data);
+    }
+
     public static String getXthArg(int argc, String args) {
         char[] data = args.toCharArray();
         StringBuilder nArg = new StringBuilder();
