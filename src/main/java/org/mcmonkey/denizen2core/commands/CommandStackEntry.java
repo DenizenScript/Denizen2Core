@@ -15,8 +15,16 @@ public class CommandStackEntry implements Cloneable {
 
     private DebugMode dbMode;
 
+    public DebugMode getDebugMode() {
+        return dbMode;
+    }
+
     public void setDebugMode(DebugMode dbm) {
         dbMode = dbm;
+    }
+
+    public void goTo(int location) {
+        index = location;
     }
 
     public CommandStackEntry(CommandEntry[] entriesArray) {
@@ -39,12 +47,11 @@ public class CommandStackEntry implements Cloneable {
                         queue.handleError(CurrentCommand, "Internal exception: " + ex.toString());
                     }
                     catch (Exception ex2) {
-                        if (dbMode.showMinimal)
-                        {
+                        if (dbMode.showMinimal) {
                             Debug.exception(ex2);
-                            index = entries.length + 1;
-                            queue.commandStack.clear();
                         }
+                        index = entries.length + 1;
+                        queue.commandStack.clear();
                     }
                 }
             }

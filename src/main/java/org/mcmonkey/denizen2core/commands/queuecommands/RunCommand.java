@@ -15,9 +15,9 @@ public class RunCommand extends AbstractCommand {
     // @Name run
     // @Arguments <script>
     // @Short Runs a script as a new queue.
-    // @Updated 2016/04/02
+    // @Updated 2016/04/06
     // @Authors mcmonkey
-    // @Group Common
+    // @Group Queue
     // @Minimum 1
     // @Maximum 1
     // @Description

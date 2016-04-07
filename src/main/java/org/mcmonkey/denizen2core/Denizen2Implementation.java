@@ -12,6 +12,8 @@ public abstract class Denizen2Implementation {
 
     public abstract void outputException(Exception ex);
 
+    public abstract void outputGood(String text);
+
     public abstract void outputInfo(String text);
 
     public abstract void outputInvalid(CommandQueue queue, CommandEntry entry);

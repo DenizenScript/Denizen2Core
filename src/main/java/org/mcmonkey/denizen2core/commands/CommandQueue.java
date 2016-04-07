@@ -1,5 +1,6 @@
 package org.mcmonkey.denizen2core.commands;
 
+import org.mcmonkey.denizen2core.Denizen2Core;
 import org.mcmonkey.denizen2core.utilities.Action;
 import org.mcmonkey.denizen2core.utilities.ErrorInducedException;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
@@ -41,6 +42,20 @@ public class CommandQueue {
         run(0);
     }
 
+    public boolean shouldShowError() {
+        return commandStack.size() == 0 || commandStack.peek().getDebugMode().showMinimal;
+    }
+
+    public boolean shouldShowGood() {
+        return commandStack.size() == 0 || commandStack.peek().getDebugMode().showFull;
+    }
+
+    public void outGood(String message) {
+        if (shouldShowGood()) {
+            Denizen2Core.getImplementation().outputGood(message);
+        }
+    }
+
     public void run(double delta) {
         if (waitingOn != null) {
             return;
@@ -70,12 +85,16 @@ public class CommandQueue {
     }
 
     public void handleError(String error) {
-        Debug.error(error);
+        if (shouldShowError()) {
+            Debug.error(error);
+        }
         stop();
     }
 
     public void handleError(CommandEntry entry, String error) {
-        Debug.error(error);
+        if (shouldShowError()) {
+            Debug.error(error);
+        }
         stop();
     }
 }
