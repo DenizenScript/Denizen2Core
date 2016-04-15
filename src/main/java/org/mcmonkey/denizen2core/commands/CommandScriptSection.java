@@ -17,7 +17,7 @@ public class CommandScriptSection {
         try {
             CommandEntry[] cmds = new CommandEntry[1];
             cmds[0] = CommandEntry.forLine(line);
-            return new CommandScriptSection(new CommandStackEntry(cmds));
+            return new CommandScriptSection(new CommandStackEntry(cmds, "<single line>"));
         }
         catch (Exception ex) {
             Debug.error("Compiling script <single line>: ");
@@ -48,7 +48,7 @@ public class CommandScriptSection {
             List<CommandEntry> entries = getEntries(lines);
             CommandEntry[] cmds = new CommandEntry[entries.size()];
             cmds = entries.toArray(cmds);
-            CommandStackEntry cse = new CommandStackEntry(cmds);
+            CommandStackEntry cse = new CommandStackEntry(cmds, scriptName);
             cse.setDebugMode(debugMode);
             return new CommandScriptSection(cse);
         }

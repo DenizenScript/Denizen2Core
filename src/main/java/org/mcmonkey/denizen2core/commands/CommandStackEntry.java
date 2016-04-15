@@ -11,9 +11,11 @@ public class CommandStackEntry implements Cloneable {
 
     public final CommandEntry[] entries;
 
+    public final String scriptTitle;
+
     private int index;
 
-    private DebugMode dbMode;
+    private DebugMode dbMode = DebugMode.FULL;
 
     public DebugMode getDebugMode() {
         return dbMode;
@@ -27,24 +29,28 @@ public class CommandStackEntry implements Cloneable {
         index = location;
     }
 
-    public CommandStackEntry(CommandEntry[] entriesArray) {
+    public CommandStackEntry(CommandEntry[] entriesArray, String scrTitle) {
         entries = entriesArray;
+        scriptTitle = scrTitle;
     }
 
     public CommandStackRetVal run(CommandQueue queue) {
         while (index < entries.length) {
-            CommandEntry CurrentCommand = entries[index];
+            CommandEntry currentCommand = entries[index];
             index++;
-            if (CurrentCommand.command.isWaitable() && CurrentCommand.waitFor) {
-                queue.waitFor(CurrentCommand);
+            if (currentCommand.command.isWaitable() && currentCommand.waitFor) {
+                queue.waitFor(currentCommand);
+            }
+            if (getDebugMode().showFull) {
+                Debug.info("Script '" + scriptTitle + "' in queue (FILL ME IN) executing command: " + currentCommand.originalLine);
             }
             try {
-                CurrentCommand.command.execute(queue, CurrentCommand);
+                currentCommand.command.execute(queue, currentCommand);
             }
             catch (Exception ex) {
                 if (!(ex instanceof ErrorInducedException)) {
                     try {
-                        queue.handleError(CurrentCommand, "Internal exception: " + ex.toString());
+                        queue.handleError(currentCommand, "Internal exception: " + ex.toString());
                     }
                     catch (Exception ex2) {
                         if (dbMode.showMinimal) {

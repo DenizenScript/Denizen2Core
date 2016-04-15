@@ -14,4 +14,8 @@ public class Debug {
     public static void error(String message) {
         Denizen2Core.getImplementation().outputError(message);
     }
+
+    public static void info(String message) {
+        Denizen2Core.getImplementation().outputInfo(message);
+    }
 }
