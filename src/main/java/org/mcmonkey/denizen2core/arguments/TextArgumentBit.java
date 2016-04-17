@@ -1,6 +1,7 @@
 package org.mcmonkey.denizen2core.arguments;
 
 import org.mcmonkey.denizen2core.DebugMode;
+import org.mcmonkey.denizen2core.commands.CommandQueue;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.objects.IntegerTag;
 import org.mcmonkey.denizen2core.tags.objects.TextTag;
@@ -32,7 +33,8 @@ public class TextArgumentBit extends ArgumentBit {
         return value.toString();
     }
 
-    public AbstractTagObject parse(HashMap<String, AbstractTagObject> vars, DebugMode mode, Action<String> error) {
+    @Override
+    public AbstractTagObject parse(CommandQueue queue, HashMap<String, AbstractTagObject> vars, DebugMode mode, Action<String> error) {
         return value;
     }
 }

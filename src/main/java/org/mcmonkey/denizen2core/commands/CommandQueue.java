@@ -5,6 +5,7 @@ import org.mcmonkey.denizen2core.utilities.Action;
 import org.mcmonkey.denizen2core.utilities.ErrorInducedException;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 /**

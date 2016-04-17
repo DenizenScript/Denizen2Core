@@ -3,6 +3,7 @@ package org.mcmonkey.denizen2core.tags;
 import org.mcmonkey.denizen2core.DebugMode;
 import org.mcmonkey.denizen2core.arguments.Argument;
 import org.mcmonkey.denizen2core.arguments.TagBit;
+import org.mcmonkey.denizen2core.commands.CommandQueue;
 import org.mcmonkey.denizen2core.utilities.Action;
 
 import java.util.HashMap;
@@ -11,13 +12,17 @@ public class TagData {
 
     private int cInd = 0;
 
-    public TagData(Action<String> err, TagBit[] b, Argument fb, HashMap<String, AbstractTagObject> vars, DebugMode dbm) {
+    public TagData(Action<String> err, TagBit[] b, Argument fb, HashMap<String, AbstractTagObject> vars, DebugMode dbm,
+                   CommandQueue cQueue) {
         error = err;
         bits = b;
         fallback = fb;
         variables = vars;
         dbmode = dbm;
+        currentQueue = cQueue;
     }
+
+    public final CommandQueue currentQueue;
 
     public final Action<String> error;
 
@@ -43,6 +48,6 @@ public class TagData {
     }
 
     public AbstractTagObject getNextModifier() {
-        return bits[cInd].variable.parse(variables, dbmode, error);
+        return bits[cInd].variable.parse(currentQueue, variables, dbmode, error);
     }
 }

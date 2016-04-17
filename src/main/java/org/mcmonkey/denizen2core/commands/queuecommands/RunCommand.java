@@ -76,6 +76,9 @@ public class RunCommand extends AbstractCommand {
         }
         TaskScript task = (TaskScript) script;
         CommandScriptSection section = task.getSection(bits.size() > 1 ? bits.get(1): null);
+        if (queue.shouldShowGood()) {
+            queue.outGood("Running script: " + script.title);
+        }
         section.toQueue().start();
         if (entry.waitFor) {
             queue.waitFor(null);

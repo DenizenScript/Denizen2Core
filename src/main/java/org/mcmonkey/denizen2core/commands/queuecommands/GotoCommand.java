@@ -63,6 +63,9 @@ public class GotoCommand extends AbstractCommand {
         for (int i = 0; i < stackEntry.entries.length; i++) {
             if (stackEntry.entries[i].command instanceof MarkCommand
                 && stackEntry.entries[i].arguments.get(0).toString().equals(arg0)) {
+                if (queue.shouldShowGood()) {
+                    queue.outGood("Went to marker: " + arg0);
+                }
                 stackEntry.goTo(i);
                 return;
             }

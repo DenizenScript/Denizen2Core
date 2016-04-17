@@ -26,7 +26,7 @@ public class CommandEntry {
     public final boolean waitFor;
 
     public AbstractTagObject getArgumentObject(CommandQueue queue, int index) {
-        return arguments.get(index).parse(new HashMap<>(), DebugMode.FULL, queue.error);
+        return arguments.get(index).parse(queue, new HashMap<>(), DebugMode.FULL, queue.error);
     }
 
     public static CommandEntry forLine(String input) {

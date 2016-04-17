@@ -1,8 +1,12 @@
 package org.mcmonkey.denizen2core.commands;
 
 import org.mcmonkey.denizen2core.DebugMode;
+import org.mcmonkey.denizen2core.tags.AbstractTagObject;
+import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.ErrorInducedException;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
+
+import java.util.HashMap;
 
 /**
  * Represents an entry in a queue's command stack.
@@ -16,6 +20,16 @@ public class CommandStackEntry implements Cloneable {
     private int index;
 
     private DebugMode dbMode = DebugMode.FULL;
+
+    private HashMap<String, AbstractTagObject> definitions = new HashMap<>();
+
+    public void setDefinition(String str, AbstractTagObject obj) {
+        definitions.put(CoreUtilities.toLowerCase(str), obj);
+    }
+
+    public AbstractTagObject getDefinition(String str) {
+        return definitions.get(CoreUtilities.toLowerCase(str));
+    }
 
     public DebugMode getDebugMode() {
         return dbMode;

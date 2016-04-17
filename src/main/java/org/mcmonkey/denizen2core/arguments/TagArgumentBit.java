@@ -2,6 +2,7 @@ package org.mcmonkey.denizen2core.arguments;
 
 import org.mcmonkey.denizen2core.DebugMode;
 import org.mcmonkey.denizen2core.Denizen2Core;
+import org.mcmonkey.denizen2core.commands.CommandQueue;
 import org.mcmonkey.denizen2core.tags.AbstractTagBase;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.TagData;
@@ -36,7 +37,7 @@ public class TagArgumentBit extends ArgumentBit {
     }
 
     @Override
-    public AbstractTagObject parse(HashMap<String, AbstractTagObject> vars, DebugMode mode, Action<String> error) {
+    public AbstractTagObject parse(CommandQueue queue, HashMap<String, AbstractTagObject> vars, DebugMode mode, Action<String> error) {
         if (start == null && bits.length > 0) {
             start = Denizen2Core.tagBases.get(bits[0].key);
         }
@@ -44,7 +45,7 @@ public class TagArgumentBit extends ArgumentBit {
             error.run("Invalid tag bits -> empty tag, or invalid base.");
             return new NullTag();
         }
-        TagData data = new TagData(error, bits, fallback, vars, mode);
+        TagData data = new TagData(error, bits, fallback, vars, mode, queue);
         return start.handle(data);
     }
 }
