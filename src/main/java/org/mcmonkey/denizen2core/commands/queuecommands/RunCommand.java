@@ -41,11 +41,6 @@ public class RunCommand extends AbstractCommand {
     }
 
     @Override
-    public String getDescription() {
-        return "Runs a script as a new queue.";
-    }
-
-    @Override
     public int getMinimumArguments() {
         return 1;
     }

@@ -15,6 +15,8 @@ public class CommandStackEntry implements Cloneable {
 
     public final CommandEntry[] entries;
 
+    public final Object[] entryObjects;
+
     public final String scriptTitle;
 
     private int index;
@@ -43,8 +45,13 @@ public class CommandStackEntry implements Cloneable {
         index = location;
     }
 
+    public int getIndex() {
+        return index;
+    }
+
     public CommandStackEntry(CommandEntry[] entriesArray, String scrTitle) {
         entries = entriesArray;
+        entryObjects = new Object[entries.length];
         scriptTitle = scrTitle;
     }
 
@@ -64,10 +71,10 @@ public class CommandStackEntry implements Cloneable {
             catch (Exception ex) {
                 if (!(ex instanceof ErrorInducedException)) {
                     try {
-                        queue.handleError(currentCommand, "Internal exception: " + ex.toString());
+                        queue.handleError(currentCommand, "Internal exception: " + CoreUtilities.exceptionString(ex));
                     }
                     catch (Exception ex2) {
-                        if (dbMode.showMinimal) {
+                        if (!(ex2 instanceof ErrorInducedException) && dbMode.showMinimal) {
                             Debug.exception(ex2);
                         }
                         index = entries.length + 1;

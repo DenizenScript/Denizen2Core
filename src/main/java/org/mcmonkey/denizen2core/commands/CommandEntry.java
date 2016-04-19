@@ -9,6 +9,7 @@ import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Represents a single entry in a CommandQueue.
@@ -17,7 +18,7 @@ public class CommandEntry {
 
     public final AbstractCommand command;
 
-    public final ArrayList<Argument> arguments;
+    public final List<Argument> arguments;
 
     public final String originalLine;
 
@@ -25,11 +26,29 @@ public class CommandEntry {
 
     public final boolean waitFor;
 
+    public final String scriptName;
+
+    public int blockStart = 0;
+
+    public int blockEnd = 0;
+
+    public int ownIndex = 0;
+
+    public List<CommandEntry> innerCommandBlock;
+
+    public Object getData(CommandQueue queue) {
+        return queue.commandStack.peek().entryObjects[ownIndex];
+    }
+
+    public void setData(CommandQueue queue, Object obj) {
+        queue.commandStack.peek().entryObjects[ownIndex] = obj;
+    }
+
     public AbstractTagObject getArgumentObject(CommandQueue queue, int index) {
         return arguments.get(index).parse(queue, new HashMap<>(), DebugMode.FULL, queue.error);
     }
 
-    public static CommandEntry forLine(String input) {
+    public static CommandEntry forLine(String scrName, String input) {
         input = input.replace('\0', ' ');
         ArrayList<Argument> fargs = new ArrayList<>();
         boolean quoted = false;
@@ -78,18 +97,19 @@ public class CommandEntry {
         }
         AbstractCommand tcmd = Denizen2Core.commands.get(cmd);
         if (tcmd == null) {
-            return new CommandEntry(DebugInvalidCommand.instance, fargs, input, fargs.get(0).toString(), false);
+            return new CommandEntry(scrName, DebugInvalidCommand.instance, fargs, input, fargs.get(0).toString(), false);
         }
         fargs.remove(0);
-        return new CommandEntry(tcmd, fargs, input, tcmd.getName(), wf);
+        return new CommandEntry(scrName, tcmd, fargs, input, tcmd.getName(), wf);
     }
 
-    public CommandEntry(AbstractCommand cmd, ArrayList<Argument> args, String original, String name, boolean wf) {
+    public CommandEntry(String scrName, AbstractCommand cmd, List<Argument> args, String original, String name, boolean wf) {
         command = cmd;
         arguments = args;
         originalLine = original;
         cmdName = name;
         waitFor = wf;
+        scriptName = scrName;
         if (args.size() < cmd.getMinimumArguments()) {
             throw new RuntimeException("Not enough arguments, expected: " + cmd.getArguments());
         }

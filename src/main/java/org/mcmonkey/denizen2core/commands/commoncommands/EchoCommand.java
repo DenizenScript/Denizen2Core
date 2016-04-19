@@ -37,11 +37,6 @@ public class EchoCommand extends AbstractCommand {
     }
 
     @Override
-    public String getDescription() {
-        return "Echoes text back to the input command line.";
-    }
-
-    @Override
     public int getMinimumArguments() {
         return 1;
     }

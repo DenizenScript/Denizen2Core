@@ -16,11 +16,6 @@ public class DefineCommand extends AbstractCommand {
     }
 
     @Override
-    public String getDescription() {
-        return "Defines a current definition (variable).";
-    }
-
-    @Override
     public int getMinimumArguments() {
         return 2;
     }

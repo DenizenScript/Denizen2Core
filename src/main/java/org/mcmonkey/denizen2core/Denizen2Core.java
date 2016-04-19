@@ -7,10 +7,7 @@ import org.mcmonkey.denizen2core.arguments.TextArgumentBit;
 import org.mcmonkey.denizen2core.commands.AbstractCommand;
 import org.mcmonkey.denizen2core.commands.CommandScriptSection;
 import org.mcmonkey.denizen2core.commands.commoncommands.EchoCommand;
-import org.mcmonkey.denizen2core.commands.queuecommands.DefineCommand;
-import org.mcmonkey.denizen2core.commands.queuecommands.GotoCommand;
-import org.mcmonkey.denizen2core.commands.queuecommands.MarkCommand;
-import org.mcmonkey.denizen2core.commands.queuecommands.RunCommand;
+import org.mcmonkey.denizen2core.commands.queuecommands.*;
 import org.mcmonkey.denizen2core.scripts.CommandScript;
 import org.mcmonkey.denizen2core.scripts.ScriptHelper;
 import org.mcmonkey.denizen2core.scripts.commontypes.TaskScript;
@@ -96,7 +93,9 @@ public class Denizen2Core {
         register(new EchoCommand());
         // Queue Commands
         register(new DefineCommand());
+        register(new ElseCommand());
         register(new GotoCommand());
+        register(new IfCommand());
         register(new MarkCommand());
         register(new RunCommand());
         // Common Tag Handlers

@@ -36,11 +36,6 @@ public class MarkCommand extends AbstractCommand {
     }
 
     @Override
-    public String getDescription() {
-        return "Marks a location for the goto command.";
-    }
-
-    @Override
     public int getMinimumArguments() {
         return 1;
     }

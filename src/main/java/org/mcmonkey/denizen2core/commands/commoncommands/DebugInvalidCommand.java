@@ -20,11 +20,6 @@ public class DebugInvalidCommand extends AbstractCommand {
     }
 
     @Override
-    public String getDescription() {
-        return "Reports that a command is invalid.";
-    }
-
-    @Override
     public int getMinimumArguments() {
         return 1;
     }

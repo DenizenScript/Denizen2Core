@@ -18,6 +18,23 @@ public class CoreUtilities {
 
     public final static Random random = new Random();
 
+    public static String exceptionString(Throwable except) {
+        StringBuilder sb = new StringBuilder();
+        boolean first = true;
+        while (except != null) {
+            sb.append((first ? "" : "Caused by: ") + except.toString() + "\n");
+            for (StackTraceElement ste : except.getStackTrace()) {
+                sb.append(ste.toString() + "\n");
+            }
+            if (except.getCause() == except) {
+                return sb.toString();
+            }
+            except = except.getCause();
+            first = false;
+        }
+        return sb.toString();
+    }
+
     /**
      * The necessity of this method makes me hate Java a fair bit.
      */

@@ -16,7 +16,7 @@ public class CommandScriptSection {
     public static CommandScriptSection forLine(String line) {
         try {
             CommandEntry[] cmds = new CommandEntry[1];
-            cmds[0] = CommandEntry.forLine(line);
+            cmds[0] = CommandEntry.forLine("<single line>", line);
             return new CommandScriptSection(new CommandStackEntry(cmds, "<single line>"));
         }
         catch (Exception ex) {
@@ -26,18 +26,33 @@ public class CommandScriptSection {
         }
     }
 
-    private static List<CommandEntry> getEntries(List<Object> lines) {
+    private static List<CommandEntry> getEntries(String scrName, List<Object> lines, int istart) {
         List<CommandEntry> entries = new ArrayList<>();
         for (Object obj : lines) {
             if (obj instanceof String) {
-                entries.add(CommandEntry.forLine((String) obj));
+                CommandEntry cent = CommandEntry.forLine(scrName, (String) obj);
+                cent.ownIndex = istart;
+                entries.add(cent);
+                istart++;
             }
             else if (obj instanceof Map) {
                 Map map = (Map) obj;
                 Object key = map.keySet().iterator().next();
                 List<Object> innards = (List<Object>) map.get(key);
-                List<CommandEntry> inentries = getEntries(innards);
-                // TODO: Finish impl. for sub-command sections.
+                CommandEntry cent = CommandEntry.forLine(scrName, key.toString());
+                cent.ownIndex = istart;
+                entries.add(cent);
+                istart++;
+                List<CommandEntry> block = getEntries(scrName, innards, istart);
+                cent.blockStart = istart;
+                istart += block.size();
+                cent.blockEnd = istart - 1;
+                List<CommandEntry> toinj = new ArrayList<>(block);
+                int bc = block.size();
+                cent.command.adaptBlockFollowers(cent, toinj, block);
+                istart += (toinj.size() - bc);
+                cent.innerCommandBlock = block;
+                entries.addAll(toinj);
             }
         }
         return entries;
@@ -45,7 +60,10 @@ public class CommandScriptSection {
 
     public static CommandScriptSection forSection(String scriptName, List<Object> lines, DebugMode debugMode) {
         try {
-            List<CommandEntry> entries = getEntries(lines);
+            List<CommandEntry> entries = getEntries(scriptName, lines, 0);
+            for (int i = 0; i < entries.size(); i++) {
+                entries.get(i).ownIndex = i;
+            }
             CommandEntry[] cmds = new CommandEntry[entries.size()];
             cmds = entries.toArray(cmds);
             CommandStackEntry cse = new CommandStackEntry(cmds, scriptName);
