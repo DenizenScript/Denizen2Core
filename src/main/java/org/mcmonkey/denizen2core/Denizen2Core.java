@@ -5,6 +5,7 @@ import org.mcmonkey.denizen2core.arguments.TagArgumentBit;
 import org.mcmonkey.denizen2core.arguments.TagBit;
 import org.mcmonkey.denizen2core.arguments.TextArgumentBit;
 import org.mcmonkey.denizen2core.commands.AbstractCommand;
+import org.mcmonkey.denizen2core.commands.CommandQueue;
 import org.mcmonkey.denizen2core.commands.CommandScriptSection;
 import org.mcmonkey.denizen2core.commands.commoncommands.EchoCommand;
 import org.mcmonkey.denizen2core.commands.queuecommands.*;
@@ -83,6 +84,18 @@ public class Denizen2Core {
         scriptTypeGetters.put(type, func);
     }
 
+    public static List<CommandQueue> queues = new ArrayList<>();
+
+    public static void tick(double delta) {
+        Iterator<CommandQueue> qi = queues.iterator();
+        while (qi.hasNext()) {
+            CommandQueue queue = qi.next();
+            if (queue.run(delta)) {
+                qi.remove();
+            }
+        }
+    }
+
     public static void init(Denizen2Implementation impl) {
         commands.clear();
         tagBases.clear();
@@ -98,6 +111,7 @@ public class Denizen2Core {
         register(new IfCommand());
         register(new MarkCommand());
         register(new RunCommand());
+        register(new WaitCommand());
         // Common Tag Handlers
         register(new DefTagBase());
         register(new IntegerTagBase());

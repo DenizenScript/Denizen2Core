@@ -4,7 +4,6 @@ import org.mcmonkey.denizen2core.commands.AbstractCommand;
 import org.mcmonkey.denizen2core.commands.CommandEntry;
 import org.mcmonkey.denizen2core.commands.CommandQueue;
 import org.mcmonkey.denizen2core.commands.CommandStackEntry;
-import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 
 import java.util.ArrayList;
 import java.util.List;

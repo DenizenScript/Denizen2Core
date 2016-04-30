@@ -78,6 +78,6 @@ public class RunCommand extends AbstractCommand {
         if (entry.waitFor) {
             queue.waitFor(null);
         }
-        // TODO: Track determinations, waiting
+        // TODO: Track variable edits, waiting
     }
 }

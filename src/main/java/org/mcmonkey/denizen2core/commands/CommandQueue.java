@@ -40,7 +40,9 @@ public class CommandQueue {
     }
 
     public void start() {
-        run(0);
+        if (!run(0)) {
+            Denizen2Core.queues.add(this);
+        }
     }
 
     public boolean shouldShowError() {
@@ -57,13 +59,13 @@ public class CommandQueue {
         }
     }
 
-    public void run(double delta) {
+    public boolean run(double delta) {
         if (waitingOn != null) {
-            return;
+            return false;
         }
         wait -= delta;
         if (wait > 0) {
-            return;
+            return false;
         }
         if (wait < 0) {
             wait = 0;
@@ -72,12 +74,13 @@ public class CommandQueue {
             currentEntry = commandStack.peek();
             CommandStackEntry.CommandStackRetVal ret = currentEntry.run(this);
             if (ret == CommandStackEntry.CommandStackRetVal.BREAK) {
-                return;
+                return false;
             }
             else if (ret == CommandStackEntry.CommandStackRetVal.STOP) {
                 break;
             }
         }
+        return true;
     }
 
     public void stop() {
