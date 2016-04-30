@@ -71,6 +71,10 @@ public class RunCommand extends AbstractCommand {
         }
         TaskScript task = (TaskScript) script;
         CommandScriptSection section = task.getSection(bits.size() > 1 ? bits.get(1): null);
+        if (section == null) {
+            queue.handleError(entry, "Invalid script section!");
+            return;
+        }
         if (queue.shouldShowGood()) {
             queue.outGood("Running script: " + script.title);
         }
