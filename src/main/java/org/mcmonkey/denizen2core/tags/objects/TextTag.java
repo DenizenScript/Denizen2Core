@@ -33,7 +33,7 @@ public class TextTag extends AbstractTagObject {
         // <--[tag]
         // @Name TextTag.to_integer
         // @Group Text Modification
-        // @ReturnType NumberTag
+        // @ReturnType IntegerTag
         // @Returns the text parsed as an integer.
         // @Example "1" .to_integer returns "1".
         // -->
