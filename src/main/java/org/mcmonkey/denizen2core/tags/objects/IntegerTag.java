@@ -14,7 +14,7 @@ public class IntegerTag extends AbstractTagObject {
     // @SubType NumberTag
     // @Group Mathematics
     // @Description Represents an integer.
-    // @Other note that the number is internally stored as a 64-bit signed integer (a 'long').
+    // @Other Note that the number is internally stored as a 64-bit signed integer (a 'long').
     // -->
 
     private long internal;
@@ -89,7 +89,7 @@ public class IntegerTag extends AbstractTagObject {
 
     public static IntegerTag getFor(Action<String> error, String text) {
         try {
-            Long l = Long.parseLong(text);
+            long l = Long.parseLong(text);
             return new IntegerTag(l);
         }
         catch (NumberFormatException ex) {
@@ -109,7 +109,7 @@ public class IntegerTag extends AbstractTagObject {
 
     @Override
     public AbstractTagObject handleElseCase(TagData data) {
-        return new TextTag(toString()).handle(data);
+        return new NumberTag(internal).handle(data);
     }
 
     @Override

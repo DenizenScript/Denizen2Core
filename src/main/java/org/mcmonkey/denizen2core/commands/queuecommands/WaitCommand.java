@@ -4,6 +4,7 @@ import org.mcmonkey.denizen2core.commands.AbstractCommand;
 import org.mcmonkey.denizen2core.commands.CommandEntry;
 import org.mcmonkey.denizen2core.commands.CommandQueue;
 import org.mcmonkey.denizen2core.tags.objects.IntegerTag;
+import org.mcmonkey.denizen2core.tags.objects.NumberTag;
 
 public class WaitCommand extends AbstractCommand {
 
@@ -53,8 +54,7 @@ public class WaitCommand extends AbstractCommand {
 
     @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
-        // TODO: NumberTag!
-        queue.setWait(IntegerTag.getFor(queue::handleError, entry.getArgumentObject(queue, 0)).getInternal());
+        queue.setWait(NumberTag.getFor(queue::handleError, entry.getArgumentObject(queue, 0)).getInternal());
         if (queue.shouldShowGood()) {
             queue.outGood("Waiting for: " + queue.getWait() + " seconds!");
         }

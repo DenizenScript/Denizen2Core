@@ -13,10 +13,7 @@ import org.mcmonkey.denizen2core.scripts.CommandScript;
 import org.mcmonkey.denizen2core.scripts.ScriptHelper;
 import org.mcmonkey.denizen2core.scripts.commontypes.TaskScript;
 import org.mcmonkey.denizen2core.tags.AbstractTagBase;
-import org.mcmonkey.denizen2core.tags.handlers.DefTagBase;
-import org.mcmonkey.denizen2core.tags.handlers.IntegerTagBase;
-import org.mcmonkey.denizen2core.tags.handlers.SystemTagBase;
-import org.mcmonkey.denizen2core.tags.handlers.TextTagBase;
+import org.mcmonkey.denizen2core.tags.handlers.*;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.Function2;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
@@ -115,6 +112,7 @@ public class Denizen2Core {
         // Common Tag Handlers
         register(new DefTagBase());
         register(new IntegerTagBase());
+        register(new NumberTagBase());
         register(new TextTagBase());
         register(new SystemTagBase());
         // Common script types
