@@ -24,7 +24,7 @@ public class IfCommand extends AbstractCommand {
     // @Minimum 1
     // @Maximum -1
     // @Description
-    // runs a block of code if-and-only-if the comparisons return true.
+    // Runs a block of code if-and-only-if the comparisons return true.
     // TODO: Explain more!
     // @Example
     // # This example always echoes "hi".

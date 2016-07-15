@@ -21,4 +21,8 @@ public abstract class Denizen2Implementation {
     public abstract void outputError(String message);
 
     public abstract File getScriptsFolder();
+
+    public abstract String getImplementationName();
+
+    public abstract String getImplementationVersion();
 }

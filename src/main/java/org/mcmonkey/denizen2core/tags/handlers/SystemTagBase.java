@@ -1,5 +1,6 @@
 package org.mcmonkey.denizen2core.tags.handlers;
 
+import org.mcmonkey.denizen2core.Denizen2Core;
 import org.mcmonkey.denizen2core.tags.AbstractTagBase;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.TagData;
@@ -36,6 +37,27 @@ public class SystemTagBase extends AbstractTagBase {
         // @Returns the system's current time, in milliseconds since midnight, January 1, 1970 UTC.
         // -->
         handlers.put("current_time_milliseconds", (dat, obj) -> new IntegerTag(System.currentTimeMillis()));
+        // <--[tag]
+        // @Name SystemTag.core_version
+        // @Group Denizen2
+        // @ReturnType TextTag
+        // @Returns the Denizen2 Core version.
+        // -->
+        handlers.put("core_version", (dat, obj) -> new TextTag(Denizen2Core.version));
+        // <--[tag]
+        // @Name SystemTag.implementation
+        // @Group Denizen2
+        // @ReturnType TextTag
+        // @Returns the Denizen2 implementation's name.
+        // -->
+        handlers.put("implementation", (dat, obj) -> new TextTag(Denizen2Core.getImplementation().getImplementationName()));
+        // <--[tag]
+        // @Name SystemTag.implementation_version
+        // @Group Denizen2
+        // @ReturnType TextTag
+        // @Returns the Denizen2 implementation's version.
+        // -->
+        handlers.put("implementation_version", (dat, obj) -> new TextTag(Denizen2Core.getImplementation().getImplementationVersion()));
     }
 
     @Override
