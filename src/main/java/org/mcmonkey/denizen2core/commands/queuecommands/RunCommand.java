@@ -26,8 +26,6 @@ public class RunCommand extends AbstractCommand {
     // @Example
     // # This example runs the script "test".
     // - run test
-    // @Tags
-    // None.
     // -->
 
     @Override

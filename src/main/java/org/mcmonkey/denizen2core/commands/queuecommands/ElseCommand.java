@@ -29,8 +29,6 @@ public class ElseCommand extends AbstractCommand {
     //   - echo "nope"
     // - else:
     //   - echo "hi"
-    // @Tags
-    // None.
     // -->
 
     @Override

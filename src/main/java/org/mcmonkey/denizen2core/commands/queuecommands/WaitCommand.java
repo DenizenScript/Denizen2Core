@@ -18,13 +18,11 @@ public class WaitCommand extends AbstractCommand {
     // @Minimum 1
     // @Maximum 1
     // @Description
-    // Macauses the current queue to wait for a duration.
+    // Causes the current queue to wait for a duration.
     // TODO: Explain more!
     // @Example
     // # This example waits for 5 seconds.
     // - wait 5
-    // @Tags
-    // None.
     // -->
 
     @Override

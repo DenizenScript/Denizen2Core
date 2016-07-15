@@ -22,8 +22,6 @@ public class GotoCommand extends AbstractCommand {
     // @Example
     // # This example goes to the location 'test'.
     // - goto test
-    // @Tags
-    // None.
     // -->
 
     @Override

@@ -22,8 +22,6 @@ public class EchoCommand extends AbstractCommand {
     // @Example
     // # This example outputs the text "Hello World!" to console.
     // - echo "Hello World!"
-    // @Tags
-    // None.
     // -->
 
     @Override

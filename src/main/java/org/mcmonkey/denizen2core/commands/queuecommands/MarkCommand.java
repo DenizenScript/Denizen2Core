@@ -21,8 +21,6 @@ public class MarkCommand extends AbstractCommand {
     // @Example
     // # This example marks the location 'test'.
     // - mark test
-    // @Tags
-    // None.
     // -->
 
     @Override

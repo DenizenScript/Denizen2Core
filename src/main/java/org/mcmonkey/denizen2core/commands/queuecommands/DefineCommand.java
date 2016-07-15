@@ -5,6 +5,25 @@ import org.mcmonkey.denizen2core.commands.CommandEntry;
 import org.mcmonkey.denizen2core.commands.CommandQueue;
 
 public class DefineCommand extends AbstractCommand {
+
+    // <--[command]
+    // @Name define
+    // @Arguments <definition> <value>
+    // @Short Defines a value on the current queue.
+    // @Updated 2016/07/15
+    // @Authors mcmonkey
+    // @Group Queue
+    // @Minimum 2
+    // @Maximum 2
+    // @Description
+    // Defines a value on the current queue.
+    // TODO: Explain more!
+    // @Example
+    // # This example defines the variable 'test' as the value '3', then echoes it back.
+    // - define test 3
+    // - echo <[test]>
+    // -->
+
     @Override
     public String getName() {
         return "define";

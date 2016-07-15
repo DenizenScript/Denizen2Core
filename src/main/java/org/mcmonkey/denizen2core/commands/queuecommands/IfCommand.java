@@ -30,8 +30,6 @@ public class IfCommand extends AbstractCommand {
     // # This example always echoes "hi".
     // - if true:
     //   - echo "hi"
-    // @Tags
-    // None.
     // -->
 
     @Override

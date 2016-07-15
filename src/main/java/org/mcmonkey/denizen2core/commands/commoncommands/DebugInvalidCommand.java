@@ -7,6 +7,8 @@ import org.mcmonkey.denizen2core.commands.CommandQueue;
 
 public class DebugInvalidCommand extends AbstractCommand {
 
+    // Intentionally no meta: This command is not user-triggerable!
+
     public static final DebugInvalidCommand instance = new DebugInvalidCommand();
 
     @Override
