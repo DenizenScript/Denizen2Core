@@ -10,7 +10,7 @@ import java.io.File;
  */
 public abstract class Denizen2Implementation {
 
-    public abstract void outputException(Exception ex);
+    public abstract void outputException(Exception ex); // TODO: Throwable?
 
     public abstract void outputGood(String text);
 

@@ -154,7 +154,7 @@ public class Denizen2Core {
             }
         }
         catch (Exception ex) {
-            Debug.error("Failed to load scirpt: " + fname);
+            Debug.error("Failed to load script: " + fname);
             Debug.exception(ex);
         }
     }

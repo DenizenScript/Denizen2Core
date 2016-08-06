@@ -11,19 +11,16 @@ public class ScriptHelper {
         List<String> lines = CoreUtilities.split(input.replace("\t", "    ").replace("\r", ""), '\n');
         for (String l: lines) {
             String line = l.trim();
-            if (!line.startsWith("#")) {
-                if ((line.startsWith("}") || line.startsWith("{") || line.startsWith("else")) && !line.endsWith(":")) {
-                    result.append(' ').append(l.replace('\0', ' ')
-                            .replace(": ", "<&co>").replace("#", "<&ns>")).append("\n");
-                }
-                else {
-                    String liner = l.replace('\0', ' ');
-                    if (!line.endsWith(":") && line.startsWith("-")) {
-                        liner = liner.replace(": ", "<&co> ");
-                        liner = liner.replace("#", "<&ns>");
+            if (!line.startsWith("#") && !line.equals("}")) {
+                String liner = l.replace('\0', ' ').replaceAll("\\s+$", "");
+                if (!line.endsWith(":") && line.startsWith("-")) {
+                    liner = liner.replace(": ", "<&co> ");
+                    liner = liner.replace("#", "<&ns>");
+                    if (liner.endsWith(" {")) {
+                        liner = liner.substring(0, liner.length() - 2) + ":";
                     }
-                    result.append(liner.replace('\0', ' ')).append("\n");
                 }
+                result.append(liner).append("\n");
             }
             else {
                 result.append("\n");
