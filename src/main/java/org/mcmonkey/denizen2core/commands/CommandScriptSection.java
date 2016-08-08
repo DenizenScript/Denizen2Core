@@ -1,6 +1,7 @@
 package org.mcmonkey.denizen2core.commands;
 
 import org.mcmonkey.denizen2core.DebugMode;
+import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 
 import java.util.ArrayList;
@@ -13,10 +14,52 @@ import java.util.Objects;
  */
 public class CommandScriptSection {
 
+    public static List<String> splitSingleLine(String line) {
+        boolean quoted = false;
+        boolean qtype = false;
+        List<String> split = new ArrayList<>();
+        int start = 0;
+        for (int i = 0; i < line.length(); i++) {
+            if (line.charAt(i) == '\"') {
+                if (quoted && !qtype) {
+                    quoted = false;
+                }
+                else if (!quoted) {
+                    quoted = true;
+                    qtype = false;
+                }
+            }
+            else if (line.charAt(i) == '\'') {
+                if (quoted && qtype) {
+                    quoted = false;
+                }
+                else if (!quoted) {
+                    quoted = true;
+                    qtype = true;
+                }
+            }
+            if (!quoted && line.charAt(i) == '-' && (i == 0 || line.charAt(i - 1) == ' ')) {
+                String l = line.substring(start, i).trim();
+                if (l.length() > 0) {
+                    split.add(l);
+                }
+                start = i + 1;
+            }
+        }
+        String l = line.substring(start, line.length()).trim();
+        if (l.length() > 0) {
+            split.add(l);
+        }
+        return split;
+    }
+
     public static CommandScriptSection forLine(String line) {
         try {
-            CommandEntry[] cmds = new CommandEntry[1];
-            cmds[0] = CommandEntry.forLine("<single line>", line);
+            List<String> data = splitSingleLine(line);
+            CommandEntry[] cmds = new CommandEntry[data.size()];
+            for (int i = 0; i < data.size(); i++) {
+                cmds[i] = CommandEntry.forLine("<single line>", data.get(i));
+            }
             return new CommandScriptSection(new CommandStackEntry(cmds, "<single line>"));
         }
         catch (Exception ex) {

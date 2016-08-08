@@ -10,7 +10,7 @@ public class EchoCommand extends AbstractCommand {
     // <--[command]
     // @Name echo
     // @Arguments <text to echo>
-    // @Short Echoes text back to the input command line.
+    // @Short echoes text back to the input command line.
     // @Updated 2016/04/02
     // @Authors mcmonkey
     // @Group Common
