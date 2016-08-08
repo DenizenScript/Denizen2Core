@@ -4,6 +4,7 @@ import org.mcmonkey.denizen2core.commands.AbstractCommand;
 import org.mcmonkey.denizen2core.commands.CommandEntry;
 import org.mcmonkey.denizen2core.commands.CommandQueue;
 import org.mcmonkey.denizen2core.commands.CommandStackEntry;
+import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,9 @@ public class IfCommand extends AbstractCommand {
     // # This example always echoes "hi".
     // - if true:
     //   - echo "hi"
+    // # This example never does anything.
+    // - if false
+    //   - echo "This won't show"
     // -->
 
     @Override
@@ -78,7 +82,7 @@ public class IfCommand extends AbstractCommand {
         for (int i = 0; i < entry.arguments.size(); i++) {
             parsedargs.add(entry.getArgumentObject(queue, i).toString()); // TODO: Don't pre-parse. Parse in TryIf.
         }
-        boolean success = parsedargs.size() > 0 && parsedargs.get(0).equalsIgnoreCase("true"); // TODO: TryIf
+        boolean success = parsedargs.size() > 0 && CoreUtilities.toLowerCase(parsedargs.get(0)).equals("true"); // TODO: TryIf
         if (success) {
             if (queue.shouldShowGood()) {
                 queue.outGood("If is true, executing...");

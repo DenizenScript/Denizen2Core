@@ -25,10 +25,15 @@ public class ElseCommand extends AbstractCommand {
     // TODO: Explain more!
     // @Example
     // # This example always echoes "hi".
-    // - if true:
-    //   - echo "nope"
+    // - if false:
+    //   - echo "This won't show"
     // - else:
     //   - echo "hi"
+    // # This example always echoes "hi".
+    // - if true:
+    //   - echo "hi"
+    // - else:
+    //   - echo "This won't show"
     // -->
 
     @Override
