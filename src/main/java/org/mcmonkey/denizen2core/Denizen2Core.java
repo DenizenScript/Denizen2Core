@@ -252,7 +252,7 @@ public class Denizen2Core {
                         }
                         if (brack == 0 && value.charAt(fb) == '|' && value.charAt(fb - 1) == '|') {
                             fallback = value.substring(fb + 1);
-                            value = value.substring(0, fb);
+                            value = value.substring(0, fb - 1);
                             break;
                         }
                     }

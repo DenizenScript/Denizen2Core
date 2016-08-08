@@ -39,6 +39,9 @@ public class TagArgumentBit extends ArgumentBit {
         for (int i = 0; i < bits.length; i++) {
             tag.append(bits[i].toString());
         }
+        if (fallback != null) {
+            tag.append("||").append(fallback.toString());
+        }
         tag.append(">");
         return tag.toString();
     }
@@ -48,12 +51,20 @@ public class TagArgumentBit extends ArgumentBit {
         if (start == null && bits.length > 0) {
             start = Denizen2Core.tagBases.get(bits[0].key);
         }
+        AbstractTagObject res;
         if (start == null) {
-            error.run("Invalid tag bits -> empty tag, or invalid base: " + ColorSet.emphasis + (bits.length > 0 ? bits[0] : ""));
-            return new NullTag();
+            if (fallback == null) {
+                error.run("Invalid tag bits -> empty tag, or invalid base: " + ColorSet.emphasis + (bits.length > 0 ? bits[0] : ""));
+            }
+            res = new NullTag();
         }
-        TagData data = new TagData(error, bits, fallback, vars, mode, queue);
-        AbstractTagObject res = start.handle(data);
+        else {
+            TagData data = new TagData(error, bits, fallback, vars, mode, queue);
+            res = start.handle(data);
+        }
+        if (res instanceof NullTag && fallback != null) {
+            res = fallback.parse(queue, vars, mode, error);
+        }
         if (queue.shouldShowGood()) {
             queue.outGood("Filled tag '" + ColorSet.emphasis + getString() + ColorSet.good
                     + "' with '" + ColorSet.emphasis + res.toString() + ColorSet.good + "'.");
