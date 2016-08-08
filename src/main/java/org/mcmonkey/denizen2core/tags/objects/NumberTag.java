@@ -114,6 +114,10 @@ public class NumberTag extends AbstractTagObject {
 
     @Override
     public String toString() {
-        return String.valueOf(internal);
+        String temp = String.valueOf(internal);
+        if (temp.endsWith(".0")) {
+            return temp.substring(0, temp.length() - 2);
+        }
+        return temp;
     }
 }
