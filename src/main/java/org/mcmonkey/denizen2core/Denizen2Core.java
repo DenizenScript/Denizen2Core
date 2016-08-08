@@ -115,10 +115,12 @@ public class Denizen2Core {
         register(new WaitCommand());
         // Common Tag Handlers
         register(new DefTagBase());
+        register(new EscapeTagBase());
         register(new IntegerTagBase());
         register(new NumberTagBase());
         register(new TextTagBase());
         register(new SystemTagBase());
+        register(new UnescapeTagBase());
         // Common script types
         register("task", TaskScript::new);
     }

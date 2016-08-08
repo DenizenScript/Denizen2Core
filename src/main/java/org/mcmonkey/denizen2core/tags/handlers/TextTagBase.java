@@ -5,14 +5,15 @@ import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.TagData;
 import org.mcmonkey.denizen2core.tags.objects.TextTag;
 
-// <--[explanation]
-// @Name Text Tags
-// @Description
-// TextTags are any random text, built into the tag system.
-// TODO: Explain better
-// TODO: Link tag system explanation
-// -->
 public class TextTagBase extends AbstractTagBase {
+
+    // <--[explanation]
+    // @Name Text Tags
+    // @Description
+    // TextTags are any random text, built into the tag system.
+    // TODO: Explain better
+    // TODO: Link tag system explanation
+    // -->
 
     // <--[tagbase]
     // @Base text[<TextTag>]

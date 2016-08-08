@@ -8,7 +8,7 @@ import org.mcmonkey.denizen2core.tags.objects.NullTag;
 public class DefTagBase extends AbstractTagBase {
 
     // <--[tagbase]
-    // @Base def[<DefinitionName>]
+    // @Base def[<TextTag>]
     // @Group Definitions
     // @ReturnType Dynamic
     // @Returns a current definition by the given name.
