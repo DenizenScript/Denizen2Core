@@ -34,7 +34,7 @@
 
     <ciManagement>
         <system>jenkins</system>
-        <url>http://jci.mcmonkey.org/</url>
+        <url>http://jci.frenetic.xyz/</url>
     </ciManagement>
     <scm>
         <connection>scm:git:git://github.com/DenizenScript/Denizen2Core.git</connection>

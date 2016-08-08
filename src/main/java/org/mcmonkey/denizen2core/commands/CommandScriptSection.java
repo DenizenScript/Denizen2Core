@@ -2,6 +2,7 @@ package org.mcmonkey.denizen2core.commands;
 
 import org.mcmonkey.denizen2core.DebugMode;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
+import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 
 import java.util.ArrayList;
@@ -114,7 +115,7 @@ public class CommandScriptSection {
             return new CommandScriptSection(cse);
         }
         catch (Exception ex) {
-            Debug.error("Compiling script '" + scriptName + "': ");
+            Debug.error("Compiling script '" + ColorSet.emphasis + scriptName + ColorSet.warning + "': ");
             Debug.exception(ex);
             return null;
         }

@@ -6,6 +6,7 @@ import org.mcmonkey.denizen2core.arguments.Argument;
 import org.mcmonkey.denizen2core.commands.commoncommands.DebugInvalidCommand;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
+import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -111,11 +112,11 @@ public class CommandEntry {
         waitFor = wf;
         scriptName = scrName;
         if (args.size() < cmd.getMinimumArguments()) {
-            throw new RuntimeException("Not enough arguments, expected: " + cmd.getArguments());
+            throw new RuntimeException("Not enough arguments, expected: " + ColorSet.emphasis + cmd.getArguments());
         }
         int max = cmd.getMaximumArguments();
         if (max >= 0 && args.size() > max) {
-            throw new RuntimeException("Too many arguments, expected: " + cmd.getArguments());
+            throw new RuntimeException("Too many arguments, expected: " + ColorSet.emphasis + cmd.getArguments());
         }
     }
 }

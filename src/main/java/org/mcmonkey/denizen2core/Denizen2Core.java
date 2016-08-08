@@ -17,6 +17,7 @@ import org.mcmonkey.denizen2core.tags.AbstractTagBase;
 import org.mcmonkey.denizen2core.tags.handlers.*;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.Function2;
+import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 import org.mcmonkey.denizen2core.utilities.yaml.StringHolder;
 import org.mcmonkey.denizen2core.utilities.yaml.YAMLConfiguration;
@@ -136,11 +137,11 @@ public class Denizen2Core {
         }
         CommandScript script = getter.apply(scriptName, section);
         if (script.init()) {
-            getImplementation().outputInfo("Loaded script '" + scriptName + "'");
+            getImplementation().outputInfo("Loaded script '" + ColorSet.emphasis + scriptName + ColorSet.base + "'");
             currentScripts.put(scriptName, script);
         }
         else {
-            Debug.error("Failed to load script '" + scriptName + "'!");
+            Debug.error("Failed to load script '" + ColorSet.emphasis + scriptName + ColorSet.warning + "'!");
         }
     }
 
@@ -148,7 +149,7 @@ public class Denizen2Core {
         try {
             YAMLConfiguration config = YAMLConfiguration.load(ScriptHelper.ClearComments(file));
             if (config == null) {
-                Debug.error("Invalid YAML for script " + fname);
+                Debug.error("Invalid YAML for script " + ColorSet.emphasis + fname);
                 return;
             }
             Set<StringHolder> strs = config.getKeys(false);
@@ -157,7 +158,7 @@ public class Denizen2Core {
             }
         }
         catch (Exception ex) {
-            Debug.error("Failed to load script: " + fname);
+            Debug.error("Failed to load script: " + ColorSet.emphasis + fname);
             Debug.exception(ex);
         }
     }

@@ -3,13 +3,10 @@ package org.mcmonkey.denizen2core.commands.queuecommands;
 import org.mcmonkey.denizen2core.commands.AbstractCommand;
 import org.mcmonkey.denizen2core.commands.CommandEntry;
 import org.mcmonkey.denizen2core.commands.CommandQueue;
-import org.mcmonkey.denizen2core.commands.CommandStackEntry;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.objects.IntegerTag;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
 
 public class RepeatCommand extends AbstractCommand {
 
@@ -70,7 +67,7 @@ public class RepeatCommand extends AbstractCommand {
             queue.commandStack.peek().setDefinition("repeat_total", new IntegerTag(rcd.end));
             if (rcd.current <= rcd.end) {
                 if (queue.shouldShowGood()) {
-                    queue.outGood("Repeating " + rcd.current + "/" + rcd.end);
+                    queue.outGood("Repeating " + ColorSet.emphasis + rcd.current + "/" + rcd.end);
                 }
                 queue.commandStack.peek().goTo(entry.blockStart);
             }
@@ -107,7 +104,7 @@ public class RepeatCommand extends AbstractCommand {
             queue.commandStack.peek().setDefinition("repeat_index", new IntegerTag(rcd.current));
             queue.commandStack.peek().setDefinition("repeat_total", new IntegerTag(rcd.end));
             if (queue.shouldShowGood()) {
-                queue.outGood("Repeat number is " + itag.getInternal() + ", repeating...");
+                queue.outGood("Repeat number is " + ColorSet.emphasis + itag.getInternal() + ColorSet.good + ", repeating...");
             }
         }
     }

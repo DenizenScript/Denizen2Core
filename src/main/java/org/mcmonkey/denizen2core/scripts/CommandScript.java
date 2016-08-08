@@ -3,6 +3,7 @@ package org.mcmonkey.denizen2core.scripts;
 import org.mcmonkey.denizen2core.DebugMode;
 import org.mcmonkey.denizen2core.commands.CommandScriptSection;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
+import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 import org.mcmonkey.denizen2core.utilities.yaml.StringHolder;
 import org.mcmonkey.denizen2core.utilities.yaml.YAMLConfiguration;
@@ -35,7 +36,8 @@ public abstract class CommandScript {
             return DebugMode.valueOf(dbm);
         }
         catch (IllegalArgumentException ex) {
-            Debug.error("'" + dbm + "' is not a valid debug mode, defaulting to FULL! Also permitted: NONE, MINIMAL.");
+            Debug.error("'" + ColorSet.emphasis + dbm + ColorSet.warning
+                    + "' is not a valid debug mode, defaulting to FULL! Also permitted: NONE, MINIMAL.");
             return DebugMode.FULL;
         }
     }
@@ -49,12 +51,14 @@ public abstract class CommandScript {
                     CommandScriptSection sect = CommandScriptSection.forSection(title + "." + strh.str,
                             (List<Object>) obj, getDebugMode());
                     if (sect == null) {
-                        Debug.error("Null script section for script '" + title + "', in path '" + strh.str + "'.");
+                        Debug.error("Null script section for script '" + ColorSet.emphasis + title + ColorSet.warning +
+                                "', in path '" + ColorSet.emphasis + strh.str + ColorSet.warning + "'.");
                     }
                     sections.put(strh.low, sect);
                 }
                 catch (Exception ex) {
-                    Debug.error("Error in script section for script '" + title + "', in path '" + strh.str + "'.");
+                    Debug.error("Error in script section for script '" + ColorSet.emphasis + title + ColorSet.warning +
+                            "', in path '" + ColorSet.emphasis + strh.str + ColorSet.warning + "'.");
                     Debug.exception(ex);
                     return false;
                 }

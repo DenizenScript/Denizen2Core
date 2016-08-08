@@ -55,7 +55,7 @@ public class CommandQueue {
 
     public void outGood(String message) {
         if (shouldShowGood()) {
-            Denizen2Core.getImplementation().outputGood(message);
+            Debug.good(message);
         }
     }
 

@@ -4,6 +4,7 @@ import org.mcmonkey.denizen2core.DebugMode;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.ErrorInducedException;
+import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 
 import java.util.HashMap;
@@ -63,7 +64,8 @@ public class CommandStackEntry implements Cloneable {
                 queue.waitFor(currentCommand);
             }
             if (getDebugMode().showFull && !currentCommand.originalLine.contains("\0")) {
-                Debug.good("Script '" + scriptTitle + "' in queue (FILL ME IN) executing command: " + currentCommand.originalLine);
+                Debug.good("Script '" + ColorSet.emphasis + scriptTitle + ColorSet.good
+                        + "' in queue (FILL ME IN) executing command: " + ColorSet.emphasis + currentCommand.originalLine);
             }
             try {
                 currentCommand.command.execute(queue, currentCommand);

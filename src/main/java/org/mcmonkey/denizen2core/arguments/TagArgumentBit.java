@@ -8,6 +8,7 @@ import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.TagData;
 import org.mcmonkey.denizen2core.tags.objects.NullTag;
 import org.mcmonkey.denizen2core.utilities.Action;
+import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
 
 import java.util.HashMap;
 
@@ -46,6 +47,11 @@ public class TagArgumentBit extends ArgumentBit {
             return new NullTag();
         }
         TagData data = new TagData(error, bits, fallback, vars, mode, queue);
-        return start.handle(data);
+        AbstractTagObject res = start.handle(data);
+        if (queue.shouldShowGood()) {
+            queue.outGood("Filled tag '" + ColorSet.emphasis + getString() + ColorSet.good
+                    + "' with '" + ColorSet.emphasis + res.toString() + ColorSet.good + "'.");
+        }
+        return res;
     }
 }
