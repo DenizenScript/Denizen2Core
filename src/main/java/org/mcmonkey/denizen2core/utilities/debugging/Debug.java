@@ -18,4 +18,8 @@ public class Debug {
     public static void info(String message) {
         Denizen2Core.getImplementation().outputInfo(message);
     }
+
+    public static void good(String message) {
+        Denizen2Core.getImplementation().outputGood(message);
+    }
 }

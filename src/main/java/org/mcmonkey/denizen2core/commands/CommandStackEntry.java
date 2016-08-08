@@ -62,8 +62,8 @@ public class CommandStackEntry implements Cloneable {
             if (currentCommand.command.isWaitable() && currentCommand.waitFor) {
                 queue.waitFor(currentCommand);
             }
-            if (getDebugMode().showFull) {
-                Debug.info("Script '" + scriptTitle + "' in queue (FILL ME IN) executing command: " + currentCommand.originalLine);
+            if (getDebugMode().showFull && !currentCommand.originalLine.contains("\0")) {
+                Debug.good("Script '" + scriptTitle + "' in queue (FILL ME IN) executing command: " + currentCommand.originalLine);
             }
             try {
                 currentCommand.command.execute(queue, currentCommand);
