@@ -34,7 +34,13 @@ public class TagArgumentBit extends ArgumentBit {
 
     @Override
     public String getString() {
-        return null;
+        StringBuilder tag = new StringBuilder();
+        tag.append("<");
+        for (int i = 0; i < bits.length; i++) {
+            tag.append(bits[i].toString());
+        }
+        tag.append(">");
+        return tag.toString();
     }
 
     @Override
