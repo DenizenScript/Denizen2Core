@@ -107,6 +107,7 @@ public class Denizen2Core {
         // Queue Commands
         register(new DefineCommand());
         register(new ElseCommand());
+        register(new ForeachCommand());
         register(new GotoCommand());
         register(new IfCommand());
         register(new MarkCommand());

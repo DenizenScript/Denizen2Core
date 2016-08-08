@@ -15,6 +15,7 @@ public class DefineCommand extends AbstractCommand {
     // @Group Queue
     // @Minimum 2
     // @Maximum 2
+    // @tag <def[<TextTag>]>
     // @Description
     // Defines a value on the current queue.
     // TODO: Explain more!

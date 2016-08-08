@@ -24,12 +24,14 @@ public class RepeatCommand extends AbstractCommand {
     // @Group Queue
     // @Minimum 1
     // @Maximum 1
+    // @Tag <def[repeat_index]> (IntegerTag) returns the current index in the loop.
+    // @Tag <def[repeat_total]> (IntegerTag) returns the value the repeat is counting up to.
     // @Description
     // Runs a block of code the specified number of types.
     // TODO: Explain more!
     // @Example
     // # This example echoes "hi" three times.
-    // - repeat start 3:
+    // - repeat 3:
     //   - echo "hi"
     // -->
 
