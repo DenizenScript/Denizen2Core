@@ -49,7 +49,7 @@ public class TagArgumentBit extends ArgumentBit {
             start = Denizen2Core.tagBases.get(bits[0].key);
         }
         if (start == null) {
-            error.run("Invalid tag bits -> empty tag, or invalid base.");
+            error.run("Invalid tag bits -> empty tag, or invalid base: " + ColorSet.emphasis + (bits.length > 0 ? bits[0] : ""));
             return new NullTag();
         }
         TagData data = new TagData(error, bits, fallback, vars, mode, queue);
