@@ -8,6 +8,7 @@ import org.mcmonkey.denizen2core.commands.AbstractCommand;
 import org.mcmonkey.denizen2core.commands.CommandQueue;
 import org.mcmonkey.denizen2core.commands.CommandScriptSection;
 import org.mcmonkey.denizen2core.commands.commoncommands.EchoCommand;
+import org.mcmonkey.denizen2core.commands.commoncommands.ReloadCommand;
 import org.mcmonkey.denizen2core.commands.queuecommands.*;
 import org.mcmonkey.denizen2core.scripts.CommandScript;
 import org.mcmonkey.denizen2core.scripts.ScriptHelper;
@@ -101,6 +102,7 @@ public class Denizen2Core {
         implementation = impl;
         // Common Commands
         register(new EchoCommand());
+        register(new ReloadCommand());
         // Queue Commands
         register(new DefineCommand());
         register(new ElseCommand());
