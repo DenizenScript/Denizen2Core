@@ -6,9 +6,6 @@ import org.mcmonkey.denizen2core.commands.CommandQueue;
 import org.mcmonkey.denizen2core.commands.CommandStackEntry;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ElseCommand extends AbstractCommand {
 
     // <--[command]
@@ -94,11 +91,11 @@ public class ElseCommand extends AbstractCommand {
                 return;
             }
             else {
-                List<String> parsedargs = new ArrayList<>(entry.arguments.size());
-                for (int i = 1; i < entry.arguments.size(); i++) {
-                    parsedargs.add(entry.getArgumentObject(queue, i).toString()); // TODO: Don't pre-parse. Parse in TryIf.
-                }
-                success = parsedargs.size() > 0 && parsedargs.get(0).equalsIgnoreCase("true"); // TODO: TryIf
+                IfCommand.TryIfHelper helper = new IfCommand.TryIfHelper();
+                helper.queue = queue;
+                helper.entry = entry;
+                helper.arguments = entry.arguments;
+                success = IfCommand.tryIf(helper);
             }
         }
         if (success) {
