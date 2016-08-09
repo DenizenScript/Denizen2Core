@@ -100,6 +100,7 @@ public class ForeachCommand extends AbstractCommand {
                     queue.outGood("Foreach count is 0, skipping.");
                 }
                 queue.commandStack.peek().goTo(entry.blockEnd + 1);
+                return;
             }
             ListTag nltag = new ListTag();
             nltag.getInternal().addAll(ltag.getInternal());

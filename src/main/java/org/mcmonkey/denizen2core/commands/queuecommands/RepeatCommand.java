@@ -98,6 +98,7 @@ public class RepeatCommand extends AbstractCommand {
                     queue.outGood("Repeat number is 0, skipping.");
                 }
                 queue.commandStack.peek().goTo(entry.blockEnd + 1);
+                return;
             }
             RepeatCommandData rcd = new RepeatCommandData();
             rcd.current = 1;
