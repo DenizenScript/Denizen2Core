@@ -113,6 +113,7 @@ public class Denizen2Core {
         register(new MarkCommand());
         register(new RepeatCommand());
         register(new RunCommand());
+        register(new StopCommand());
         register(new WaitCommand());
         register(new WhileCommand());
         // Common Tag Handlers
