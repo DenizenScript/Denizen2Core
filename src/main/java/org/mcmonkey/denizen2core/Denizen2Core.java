@@ -10,9 +10,12 @@ import org.mcmonkey.denizen2core.commands.CommandScriptSection;
 import org.mcmonkey.denizen2core.commands.commoncommands.EchoCommand;
 import org.mcmonkey.denizen2core.commands.commoncommands.ReloadCommand;
 import org.mcmonkey.denizen2core.commands.queuecommands.*;
+import org.mcmonkey.denizen2core.events.ScriptEvent;
+import org.mcmonkey.denizen2core.events.commonevents.ScriptReloadEvent;
 import org.mcmonkey.denizen2core.scripts.CommandScript;
 import org.mcmonkey.denizen2core.scripts.ScriptHelper;
 import org.mcmonkey.denizen2core.scripts.commontypes.TaskScript;
+import org.mcmonkey.denizen2core.scripts.commontypes.WorldScript;
 import org.mcmonkey.denizen2core.tags.AbstractTagBase;
 import org.mcmonkey.denizen2core.tags.handlers.*;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
@@ -65,10 +68,16 @@ public class Denizen2Core {
 
     public final static HashMap<String, AbstractTagBase> tagBases = new HashMap<>();
 
+    public final static List<ScriptEvent> events = new ArrayList<>();
+
     public final static HashMap<String, Function2<String, YAMLConfiguration, CommandScript>> scriptTypeGetters = new HashMap<>();
 
     public static Denizen2Implementation getImplementation() {
         return implementation;
+    }
+
+    public static void register(ScriptEvent evt) {
+        events.add(evt);
     }
 
     public static void register(AbstractCommand command) {
@@ -129,12 +138,19 @@ public class Denizen2Core {
         register(new UnescapeTagBase());
         // Common script types
         register("task", TaskScript::new);
+        register("world", WorldScript::new);
+        // Common script events
+        scriptReload = new ScriptReloadEvent();
+        register(scriptReload);
     }
+
+    private static ScriptReloadEvent scriptReload = new ScriptReloadEvent();
 
     public static void reload() {
         currentScripts.clear();
+        ScriptEvent.currentWorldScripts.clear();
         load();
-        // TODO: Reload scripts event
+        scriptReload.call();
     }
 
     private static void loadSection(String scriptName, YAMLConfiguration section) {
@@ -196,6 +212,9 @@ public class Denizen2Core {
         }
         catch (IOException ex) {
             Debug.exception(ex);
+        }
+        for (ScriptEvent event : events) {
+            event.init();
         }
     }
 

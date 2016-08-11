@@ -67,5 +67,21 @@ public abstract class CommandScript {
         return true;
     }
 
+    // <--[explanation]
+    // @Name Executable Script Section
+    // @Description
+    // An executable script section is any part of a script that contains valid Denizen code.
+    // This is not determined by the validity of code, but rather by the section title.
+    // For the most part, any YAML list is going to be assumed to be an executable script section, and thus be compiled.
+    // The exception is keys that start with the word "constant".
+    // So if you wish to include non-executable data in your script (EG a constant value for reference),
+    // you would generally put all data under the key "constants" or anything else that starts with "constant".
+    // If you have a lot of constant data, consider putting it in a 'yaml data' typed script instead.
+    // TODO: Link YAML Data script container info.
+    // This script type has the special case of /all/ it's data being non-executable, meaning it can be used freely
+    // for constant data.
+    // TODO: Explain better
+    // -->
+
     public abstract boolean isExecutable(String str);
 }

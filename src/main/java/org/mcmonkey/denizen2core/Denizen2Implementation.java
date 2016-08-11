@@ -20,6 +20,8 @@ public abstract class Denizen2Implementation {
 
     public abstract void outputError(String message);
 
+    public abstract boolean generalDebug();
+
     public abstract File getScriptsFolder();
 
     public abstract String getImplementationName();

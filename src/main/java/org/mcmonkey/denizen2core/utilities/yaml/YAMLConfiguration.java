@@ -1,6 +1,7 @@
 package org.mcmonkey.denizen2core.utilities.yaml;
 
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
+import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
@@ -91,7 +92,7 @@ public class YAMLConfiguration {
             return new HashSet<>(contents.keySet());
         }
         else {
-            return getKeysDeep(contents);
+            return getKeysDeep(contents, "");
         }
     }
 
@@ -99,11 +100,12 @@ public class YAMLConfiguration {
         return new HashMap<>(contents);
     }
 
-    private Set<StringHolder> getKeysDeep(Map<StringHolder, Object> objs) {
-        Set<StringHolder> strings = new HashSet<>(objs.keySet());
-        for (Map.Entry<StringHolder, Object> str : objs.entrySet()) {
-            if (str.getValue() instanceof Map) {
-                strings.addAll(getKeysDeep((Map<StringHolder, Object>) str.getValue()));
+    private Set<StringHolder> getKeysDeep(Map<StringHolder, Object> objs, String base) {
+        Set<StringHolder> strings = new HashSet<>();
+        for (Map.Entry<StringHolder, Object> obj : objs.entrySet()) {
+            strings.add(new StringHolder(base + obj.getKey()));
+            if (obj.getValue() instanceof Map) {
+                strings.addAll(getKeysDeep((Map<StringHolder, Object>) obj.getValue(), base + obj.getKey() + "."));
             }
         }
         return strings;

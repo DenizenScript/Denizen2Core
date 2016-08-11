@@ -1,22 +1,23 @@
 package org.mcmonkey.denizen2core.scripts.commontypes;
 
 import org.mcmonkey.denizen2core.commands.CommandScriptSection;
+import org.mcmonkey.denizen2core.events.ScriptEvent;
 import org.mcmonkey.denizen2core.scripts.CommandScript;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.yaml.YAMLConfiguration;
 
-public class TaskScript extends CommandScript {
+public class WorldScript extends CommandScript {
 
     // <--[explanation]
-    // @Name Task Scripts
+    // @Name World Scripts
     // @Group Script Types
     // @Description
-    // A task script is the most basic executable script in Denizen.
-    // It runs its code (usually the 'script' section) when told to run it by the
-    // <@link command run>'run'<@/link> command.
+    // A task script is one of the core executable script types in Denizen.
+    // It runs its code beneath the 'events' section when told to run it by a script event firing.
+    // TODO: Link event system explanation!
     // -->
 
-    public TaskScript(String name, YAMLConfiguration section) {
+    public WorldScript(String name, YAMLConfiguration section) {
         super(name, section);
     }
 
@@ -27,8 +28,17 @@ public class TaskScript extends CommandScript {
 
     public CommandScriptSection getSection(String name) {
         if (name == null || name.length() == 0) {
-            return sections.get("script");
+            return null;
         }
         return sections.get(CoreUtilities.toLowerCase(name));
+    }
+
+    @Override
+    public boolean init() {
+        if (super.init()) {
+            ScriptEvent.currentWorldScripts.add(this);
+            return true;
+        }
+        return false;
     }
 }

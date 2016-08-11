@@ -9,6 +9,7 @@ public class TextTagBase extends AbstractTagBase {
 
     // <--[explanation]
     // @Name Text Tags
+    // @Group Tags
     // @Description
     // TextTags are any random text, built into the tag system.
     // TODO: Explain better
