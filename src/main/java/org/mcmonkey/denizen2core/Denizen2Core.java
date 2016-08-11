@@ -85,6 +85,8 @@ public class Denizen2Core {
 
     public static List<CommandQueue> queues = new ArrayList<>();
 
+    public static long cqID = 0;
+
     public static void tick(double delta) {
         Iterator<CommandQueue> qi = queues.iterator();
         while (qi.hasNext()) {
@@ -132,6 +134,7 @@ public class Denizen2Core {
     public static void reload() {
         currentScripts.clear();
         load();
+        // TODO: Reload scripts event
     }
 
     private static void loadSection(String scriptName, YAMLConfiguration section) {

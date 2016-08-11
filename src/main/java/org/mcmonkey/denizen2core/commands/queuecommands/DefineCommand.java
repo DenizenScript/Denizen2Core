@@ -15,7 +15,7 @@ public class DefineCommand extends AbstractCommand {
     // @Group Queue
     // @Minimum 2
     // @Maximum 2
-    // @tag <def[<TextTag>]>
+    // @tag <def[<TextTag>]> (Dynamic) returns the defined value.
     // @Description
     // Defines a value on the current queue.
     // TODO: Explain more!

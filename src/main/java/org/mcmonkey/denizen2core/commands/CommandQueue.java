@@ -39,7 +39,10 @@ public class CommandQueue {
         wait = w;
     }
 
+    public long qID;
+
     public void start() {
+        qID = Denizen2Core.cqID++;
         if (!run(0)) {
             Denizen2Core.queues.add(this);
         }
@@ -89,8 +92,10 @@ public class CommandQueue {
     }
 
     public void handleError(String error) {
+        String emsg = "Error in queue " + qID + ": " + error;
+        // TODO: Error event.
         if (shouldShowError()) {
-            Debug.error(error);
+            Debug.error(emsg);
         }
         stop();
     }

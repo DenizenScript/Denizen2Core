@@ -65,7 +65,8 @@ public class CommandStackEntry implements Cloneable {
             }
             if (getDebugMode().showFull && !currentCommand.originalLine.contains("\0")) {
                 Debug.good("Script '" + ColorSet.emphasis + scriptTitle + ColorSet.good
-                        + "' in queue (FILL ME IN) executing command: " + ColorSet.emphasis + currentCommand.originalLine);
+                        + "' in queue " + ColorSet.emphasis + queue.qID + ColorSet.good
+                        + " executing command: " + ColorSet.emphasis + currentCommand.originalLine);
             }
             try {
                 currentCommand.command.execute(queue, currentCommand);
@@ -73,6 +74,7 @@ public class CommandStackEntry implements Cloneable {
             catch (Exception ex) {
                 if (!(ex instanceof ErrorInducedException)) {
                     try {
+                        // TODO: System exception event
                         queue.handleError(currentCommand, "Internal exception: " + CoreUtilities.exceptionString(ex));
                     }
                     catch (Exception ex2) {

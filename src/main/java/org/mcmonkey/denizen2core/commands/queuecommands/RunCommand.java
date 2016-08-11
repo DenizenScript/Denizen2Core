@@ -5,6 +5,7 @@ import org.mcmonkey.denizen2core.commands.*;
 import org.mcmonkey.denizen2core.scripts.CommandScript;
 import org.mcmonkey.denizen2core.scripts.commontypes.TaskScript;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
+import org.mcmonkey.denizen2core.tags.objects.IntegerTag;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class RunCommand extends AbstractCommand {
     // @Group Queue
     // @Minimum 1
     // @Maximum 1
+    // @Tag <def[run_queue]> (IntegerTag) returns the qID of the ran queue.
     // @Description
     // Runs a script as a new queue.
     // TODO: Explain more!
@@ -76,7 +78,10 @@ public class RunCommand extends AbstractCommand {
         if (queue.shouldShowGood()) {
             queue.outGood("Running script: " + script.title);
         }
-        section.toQueue().start();
+        CommandQueue nq = section.toQueue();
+        nq.start();
+        // TODO: Queue tag.
+        queue.commandStack.peek().setDefinition("run_queue", new IntegerTag(nq.qID));
         if (entry.waitFor) {
             queue.waitFor(null);
         }
