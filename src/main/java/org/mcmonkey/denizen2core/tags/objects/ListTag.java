@@ -36,7 +36,7 @@ public class ListTag extends AbstractTagObject {
 
     static {
         // <--[tag]
-        // @Name IntegerTag.get[<IntegerTag>]
+        // @Name ListTag.get[<IntegerTag>]
         // @Group Mathematics
         // @ReturnType Dynamic
         // @Returns the object at the specified index in the list.

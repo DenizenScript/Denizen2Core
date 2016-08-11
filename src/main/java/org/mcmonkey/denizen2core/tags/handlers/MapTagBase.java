@@ -3,24 +3,24 @@ package org.mcmonkey.denizen2core.tags.handlers;
 import org.mcmonkey.denizen2core.tags.AbstractTagBase;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.TagData;
-import org.mcmonkey.denizen2core.tags.objects.ListTag;
+import org.mcmonkey.denizen2core.tags.objects.MapTag;
 
-public class ListTagBase extends AbstractTagBase {
+public class MapTagBase extends AbstractTagBase {
 
     // <--[tagbase]
-    // @Base list[<ListTag>]
+    // @Base map[<MapTag>]
     // @Group Common Base Types
-    // @ReturnType ListTag
-    // @Returns the input as a ListTag.
+    // @ReturnType MapTag
+    // @Returns the input as a MapTag.
     // -->
 
     @Override
     public String getName() {
-        return "list";
+        return "map";
     }
 
     @Override
     public AbstractTagObject handle(TagData data) {
-        return ListTag.getFor(data.error, data.getNextModifier()).handle(data.shrink());
+        return MapTag.getFor(data.error, data.getNextModifier()).handle(data.shrink());
     }
 }

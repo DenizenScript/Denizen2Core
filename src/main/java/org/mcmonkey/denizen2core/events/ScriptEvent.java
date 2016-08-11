@@ -5,6 +5,7 @@ import org.mcmonkey.denizen2core.commands.CommandQueue;
 import org.mcmonkey.denizen2core.scripts.commontypes.WorldScript;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.objects.IntegerTag;
+import org.mcmonkey.denizen2core.tags.objects.MapTag;
 import org.mcmonkey.denizen2core.tags.objects.TextTag;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.Tuple;
@@ -103,11 +104,11 @@ public abstract class ScriptEvent implements Cloneable {
         sort();
     }
 
-    public List<Tuple<String, AbstractTagObject>> getDefinitions(ScriptEventData data) {
-        List<Tuple<String, AbstractTagObject>> defs = new ArrayList<>();
-        defs.add(new Tuple<>("priority", new IntegerTag(data.priority)));
+    public HashMap<String, AbstractTagObject> getDefinitions(ScriptEventData data) {
+        HashMap<String, AbstractTagObject> defs = new HashMap<>();
+        defs.put("priority", new IntegerTag(data.priority));
         // TODO: BooleanTag.
-        defs.add(new Tuple<>("cancelled", new TextTag(cancelled ? "true" : "false")));
+        defs.put("cancelled", new TextTag(cancelled ? "true" : "false"));
         return defs;
     }
 
@@ -129,20 +130,17 @@ public abstract class ScriptEvent implements Cloneable {
     public boolean cancelled = false;
 
     public void subRun(ScriptEventData data) {
-        List<Tuple<String, AbstractTagObject>> defs = getDefinitions(data);
+        HashMap<String, AbstractTagObject> defs = getDefinitions(data);
         if (Denizen2Core.getImplementation().generalDebug()) {
             Debug.good("Running script event: " + ColorSet.emphasis + data.script.title
                     + ColorSet.good + ", event: " + "on " + ColorSet.emphasis + data.eventPath);
-            for (Tuple<String, AbstractTagObject> def : defs) {
-                Debug.good("Definition: " + ColorSet.emphasis + def.one + ColorSet.good
-                        + " is " + ColorSet.emphasis + def.two.toString());
+            for (Map.Entry<String, AbstractTagObject> def : defs.entrySet()) {
+                Debug.good("Definition: " + ColorSet.emphasis + def.getKey() + ColorSet.good
+                        + " is " + ColorSet.emphasis + def.getValue().toString());
             }
         }
         CommandQueue queue = data.script.getSection("events.on " + data.eventPath).toQueue();
-        // TODO: MapTag, def "context".
-        for (Tuple<String, AbstractTagObject> def : defs) {
-            queue.commandStack.peek().setDefinition(def.one, def.two);
-        }
+        queue.commandStack.peek().setDefinition("context", new MapTag(defs));
         queue.start();
     }
 
