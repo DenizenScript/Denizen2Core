@@ -59,6 +59,11 @@ public class ElseCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean isProcedural() {
+        return true;
+    }
+
+    @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
         if (entry.arguments.size() > 0 && entry.arguments.get(0).toString().equals("\0CALLBACK")) {
             CommandStackEntry cse = queue.commandStack.peek();

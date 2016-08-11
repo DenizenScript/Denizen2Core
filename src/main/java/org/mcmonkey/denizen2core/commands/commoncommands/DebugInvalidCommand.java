@@ -37,6 +37,11 @@ public class DebugInvalidCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean isProcedural() {
+        return true;
+    }
+
+    @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
         Denizen2Core.getImplementation().outputInvalid(queue, entry);
     }

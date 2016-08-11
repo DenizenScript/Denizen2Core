@@ -63,6 +63,10 @@ public class CommandStackEntry implements Cloneable {
             if (currentCommand.command.isWaitable() && currentCommand.waitFor) {
                 queue.waitFor(currentCommand);
             }
+            if (queue.procedural && !currentCommand.command.isProcedural()) {
+                queue.handleError(currentCommand, "Tried to run a non-procedural command in a procedural queue!");
+                return CommandStackRetVal.STOP;
+            }
             if (getDebugMode().showFull && !currentCommand.originalLine.contains("\0")) {
                 Debug.good("Script '" + ColorSet.emphasis + scriptTitle + ColorSet.good
                         + "' in queue " + ColorSet.emphasis + queue.qID + ColorSet.good

@@ -40,7 +40,7 @@ public class StopCommand extends AbstractCommand {
 
     @Override
     public String getArguments() {
-        return "";
+        return "[queue]";
     }
 
     @Override
@@ -56,6 +56,11 @@ public class StopCommand extends AbstractCommand {
     @Override
     public boolean isWaitable() {
         return false;
+    }
+
+    @Override
+    public boolean isProcedural() {
+        return true;
     }
 
     @Override

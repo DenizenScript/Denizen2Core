@@ -14,6 +14,7 @@ import org.mcmonkey.denizen2core.events.ScriptEvent;
 import org.mcmonkey.denizen2core.events.commonevents.ScriptReloadEvent;
 import org.mcmonkey.denizen2core.scripts.CommandScript;
 import org.mcmonkey.denizen2core.scripts.ScriptHelper;
+import org.mcmonkey.denizen2core.scripts.commontypes.ProcedureScript;
 import org.mcmonkey.denizen2core.scripts.commontypes.TaskScript;
 import org.mcmonkey.denizen2core.scripts.commontypes.WorldScript;
 import org.mcmonkey.denizen2core.tags.AbstractTagBase;
@@ -117,6 +118,7 @@ public class Denizen2Core {
         register(new ReloadCommand());
         // Queue Commands
         register(new DefineCommand());
+        register(new DetermineCommand());
         register(new ElseCommand());
         register(new ForeachCommand());
         register(new GotoCommand());
@@ -135,11 +137,13 @@ public class Denizen2Core {
         register(new ListTagBase());
         register(new MapTagBase());
         register(new NumberTagBase());
+        register(new ProcedureTagBase());
         register(new QueueTagBase());
         register(new TextTagBase());
         register(new SystemTagBase());
         register(new UnescapeTagBase());
         // Common script types
+        register("procedure", ProcedureScript::new);
         register("task", TaskScript::new);
         register("world", WorldScript::new);
         // Common script events

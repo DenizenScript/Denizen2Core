@@ -3,41 +3,42 @@ package org.mcmonkey.denizen2core.commands.queuecommands;
 import org.mcmonkey.denizen2core.commands.AbstractCommand;
 import org.mcmonkey.denizen2core.commands.CommandEntry;
 import org.mcmonkey.denizen2core.commands.CommandQueue;
+import org.mcmonkey.denizen2core.tags.AbstractTagObject;
+import org.mcmonkey.denizen2core.tags.objects.BooleanTag;
 
-public class DefineCommand extends AbstractCommand {
+public class DetermineCommand extends AbstractCommand {
 
     // <--[command]
-    // @Name define
-    // @Arguments <definition> <value>
+    // @Name determine
+    // @Arguments <determination> [value]
     // @Short Defines a value on the current queue.
-    // @Updated 2016/07/15
+    // @Updated 2016/08/11
     // @Authors mcmonkey
     // @Group Queue
-    // @Minimum 2
+    // @Minimum 1
     // @Maximum 2
-    // @tag <def[<TextTag>]> (Dynamic) returns the defined value.
     // @Description
-    // Defines a value on the current queue.
+    // Determines a value on the current queue.
+    // Default value is true.
     // TODO: Explain more!
     // @Example
-    // # This example defines the variable 'test' as the value '3', then echoes it back.
-    // - define test 3
-    // - echo <[test]>
+    // # This example determines the option 'cancelled' as the value 'true'.
+    // - determine cancelled
     // -->
 
     @Override
     public String getName() {
-        return "define";
+        return "determine";
     }
 
     @Override
     public String getArguments() {
-        return "<definition> <value>";
+        return "<determination> [value]";
     }
 
     @Override
     public int getMinimumArguments() {
-        return 2;
+        return 1;
     }
 
     @Override
@@ -57,10 +58,14 @@ public class DefineCommand extends AbstractCommand {
 
     @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
-        String def = entry.getArgumentObject(queue, 0).toString();
-        queue.commandStack.peek().setDefinition(def, entry.getArgumentObject(queue, 1));
+        String det = entry.getArgumentObject(queue, 0).toString();
+        AbstractTagObject ato = new BooleanTag(true);
+        if (entry.arguments.size() > 1) {
+            ato = entry.getArgumentObject(queue, 1);
+        }
+        queue.determinations.getInternal().put(det, ato);
         if (queue.shouldShowGood()) {
-            queue.outGood("Defined a new definition, '" + def + "' successfully.");
+            queue.outGood("Determined successfully.");
         }
     }
 }

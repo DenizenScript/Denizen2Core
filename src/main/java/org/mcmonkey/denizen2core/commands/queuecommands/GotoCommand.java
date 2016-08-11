@@ -51,6 +51,11 @@ public class GotoCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean isProcedural() {
+        return true;
+    }
+
+    @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
         String arg0 = CoreUtilities.toLowerCase(entry.getArgumentObject(queue, 0).toString());
         CommandStackEntry stackEntry = queue.commandStack.peek();

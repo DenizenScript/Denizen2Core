@@ -121,7 +121,7 @@ public abstract class ScriptEvent implements Cloneable {
     // If you set 'ignorecancelled:true', the event will fire regardless of whether it was cancelled.
     // By default, only non-cancelled events will fire.
     //
-    // Any script event can take the determinations "cancelled" and "cancelled:false".
+    // Any script event can take the determinations "cancelled" and "cancelled false".
     // These determinations will set whether the script event is 'cancelled' in the eyes of following script events,
     // and, in some cases, can be used to stop the event itself from continuing.
     // A script event can at any time check the cancellation state of an event by accessing "<[context].[cancelled]>".

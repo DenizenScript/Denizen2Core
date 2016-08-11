@@ -64,6 +64,11 @@ public class ForeachCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean isProcedural() {
+        return true;
+    }
+
+    @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
         if (entry.arguments.get(0).toString().equals("\0CALLBACK")) {
             ForeachCommandData fcd = (ForeachCommandData) queue.commandStack.peek().entries[entry.blockStart - 1].getData(queue);

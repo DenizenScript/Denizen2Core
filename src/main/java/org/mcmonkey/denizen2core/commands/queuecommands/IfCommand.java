@@ -69,6 +69,11 @@ public class IfCommand extends AbstractCommand {
         return false;
     }
 
+    @Override
+    public boolean isProcedural() {
+        return true;
+    }
+
     public static boolean getBool(Action<String> error, AbstractTagObject obj) {
         return BooleanTag.getFor(error, obj).getInternal();
     }

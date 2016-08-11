@@ -1,6 +1,8 @@
 package org.mcmonkey.denizen2core.commands;
 
 import org.mcmonkey.denizen2core.Denizen2Core;
+import org.mcmonkey.denizen2core.tags.AbstractTagObject;
+import org.mcmonkey.denizen2core.tags.objects.MapTag;
 import org.mcmonkey.denizen2core.utilities.Action;
 import org.mcmonkey.denizen2core.utilities.ErrorInducedException;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
@@ -44,6 +46,10 @@ public class CommandQueue {
     public long qID;
 
     public boolean running = false;
+
+    public boolean procedural = false;
+
+    public MapTag determinations = new MapTag();
 
     public void start() {
         qID = Denizen2Core.cqID++;

@@ -49,6 +49,11 @@ public class MarkCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean isProcedural() {
+        return true;
+    }
+
+    @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
         if (queue.shouldShowGood()) {
             queue.outGood("Passing mark...");

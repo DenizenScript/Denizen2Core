@@ -21,6 +21,10 @@ public abstract class AbstractCommand {
 
     public abstract boolean isWaitable();
 
+    public boolean isProcedural() {
+        return false;
+    }
+
     public CommandEntry GetFollower(CommandEntry entry) {
         Argument arg = new Argument();
         arg.addBit(new TextArgumentBit("\0CALLBACK", false));
