@@ -79,12 +79,11 @@ public class RunCommand extends AbstractCommand {
             queue.outGood("Running script: " + script.title);
         }
         CommandQueue nq = section.toQueue();
+        if (entry.waitFor) {
+            nq.onStop = (nqueue) -> queue.waitFor(null);
+        }
         nq.start();
         // TODO: Queue tag.
         queue.commandStack.peek().setDefinition("run_queue", new IntegerTag(nq.qID));
-        if (entry.waitFor) {
-            queue.waitFor(null);
-        }
-        // TODO: Track variable edits, waiting
     }
 }

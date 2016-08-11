@@ -17,6 +17,8 @@ public class CommandQueue {
 
     public Action<String> error = this::handleError;
 
+    public Action<CommandQueue> onStop;
+
     private CommandStackEntry currentEntry = null;
 
     private CommandEntry waitingOn = null;
@@ -82,6 +84,9 @@ public class CommandQueue {
             else if (ret == CommandStackEntry.CommandStackRetVal.STOP) {
                 break;
             }
+        }
+        if (onStop != null) {
+            onStop.run(this);
         }
         return true;
     }
