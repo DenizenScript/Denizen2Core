@@ -4,6 +4,7 @@ import org.mcmonkey.denizen2core.Denizen2Core;
 import org.mcmonkey.denizen2core.commands.CommandQueue;
 import org.mcmonkey.denizen2core.scripts.commontypes.WorldScript;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
+import org.mcmonkey.denizen2core.tags.objects.BooleanTag;
 import org.mcmonkey.denizen2core.tags.objects.IntegerTag;
 import org.mcmonkey.denizen2core.tags.objects.MapTag;
 import org.mcmonkey.denizen2core.tags.objects.TextTag;
@@ -107,8 +108,7 @@ public abstract class ScriptEvent implements Cloneable {
     public HashMap<String, AbstractTagObject> getDefinitions(ScriptEventData data) {
         HashMap<String, AbstractTagObject> defs = new HashMap<>();
         defs.put("priority", new IntegerTag(data.priority));
-        // TODO: BooleanTag.
-        defs.put("cancelled", new TextTag(cancelled ? "true" : "false"));
+        defs.put("cancelled", new BooleanTag(cancelled));
         return defs;
     }
 

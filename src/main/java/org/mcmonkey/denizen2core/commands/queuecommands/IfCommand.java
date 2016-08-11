@@ -7,6 +7,7 @@ import org.mcmonkey.denizen2core.commands.CommandEntry;
 import org.mcmonkey.denizen2core.commands.CommandQueue;
 import org.mcmonkey.denizen2core.commands.CommandStackEntry;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
+import org.mcmonkey.denizen2core.tags.objects.BooleanTag;
 import org.mcmonkey.denizen2core.tags.objects.NumberTag;
 import org.mcmonkey.denizen2core.tags.objects.TextTag;
 import org.mcmonkey.denizen2core.utilities.Action;
@@ -69,8 +70,7 @@ public class IfCommand extends AbstractCommand {
     }
 
     public static boolean getBool(Action<String> error, AbstractTagObject obj) {
-        // TODO: Use BooleanTag.
-        return CoreUtilities.toLowerCase(obj.toString()).equals("true");
+        return BooleanTag.getFor(error, obj).getInternal();
     }
 
     public static class ObjectHolder {
