@@ -14,12 +14,12 @@ public class TagData {
 
     public TagData(Action<String> err, TagBit[] b, Argument fb, HashMap<String, AbstractTagObject> vars, DebugMode dbm,
                    CommandQueue cQueue) {
-        error = err;
         bits = b;
         fallback = fb;
         variables = vars;
         dbmode = dbm;
         currentQueue = cQueue;
+        error = err;
     }
 
     public final CommandQueue currentQueue;

@@ -2,14 +2,13 @@ package org.mcmonkey.denizen2core.events;
 
 import org.mcmonkey.denizen2core.Denizen2Core;
 import org.mcmonkey.denizen2core.commands.CommandQueue;
+import org.mcmonkey.denizen2core.commands.CommandStackEntry;
 import org.mcmonkey.denizen2core.scripts.commontypes.WorldScript;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.objects.BooleanTag;
 import org.mcmonkey.denizen2core.tags.objects.IntegerTag;
 import org.mcmonkey.denizen2core.tags.objects.MapTag;
-import org.mcmonkey.denizen2core.tags.objects.TextTag;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
-import org.mcmonkey.denizen2core.utilities.Tuple;
 import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 import org.mcmonkey.denizen2core.utilities.yaml.StringHolder;
@@ -80,6 +79,14 @@ public abstract class ScriptEvent implements Cloneable {
 
     public List<ScriptEventData> usages = new ArrayList<>();
 
+    boolean loaded = false;
+
+    public void enable() {
+    }
+
+    public void disable() {
+    }
+
     public void init() {
         boolean generalDebug = Denizen2Core.getImplementation().generalDebug();
         usages.clear();
@@ -102,7 +109,16 @@ public abstract class ScriptEvent implements Cloneable {
                 }
             }
         }
-        sort();
+        if (usages.size() > 0) {
+            if (!loaded) {
+                loaded = true;
+                enable();
+            }
+            sort();
+        }
+        else if (loaded) {
+            disable();
+        }
     }
 
     public HashMap<String, AbstractTagObject> getDefinitions(ScriptEventData data) {
@@ -110,6 +126,19 @@ public abstract class ScriptEvent implements Cloneable {
         defs.put("priority", new IntegerTag(data.priority));
         defs.put("cancelled", new BooleanTag(cancelled));
         return defs;
+    }
+
+    public void error(String message) {
+        throw new RuntimeException(message);
+    }
+
+    public void applyDetermination(boolean errors, String determination, AbstractTagObject value) {
+        if (determination.equals("cancelled")) {
+            cancelled = BooleanTag.getFor(this::error, value).getInternal();
+        }
+        else if (errors) {
+            Debug.error("Invalid determination: " + determination);
+        }
     }
 
     // <--[explanation]
@@ -140,8 +169,12 @@ public abstract class ScriptEvent implements Cloneable {
             }
         }
         CommandQueue queue = data.script.getSection("events.on " + data.eventPath).toQueue();
-        queue.commandStack.peek().setDefinition("context", new MapTag(defs));
+        CommandStackEntry cse = queue.commandStack.peek();
+        cse.setDefinition("context", new MapTag(defs));
         queue.start();
+        for (Map.Entry<String, AbstractTagObject> entry : queue.determinations.getInternal().entrySet()) {
+            applyDetermination(cse.getDebugMode().showMinimal, entry.getKey(), entry.getValue());
+        }
     }
 
     public void run() {

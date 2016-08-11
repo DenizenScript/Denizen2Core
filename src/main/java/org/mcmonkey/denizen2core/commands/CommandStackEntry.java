@@ -30,6 +30,10 @@ public class CommandStackEntry implements Cloneable {
         definitions.put(CoreUtilities.toLowerCase(str), obj);
     }
 
+    public boolean hasDefintiion(String str) {
+        return getDefinition(str) != null;
+    }
+
     public AbstractTagObject getDefinition(String str) {
         return definitions.get(CoreUtilities.toLowerCase(str));
     }

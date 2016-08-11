@@ -3,6 +3,7 @@ package org.mcmonkey.denizen2core.tags.handlers;
 import org.mcmonkey.denizen2core.tags.AbstractTagBase;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.TagData;
+import org.mcmonkey.denizen2core.tags.objects.NullTag;
 import org.mcmonkey.denizen2core.tags.objects.QueueTag;
 
 import java.util.Queue;
@@ -29,6 +30,7 @@ public class QueueTagBase extends AbstractTagBase {
                 return new QueueTag(data.currentQueue).handle(data.shrink());
             }
             data.error.run("No queue available!");
+            return new NullTag();
         }
         return QueueTag.getFor(data.error, data.getNextModifier()).handle(data.shrink());
     }

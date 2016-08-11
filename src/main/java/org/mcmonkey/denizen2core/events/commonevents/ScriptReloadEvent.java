@@ -11,7 +11,7 @@ public class ScriptReloadEvent extends ScriptEvent {
     // @Triggers when the Denizen engine reloads all scripts.
     // See <@link command reload>the reload command<@/link>.
     //
-    // @Tags
+    // @Context
     // None.
     //
     // @Determinations

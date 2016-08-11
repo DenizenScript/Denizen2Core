@@ -51,6 +51,16 @@ public class QueueTag extends AbstractTagObject {
         handlers.put("running", (dat, obj) -> {
             return new BooleanTag(((QueueTag) obj).internal.running);
         });
+        // <--[tag]
+        // @Name QueueTag.has_definition[<TextTag>]
+        // @Group Information
+        // @ReturnType BooleanTag
+        // @Returns whether the queue has the specified definition.
+        // @Example "1" .has_definition[value] may return "true".
+        // -->
+        handlers.put("has_definition", (dat, obj) -> {
+            return new BooleanTag(((QueueTag) obj).internal.commandStack.peek().hasDefintiion(dat.getNextModifier().toString()));
+        });
     }
 
     public static QueueTag getFor(Action<String> error, String text) {
