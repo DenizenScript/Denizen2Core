@@ -6,6 +6,7 @@ import org.mcmonkey.denizen2core.scripts.CommandScript;
 import org.mcmonkey.denizen2core.scripts.commontypes.TaskScript;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.objects.IntegerTag;
+import org.mcmonkey.denizen2core.tags.objects.QueueTag;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 
 import java.util.List;
@@ -83,7 +84,6 @@ public class RunCommand extends AbstractCommand {
             nq.onStop = (nqueue) -> queue.waitFor(null);
         }
         nq.start();
-        // TODO: Queue tag.
-        queue.commandStack.peek().setDefinition("run_queue", new IntegerTag(nq.qID));
+        queue.commandStack.peek().setDefinition("run_queue", new QueueTag(nq));
     }
 }

@@ -43,6 +43,8 @@ public class CommandQueue {
 
     public long qID;
 
+    public boolean running = false;
+
     public void start() {
         qID = Denizen2Core.cqID++;
         if (!run(0)) {
@@ -65,6 +67,7 @@ public class CommandQueue {
     }
 
     public boolean run(double delta) {
+        running = true;
         if (waitingOn != null) {
             return false;
         }
@@ -88,6 +91,7 @@ public class CommandQueue {
         if (onStop != null) {
             onStop.run(this);
         }
+        running = false;
         return true;
     }
 
