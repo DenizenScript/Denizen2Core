@@ -34,7 +34,6 @@ public class ProcedureTagBase extends AbstractTagBase{
             data.error.run("Missing script: setting in the procedure tag modifier!");
             return new NullTag();
         }
-        // TODO: ScriptTag
         String sname = CoreUtilities.toLowerCase(mt.getInternal().get("script").toString());
         CommandScript script = Denizen2Core.currentScripts.get(sname);
         if (script == null || !(script instanceof ProcedureScript)) {

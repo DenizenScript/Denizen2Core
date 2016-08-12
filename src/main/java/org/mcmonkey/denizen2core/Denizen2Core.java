@@ -140,6 +140,7 @@ public class Denizen2Core {
         register(new NumberTagBase());
         register(new ProcedureTagBase());
         register(new QueueTagBase());
+        register(new ScriptTagBase());
         register(new TextTagBase());
         register(new SystemTagBase());
         register(new UnescapeTagBase());

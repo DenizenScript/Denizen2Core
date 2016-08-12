@@ -48,8 +48,8 @@ public abstract class CommandScript {
             if (obj instanceof List
                     && isExecutable(strh.low)) {
                 try {
-                    CommandScriptSection sect = CommandScriptSection.forSection(title + "." + strh.str,
-                            (List<Object>) obj, getDebugMode());
+                    CommandScriptSection sect = CommandScriptSection.forSection(this, title + "."
+                            + strh.str, (List<Object>) obj, getDebugMode());
                     if (sect == null) {
                         Debug.error("Null script section for script '" + ColorSet.emphasis + title + ColorSet.warning +
                                 "', in path '" + ColorSet.emphasis + strh.str + ColorSet.warning + "'.");

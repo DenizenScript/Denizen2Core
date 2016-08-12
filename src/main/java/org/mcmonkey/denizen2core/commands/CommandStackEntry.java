@@ -1,6 +1,7 @@
 package org.mcmonkey.denizen2core.commands;
 
 import org.mcmonkey.denizen2core.DebugMode;
+import org.mcmonkey.denizen2core.scripts.CommandScript;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.ErrorInducedException;
@@ -19,6 +20,8 @@ public class CommandStackEntry implements Cloneable {
     public final Object[] entryObjects;
 
     public final String scriptTitle;
+
+    public final CommandScript originalScript;
 
     private int index;
 
@@ -54,10 +57,11 @@ public class CommandStackEntry implements Cloneable {
         return index;
     }
 
-    public CommandStackEntry(CommandEntry[] entriesArray, String scrTitle) {
+    public CommandStackEntry(CommandEntry[] entriesArray, String scrTitle, CommandScript cs) {
         entries = entriesArray;
         entryObjects = new Object[entries.length];
         scriptTitle = scrTitle;
+        originalScript = cs;
     }
 
     public CommandStackRetVal run(CommandQueue queue) {

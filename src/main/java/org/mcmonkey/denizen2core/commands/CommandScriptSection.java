@@ -1,6 +1,7 @@
 package org.mcmonkey.denizen2core.commands;
 
 import org.mcmonkey.denizen2core.DebugMode;
+import org.mcmonkey.denizen2core.scripts.CommandScript;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
@@ -61,7 +62,7 @@ public class CommandScriptSection {
             for (int i = 0; i < data.size(); i++) {
                 cmds[i] = CommandEntry.forLine("<single line>", data.get(i));
             }
-            return new CommandScriptSection(new CommandStackEntry(cmds, "<single line>"));
+            return new CommandScriptSection(new CommandStackEntry(cmds, "<single line>", null));
         }
         catch (Exception ex) {
             Debug.error("Compiling script <single line>: ");
@@ -102,7 +103,7 @@ public class CommandScriptSection {
         return entries;
     }
 
-    public static CommandScriptSection forSection(String scriptName, List<Object> lines, DebugMode debugMode) {
+    public static CommandScriptSection forSection(CommandScript cs, String scriptName, List<Object> lines, DebugMode debugMode) {
         try {
             List<CommandEntry> entries = getEntries(scriptName, lines, 0);
             for (int i = 0; i < entries.size(); i++) {
@@ -110,7 +111,7 @@ public class CommandScriptSection {
             }
             CommandEntry[] cmds = new CommandEntry[entries.size()];
             cmds = entries.toArray(cmds);
-            CommandStackEntry cse = new CommandStackEntry(cmds, scriptName);
+            CommandStackEntry cse = new CommandStackEntry(cmds, scriptName, cs);
             cse.setDebugMode(debugMode);
             return new CommandScriptSection(cse);
         }
