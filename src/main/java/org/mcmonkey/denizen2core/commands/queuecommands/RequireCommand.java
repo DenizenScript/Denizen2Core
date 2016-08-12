@@ -20,7 +20,7 @@ public class RequireCommand extends AbstractCommand {
     // @Minimum 1
     // @Maximum 1
     // @Description
-    // Throws an error if the specified definition(s) are not present.
+    // Throws an error if the specified definition(s) are not present, stopping the queue.
     // TODO: Explain more!
     // @Example
     // # This example throws an error if the definitions 'hello' or 'world' are not present.
