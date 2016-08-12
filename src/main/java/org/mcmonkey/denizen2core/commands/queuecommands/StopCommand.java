@@ -5,6 +5,7 @@ import org.mcmonkey.denizen2core.commands.AbstractCommand;
 import org.mcmonkey.denizen2core.commands.CommandEntry;
 import org.mcmonkey.denizen2core.commands.CommandQueue;
 import org.mcmonkey.denizen2core.tags.objects.IntegerTag;
+import org.mcmonkey.denizen2core.tags.objects.QueueTag;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ public class StopCommand extends AbstractCommand {
     // <--[command]
     // @Name stop [queue]
     // @Arguments
-    // @Short Stops the current queue.
+    // @Short stops the current queue, or the one specified if available.
     // @Updated 2016/08/11
     // @Authors mcmonkey
     // @Group Queue
@@ -62,19 +63,12 @@ public class StopCommand extends AbstractCommand {
     @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
         if (entry.arguments.size() > 0) {
-            // TODO: Queue tag.
-            IntegerTag qid = IntegerTag.getFor(queue.error, entry.getArgumentObject(queue, 0));
-            long tqid = qid.getInternal();
-            ArrayList<CommandQueue> queues = new ArrayList<>(Denizen2Core.queues);
-            queues.add(queue);
-            for (CommandQueue q : queues) {
-                if (q.qID == tqid) {
-                    if (queue.shouldShowGood()) {
-                        queue.outGood("Stopping queue: " + q.qID);
-                    }
-                    q.stop();
-                }
+            QueueTag qid = QueueTag.getFor(queue.error, entry.getArgumentObject(queue, 0));
+            CommandQueue q = qid.getInternal();
+            if (queue.shouldShowGood()) {
+                queue.outGood("Stopping queue: " + q.qID);
             }
+            q.stop();
         }
         else {
             if (queue.shouldShowGood()) {

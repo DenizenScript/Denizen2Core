@@ -103,22 +103,25 @@ public class CommandQueue {
 
     public void stop() {
         commandStack.clear();
-        throw new ErrorInducedException("Stopping queue...");
     }
 
     public void handleError(String error) {
-        String emsg = "Error in queue " + qID + ": " + error;
+        handleError(currentEntry.getIndex() < currentEntry.entries.length ? currentEntry.entries[currentEntry.getIndex()]: null, error);
+    }
+
+    public void handleError(CommandEntry entry, String error) {
+        String emsg;
+        if (entry == null) {
+            emsg = "Error in queue " + qID + ", while handling an unknown command: " + error;
+        }
+        else {
+            emsg = "Error in queue " + qID + ", while handling command '" + entry.originalLine + "': " + error;
+        }
         // TODO: Error event.
         if (shouldShowError()) {
             Debug.error(emsg);
         }
         stop();
-    }
-
-    public void handleError(CommandEntry entry, String error) {
-        if (shouldShowError()) {
-            Debug.error(error);
-        }
-        stop();
+        throw new ErrorInducedException("Stopping queue...");
     }
 }

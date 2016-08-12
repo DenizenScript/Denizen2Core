@@ -117,6 +117,7 @@ public class Denizen2Core {
         register(new EchoCommand());
         register(new ReloadCommand());
         // Queue Commands
+        register(new AssertCommand());
         register(new DefineCommand());
         register(new DetermineCommand());
         register(new ElseCommand());
@@ -126,6 +127,7 @@ public class Denizen2Core {
         register(new InjectCommand());
         register(new MarkCommand());
         register(new RepeatCommand());
+        register(new RequireCommand());
         register(new RunCommand());
         register(new StopCommand());
         register(new WaitCommand());

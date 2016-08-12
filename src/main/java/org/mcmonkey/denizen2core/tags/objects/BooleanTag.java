@@ -38,7 +38,7 @@ public class BooleanTag extends AbstractTagObject {
             return new BooleanTag(true);
         }
         if (nt.equals("false")) {
-            return new BooleanTag(true);
+            return new BooleanTag(false);
         }
         error.run("Invalid boolean value!");
         return null;
