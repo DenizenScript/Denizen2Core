@@ -6,6 +6,7 @@ import org.mcmonkey.denizen2core.scripts.CommandScript;
 import org.mcmonkey.denizen2core.scripts.commontypes.TaskScript;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.objects.IntegerTag;
+import org.mcmonkey.denizen2core.tags.objects.MapTag;
 import org.mcmonkey.denizen2core.tags.objects.QueueTag;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
@@ -16,13 +17,13 @@ public class RunCommand extends AbstractCommand {
 
     // <--[command]
     // @Name run
-    // @Arguments <script>
+    // @Arguments <script> [definition map]
     // @Short Runs a script as a new queue.
     // @Updated 2016/04/06
     // @Authors mcmonkey
     // @Group Queue
     // @Minimum 1
-    // @Maximum 1
+    // @Maximum 2
     // @Tag <def[run_queue]> (IntegerTag) returns the qID of the ran queue.
     // @Description
     // Runs a script as a new queue.
@@ -39,7 +40,7 @@ public class RunCommand extends AbstractCommand {
 
     @Override
     public String getArguments() {
-        return "<script>";
+        return "<script> [definition map]";
     }
 
     @Override
@@ -49,7 +50,7 @@ public class RunCommand extends AbstractCommand {
 
     @Override
     public int getMaximumArguments() {
-        return 1;
+        return 2;
     }
 
     @Override
@@ -83,6 +84,10 @@ public class RunCommand extends AbstractCommand {
         CommandQueue nq = section.toQueue();
         if (entry.waitFor) {
             nq.onStop = (nqueue) -> queue.waitFor(null);
+        }
+        if (entry.arguments.size() > 1) {
+            MapTag defs = MapTag.getFor(queue.error, entry.getArgumentObject(queue, 1));
+            nq.commandStack.peek().definitions.putAll(defs.getInternal());
         }
         nq.start();
         queue.commandStack.peek().setDefinition("run_queue", new QueueTag(nq));
