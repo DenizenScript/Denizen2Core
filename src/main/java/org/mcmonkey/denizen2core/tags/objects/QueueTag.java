@@ -2,6 +2,7 @@ package org.mcmonkey.denizen2core.tags.objects;
 
 import org.mcmonkey.denizen2core.Denizen2Core;
 import org.mcmonkey.denizen2core.commands.CommandQueue;
+import org.mcmonkey.denizen2core.scripts.CommandScript;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.TagData;
 import org.mcmonkey.denizen2core.utilities.Action;
@@ -52,6 +53,20 @@ public class QueueTag extends AbstractTagObject {
             return new BooleanTag(((QueueTag) obj).internal.running);
         });
         // <--[tag]
+        // @Name QueueTag.current_script
+        // @Group Information
+        // @ReturnType ScriptTag
+        // @Returns the script currently running on the queue. If none is available, returns a NullTag!
+        // @Example "1" .current_script may return "MyTask".
+        // -->
+        handlers.put("current_script", (dat, obj) -> {
+            CommandScript cs = ((QueueTag) obj).internal.commandStack.peek().originalScript;
+            if (cs == null) {
+                return new NullTag();
+            }
+            return new ScriptTag(cs);
+        });
+        // <--[tag]
         // @Name QueueTag.has_definition[<TextTag>]
         // @Group Information
         // @ReturnType BooleanTag
@@ -60,6 +75,16 @@ public class QueueTag extends AbstractTagObject {
         // -->
         handlers.put("has_definition", (dat, obj) -> {
             return new BooleanTag(((QueueTag) obj).internal.commandStack.peek().hasDefintiion(dat.getNextModifier().toString()));
+        });
+        // <--[tag]
+        // @Name QueueTag.definition[<TextTag>]
+        // @Group Information
+        // @ReturnType Dynamic
+        // @Returns the value of the specified definition on the queue.
+        // @Example "1" .definition[value] may return "3".
+        // -->
+        handlers.put("definition", (dat, obj) -> {
+            return ((QueueTag) obj).internal.commandStack.peek().getDefinition(dat.getNextModifier().toString());
         });
     }
 
@@ -71,6 +96,7 @@ public class QueueTag extends AbstractTagObject {
                     return new QueueTag(queue);
                 }
             }
+            error.run("Unknown queue specified!");
             return null;
         }
         catch (NumberFormatException ex) {
