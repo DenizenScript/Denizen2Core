@@ -12,8 +12,8 @@ public class TaskScript extends CommandScript {
     // @Group Script Types
     // @Description
     // A task script is the most basic executable script in Denizen.
-    // It runs its code (usually the 'script' section) when told to run it by the
-    // <@link command run>'run'<@/link> command.
+    // It runs its code (usually the "script" section) when told to run it by the
+    // <@link command run>run<@/link> or <@link command inject>inject<@/link> commands.
     // -->
 
     public TaskScript(String name, YAMLConfiguration section) {

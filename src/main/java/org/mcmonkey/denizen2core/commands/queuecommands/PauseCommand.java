@@ -23,7 +23,7 @@ public class PauseCommand extends AbstractCommand {
     // # This example pauses the queue.
     // - pause
     // @Example
-    // # This example runs the task script 'test', then pauses it right away.
+    // # This example runs the task script "test", then pauses it right away.
     // - run test
     // - pause <def[run_queue]>
     // -->

@@ -20,7 +20,7 @@ public class ResumeCommand extends AbstractCommand {
     // Resumes the specified queue.
     // TODO: Explain more!
     // @Example
-    // # This example runs the task script 'test', then resumes it right away.
+    // # This example runs the task script "test", then resumes it right away.
     // - run test
     // - resume <def[run_queue]>
     // -->
