@@ -1,7 +1,9 @@
 package org.mcmonkey.denizen2core.events;
 
 import org.mcmonkey.denizen2core.Denizen2Core;
+import org.mcmonkey.denizen2core.arguments.Argument;
 import org.mcmonkey.denizen2core.commands.CommandQueue;
+import org.mcmonkey.denizen2core.commands.CommandScriptSection;
 import org.mcmonkey.denizen2core.commands.CommandStackEntry;
 import org.mcmonkey.denizen2core.scripts.commontypes.WorldScript;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
@@ -9,6 +11,7 @@ import org.mcmonkey.denizen2core.tags.objects.BooleanTag;
 import org.mcmonkey.denizen2core.tags.objects.IntegerTag;
 import org.mcmonkey.denizen2core.tags.objects.MapTag;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
+import org.mcmonkey.denizen2core.utilities.ErrorInducedException;
 import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 import org.mcmonkey.denizen2core.utilities.yaml.StringHolder;
@@ -32,11 +35,15 @@ public abstract class ScriptEvent implements Cloneable {
 
     public static class ScriptEventData {
 
-        public WorldScript script;
+        public WorldScript script = null;
 
-        public String eventPath;
+        public String eventPath = null;
 
-        public int priority;
+        public int priority = 0;
+
+        public List<Argument> requirements = new ArrayList<>();
+
+        public HashMap<String, String> switches = new HashMap<>();
     }
 
     // <--[explanation]
@@ -54,7 +61,7 @@ public abstract class ScriptEvent implements Cloneable {
 
     public void sort() {
         for (ScriptEventData path : usages) {
-            String gotten = getSwitch(path.eventPath, "priority");
+            String gotten = path.switches.get("priority");
             path.priority = gotten == null ? 0 : (int) IntegerTag.getFor((e) -> {
                 throw new RuntimeException("Invalid integer specified: " + e);
             }, gotten).getInternal();
@@ -65,21 +72,11 @@ public abstract class ScriptEvent implements Cloneable {
         });
     }
 
-    public static String getSwitch(String event, String switcher) {
-        for (String possible : CoreUtilities.split(event, ' ')) {
-            List<String> split = CoreUtilities.split(possible, ':', 2);
-            if (split.size() > 1 && CoreUtilities.toLowerCase(split.get(0)).equals(switcher)) {
-                return split.get(1);
-            }
-        }
-        return null;
-    }
-
     // TODO: Determinations
 
     public List<ScriptEventData> usages = new ArrayList<>();
 
-    boolean loaded = false;
+    private boolean loaded = false;
 
     public void enable() {
     }
@@ -91,6 +88,10 @@ public abstract class ScriptEvent implements Cloneable {
         boolean generalDebug = Denizen2Core.getImplementation().generalDebug();
         usages.clear();
         for (WorldScript script : currentWorldScripts) {
+            if (!script.contents.contains("events")) {
+                Debug.error("Invalid world script: " + script.title + ": missing events section!");
+                continue;
+            }
             Set<StringHolder> evts = script.contents.getConfigurationSection("events").getKeys(false);
             for (StringHolder evt : evts) {
                 if (evt.str.length() < "on ".length()) {
@@ -100,6 +101,16 @@ public abstract class ScriptEvent implements Cloneable {
                 data.script = script;
                 data.eventPath = evt.str.substring("on ".length());
                 if (couldMatch(data)) {
+                    for (String possible : CoreUtilities.split(data.eventPath, ' ')) {
+                        List<String> split = CoreUtilities.split(possible, ':', 2);
+                        String low = CoreUtilities.toLowerCase(split.get(0));
+                        if (split.size() > 1 && low.equals("require")) {
+                            data.requirements.add(Denizen2Core.splitToArgument(split.get(1), false));
+                        }
+                        else if (split.size() > 1){
+                            data.switches.put(low, split.get(1));
+                        }
+                    }
                     usages.add(data);
                     if (generalDebug) {
                         Debug.good("Script event match: " + ColorSet.emphasis + getName()
@@ -129,7 +140,7 @@ public abstract class ScriptEvent implements Cloneable {
     }
 
     public void error(String message) {
-        throw new RuntimeException(message);
+        throw new ErrorInducedException(message);
     }
 
     public void applyDetermination(boolean errors, String determination, AbstractTagObject value) {
@@ -158,8 +169,29 @@ public abstract class ScriptEvent implements Cloneable {
 
     public boolean cancelled = false;
 
+    // <--[explanation]
+    // @Name Script Event Requirements
+    // @Group Events
+    // @Description
+    // Any ScriptEvent can take requirement arguments.
+    // Those are switches that contain tags that return boolean values.
+    // The script event will not run if any requirement returns false.
+    //
+    // An example of the syntax is: "on my object does a thing require:<[context].[object].is_type[BIG]>"
+    // -->
+
     public void subRun(ScriptEventData data) {
         HashMap<String, AbstractTagObject> defs = getDefinitions(data);
+        MapTag defmap = new MapTag(defs);
+        HashMap<String, AbstractTagObject> contextHelper = new HashMap<>();
+        contextHelper.put("context", defmap);
+        CommandScriptSection css = data.script.getSection("events.on " + data.eventPath);
+        for (Argument req : data.requirements) {
+            BooleanTag bt = BooleanTag.getFor(this::error, req.parse(null, contextHelper, css.created.getDebugMode(), this::error));
+            if (!bt.getInternal()) {
+                return;
+            }
+        }
         if (Denizen2Core.getImplementation().generalDebug()) {
             Debug.good("Running script event: " + ColorSet.emphasis + data.script.title
                     + ColorSet.good + ", event: " + "on " + ColorSet.emphasis + data.eventPath);
@@ -168,9 +200,9 @@ public abstract class ScriptEvent implements Cloneable {
                         + " is " + ColorSet.emphasis + def.getValue().toString());
             }
         }
-        CommandQueue queue = data.script.getSection("events.on " + data.eventPath).toQueue();
+        CommandQueue queue = css.toQueue();
         CommandStackEntry cse = queue.commandStack.peek();
-        cse.setDefinition("context", new MapTag(defs));
+        cse.setDefinition("context", defmap);
         queue.start();
         for (Map.Entry<String, AbstractTagObject> entry : queue.determinations.getInternal().entrySet()) {
             applyDetermination(cse.getDebugMode().showMinimal, entry.getKey(), entry.getValue());
@@ -181,12 +213,23 @@ public abstract class ScriptEvent implements Cloneable {
         for (ScriptEventData data : usages) {
             if (matches(data)) {
                 if (cancelled) {
-                    String ic = getSwitch(data.eventPath, "ignorecancelled");
+                    String ic = data.switches.get("ignorecancelled");
                     if (ic == null || !CoreUtilities.toLowerCase(ic).equals("true")) {
                         continue;
                     }
                 }
-                subRun(data);
+                try {
+                    subRun(data);
+                }
+                catch (Exception ex) {
+                    if (ex instanceof ErrorInducedException) {
+                        Debug.error(ex.getMessage());
+                    }
+                    else {
+                        Debug.error("Problem parsing script event '" + getName() + "':");
+                        Debug.exception(ex);
+                    }
+                }
             }
         }
     }
