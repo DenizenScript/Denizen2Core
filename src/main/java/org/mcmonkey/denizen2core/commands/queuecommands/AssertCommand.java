@@ -10,8 +10,8 @@ import org.mcmonkey.denizen2core.tags.objects.ListTag;
 public class AssertCommand extends AbstractCommand {
 
     // <--[command]
-    // @Name assert <required boolean> <error message>
-    // @Arguments
+    // @Name assert
+    // @Arguments <required boolean> <error message>
     // @Short throws an error if the specified boolean is false.
     // @Updated 2016/08/11
     // @Authors mcmonkey

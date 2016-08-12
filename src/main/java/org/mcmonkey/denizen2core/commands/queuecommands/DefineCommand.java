@@ -28,7 +28,7 @@ public class DefineCommand extends AbstractCommand {
     // - define test 3
     // - echo <[test]>
     // @Example
-    // #This example defines the variable "test" as the value "Hello World" on the queue specified by the definition "run_queue".
+    // # This example defines the variable "test" as the value "Hello World" on the queue specified by the definition "run_queue".
     // - define test "Hello World" <[run_queue]>
     // -->
 

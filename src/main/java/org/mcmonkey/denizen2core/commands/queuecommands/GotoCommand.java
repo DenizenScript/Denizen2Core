@@ -11,7 +11,7 @@ public class GotoCommand extends AbstractCommand {
     // <--[command]
     // @Name goto
     // @Arguments <name>
-    // @Short goes to a location specified by the mark command.
+    // @Short jumps to a code location specified by the mark command.
     // @Updated 2016/04/06
     // @Authors mcmonkey
     // @Group Queue
@@ -19,10 +19,10 @@ public class GotoCommand extends AbstractCommand {
     // @Minimum 1
     // @Maximum 1
     // @Description
-    // Goes to a location specified by the mark command.
+    // Jumps to a code location specified beforehand by the <@link command mark>mark<@/link> command.
     // TODO: Explain more!
     // @Example
-    // # This example goes to the location 'test'.
+    // # This example goes to the location "test".
     // - goto test
     // -->
 

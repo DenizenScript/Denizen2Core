@@ -30,7 +30,7 @@ public class StopCommand extends AbstractCommand {
     // - stop
     // - echo "This won't show"
     // @Example
-    // # This example runs the task script 'test', then stops it right away.
+    // # This example runs the task script "test", then stops it right away.
     // - run test
     // - stop <def[run_queue]>
     // -->

@@ -23,7 +23,7 @@ public class DetermineCommand extends AbstractCommand {
     // Default value is true.
     // TODO: Explain more!
     // @Example
-    // # This example determines the option 'cancelled' as the value 'true'.
+    // # This example determines the option "cancelled" as the value "true".
     // - determine cancelled
     // -->
 

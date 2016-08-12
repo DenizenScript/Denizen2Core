@@ -23,7 +23,7 @@ public class RequireCommand extends AbstractCommand {
     // Throws an error if the specified definition(s) are not present.
     // TODO: Explain more!
     // @Example
-    // # This example throws an error if the definitions 'hello' or 'world' are not present.
+    // # This example throws an error if the definitions "hello" or "world" are not present.
     // - require hello|world
     // -->
 
