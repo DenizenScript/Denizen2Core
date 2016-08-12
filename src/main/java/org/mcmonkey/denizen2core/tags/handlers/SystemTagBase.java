@@ -1,10 +1,13 @@
 package org.mcmonkey.denizen2core.tags.handlers;
 
 import org.mcmonkey.denizen2core.Denizen2Core;
+import org.mcmonkey.denizen2core.commands.CommandQueue;
 import org.mcmonkey.denizen2core.tags.AbstractTagBase;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.TagData;
 import org.mcmonkey.denizen2core.tags.objects.IntegerTag;
+import org.mcmonkey.denizen2core.tags.objects.ListTag;
+import org.mcmonkey.denizen2core.tags.objects.QueueTag;
 import org.mcmonkey.denizen2core.tags.objects.TextTag;
 import org.mcmonkey.denizen2core.utilities.Function2;
 
@@ -58,6 +61,19 @@ public class SystemTagBase extends AbstractTagBase {
         // @Returns the Denizen2 implementation's version.
         // -->
         handlers.put("implementation_version", (dat, obj) -> new TextTag(Denizen2Core.getImplementation().getImplementationVersion()));
+        // <--[tag]
+        // @Name SystemTag.queues
+        // @Group Denizen2
+        // @ReturnType ListTag
+        // @Returns a list of all current queues.
+        // -->
+        handlers.put("queues", (dat, obj) -> {
+            ListTag lt = new ListTag();
+            for (CommandQueue queue : Denizen2Core.queues) {
+                lt.getInternal().add(new QueueTag(queue));
+            }
+            return lt;
+        });
     }
 
     @Override
