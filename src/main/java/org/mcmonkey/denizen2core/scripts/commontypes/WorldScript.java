@@ -12,8 +12,8 @@ public class WorldScript extends CommandScript {
     // @Name World Scripts
     // @Group Script Types
     // @Description
-    // A task script is one of the core executable script types in Denizen.
-    // It runs its code beneath the 'events' section when told to run it by a script event firing.
+    // A world script is one of the core executable script types in Denizen.
+    // It runs its code beneath the "events" section when told to run it by a script event firing.
     // TODO: Link event system explanation!
     // -->
 

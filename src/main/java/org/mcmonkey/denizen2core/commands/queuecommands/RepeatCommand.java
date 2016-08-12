@@ -17,7 +17,7 @@ public class RepeatCommand extends AbstractCommand {
 
     // <--[command]
     // @Name repeat
-    // @Arguments 'stop'/'continue'/<times>
+    // @Arguments "stop"/"continue"/<times>
     // @Short runs a block of code the specified number of types.
     // @Updated 2016/08/07
     // @Authors mcmonkey

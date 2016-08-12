@@ -19,7 +19,7 @@ public class ForeachCommand extends AbstractCommand {
 
     // <--[command]
     // @Name foreach
-    // @Arguments 'stop'/'continue'/'start' [list]
+    // @Arguments "stop"/"continue"/"start" [list]
     // @Short runs a block of code once for each entry in a list.
     // @Updated 2016/08/08
     // @Authors mcmonkey

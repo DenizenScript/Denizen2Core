@@ -18,10 +18,11 @@ public class DefineCommand extends AbstractCommand {
     // @Maximum 2
     // @tag <def[<TextTag>]> (Dynamic) returns the defined value.
     // @Description
-    // Defines a value on the current queue.
+    // Defines a value on the current queue. It can later be
+    // retrieved with <["def"]>, where "def" is the definition name.
     // TODO: Explain more!
     // @Example
-    // # This example defines the variable 'test' as the value '3', then echoes it back.
+    // # This example defines the variable "test" as the value "3", then echoes it back.
     // - define test 3
     // - echo <[test]>
     // -->
