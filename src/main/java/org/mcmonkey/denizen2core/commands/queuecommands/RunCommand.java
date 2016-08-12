@@ -26,11 +26,15 @@ public class RunCommand extends AbstractCommand {
     // @Maximum 2
     // @Tag <def[run_queue]> (IntegerTag) returns the qID of the ran queue.
     // @Description
-    // Runs a script as a new queue.
+    // Runs a script as a new queue. Can pass definitions.
     // TODO: Explain more!
     // @Example
     // # This example runs the script "test".
     // - run test
+    // @Example
+    // # This example runs the script "myTask" with definitions "banana"
+    // and "potato" of values "2" and "5".
+    // - run mytask banana:2|potato:5
     // -->
 
     @Override

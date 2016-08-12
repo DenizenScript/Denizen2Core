@@ -11,9 +11,9 @@ public class ProcedureScript extends CommandScript {
     // @Name Procedure Scripts
     // @Group Script Types
     // @Description
-    // A task script is the most basic procedural script in Denizen.
-    // It runs its code (usually the 'script' section) when told to run it by the
-    // <@link tag procedure>'procedure'<@/link> tag.
+    // A procedure script is the most basic procedural script in Denizen.
+    // It runs its code (usually the "script" section) when told to run it by the
+    // <@link tag procedure>procedure<@/link> tag.
     // A procedural script can only calculate things, it cannot execute changes upon the world.
     // -->
 

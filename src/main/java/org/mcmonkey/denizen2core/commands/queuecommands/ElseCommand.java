@@ -10,7 +10,7 @@ public class ElseCommand extends AbstractCommand {
 
     // <--[command]
     // @Name else
-    // @Arguments ['if' <if comparisons>]
+    // @Arguments ["if" <if comparisons>]
     // @Short runs a block of code if-and-only-if the comparisons return true, or no comparison is specified, and the preceding if did not run.
     // @Updated 2016/04/18
     // @Authors mcmonkey
@@ -19,7 +19,8 @@ public class ElseCommand extends AbstractCommand {
     // @Minimum 0
     // @Maximum -1
     // @Description
-    // Runs a block of code if-and-only-if the comparisons return true, or no comparison is specified, and the preceding <@link command if>if<@/link> did not run.
+    // Runs a block of code if-and-only-if the comparisons return true,
+    // or no comparison is specified, and the preceding <@link command if>if<@/link> did not run.
     // TODO: Explain more!
     // @Example
     // # This example always echoes "hi".

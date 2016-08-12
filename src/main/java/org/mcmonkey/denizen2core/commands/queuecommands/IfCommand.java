@@ -34,7 +34,8 @@ public class IfCommand extends AbstractCommand {
     // @Minimum 1
     // @Maximum -1
     // @Description
-    // Runs a block of code if-and-only-if the comparisons return true. Can be followed by an <@link command else>else<@/link> command.
+    // Runs a block of code if-and-only-if the comparisons return true.
+    // Can be followed by an <@link command else>else<@/link> command.
     // TODO: Explain more!
     // @Example
     // # This example always echoes "hi".

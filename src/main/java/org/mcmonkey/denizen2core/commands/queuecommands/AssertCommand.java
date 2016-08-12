@@ -20,7 +20,7 @@ public class AssertCommand extends AbstractCommand {
     // @Minimum 2
     // @Maximum 2
     // @Description
-    // Throws an error if the specified boolean is false, stopping the queue.
+    // Throws an error if the specified boolean is false.
     // TODO: Explain more!
     // @Example
     // # This example throws an error.

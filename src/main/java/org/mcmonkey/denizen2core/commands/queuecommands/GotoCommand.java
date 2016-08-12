@@ -22,7 +22,7 @@ public class GotoCommand extends AbstractCommand {
     // Jumps to a code location specified beforehand by the <@link command mark>mark<@/link> command.
     // TODO: Explain more!
     // @Example
-    // # This example goes to the location 'test'.
+    // # This example goes to the location "test".
     // - goto test
     // -->
 

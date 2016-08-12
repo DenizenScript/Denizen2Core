@@ -20,7 +20,7 @@ public class MarkCommand extends AbstractCommand {
     // Marks a code location for later usage with the <@link command goto>goto<@/link> command.
     // TODO: Explain more!
     // @Example
-    // # This example marks the location 'test'.
+    // # This example marks the location "test".
     // - mark test
     // -->
 
