@@ -67,6 +67,23 @@ public class QueueTag extends AbstractTagObject {
             return new ScriptTag(cs);
         });
         // <--[tag]
+        // @Name QueueTag.base_script
+        // @Group Information
+        // @ReturnType ScriptTag
+        // @Returns the script that ran first on the queue. If none is available, returns a NullTag!
+        // @Example "1" .base_script may return "MyTask".
+        // -->
+        handlers.put("base_script", (dat, obj) -> {
+            if (((QueueTag) obj).internal.commandStack.size() == 0) {
+                return new NullTag();
+            }
+            CommandScript cs = ((QueueTag) obj).internal.commandStack.firstElement().originalScript;
+            if (cs == null) {
+                return new NullTag();
+            }
+            return new ScriptTag(cs);
+        });
+        // <--[tag]
         // @Name QueueTag.has_definition[<TextTag>]
         // @Group Information
         // @ReturnType BooleanTag

@@ -137,6 +137,7 @@ public class Denizen2Core {
         // Common Tag Handlers
         register(new BooleanTagBase());
         register(new DefTagBase());
+        register(new DurationTagBase());
         register(new EscapeTagBase());
         register(new IntegerTagBase());
         register(new ListTagBase());
