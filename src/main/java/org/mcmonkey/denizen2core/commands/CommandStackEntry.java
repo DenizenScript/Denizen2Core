@@ -24,7 +24,7 @@ public class CommandStackEntry implements Cloneable {
 
     private DebugMode dbMode = DebugMode.FULL;
 
-    private HashMap<String, AbstractTagObject> definitions = new HashMap<>();
+    public HashMap<String, AbstractTagObject> definitions = new HashMap<>();
 
     public void setDefinition(String str, AbstractTagObject obj) {
         definitions.put(CoreUtilities.toLowerCase(str), obj);

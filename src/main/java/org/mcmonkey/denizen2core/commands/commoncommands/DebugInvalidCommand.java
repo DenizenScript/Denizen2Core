@@ -32,11 +32,6 @@ public class DebugInvalidCommand extends AbstractCommand {
     }
 
     @Override
-    public boolean isWaitable() {
-        return false;
-    }
-
-    @Override
     public boolean isProcedural() {
         return true;
     }

@@ -17,6 +17,7 @@ public class StopCommand extends AbstractCommand {
     // @Updated 2016/08/11
     // @Authors mcmonkey
     // @Group Queue
+    // @Procedural true
     // @Minimum 0
     // @Maximum 1
     // @Description
@@ -51,11 +52,6 @@ public class StopCommand extends AbstractCommand {
     @Override
     public int getMaximumArguments() {
         return 1;
-    }
-
-    @Override
-    public boolean isWaitable() {
-        return false;
     }
 
     @Override

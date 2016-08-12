@@ -15,6 +15,7 @@ public class DetermineCommand extends AbstractCommand {
     // @Updated 2016/08/11
     // @Authors mcmonkey
     // @Group Queue
+    // @Procedural true
     // @Minimum 1
     // @Maximum 2
     // @Description
@@ -44,11 +45,6 @@ public class DetermineCommand extends AbstractCommand {
     @Override
     public int getMaximumArguments() {
         return 2;
-    }
-
-    @Override
-    public boolean isWaitable() {
-        return false;
     }
 
     @Override

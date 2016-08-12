@@ -19,7 +19,9 @@ public abstract class AbstractCommand {
 
     public abstract int getMaximumArguments();
 
-    public abstract boolean isWaitable();
+    public boolean isWaitable() {
+        return false;
+    }
 
     public boolean isProcedural() {
         return false;

@@ -5,36 +5,35 @@ import org.mcmonkey.denizen2core.commands.*;
 import org.mcmonkey.denizen2core.scripts.CommandScript;
 import org.mcmonkey.denizen2core.scripts.commontypes.TaskScript;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
-import org.mcmonkey.denizen2core.tags.objects.IntegerTag;
 import org.mcmonkey.denizen2core.tags.objects.QueueTag;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
 
 import java.util.List;
 
-public class RunCommand extends AbstractCommand {
+public class InjectCommand extends AbstractCommand {
 
     // <--[command]
-    // @Name run
+    // @Name inject
     // @Arguments <script>
-    // @Short Runs a script as a new queue.
-    // @Updated 2016/04/06
+    // @Short injects a script into the current queue.
+    // @Updated 2016/08/11
     // @Authors mcmonkey
     // @Group Queue
+    // @Procedural true
     // @Minimum 1
     // @Maximum 1
-    // @Tag <def[run_queue]> (IntegerTag) returns the qID of the ran queue.
     // @Description
-    // Runs a script as a new queue.
+    // Injects a script into the current queue.
     // TODO: Explain more!
     // @Example
-    // # This example runs the script "test".
-    // - run test
+    // # This example injects the script "test" in the current queue.
+    // - inject test
     // -->
 
     @Override
     public String getName() {
-        return "run";
+        return "inject";
     }
 
     @Override
@@ -53,7 +52,7 @@ public class RunCommand extends AbstractCommand {
     }
 
     @Override
-    public boolean isWaitable() {
+    public boolean isProcedural() {
         return true;
     }
 
@@ -68,7 +67,7 @@ public class RunCommand extends AbstractCommand {
             return;
         }
         if (!(script instanceof TaskScript)) {
-            queue.handleError(entry, "Trying to run a non-task typed script!");
+            queue.handleError(entry, "Trying to inject a non-task typed script!");
             return;
         }
         TaskScript task = (TaskScript) script;
@@ -78,13 +77,10 @@ public class RunCommand extends AbstractCommand {
             return;
         }
         if (queue.shouldShowGood()) {
-            queue.outGood("Running script: " + ColorSet.emphasis + script.title);
+            queue.outGood("Injecting script: " + ColorSet.emphasis + script.title);
         }
-        CommandQueue nq = section.toQueue();
-        if (entry.waitFor) {
-            nq.onStop = (nqueue) -> queue.waitFor(null);
-        }
-        nq.start();
-        queue.commandStack.peek().setDefinition("run_queue", new QueueTag(nq));
+        CommandStackEntry cse = section.toCSE();
+        cse.definitions = queue.commandStack.peek().definitions;
+        queue.commandStack.push(cse);
     }
 }

@@ -20,6 +20,7 @@ public class WhileCommand extends AbstractCommand {
     // @Updated 2016/08/08
     // @Authors mcmonkey
     // @Group Queue
+    // @Procedural true
     // @Minimum 1
     // @Maximum -1
     // @Description
@@ -50,11 +51,6 @@ public class WhileCommand extends AbstractCommand {
     @Override
     public int getMaximumArguments() {
         return -1;
-    }
-
-    @Override
-    public boolean isWaitable() {
-        return false;
     }
 
     @Override

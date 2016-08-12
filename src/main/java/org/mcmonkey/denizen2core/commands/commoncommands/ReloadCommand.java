@@ -45,11 +45,6 @@ public class ReloadCommand extends AbstractCommand {
     }
 
     @Override
-    public boolean isWaitable() {
-        return false;
-    }
-
-    @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
         Denizen2Core.reload();
     }

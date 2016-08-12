@@ -30,6 +30,7 @@ public class IfCommand extends AbstractCommand {
     // @Updated 2016/04/18
     // @Authors mcmonkey
     // @Group Queue
+    // @Procedural true
     // @Minimum 1
     // @Maximum -1
     // @Description
@@ -62,11 +63,6 @@ public class IfCommand extends AbstractCommand {
     @Override
     public int getMaximumArguments() {
         return -1;
-    }
-
-    @Override
-    public boolean isWaitable() {
-        return false;
     }
 
     @Override

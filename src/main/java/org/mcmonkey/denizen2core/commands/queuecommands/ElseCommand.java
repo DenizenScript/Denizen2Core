@@ -15,6 +15,7 @@ public class ElseCommand extends AbstractCommand {
     // @Updated 2016/04/18
     // @Authors mcmonkey
     // @Group Queue
+    // @Procedural true
     // @Minimum 0
     // @Maximum -1
     // @Description
@@ -51,11 +52,6 @@ public class ElseCommand extends AbstractCommand {
     @Override
     public int getMaximumArguments() {
         return -1;
-    }
-
-    @Override
-    public boolean isWaitable() {
-        return false;
     }
 
     @Override

@@ -133,4 +133,8 @@ public class CommandScriptSection {
         queue.commandStack.push(stackEntry);
         return queue;
     }
+
+    public CommandStackEntry toCSE() {
+        return created.clone();
+    }
 }

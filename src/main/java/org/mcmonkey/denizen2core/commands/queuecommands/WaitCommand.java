@@ -46,11 +46,6 @@ public class WaitCommand extends AbstractCommand {
     }
 
     @Override
-    public boolean isWaitable() {
-        return false;
-    }
-
-    @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
         queue.setWait(NumberTag.getFor(queue::handleError, entry.getArgumentObject(queue, 0)).getInternal());
         if (queue.shouldShowGood()) {

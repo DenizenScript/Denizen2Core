@@ -123,6 +123,7 @@ public class Denizen2Core {
         register(new ForeachCommand());
         register(new GotoCommand());
         register(new IfCommand());
+        register(new InjectCommand());
         register(new MarkCommand());
         register(new RepeatCommand());
         register(new RunCommand());

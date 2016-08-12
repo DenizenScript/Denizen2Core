@@ -13,6 +13,7 @@ public class DefineCommand extends AbstractCommand {
     // @Updated 2016/07/15
     // @Authors mcmonkey
     // @Group Queue
+    // @Procedural true
     // @Minimum 2
     // @Maximum 2
     // @tag <def[<TextTag>]> (Dynamic) returns the defined value.
@@ -43,11 +44,6 @@ public class DefineCommand extends AbstractCommand {
     @Override
     public int getMaximumArguments() {
         return 2;
-    }
-
-    @Override
-    public boolean isWaitable() {
-        return false;
     }
 
     @Override

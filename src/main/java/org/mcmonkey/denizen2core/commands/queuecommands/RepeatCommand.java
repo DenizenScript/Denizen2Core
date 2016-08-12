@@ -22,6 +22,7 @@ public class RepeatCommand extends AbstractCommand {
     // @Updated 2016/08/07
     // @Authors mcmonkey
     // @Group Queue
+    // @Procedural true
     // @Minimum 1
     // @Maximum 1
     // @Tag <def[repeat_index]> (IntegerTag) returns the current index in the loop.
@@ -53,11 +54,6 @@ public class RepeatCommand extends AbstractCommand {
     @Override
     public int getMaximumArguments() {
         return 1;
-    }
-
-    @Override
-    public boolean isWaitable() {
-        return false;
     }
 
     @Override

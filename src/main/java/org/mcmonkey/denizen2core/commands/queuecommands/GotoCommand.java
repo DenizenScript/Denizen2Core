@@ -15,6 +15,7 @@ public class GotoCommand extends AbstractCommand {
     // @Updated 2016/04/06
     // @Authors mcmonkey
     // @Group Queue
+    // @Procedural true
     // @Minimum 1
     // @Maximum 1
     // @Description
@@ -43,11 +44,6 @@ public class GotoCommand extends AbstractCommand {
     @Override
     public int getMaximumArguments() {
         return 1;
-    }
-
-    @Override
-    public boolean isWaitable() {
-        return false;
     }
 
     @Override

@@ -24,6 +24,7 @@ public class ForeachCommand extends AbstractCommand {
     // @Updated 2016/08/08
     // @Authors mcmonkey
     // @Group Queue
+    // @Procedural true
     // @Minimum 1
     // @Maximum 2
     // @Tag <def[foreach_index]> (IntegerTag) returns the current index in the loop.
@@ -56,11 +57,6 @@ public class ForeachCommand extends AbstractCommand {
     @Override
     public int getMaximumArguments() {
         return 2;
-    }
-
-    @Override
-    public boolean isWaitable() {
-        return false;
     }
 
     @Override

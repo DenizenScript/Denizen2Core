@@ -14,6 +14,7 @@ public class EchoCommand extends AbstractCommand {
     // @Updated 2016/04/02
     // @Authors mcmonkey
     // @Group Common
+    // @Procedural true
     // @Minimum 1
     // @Maximum 1
     // @Description
@@ -42,11 +43,6 @@ public class EchoCommand extends AbstractCommand {
     @Override
     public int getMaximumArguments() {
         return 1;
-    }
-
-    @Override
-    public boolean isWaitable() {
-        return false;
     }
 
     @Override

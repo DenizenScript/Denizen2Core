@@ -21,7 +21,11 @@ public class DefTagBase extends AbstractTagBase {
 
     @Override
     public AbstractTagObject handle(TagData data) {
-        AbstractTagObject obj = data.currentQueue.commandStack.peek().getDefinition(data.getNextModifier().toString());
+        String def = data.getNextModifier().toString();
+        AbstractTagObject obj = data.variables.get(def);
+        if (obj == null) {
+            obj = data.currentQueue.commandStack.peek().getDefinition(def);
+        }
         if (obj == null) {
             data.error.run("Invalid definition name!");
             return new NullTag();
