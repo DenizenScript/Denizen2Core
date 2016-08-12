@@ -126,8 +126,10 @@ public class Denizen2Core {
         register(new IfCommand());
         register(new InjectCommand());
         register(new MarkCommand());
+        register(new PauseCommand());
         register(new RepeatCommand());
         register(new RequireCommand());
+        register(new ResumeCommand());
         register(new RunCommand());
         register(new StopCommand());
         register(new WaitCommand());

@@ -74,7 +74,7 @@ public class QueueTag extends AbstractTagObject {
         // @Example "1" .has_definition[value] may return "true".
         // -->
         handlers.put("has_definition", (dat, obj) -> {
-            return new BooleanTag(((QueueTag) obj).internal.commandStack.peek().hasDefintiion(dat.getNextModifier().toString()));
+            return new BooleanTag(((QueueTag) obj).internal.commandStack.peek().hasDefinition(dat.getNextModifier().toString()));
         });
         // <--[tag]
         // @Name QueueTag.definition[<TextTag>]

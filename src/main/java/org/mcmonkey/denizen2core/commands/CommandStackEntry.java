@@ -33,7 +33,7 @@ public class CommandStackEntry implements Cloneable {
         definitions.put(CoreUtilities.toLowerCase(str), obj);
     }
 
-    public boolean hasDefintiion(String str) {
+    public boolean hasDefinition(String str) {
         return getDefinition(str) != null;
     }
 
@@ -98,7 +98,7 @@ public class CommandStackEntry implements Cloneable {
                     }
                 }
             }
-            if (((queue.getWait() > 0f) || queue.waitingFor() != null)) {
+            if ((queue.getWait() > 0f) || queue.waitingFor() != null || queue.paused) {
                 return CommandStackRetVal.BREAK;
             }
             if (queue.commandStack.size() == 0) {

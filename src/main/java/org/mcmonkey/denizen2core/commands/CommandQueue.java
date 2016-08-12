@@ -47,6 +47,8 @@ public class CommandQueue {
 
     public boolean running = false;
 
+    public boolean paused = false;
+
     public boolean procedural = false;
 
     public MapTag determinations = new MapTag();
@@ -75,6 +77,9 @@ public class CommandQueue {
     public boolean run(double delta) {
         running = true;
         if (waitingOn != null) {
+            return false;
+        }
+        if (paused) {
             return false;
         }
         wait -= delta;

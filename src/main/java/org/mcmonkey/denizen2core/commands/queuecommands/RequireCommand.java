@@ -57,7 +57,7 @@ public class RequireCommand extends AbstractCommand {
         ListTag defs = ListTag.getFor(queue.error, entry.getArgumentObject(queue, 0));
         for (AbstractTagObject obj : defs.getInternal()) {
             String d = obj.toString();
-            if (!queue.commandStack.peek().hasDefintiion(d)) {
+            if (!queue.commandStack.peek().hasDefinition(d)) {
                 queue.handleError(entry, "Missing required definition: " + d);
             }
         }
