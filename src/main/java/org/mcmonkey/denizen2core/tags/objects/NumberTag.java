@@ -3,6 +3,7 @@ package org.mcmonkey.denizen2core.tags.objects;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.TagData;
 import org.mcmonkey.denizen2core.utilities.Action;
+import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.Function2;
 
 import java.util.HashMap;
@@ -114,10 +115,6 @@ public class NumberTag extends AbstractTagObject {
 
     @Override
     public String toString() {
-        String temp = String.valueOf(internal);
-        if (temp.endsWith(".0")) {
-            return temp.substring(0, temp.length() - 2);
-        }
-        return temp;
+        return CoreUtilities.doubleToString(internal);
     }
 }

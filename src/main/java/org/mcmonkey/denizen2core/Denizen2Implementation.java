@@ -27,4 +27,6 @@ public abstract class Denizen2Implementation {
     public abstract String getImplementationName();
 
     public abstract String getImplementationVersion();
+
+    public abstract boolean enforceLocale();
 }

@@ -18,6 +18,14 @@ public class CoreUtilities {
 
     public final static Random random = new Random();
 
+    public static String doubleToString(double input) {
+        String temp = String.valueOf(input);
+        if (temp.endsWith(".0")) {
+            return temp.substring(0, temp.length() - 2);
+        }
+        return temp;
+    }
+
     public static String exceptionString(Throwable except) {
         StringBuilder sb = new StringBuilder();
         boolean first = true;

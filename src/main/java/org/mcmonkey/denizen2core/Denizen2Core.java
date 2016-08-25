@@ -108,11 +108,17 @@ public class Denizen2Core {
     }
 
     public static void init(Denizen2Implementation impl) {
+        // Track this implementation value
+        implementation = impl;
+        // Enforce a reasonable locale on the machine - to prevent format errors
+        if (implementation.enforceLocale()) {
+            Locale.setDefault(Locale.US);
+        }
+        // Clear any old data
         commands.clear();
         tagBases.clear();
         currentScripts.clear();
         scriptTypeGetters.clear();
-        implementation = impl;
         // Common Commands
         register(new EchoCommand());
         register(new ReloadCommand());
