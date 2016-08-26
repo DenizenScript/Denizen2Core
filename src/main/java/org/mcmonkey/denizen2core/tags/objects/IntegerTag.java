@@ -85,6 +85,38 @@ public class IntegerTag extends AbstractTagObject {
             IntegerTag two = IntegerTag.getFor(dat.error, dat.getNextModifier());
             return new IntegerTag(((IntegerTag) obj).internal % two.internal);
         });
+        // <--[tag]
+        // @Name IntegerTag.maximum_integer[<IntegerTag>]
+        // @Group Mathematics
+        // @ReturnType IntegerTag
+        // @Returns whichever is bigger: this integer, or the specified integer.
+        // @Example "1" .maximum_integer[2] returns "2".
+        // -->
+        handlers.put("maximum_integer", (dat, obj) -> {
+            IntegerTag two = IntegerTag.getFor(dat.error, dat.getNextModifier());
+            return new IntegerTag(Math.max(((IntegerTag) obj).internal, two.internal));
+        });
+        // <--[tag]
+        // @Name IntegerTag.minimum_integer[<IntegerTag>]
+        // @Group Mathematics
+        // @ReturnType IntegerTag
+        // @Returns whichever is smaller: this integer, or the specified integer.
+        // @Example "1" .minimum_integer[2] returns "1".
+        // -->1
+        handlers.put("minimum_integer", (dat, obj) -> {
+            IntegerTag two = IntegerTag.getFor(dat.error, dat.getNextModifier());
+            return new IntegerTag(Math.min(((IntegerTag) obj).internal, two.internal));
+        });
+        // <--[tag]
+        // @Name IntegerTag.absolute_value_integer
+        // @Group Mathematics
+        // @ReturnType IntegerTag
+        // @Returns the absolute value of this integer.
+        // @Example "-1" .absolute_value_integer returns "1".
+        // -->
+        handlers.put("absolute_value_integer", (dat, obj) -> {
+            return new IntegerTag(Math.abs(((IntegerTag) obj).internal));
+        });
     }
 
     public static IntegerTag getFor(Action<String> error, String text) {

@@ -77,7 +77,7 @@ public class BooleanTag extends AbstractTagObject {
         // @Example "false" .xor[true] returns "true".
         // @Example "false" .xor[false] returns "false".
         // -->
-        handlers.put("or", (dat, obj) -> {
+        handlers.put("xor", (dat, obj) -> {
             return new BooleanTag(((BooleanTag) obj).getInternal() != BooleanTag.getFor(dat.error, dat.getNextModifier()).getInternal());
         });
     }
