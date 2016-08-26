@@ -30,6 +30,56 @@ public class BooleanTag extends AbstractTagObject {
     public final static HashMap<String, Function2<TagData, AbstractTagObject, AbstractTagObject>> handlers = new HashMap<>();
 
     static {
+        // <--[tag]
+        // @Name BooleanTag.not
+        // @Group Boolean Logic
+        // @ReturnType BooleanTag
+        // @Returns whether the opposite of this boolean.
+        // @Example "true" .not returns "false".
+        // @Example "false" .not returns "true".
+        // -->
+        handlers.put("not", (dat, obj) -> {
+            return new BooleanTag(!((BooleanTag) obj).getInternal());
+        });
+        // <--[tag]
+        // @Name BooleanTag.and[<BooleanTag>]
+        // @Group Boolean Logic
+        // @ReturnType BooleanTag
+        // @Returns whether this boolean and the input boolean are both 'true'.
+        // @Example "true" .and[true] returns "true".
+        // @Example "true" .and[false] returns "false".
+        // @Example "false" .and[true] returns "false".
+        // @Example "false" .and[false] returns "false".
+        // -->
+        handlers.put("and", (dat, obj) -> {
+            return new BooleanTag(((BooleanTag) obj).getInternal() && BooleanTag.getFor(dat.error, dat.getNextModifier()).getInternal());
+        });
+        // <--[tag]
+        // @Name BooleanTag.or[<BooleanTag>]
+        // @Group Boolean Logic
+        // @ReturnType BooleanTag
+        // @Returns whether this boolean or the input boolean are 'true'.
+        // @Example "true" .or[true] returns "true".
+        // @Example "true" .or[false] returns "true".
+        // @Example "false" .or[true] returns "true".
+        // @Example "false" .or[false] returns "false".
+        // -->
+        handlers.put("or", (dat, obj) -> {
+            return new BooleanTag(((BooleanTag) obj).getInternal() && BooleanTag.getFor(dat.error, dat.getNextModifier()).getInternal());
+        });
+        // <--[tag]
+        // @Name BooleanTag.xor[<BooleanTag>]
+        // @Group Boolean Logic
+        // @ReturnType BooleanTag
+        // @Returns whether this boolean exclusive-or the input boolean are 'true'. Meaning, exactly one of the two must be true, and the other false.
+        // @Example "true" .xor[true] returns "false".
+        // @Example "true" .xor[false] returns "true".
+        // @Example "false" .xor[true] returns "true".
+        // @Example "false" .xor[false] returns "false".
+        // -->
+        handlers.put("or", (dat, obj) -> {
+            return new BooleanTag(((BooleanTag) obj).getInternal() != BooleanTag.getFor(dat.error, dat.getNextModifier()).getInternal());
+        });
     }
 
     public static BooleanTag getFor(Action<String> error, String text) {
