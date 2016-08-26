@@ -264,7 +264,7 @@ public class NumberTag extends AbstractTagObject {
         // @Name NumberTag.round
         // @Group Mathematics
         // @ReturnType NumberTag
-        // @Returns the number rounded up.
+        // @Returns the number rounded to the closest whole number.
         // @Example "0.5" .round returns "1".
         // -->
         handlers.put("round", (dat, obj) -> {

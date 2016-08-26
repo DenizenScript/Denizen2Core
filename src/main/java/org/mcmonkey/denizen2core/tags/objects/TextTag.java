@@ -38,6 +38,22 @@ public class TextTag extends AbstractTagObject {
         // @Example "1" .to_integer returns "1".
         // -->
         handlers.put("to_integer", (dat, obj) -> IntegerTag.getFor(dat.error, ((TextTag) obj).internal));
+        // <--[tag]
+        // @Name TextTag.to_number
+        // @Group Text Modification
+        // @ReturnType NumberTag
+        // @Returns the text parsed as a number.
+        // @Example "1" .to_number returns "1".
+        // -->
+        handlers.put("to_number", (dat, obj) -> NumberTag.getFor(dat.error, ((TextTag) obj).internal));
+        // <--[tag]
+        // @Name TextTag.to_boolean
+        // @Group Text Modification
+        // @ReturnType NumberTag
+        // @Returns the text parsed as a boolean.
+        // @Example "true" .to_boolean returns "true".
+        // -->
+        handlers.put("to_boolean", (dat, obj) -> BooleanTag.getFor(dat.error, ((TextTag) obj).internal));
     }
 
     public static TextTag getFor(Action<String> error, String text) {
