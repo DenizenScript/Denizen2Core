@@ -182,7 +182,7 @@ public class Denizen2Core {
         }
         CommandScript script = getter.apply(scriptName, section);
         if (script.init()) {
-            getImplementation().outputInfo("Loaded script '" + ColorSet.emphasis + scriptName + ColorSet.base + "'");
+            getImplementation().outputGood("Loaded script '" + ColorSet.emphasis + scriptName + ColorSet.good + "'");
             currentScripts.put(scriptName, script);
         }
         else {
