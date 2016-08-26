@@ -157,6 +157,189 @@ public class NumberTag extends AbstractTagObject {
             NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
             return new NumberTag(Math.min(((NumberTag) obj).internal, two.internal));
         });
+        // <--[tag]
+        // @Name NumberTag.log[<NumberTag>]
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the logarithm (base: specified number) of this number.
+        // @Example "2" .log[2] returns "1".
+        // -->
+        handlers.put("log", (dat, obj) -> {
+            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            return new NumberTag(Math.log(((NumberTag) obj).internal) / Math.log(two.internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.to_the_power_of[<NumberTag>]
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the number to the power of the specified number.
+        // @Example "2" .to_the_power_of[2] returns "4".
+        // -->
+        handlers.put("to_the_power_of", (dat, obj) -> {
+            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            return new NumberTag(Math.pow(((NumberTag) obj).internal, two.internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.absolute_value
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the absolute value of this number.
+        // @Example "-1" .absolute_value returns "1".
+        // -->
+        handlers.put("absolute_value", (dat, obj) -> {
+            return new NumberTag(Math.abs(((NumberTag) obj).internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.cosine
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the cosine of this number.
+        // @Example "3.14159" .cosine returns "-1".
+        // -->
+        handlers.put("cosine", (dat, obj) -> {
+            return new NumberTag(Math.cos(((NumberTag) obj).internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.sine
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the sine of this number.
+        // @Example "3.14159" .sine returns "0".
+        // -->
+        handlers.put("sine", (dat, obj) -> {
+            return new NumberTag(Math.sin(((NumberTag) obj).internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.arccosine
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the arccosine of this number.
+        // @Example "1" .arccosine returns "0".
+        // -->
+        handlers.put("arccosine", (dat, obj) -> {
+            return new NumberTag(Math.acos(((NumberTag) obj).internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.arcsine
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the arcsine of this number.
+        // @Example "0" .arcsine returns "0".
+        // -->
+        handlers.put("arcsine", (dat, obj) -> {
+            return new NumberTag(Math.asin(((NumberTag) obj).internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.arctangent
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the arctangent of this number.
+        // @Example "0" .arctangent returns "0".
+        // -->
+        handlers.put("arctangent", (dat, obj) -> {
+            return new NumberTag(Math.atan(((NumberTag) obj).internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.tangent
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the tangent of this number.
+        // @Example "3.14159" .tangent returns "0".
+        // -->
+        handlers.put("tangent", (dat, obj) -> {
+            return new NumberTag(Math.tan(((NumberTag) obj).internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.atan2[<NumberTag>]
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the inverse of the tangent that is the number divided by the specified number.
+        // @Example "0" .atan2[1] returns "0".
+        // -->
+        handlers.put("atan2", (dat, obj) -> {
+            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            return new NumberTag(Math.atan2(((NumberTag) obj).internal, two.internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.round
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the number rounded up.
+        // @Example "0.5" .round returns "1".
+        // -->
+        handlers.put("round", (dat, obj) -> {
+            return new NumberTag(Math.round(((NumberTag) obj).internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.round_up
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the number rounded up.
+        // @Example "0.5" .round_up returns "1".
+        // -->
+        handlers.put("round_up", (dat, obj) -> {
+            return new NumberTag(Math.ceil(((NumberTag) obj).internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.round_down
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the number rounded down.
+        // @Example "0.5" .round_down returns "0".
+        // -->
+        handlers.put("round_up", (dat, obj) -> {
+            return new NumberTag(Math.floor(((NumberTag) obj).internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.sign
+        // @Group Mathematics
+        // @ReturnType IntegerTag
+        // @Returns the sign of this number, which can be -1, 0, or 1.
+        // @Example "-5" .sign returns "-1".
+        // -->
+        handlers.put("sign", (dat, obj) -> {
+            return new IntegerTag((int)Math.signum(((NumberTag) obj).internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.hyberbolic_sine
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the hyperbolic sine of this number.
+        // @Example "0" .hyberbolic_sine returns "0".
+        // -->
+        handlers.put("hyberbolic_sine", (dat, obj) -> {
+            return new NumberTag(Math.sinh(((NumberTag) obj).internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.hyberbolic_cosine
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the hyperbolic cosine of this number.
+        // @Example "0" .hyberbolic_cosine returns "1".
+        // -->
+        handlers.put("hyberbolic_cosine", (dat, obj) -> {
+            return new NumberTag(Math.cosh(((NumberTag) obj).internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.hyberbolic_tangent
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the hyperbolic tangent of this number.
+        // @Example "0" .hyberbolic_tangent returns "0".
+        // -->
+        handlers.put("hyberbolic_tangent", (dat, obj) -> {
+            return new NumberTag(Math.tanh(((NumberTag) obj).internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.square_root
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the square root of this number.
+        // @Example "4" .square_root returns "2".
+        // -->
+        handlers.put("square_root", (dat, obj) -> {
+            return new NumberTag(Math.sqrt(((NumberTag) obj).internal));
+        });
     }
 
     public static NumberTag getFor(Action<String> error, String text) {

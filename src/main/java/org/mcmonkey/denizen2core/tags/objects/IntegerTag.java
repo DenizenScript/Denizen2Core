@@ -55,6 +55,10 @@ public class IntegerTag extends AbstractTagObject {
             IntegerTag two = IntegerTag.getFor(dat.error, dat.getNextModifier());
             return new BooleanTag(((IntegerTag) obj).internal == two.internal);
         });
+        // Documented in NumberTag.
+        handlers.put("sign", (dat, obj) -> {
+            return new IntegerTag((int)Math.signum(((IntegerTag) obj).internal));
+        });
         // <--[tag]
         // @Name IntegerTag.add_integer[<IntegerTag>]
         // @Group Mathematics
