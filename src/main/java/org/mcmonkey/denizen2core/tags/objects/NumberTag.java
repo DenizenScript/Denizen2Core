@@ -32,6 +32,55 @@ public class NumberTag extends AbstractTagObject {
 
     static {
         // <--[tag]
+        // @Name NumberTag.is_greater_than[<NumberTag>]
+        // @Group Mathematics
+        // @ReturnType BooleanTag
+        // @Returns whether this number is bigger than the specified number.
+        // @Example "1" .is_greater_than[2] returns "false".
+        // -->
+        handlers.put("is_greater_than", (dat, obj) -> {
+            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            return new BooleanTag(((NumberTag) obj).internal > two.internal);
+        });
+        // <--[tag]
+        // @Name NumberTag.is_greater_than_or_equal_to[<NumberTag>]
+        // @Group Mathematics
+        // @ReturnType BooleanTag
+        // @Returns whether this number is bigger than or equal to the specified number.
+        // @Example "1" .is_greater_than_or_equal_to[2] returns "false".
+        // -->
+        handlers.put("is_greater_than_or_equal_to", (dat, obj) -> {
+            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            return new BooleanTag(((NumberTag) obj).internal >= two.internal);
+        });
+        // <--[tag]
+        // @Name NumberTag.is_less_than[<NumberTag>]
+        // @Group Mathematics
+        // @ReturnType BooleanTag
+        // @Returns whether this number is smaller than the specified number.
+        // @Example "1" .is_less_than[2] returns "false".
+        // -->
+        handlers.put("is_less_than", (dat, obj) -> {
+            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            return new BooleanTag(((NumberTag) obj).internal < two.internal);
+        });
+        // <--[tag]
+        // @Name NumberTag.is_less_than_or_equal_to[<NumberTag>]
+        // @Group Mathematics
+        // @ReturnType BooleanTag
+        // @Returns whether this number is smaller than or equal to the specified number.
+        // @Example "1" .is_less_than_or_equal_to[2] returns "false".
+        // -->
+        handlers.put("is_less_than_or_equal_to", (dat, obj) -> {
+            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            return new BooleanTag(((NumberTag) obj).internal <= two.internal);
+        });
+        // Documented in TextTag.
+        handlers.put("equals", (dat, obj) -> {
+            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            return new BooleanTag(((NumberTag) obj).internal == two.internal);
+        });
+        // <--[tag]
         // @Name NumberTag.add[<NumberTag>]
         // @Group Mathematics
         // @ReturnType NumberTag
@@ -85,6 +134,28 @@ public class NumberTag extends AbstractTagObject {
         handlers.put("modulo", (dat, obj) -> {
             NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
             return new NumberTag(((NumberTag) obj).internal % two.internal);
+        });
+        // <--[tag]
+        // @Name NumberTag.maximum[<NumberTag>]
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns whichever is bigger: this number, or the specified number.
+        // @Example "1" .maximum[2] returns "2".
+        // -->
+        handlers.put("maximum", (dat, obj) -> {
+            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            return new NumberTag(Math.max(((NumberTag) obj).internal, two.internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.minimum[<NumberTag>]
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns whichever is smaller: this number, or the specified number.
+        // @Example "1" .maximum[2] returns "1".
+        // -->
+        handlers.put("minimum", (dat, obj) -> {
+            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            return new NumberTag(Math.min(((NumberTag) obj).internal, two.internal));
         });
     }
 
