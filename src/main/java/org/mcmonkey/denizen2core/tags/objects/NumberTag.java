@@ -169,13 +169,13 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.log(((NumberTag) obj).internal) / Math.log(two.internal));
         });
         // <--[tag]
-        // @Name NumberTag.to_the_power_of[<NumberTag>]
+        // @Name NumberTag.power[<NumberTag>]
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number to the power of the specified number.
-        // @Example "2" .to_the_power_of[2] returns "4".
+        // @Example "2" .power[2] returns "4".
         // -->
-        handlers.put("to_the_power_of", (dat, obj) -> {
+        handlers.put("power", (dat, obj) -> {
             NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
             return new NumberTag(Math.pow(((NumberTag) obj).internal, two.internal));
         });
@@ -287,7 +287,7 @@ public class NumberTag extends AbstractTagObject {
         // @Returns the number rounded down.
         // @Example "0.5" .round_down returns "0".
         // -->
-        handlers.put("round_up", (dat, obj) -> {
+        handlers.put("round_down", (dat, obj) -> {
             return new NumberTag(Math.floor(((NumberTag) obj).internal));
         });
         // <--[tag]
