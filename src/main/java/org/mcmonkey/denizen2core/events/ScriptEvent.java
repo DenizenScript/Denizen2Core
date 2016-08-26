@@ -107,15 +107,15 @@ public abstract class ScriptEvent implements Cloneable {
                         if (split.size() > 1 && low.equals("require")) {
                             data.requirements.add(Denizen2Core.splitToArgument(split.get(1), false));
                         }
-                        else if (split.size() > 1){
+                        else if (split.size() > 1) {
                             data.switches.put(low, split.get(1));
                         }
                     }
                     usages.add(data);
                     if (generalDebug) {
                         Debug.good("Script event match: " + ColorSet.emphasis + getName()
-                        + ColorSet.good + " matched for: " + ColorSet.emphasis + script.title + "." + evt.str
-                        + ColorSet.good + "!");
+                                + ColorSet.good + " matched for: " + ColorSet.emphasis + script.title + "." + evt.str
+                                + ColorSet.good + "!");
                     }
                 }
             }

@@ -5,7 +5,6 @@ import org.mcmonkey.denizen2core.commands.CommandEntry;
 import org.mcmonkey.denizen2core.commands.CommandQueue;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.objects.ListTag;
-import org.mcmonkey.denizen2core.tags.objects.QueueTag;
 
 public class RequireCommand extends AbstractCommand {
 

@@ -1,13 +1,11 @@
 package org.mcmonkey.denizen2core.commands;
 
 import org.mcmonkey.denizen2core.Denizen2Core;
-import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.objects.MapTag;
 import org.mcmonkey.denizen2core.utilities.Action;
 import org.mcmonkey.denizen2core.utilities.ErrorInducedException;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 
-import java.util.HashMap;
 import java.util.Stack;
 
 /**
@@ -111,7 +109,7 @@ public class CommandQueue {
     }
 
     public void handleError(String error) {
-        handleError(currentEntry.getIndex() < currentEntry.entries.length ? currentEntry.entries[currentEntry.getIndex()]: null, error);
+        handleError(currentEntry.getIndex() < currentEntry.entries.length ? currentEntry.entries[currentEntry.getIndex()] : null, error);
     }
 
     public void handleError(CommandEntry entry, String error) {

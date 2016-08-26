@@ -36,12 +36,7 @@ import java.io.InputStream;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -387,12 +382,10 @@ public class Denizen2Core {
             if (blocks > 0) {
                 switch (c) {
                     case '.':
-                        if (blocks > 1 || brackets > 0)
-                        {
+                        if (blocks > 1 || brackets > 0) {
                             blockbuilder.append("&dot");
                         }
-                        else
-                        {
+                        else {
                             blockbuilder.append(".");
                         }
                         break;

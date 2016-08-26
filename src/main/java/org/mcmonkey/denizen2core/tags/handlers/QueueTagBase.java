@@ -6,8 +6,6 @@ import org.mcmonkey.denizen2core.tags.TagData;
 import org.mcmonkey.denizen2core.tags.objects.NullTag;
 import org.mcmonkey.denizen2core.tags.objects.QueueTag;
 
-import java.util.Queue;
-
 public class QueueTagBase extends AbstractTagBase {
 
     // <--[tagbase]

@@ -11,7 +11,6 @@ import org.mcmonkey.denizen2core.tags.objects.BooleanTag;
 import org.mcmonkey.denizen2core.tags.objects.NumberTag;
 import org.mcmonkey.denizen2core.tags.objects.TextTag;
 import org.mcmonkey.denizen2core.utilities.Action;
-import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 
 import java.util.ArrayList;
 import java.util.HashMap;

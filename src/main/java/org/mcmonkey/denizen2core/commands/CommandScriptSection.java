@@ -2,14 +2,12 @@ package org.mcmonkey.denizen2core.commands;
 
 import org.mcmonkey.denizen2core.DebugMode;
 import org.mcmonkey.denizen2core.scripts.CommandScript;
-import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Represents a section of a script.

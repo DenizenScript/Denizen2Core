@@ -50,6 +50,7 @@ public class TagData {
     public boolean hasNextModifier() {
         return bits[cInd].variable != null && bits[cInd].variable.bits.size() > 0;
     }
+
     public AbstractTagObject getNextModifier() {
         return bits[cInd].variable.parse(currentQueue, variables, dbmode, error);
     }

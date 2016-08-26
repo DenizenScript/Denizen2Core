@@ -70,7 +70,7 @@ public class InjectCommand extends AbstractCommand {
             return;
         }
         TaskScript task = (TaskScript) script;
-        CommandScriptSection section = task.getSection(bits.size() > 1 ? bits.get(1): null);
+        CommandScriptSection section = task.getSection(bits.size() > 1 ? bits.get(1) : null);
         if (section == null) {
             queue.handleError(entry, "Invalid script section!");
             return;

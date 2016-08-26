@@ -28,7 +28,7 @@ final class AddonClassLoader extends URLClassLoader {
         return addon;
     }
 
-    synchronized void initialize(DenizenAddon addon) {
+    void initialize(DenizenAddon addon) {
         if (addon.getClass().getClassLoader() != this) {
             throw new IllegalStateException("Can't initialize addon outside of its own AddonClassLoader!");
         }

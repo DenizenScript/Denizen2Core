@@ -77,7 +77,7 @@ public class ElseCommand extends AbstractCommand {
             queue.handleError(entry, "ELSE invalid, IF did not precede.");
             return;
         }
-        IfCommand.IfCommandData data = (IfCommand.IfCommandData)entry.getData(queue);
+        IfCommand.IfCommandData data = (IfCommand.IfCommandData) entry.getData(queue);
         if (data.result == 1) {
             if (queue.shouldShowGood()) {
                 queue.outGood("Else continuing, previous IF passed.");

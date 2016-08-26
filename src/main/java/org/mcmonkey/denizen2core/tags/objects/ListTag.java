@@ -4,7 +4,6 @@ import org.mcmonkey.denizen2core.arguments.TextArgumentBit;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.TagData;
 import org.mcmonkey.denizen2core.tags.handlers.EscapeTagBase;
-import org.mcmonkey.denizen2core.tags.handlers.UnescapeTagBase;
 import org.mcmonkey.denizen2core.utilities.Action;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.Function2;

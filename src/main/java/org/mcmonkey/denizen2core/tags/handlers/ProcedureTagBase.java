@@ -13,7 +13,7 @@ import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 
 import java.util.HashMap;
 
-public class ProcedureTagBase extends AbstractTagBase{
+public class ProcedureTagBase extends AbstractTagBase {
 
     // <--[tagbase]
     // @Base procedure[<MapTag>]

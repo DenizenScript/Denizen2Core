@@ -103,7 +103,7 @@ public class RepeatCommand extends AbstractCommand {
             }
             RepeatCommandData rcd = new RepeatCommandData();
             rcd.current = 1;
-            rcd.end = (int)itag.getInternal();
+            rcd.end = (int) itag.getInternal();
             entry.setData(queue, rcd);
             queue.commandStack.peek().setDefinition("repeat_index", new IntegerTag(rcd.current));
             queue.commandStack.peek().setDefinition("repeat_total", new IntegerTag(rcd.end));

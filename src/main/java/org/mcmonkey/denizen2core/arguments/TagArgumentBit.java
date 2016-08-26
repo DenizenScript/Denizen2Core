@@ -36,7 +36,7 @@ public class TagArgumentBit extends ArgumentBit {
     public String getString() {
         StringBuilder tag = new StringBuilder();
         tag.append("<");
-        tag.append(bits.length > 0 ? bits[0].toString(): "");
+        tag.append(bits.length > 0 ? bits[0].toString() : "");
         for (int i = 1; i < bits.length; i++) {
             tag.append(".").append(bits[i].toString());
         }

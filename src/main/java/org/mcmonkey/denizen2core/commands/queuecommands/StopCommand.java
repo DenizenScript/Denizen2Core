@@ -1,13 +1,9 @@
 package org.mcmonkey.denizen2core.commands.queuecommands;
 
-import org.mcmonkey.denizen2core.Denizen2Core;
 import org.mcmonkey.denizen2core.commands.AbstractCommand;
 import org.mcmonkey.denizen2core.commands.CommandEntry;
 import org.mcmonkey.denizen2core.commands.CommandQueue;
-import org.mcmonkey.denizen2core.tags.objects.IntegerTag;
 import org.mcmonkey.denizen2core.tags.objects.QueueTag;
-
-import java.util.ArrayList;
 
 public class StopCommand extends AbstractCommand {
 

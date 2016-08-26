@@ -8,7 +8,6 @@ import org.mcmonkey.denizen2core.utilities.Action;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.Function2;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,7 +92,7 @@ public class MapTag extends AbstractTagObject {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<String, AbstractTagObject> obj: internal.entrySet()) {
+        for (Map.Entry<String, AbstractTagObject> obj : internal.entrySet()) {
             sb.append(EscapeTagBase.escape(obj.getKey())).append(":")
                     .append(EscapeTagBase.escape(obj.getValue().toString())).append("|");
         }

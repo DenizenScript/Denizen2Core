@@ -1,7 +1,6 @@
 package org.mcmonkey.denizen2core.utilities.yaml;
 
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
-import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 

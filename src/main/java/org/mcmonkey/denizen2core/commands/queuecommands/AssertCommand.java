@@ -3,9 +3,7 @@ package org.mcmonkey.denizen2core.commands.queuecommands;
 import org.mcmonkey.denizen2core.commands.AbstractCommand;
 import org.mcmonkey.denizen2core.commands.CommandEntry;
 import org.mcmonkey.denizen2core.commands.CommandQueue;
-import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.objects.BooleanTag;
-import org.mcmonkey.denizen2core.tags.objects.ListTag;
 
 public class AssertCommand extends AbstractCommand {
 

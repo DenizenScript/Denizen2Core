@@ -1,11 +1,13 @@
 package org.mcmonkey.denizen2core.commands.queuecommands;
 
 import org.mcmonkey.denizen2core.Denizen2Core;
-import org.mcmonkey.denizen2core.commands.*;
+import org.mcmonkey.denizen2core.commands.AbstractCommand;
+import org.mcmonkey.denizen2core.commands.CommandEntry;
+import org.mcmonkey.denizen2core.commands.CommandQueue;
+import org.mcmonkey.denizen2core.commands.CommandScriptSection;
 import org.mcmonkey.denizen2core.scripts.CommandScript;
 import org.mcmonkey.denizen2core.scripts.commontypes.TaskScript;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
-import org.mcmonkey.denizen2core.tags.objects.IntegerTag;
 import org.mcmonkey.denizen2core.tags.objects.MapTag;
 import org.mcmonkey.denizen2core.tags.objects.QueueTag;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
@@ -78,7 +80,7 @@ public class RunCommand extends AbstractCommand {
             return;
         }
         TaskScript task = (TaskScript) script;
-        CommandScriptSection section = task.getSection(bits.size() > 1 ? bits.get(1): null);
+        CommandScriptSection section = task.getSection(bits.size() > 1 ? bits.get(1) : null);
         if (section == null) {
             queue.handleError(entry, "Invalid script section!");
             return;

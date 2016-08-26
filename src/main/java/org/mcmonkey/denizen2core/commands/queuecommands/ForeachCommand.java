@@ -7,7 +7,6 @@ import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.objects.IntegerTag;
 import org.mcmonkey.denizen2core.tags.objects.ListTag;
 import org.mcmonkey.denizen2core.tags.objects.NullTag;
-import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
 
 public class ForeachCommand extends AbstractCommand {

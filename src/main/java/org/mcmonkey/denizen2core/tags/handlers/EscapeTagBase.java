@@ -3,7 +3,6 @@ package org.mcmonkey.denizen2core.tags.handlers;
 import org.mcmonkey.denizen2core.tags.AbstractTagBase;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.TagData;
-import org.mcmonkey.denizen2core.tags.objects.NullTag;
 import org.mcmonkey.denizen2core.tags.objects.TextTag;
 
 public class EscapeTagBase extends AbstractTagBase {

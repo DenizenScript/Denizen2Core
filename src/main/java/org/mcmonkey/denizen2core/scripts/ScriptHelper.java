@@ -9,7 +9,7 @@ public class ScriptHelper {
     public static String ClearComments(String input) {
         StringBuilder result = new StringBuilder(input.length());
         List<String> lines = CoreUtilities.split(input.replace("\t", "    ").replace("\r", ""), '\n');
-        for (String l: lines) {
+        for (String l : lines) {
             String line = l.trim();
             if (!line.startsWith("#") && !line.equals("}")) {
                 String liner = l.replace('\0', ' ').replaceAll("\\s+$", "");

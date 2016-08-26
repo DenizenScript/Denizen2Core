@@ -1,6 +1,6 @@
 package org.mcmonkey.denizen2core;
 
-public enum  DebugMode {
+public enum DebugMode {
 
     FULL(true, true),
     MINIMAL(false, true),
