@@ -33,13 +33,14 @@ public class ScriptTag extends AbstractTagObject {
 
     static {
         // <--[tag]
-        // @Name QueueTag.title
+        // @Name ScriptTag.title
+        // @Updated 2016/08/26
         // @Group Identification
         // @ReturnType TextTag
         // @Returns the title of the script.
         // @Example "MyTask" .title returns "MyTask".
         // -->
-        handlers.put("name", (dat, obj) -> {
+        handlers.put("title", (dat, obj) -> {
             return new TextTag(((ScriptTag) obj).internal.title);
         });
     }

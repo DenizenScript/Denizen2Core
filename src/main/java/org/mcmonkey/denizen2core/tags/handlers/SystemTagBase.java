@@ -34,6 +34,7 @@ public class SystemTagBase extends AbstractTagBase {
     static {
         // <--[tag]
         // @Name SystemTag.current_time
+        // @Updated 2016/08/26
         // @Group Utilities
         // @ReturnType TimeTag
         // @Returns the system's current time.
@@ -41,6 +42,7 @@ public class SystemTagBase extends AbstractTagBase {
         handlers.put("current_time", (dat, obj) -> new TimeTag(LocalDateTime.now(Clock.systemUTC())));
         // <--[tag]
         // @Name SystemTag.core_version
+        // @Updated 2016/08/26
         // @Group Denizen2
         // @ReturnType TextTag
         // @Returns the Denizen2 Core version.
@@ -48,6 +50,7 @@ public class SystemTagBase extends AbstractTagBase {
         handlers.put("core_version", (dat, obj) -> new TextTag(Denizen2Core.version));
         // <--[tag]
         // @Name SystemTag.implementation
+        // @Updated 2016/08/26
         // @Group Denizen2
         // @ReturnType TextTag
         // @Returns the Denizen2 implementation's name.
@@ -55,6 +58,7 @@ public class SystemTagBase extends AbstractTagBase {
         handlers.put("implementation", (dat, obj) -> new TextTag(Denizen2Core.getImplementation().getImplementationName()));
         // <--[tag]
         // @Name SystemTag.implementation_version
+        // @Updated 2016/08/26
         // @Group Denizen2
         // @ReturnType TextTag
         // @Returns the Denizen2 implementation's version.
@@ -62,6 +66,7 @@ public class SystemTagBase extends AbstractTagBase {
         handlers.put("implementation_version", (dat, obj) -> new TextTag(Denizen2Core.getImplementation().getImplementationVersion()));
         // <--[tag]
         // @Name SystemTag.queues
+        // @Updated 2016/08/26
         // @Group Denizen2
         // @ReturnType ListTag
         // @Returns a list of all current queues.

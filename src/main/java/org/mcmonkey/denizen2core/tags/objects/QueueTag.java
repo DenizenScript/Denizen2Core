@@ -34,6 +34,7 @@ public class QueueTag extends AbstractTagObject {
     static {
         // <--[tag]
         // @Name QueueTag.id
+        // @Updated 2016/08/26
         // @Group Identification
         // @ReturnType IntegerTag
         // @Returns the integer ID of the queue.
@@ -44,6 +45,7 @@ public class QueueTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name QueueTag.running
+        // @Updated 2016/08/26
         // @Group Information
         // @ReturnType BooleanTag
         // @Returns whether the queue is still running.
@@ -54,6 +56,7 @@ public class QueueTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name QueueTag.current_script
+        // @Updated 2016/08/26
         // @Group Information
         // @ReturnType ScriptTag
         // @Returns the script currently running on the queue. If none is available, returns a NullTag!
@@ -68,6 +71,7 @@ public class QueueTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name QueueTag.base_script
+        // @Updated 2016/08/26
         // @Group Information
         // @ReturnType ScriptTag
         // @Returns the script that ran first on the queue. If none is available, returns a NullTag!
@@ -85,6 +89,7 @@ public class QueueTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name QueueTag.has_definition[<TextTag>]
+        // @Updated 2016/08/26
         // @Group Information
         // @ReturnType BooleanTag
         // @Returns whether the queue has the specified definition.
@@ -95,6 +100,7 @@ public class QueueTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name QueueTag.definition[<TextTag>]
+        // @Updated 2016/08/26
         // @Group Information
         // @ReturnType Dynamic
         // @Returns the value of the specified definition on the queue.

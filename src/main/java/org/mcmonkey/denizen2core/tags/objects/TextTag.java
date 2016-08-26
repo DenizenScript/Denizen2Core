@@ -32,6 +32,7 @@ public class TextTag extends AbstractTagObject {
     static {
         // <--[tag]
         // @Name TextTag.to_integer
+        // @Updated 2016/08/26
         // @Group Text Modification
         // @ReturnType IntegerTag
         // @Returns the text parsed as an integer.
@@ -40,6 +41,7 @@ public class TextTag extends AbstractTagObject {
         handlers.put("to_integer", (dat, obj) -> IntegerTag.getFor(dat.error, ((TextTag) obj).internal));
         // <--[tag]
         // @Name TextTag.to_number
+        // @Updated 2016/08/26
         // @Group Text Modification
         // @ReturnType NumberTag
         // @Returns the text parsed as a number.
@@ -48,6 +50,7 @@ public class TextTag extends AbstractTagObject {
         handlers.put("to_number", (dat, obj) -> NumberTag.getFor(dat.error, ((TextTag) obj).internal));
         // <--[tag]
         // @Name TextTag.to_boolean
+        // @Updated 2016/08/26
         // @Group Text Modification
         // @ReturnType NumberTag
         // @Returns the text parsed as a boolean.

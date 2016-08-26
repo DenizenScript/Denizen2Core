@@ -32,6 +32,7 @@ public class BooleanTag extends AbstractTagObject {
     static {
         // <--[tag]
         // @Name BooleanTag.not
+        // @Updated 2016/08/26
         // @Group Boolean Logic
         // @ReturnType BooleanTag
         // @Returns whether the opposite of this boolean.
@@ -43,6 +44,7 @@ public class BooleanTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name BooleanTag.and[<BooleanTag>]
+        // @Updated 2016/08/26
         // @Group Boolean Logic
         // @ReturnType BooleanTag
         // @Returns whether this boolean and the input boolean are both 'true'.
@@ -56,6 +58,7 @@ public class BooleanTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name BooleanTag.or[<BooleanTag>]
+        // @Updated 2016/08/26
         // @Group Boolean Logic
         // @ReturnType BooleanTag
         // @Returns whether this boolean or the input boolean are 'true'.
@@ -69,6 +72,7 @@ public class BooleanTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name BooleanTag.xor[<BooleanTag>]
+        // @Updated 2016/08/26
         // @Group Boolean Logic
         // @ReturnType BooleanTag
         // @Returns whether this boolean exclusive-or the input boolean are 'true'. Meaning, exactly one of the two must be true, and the other false.

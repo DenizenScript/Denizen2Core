@@ -33,6 +33,7 @@ public class NumberTag extends AbstractTagObject {
     static {
         // <--[tag]
         // @Name NumberTag.is_greater_than[<NumberTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType BooleanTag
         // @Returns whether this number is bigger than the specified number.
@@ -44,6 +45,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.is_greater_than_or_equal_to[<NumberTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType BooleanTag
         // @Returns whether this number is bigger than or equal to the specified number.
@@ -55,6 +57,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.is_less_than[<NumberTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType BooleanTag
         // @Returns whether this number is smaller than the specified number.
@@ -66,6 +69,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.is_less_than_or_equal_to[<NumberTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType BooleanTag
         // @Returns whether this number is smaller than or equal to the specified number.
@@ -82,6 +86,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.add[<NumberTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number plus another number.
@@ -93,6 +98,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.subtract[<NumberTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number minus another number.
@@ -104,6 +110,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.multiply[<NumberTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number times another number.
@@ -115,6 +122,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.divide[<NumberTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number divided by another number.
@@ -126,6 +134,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.modulo[<NumberTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number modulo another number.
@@ -137,6 +146,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.maximum[<NumberTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns whichever is bigger: this number, or the specified number.
@@ -148,6 +158,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.minimum[<NumberTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns whichever is smaller: this number, or the specified number.
@@ -159,6 +170,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.log[<NumberTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the logarithm (base: specified number) of this number.
@@ -170,6 +182,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.power[<NumberTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number to the power of the specified number.
@@ -181,6 +194,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.absolute_value
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the absolute value of this number.
@@ -191,6 +205,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.cosine
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the cosine of this number.
@@ -201,6 +216,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.sine
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the sine of this number.
@@ -211,6 +227,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.arccosine
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the arccosine of this number.
@@ -221,6 +238,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.arcsine
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the arcsine of this number.
@@ -231,6 +249,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.arctangent
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the arctangent of this number.
@@ -241,6 +260,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.tangent
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the tangent of this number.
@@ -251,6 +271,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.atan2[<NumberTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the inverse of the tangent that is the number divided by the specified number.
@@ -262,6 +283,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.round
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number rounded to the closest whole number.
@@ -272,6 +294,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.round_up
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number rounded up.
@@ -282,6 +305,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.round_down
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number rounded down.
@@ -292,6 +316,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.sign
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the sign of this number, which can be -1, 0, or 1.
@@ -302,6 +327,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.hyberbolic_sine
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the hyperbolic sine of this number.
@@ -312,6 +338,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.hyberbolic_cosine
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the hyperbolic cosine of this number.
@@ -322,6 +349,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.hyberbolic_tangent
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the hyperbolic tangent of this number.
@@ -332,6 +360,7 @@ public class NumberTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name NumberTag.square_root
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the square root of this number.

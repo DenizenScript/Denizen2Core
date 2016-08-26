@@ -40,6 +40,7 @@ public class MapTag extends AbstractTagObject {
     static {
         // <--[tag]
         // @Name MapTag.get[<IntegerTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType Dynamic
         // @Returns the object with the specified name in the map.

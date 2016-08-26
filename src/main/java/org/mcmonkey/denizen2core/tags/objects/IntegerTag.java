@@ -61,6 +61,7 @@ public class IntegerTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name IntegerTag.add_integer[<IntegerTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the integer plus another integer.
@@ -72,6 +73,7 @@ public class IntegerTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name IntegerTag.subtract_integer[<IntegerTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the integer minus another integer.
@@ -83,6 +85,7 @@ public class IntegerTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name IntegerTag.multiply_integer[<IntegerTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the integer times another integer.
@@ -94,6 +97,7 @@ public class IntegerTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name IntegerTag.divide_integer[<IntegerTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the integer divided by another integer.
@@ -105,6 +109,7 @@ public class IntegerTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name IntegerTag.modulo_integer[<IntegerTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the integer modulo another integer.
@@ -116,6 +121,7 @@ public class IntegerTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name IntegerTag.maximum_integer[<IntegerTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns whichever is bigger: this integer, or the specified integer.
@@ -127,6 +133,7 @@ public class IntegerTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name IntegerTag.minimum_integer[<IntegerTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns whichever is smaller: this integer, or the specified integer.
@@ -138,6 +145,7 @@ public class IntegerTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name IntegerTag.absolute_value_integer
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the absolute value of this integer.

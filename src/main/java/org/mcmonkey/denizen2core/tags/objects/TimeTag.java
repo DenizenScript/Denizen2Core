@@ -37,6 +37,7 @@ public class TimeTag extends AbstractTagObject {
     static {
         // <--[tag]
         // @Name IntegerTag.year
+        // @Updated 2016/08/26
         // @Group General Information
         // @ReturnType IntegerTag
         // @Returns the year represented by this date.
@@ -45,6 +46,7 @@ public class TimeTag extends AbstractTagObject {
         handlers.put("year", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.getYear()));
         // <--[tag]
         // @Name IntegerTag.month
+        // @Updated 2016/08/26
         // @Group General Information
         // @ReturnType IntegerTag
         // @Returns the month represented by this date.
@@ -53,6 +55,7 @@ public class TimeTag extends AbstractTagObject {
         handlers.put("month", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.getMonthValue()));
         // <--[tag]
         // @Name IntegerTag.month_name
+        // @Updated 2016/08/26
         // @Group General Information
         // @ReturnType TextTag
         // @Returns the name of the month represented by this date.
@@ -61,6 +64,7 @@ public class TimeTag extends AbstractTagObject {
         handlers.put("month_name", (dat, obj) -> new TextTag(((TimeTag) obj).internal.getMonth().name()));
         // <--[tag]
         // @Name IntegerTag.day
+        // @Updated 2016/08/26
         // @Group General Information
         // @ReturnType IntegerTag
         // @Returns the day represented by this date.
@@ -69,6 +73,7 @@ public class TimeTag extends AbstractTagObject {
         handlers.put("day", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.getDayOfMonth()));
         // <--[tag]
         // @Name IntegerTag.day_of_year
+        // @Updated 2016/08/26
         // @Group General Information
         // @ReturnType IntegerTag
         // @Returns the day of the year represented by this date.
@@ -77,6 +82,7 @@ public class TimeTag extends AbstractTagObject {
         handlers.put("day_of_year", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.getDayOfYear()));
         // <--[tag]
         // @Name IntegerTag.day_of_week
+        // @Updated 2016/08/26
         // @Group General Information
         // @ReturnType IntegerTag
         // @Returns the day of the week represented by this date.
@@ -85,6 +91,7 @@ public class TimeTag extends AbstractTagObject {
         handlers.put("day_of_week", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.getDayOfWeek().getValue()));
         // <--[tag]
         // @Name IntegerTag.day_of_week_name
+        // @Updated 2016/08/26
         // @Group General Information
         // @ReturnType IntegerTag
         // @Returns the name of the day of the week represented by this date.
@@ -92,6 +99,7 @@ public class TimeTag extends AbstractTagObject {
         handlers.put("day_of_week_name", (dat, obj) -> new TextTag(((TimeTag) obj).internal.getDayOfWeek().name()));
         // <--[tag]
         // @Name IntegerTag.hour
+        // @Updated 2016/08/26
         // @Group General Information
         // @ReturnType IntegerTag
         // @Returns the hour of the day represented by this date.
@@ -99,6 +107,7 @@ public class TimeTag extends AbstractTagObject {
         handlers.put("hour", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.getHour()));
         // <--[tag]
         // @Name IntegerTag.minute
+        // @Updated 2016/08/26
         // @Group General Information
         // @ReturnType IntegerTag
         // @Returns the minute of the hour represented by this date.
@@ -106,6 +115,7 @@ public class TimeTag extends AbstractTagObject {
         handlers.put("minute", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.getMinute()));
         // <--[tag]
         // @Name IntegerTag.second
+        // @Updated 2016/08/26
         // @Group General Information
         // @ReturnType IntegerTag
         // @Returns the second of the minute represented by this date.

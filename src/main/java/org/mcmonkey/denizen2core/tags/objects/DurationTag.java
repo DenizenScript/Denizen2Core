@@ -47,6 +47,7 @@ public class DurationTag extends AbstractTagObject {
     static {
         // <--[tag]
         // @Name DurationTag.add_duration[<NumberTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType DurationTag
         // @Returns the duration plus another duration.
@@ -58,6 +59,7 @@ public class DurationTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name DurationTag.subtract_duration[<NumberTag>]
+        // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType DurationTag
         // @Returns the duration minus another duration.
