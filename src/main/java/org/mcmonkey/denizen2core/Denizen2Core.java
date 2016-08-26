@@ -1,5 +1,8 @@
 package org.mcmonkey.denizen2core;
 
+import org.mcmonkey.denizen2core.addons.AddonInfo;
+import org.mcmonkey.denizen2core.addons.AddonLoader;
+import org.mcmonkey.denizen2core.addons.DenizenAddon;
 import org.mcmonkey.denizen2core.arguments.Argument;
 import org.mcmonkey.denizen2core.arguments.TagArgumentBit;
 import org.mcmonkey.denizen2core.arguments.TagBit;
@@ -33,7 +36,12 @@ import java.io.InputStream;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -107,6 +115,8 @@ public class Denizen2Core {
         }
     }
 
+    private static List<DenizenAddon> addons = new ArrayList<>();
+
     public static void init(Denizen2Implementation impl) {
         // Track this implementation value
         implementation = impl;
@@ -162,6 +172,13 @@ public class Denizen2Core {
         // Common script events
         scriptReload = new ScriptReloadEvent();
         register(scriptReload);
+        File addonsFolder = impl.getAddonsFolder();
+        if (!addonsFolder.exists()) {
+            Debug.error("Addons folder non-existent!");
+        }
+        else {
+            addons.addAll(AddonLoader.loadAddons(addonsFolder));
+        }
     }
 
     private static ScriptReloadEvent scriptReload = new ScriptReloadEvent();
@@ -170,6 +187,7 @@ public class Denizen2Core {
         currentScripts.clear();
         ScriptEvent.currentWorldScripts.clear();
         load();
+        addons.forEach(DenizenAddon::reload);
         scriptReload.call();
     }
 
@@ -236,6 +254,26 @@ public class Denizen2Core {
         for (ScriptEvent event : events) {
             event.init();
         }
+    }
+
+    public static void unload() {
+        // TODO: unload other things???
+        disableAddons();
+    }
+
+    public static void disableAddons() {
+        for (DenizenAddon addon : addons) {
+            AddonInfo addonInfo = addon.getAddonInfo();
+            try {
+                Debug.info("Disabling addon " + addonInfo.getName() + " " + addonInfo.getVersion());
+                addon.disable();
+                Debug.good("Successfully disabled " + addonInfo.getName() + " " + addonInfo.getVersion());
+            }
+            catch (Exception e) {
+                Debug.error("Failed to disable addon " + addonInfo.getName() + " " + addonInfo.getVersion());
+            }
+        }
+        addons.clear();
     }
 
     public static void runString(String cmd) {

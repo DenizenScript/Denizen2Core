@@ -24,6 +24,8 @@ public abstract class Denizen2Implementation {
 
     public abstract File getScriptsFolder();
 
+    public abstract File getAddonsFolder();
+
     public abstract String getImplementationName();
 
     public abstract String getImplementationVersion();
