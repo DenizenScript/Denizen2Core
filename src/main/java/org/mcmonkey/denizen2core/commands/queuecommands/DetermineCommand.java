@@ -5,6 +5,7 @@ import org.mcmonkey.denizen2core.commands.CommandEntry;
 import org.mcmonkey.denizen2core.commands.CommandQueue;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.objects.BooleanTag;
+import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 
 public class DetermineCommand extends AbstractCommand {
 
@@ -54,7 +55,7 @@ public class DetermineCommand extends AbstractCommand {
 
     @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
-        String det = entry.getArgumentObject(queue, 0).toString();
+        String det = CoreUtilities.toLowerCase(entry.getArgumentObject(queue, 0).toString());
         AbstractTagObject ato = new BooleanTag(true);
         if (entry.arguments.size() > 1) {
             ato = entry.getArgumentObject(queue, 1);
