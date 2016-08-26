@@ -3,6 +3,7 @@ package org.mcmonkey.denizen2core.commands.queuecommands;
 import org.mcmonkey.denizen2core.commands.AbstractCommand;
 import org.mcmonkey.denizen2core.commands.CommandEntry;
 import org.mcmonkey.denizen2core.commands.CommandQueue;
+import org.mcmonkey.denizen2core.tags.objects.DurationTag;
 import org.mcmonkey.denizen2core.tags.objects.NumberTag;
 
 public class WaitCommand extends AbstractCommand {
@@ -22,6 +23,9 @@ public class WaitCommand extends AbstractCommand {
     // @Example
     // # This example waits for 5 seconds.
     // - wait 5
+    // @Example
+    // # This example waits for three and a half minutes.
+    // - wait 3.5m
     // -->
 
     @Override
@@ -46,7 +50,7 @@ public class WaitCommand extends AbstractCommand {
 
     @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
-        queue.setWait(NumberTag.getFor(queue::handleError, entry.getArgumentObject(queue, 0)).getInternal());
+        queue.setWait(DurationTag.getFor(queue::handleError, entry.getArgumentObject(queue, 0)).seconds());
         if (queue.shouldShowGood()) {
             queue.outGood("Waiting for: " + queue.getWait() + " seconds!");
         }

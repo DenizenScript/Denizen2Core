@@ -5,12 +5,11 @@ import org.mcmonkey.denizen2core.commands.CommandQueue;
 import org.mcmonkey.denizen2core.tags.AbstractTagBase;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.TagData;
-import org.mcmonkey.denizen2core.tags.objects.IntegerTag;
-import org.mcmonkey.denizen2core.tags.objects.ListTag;
-import org.mcmonkey.denizen2core.tags.objects.QueueTag;
-import org.mcmonkey.denizen2core.tags.objects.TextTag;
+import org.mcmonkey.denizen2core.tags.objects.*;
 import org.mcmonkey.denizen2core.utilities.Function2;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class SystemTagBase extends AbstractTagBase {
@@ -34,12 +33,12 @@ public class SystemTagBase extends AbstractTagBase {
 
     static {
         // <--[tag]
-        // @Name SystemTag.current_time_milliseconds
+        // @Name SystemTag.current_time
         // @Group Utilities
-        // @ReturnType IntegerTag
-        // @Returns the system's current time, in milliseconds since midnight, January 1, 1970 UTC.
+        // @ReturnType TimeTag
+        // @Returns the system's current time.
         // -->
-        handlers.put("current_time_milliseconds", (dat, obj) -> new IntegerTag(System.currentTimeMillis()));
+        handlers.put("current_time", (dat, obj) -> new TimeTag(LocalDateTime.now(Clock.systemUTC())));
         // <--[tag]
         // @Name SystemTag.core_version
         // @Group Denizen2

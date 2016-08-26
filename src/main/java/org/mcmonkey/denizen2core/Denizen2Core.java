@@ -157,8 +157,9 @@ public class Denizen2Core {
         register(new ProcedureTagBase());
         register(new QueueTagBase());
         register(new ScriptTagBase());
-        register(new TextTagBase());
         register(new SystemTagBase());
+        register(new TextTagBase());
+        register(new TimeTagBase());
         register(new UnescapeTagBase());
         // Common script types
         register("procedure", ProcedureScript::new);

@@ -3,6 +3,7 @@ package org.mcmonkey.denizen2core.tags.objects;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.tags.TagData;
 import org.mcmonkey.denizen2core.utilities.Action;
+import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.Function2;
 
 import java.util.HashMap;
@@ -23,7 +24,7 @@ public class DurationTag extends AbstractTagObject {
     // @SubType NumberTag
     // @Group Mathematics
     // @Description Represents a duration of time.
-    // @Other Note that the time is internally stored as a number of seconds.
+    // @Other Note that the time is internally stored as a number of seconds, using the same range as a NumberTag.
     // <@link explanation Duration Tags>What are duration tags?<@/link>
     // -->
 
@@ -34,6 +35,10 @@ public class DurationTag extends AbstractTagObject {
     }
 
     public double getInternal() {
+        return internal;
+    }
+
+    public double seconds() {
         return internal;
     }
 
@@ -109,10 +114,6 @@ public class DurationTag extends AbstractTagObject {
 
     @Override
     public String toString() {
-        String temp = String.valueOf(internal);
-        if (temp.endsWith(".0")) {
-            return temp.substring(0, temp.length() - 2);
-        }
-        return temp;
+        return CoreUtilities.doubleToString(internal);
     }
 }
