@@ -167,13 +167,6 @@ public class Denizen2Core {
         // Common script events
         scriptReload = new ScriptReloadEvent();
         register(scriptReload);
-        File addonsFolder = impl.getAddonsFolder();
-        if (!addonsFolder.exists()) {
-            Debug.error("Addons folder non-existent!");
-        }
-        else {
-            addons.addAll(AddonLoader.loadAddons(addonsFolder));
-        }
     }
 
     private static ScriptReloadEvent scriptReload = new ScriptReloadEvent();
@@ -221,7 +214,18 @@ public class Denizen2Core {
         }
     }
 
-    public static void load() {
+    public static void start() {
+        File addonsFolder = getImplementation().getAddonsFolder();
+        if (!addonsFolder.exists()) {
+            Debug.error("Addons folder non-existent!");
+        }
+        else {
+            addons.addAll(AddonLoader.loadAddons(addonsFolder));
+        }
+        load();
+    }
+
+    private static void load() {
         File folder = getImplementation().getScriptsFolder();
         try {
             if (!folder.exists()) {
