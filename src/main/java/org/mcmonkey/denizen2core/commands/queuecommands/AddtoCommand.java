@@ -71,14 +71,28 @@ public class AddtoCommand extends AbstractCommand {
             queue.handleError(entry, "Invalid definition name!");
             return;
         }
-        String res = ato.toString();
-        if (entry.getArgumentObject(queue, 1).toString().equals("parsed")) {
-            res += entry.getArgumentObject(queue, 2).toString();
+        StringBuilder res = new StringBuilder();
+        res.append(ato.toString());
+        boolean parsed = entry.getArgumentObject(queue, 1).toString().equals("parsed");
+        for (int i = 2; i < entry.arguments.size(); i++) {
+            boolean q = entry.arguments.get(i).getQuoted();
+            if (q) {
+                res.append("\"");
+            }
+            if (parsed) {
+                res.append(entry.getArgumentObject(queue, i).toString());
+            }
+            else {
+                res.append(entry.arguments.get(i).toString());
+            }
+            if (q) {
+                res.append("\"");
+            }
+            if (i + 1 < entry.arguments.size()) {
+                res.append(" ");
+            }
         }
-        else {
-            res += entry.arguments.get(2).toString();
-        }
-        queue.commandStack.peek().setDefinition(def, new TextTag(res));
+        queue.commandStack.peek().setDefinition(def, new TextTag(res.toString()));
         if (queue.shouldShowGood()) {
             queue.outGood("Updated definition '" + ColorSet.emphasis + def
                     + ColorSet.good + "' successfully.");
