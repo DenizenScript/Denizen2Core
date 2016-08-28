@@ -76,8 +76,9 @@ public class AddtoCommand extends AbstractCommand {
         boolean parsed = entry.getArgumentObject(queue, 1).toString().equals("parsed");
         for (int i = 2; i < entry.arguments.size(); i++) {
             boolean q = entry.arguments.get(i).getQuoted();
+            boolean qm = entry.arguments.get(i).getQuoteMode();
             if (q) {
-                res.append("\"");
+                res.append(qm ? "\"" : "\'");
             }
             if (parsed) {
                 res.append(entry.getArgumentObject(queue, i).toString());
@@ -86,7 +87,7 @@ public class AddtoCommand extends AbstractCommand {
                 res.append(entry.arguments.get(i).toString());
             }
             if (q) {
-                res.append("\"");
+                res.append(qm ? "\"" : "\'");
             }
             if (i + 1 < entry.arguments.size()) {
                 res.append(" ");

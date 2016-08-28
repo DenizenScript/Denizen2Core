@@ -295,7 +295,7 @@ public class Denizen2Core {
         return input.replace("\0TAGSTART", "<").replace("\0TAGEND", ">");
     }
 
-    public static Argument splitToArgument(String input, boolean wasQuoted) {
+    public static Argument splitToArgument(String input, boolean wasQuoted, boolean quoteMode) {
         if (input.length() == 0) {
             return new Argument();
         }
@@ -306,6 +306,7 @@ public class Denizen2Core {
         }
         Argument arg = new Argument();
         arg.setQuoted(wasQuoted);
+        arg.setQuoteMode(quoteMode);
         int len = input.length();
         int blocks = 0;
         int brackets = 0;
@@ -352,7 +353,7 @@ public class Denizen2Core {
                         Argument variable;
                         if (split.get(x).length() > 1 && split.get(x).contains("[") && split.get(x).charAt(split.get(x).length() - 1) == ']') {
                             int index = split.get(x).indexOf('[');
-                            variable = splitToArgument(split.get(x).substring(index + 1, split.get(x).length() - 1), wasQuoted);
+                            variable = splitToArgument(split.get(x).substring(index + 1, split.get(x).length() - 1), wasQuoted, quoteMode);
                             split.set(x, CoreUtilities.toLowerCase(split.get(x).substring(0, index)));
                             if (split.get(x).length() == 0) {
                                 if (x == 0) {
@@ -376,7 +377,7 @@ public class Denizen2Core {
                         AbstractTagBase start;
                         tab.setStart(tagBases.get(CoreUtilities.toLowerCase(tab.bits[0].key)));
                     }
-                    tab.setFallback(fallback == null ? null : splitToArgument(fallback, false));
+                    tab.setFallback(fallback == null ? null : splitToArgument(fallback, false, false));
                     arg.addBit(tab);
                     blockbuilder = new StringBuilder();
                     continue;

@@ -26,6 +26,16 @@ public class Argument {
         return wasQuoted;
     }
 
+    private boolean quoteMode = false;
+
+    public void setQuoteMode(boolean q) {
+        quoteMode = q;
+    }
+
+    public boolean getQuoteMode() {
+        return quoteMode;
+    }
+
     public void addBit(ArgumentBit bit) {
         bits.add(bit);
     }

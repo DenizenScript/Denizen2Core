@@ -74,7 +74,7 @@ public class CommandEntry {
             else if (!quoted && c == ' ') {
                 if (i - start > 0) {
                     String arg = input.substring(start, i).trim().replace('\'', '"').replace("\"", "");
-                    fargs.add(Denizen2Core.splitToArgument(arg, thisArgQuoted));
+                    fargs.add(Denizen2Core.splitToArgument(arg, thisArgQuoted, qtype));
                     start = i + 1;
                     thisArgQuoted = false;
                 }
@@ -85,7 +85,7 @@ public class CommandEntry {
         }
         if (input.length() - start > 0) {
             String arg = input.substring(start, input.length()).trim().replace('\'', '"').replace("\"", "");
-            fargs.add(Denizen2Core.splitToArgument(arg, thisArgQuoted));
+            fargs.add(Denizen2Core.splitToArgument(arg, thisArgQuoted, qtype));
         }
         if (fargs.size() == 0) {
             throw new RuntimeException("Invalid command line - looks blank!");

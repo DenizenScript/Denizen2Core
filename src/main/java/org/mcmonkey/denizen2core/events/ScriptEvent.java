@@ -105,7 +105,7 @@ public abstract class ScriptEvent implements Cloneable {
                         List<String> split = CoreUtilities.split(possible, ':', 2);
                         String low = CoreUtilities.toLowerCase(split.get(0));
                         if (split.size() > 1 && low.equals("require")) {
-                            data.requirements.add(Denizen2Core.splitToArgument(split.get(1), false));
+                            data.requirements.add(Denizen2Core.splitToArgument(split.get(1), false, false));
                         }
                         else if (split.size() > 1) {
                             data.switches.put(low, split.get(1));
