@@ -24,6 +24,8 @@ public class AddtoCommand extends AbstractCommand {
     // Adds all input to a definition, optionally parsing tags.
     // The definition must exist before hand.
     // Can go across multiple lines!
+    // Note that raw values will include ALL input, even quotes!
+    // Note that it will trim spaces on each line automatically though.
     // TODO: Explain more!
     // @Example
     // # This example adds "potato" to the end of definition "test".
@@ -73,25 +75,23 @@ public class AddtoCommand extends AbstractCommand {
         }
         StringBuilder res = new StringBuilder();
         res.append(ato.toString());
-        boolean parsed = entry.getArgumentObject(queue, 1).toString().equals("parsed");
-        for (int i = 2; i < entry.arguments.size(); i++) {
-            boolean q = entry.arguments.get(i).getQuoted();
-            boolean qm = entry.arguments.get(i).getQuoteMode();
-            if (q) {
-                res.append(qm ? "\"" : "\'");
-            }
-            if (parsed) {
+        boolean parsed = !entry.getArgumentObject(queue, 1).toString().equals("raw");
+        if (parsed) {
+            for (int i = 2; i < entry.arguments.size(); i++) {
                 res.append(entry.getArgumentObject(queue, i).toString());
+                if (i + 1 < entry.arguments.size()) {
+                    res.append(" ");
+                }
             }
-            else {
-                res.append(entry.arguments.get(i).toString());
+        }
+        else {
+            int s = entry.originalLine.indexOf(" raw ");
+            String gotten = entry.originalLine.substring(s + " raw ".length());
+            if (def.equals("raw")) {
+                s = gotten.indexOf(" raw ");
+                gotten = entry.originalLine.substring(s + " raw ".length());
             }
-            if (q) {
-                res.append(qm ? "\"" : "\'");
-            }
-            if (i + 1 < entry.arguments.size()) {
-                res.append(" ");
-            }
+            res.append(gotten);
         }
         queue.commandStack.peek().setDefinition(def, new TextTag(res.toString()));
         if (queue.shouldShowGood()) {
