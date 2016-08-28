@@ -14,8 +14,8 @@ public class ScriptHelper {
             if (!line.startsWith("#") && !line.equals("}")) {
                 String liner = l.replace('\0', ' ').replaceAll("\\s+$", "");
                 if (!line.endsWith(":") && line.startsWith("-")) {
-                    liner = liner.replace(": ", "<&co> ");
-                    liner = liner.replace("#", "<&ns>");
+                    liner = liner.replace(": ", "<unescape[&co]> ");
+                    liner = liner.replace("#", "<unescape[&ns]>");
                     if (liner.endsWith(" {")) {
                         liner = liner.substring(0, liner.length() - 2) + ":";
                     }
