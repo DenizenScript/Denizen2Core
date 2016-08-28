@@ -26,7 +26,7 @@ public class RunCommand extends AbstractCommand {
     // @Group Queue
     // @Minimum 1
     // @Maximum 2
-    // @Tag <def[run_queue]> (IntegerTag) returns the qID of the ran queue.
+    // @Tag <[run_queue]> (QueueTag) returns the ran queue.
     // @Description
     // Runs a script as a new queue.
     // Optionally add definitions to pass to the new queue.
@@ -35,8 +35,12 @@ public class RunCommand extends AbstractCommand {
     // # This example runs the script "test".
     // - run test
     // @Example
-    // # This example runs the script "myTask" with definitions "banana"
-    // # and "potato" with values "2" and "5".
+    // # This example runs the script "test" and echoes back its results after it finishes.
+    // - &run test
+    // - echo <[run_queue].determinations>
+    // @Example
+    // # This example runs the script "mytask" with definitions "banana" (set to "2")
+    // # and "potato" (set to "5").
     // - run mytask banana:2|potato:5
     // -->
 

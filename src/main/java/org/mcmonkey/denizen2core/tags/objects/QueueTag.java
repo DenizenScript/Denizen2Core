@@ -55,6 +55,17 @@ public class QueueTag extends AbstractTagObject {
             return new BooleanTag(((QueueTag) obj).internal.running);
         });
         // <--[tag]
+        // @Name QueueTag.determinations
+        // @Updated 2016/08/27
+        // @Group Information
+        // @ReturnType MapTag
+        // @Returns a map of all determinations on the queue.
+        // @Example "1" .determinations may return "a:b|1:2|".
+        // -->
+        handlers.put("determinations", (dat, obj) -> {
+            return ((QueueTag) obj).internal.determinations;
+        });
+        // <--[tag]
         // @Name QueueTag.current_script
         // @Updated 2016/08/26
         // @Group Information
