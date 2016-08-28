@@ -18,7 +18,7 @@ public class ListTag extends AbstractTagObject {
     // @Type ListTag
     // @SubType TextTag
     // @Group Mathematics
-    // @Description Represents a list of objects.
+    // @Description Represents a list of objects. Identified as a list of escaped entries separated by pipes.
     // -->
 
     private List<AbstractTagObject> internal;

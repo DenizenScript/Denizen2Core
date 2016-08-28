@@ -16,7 +16,7 @@ public class ScriptTag extends AbstractTagObject {
     // @Type ScriptTag
     // @SubType TextTag
     // @Group Script Systems
-    // @Description Represents a specific script.
+    // @Description Represents a specific script. Identified by script title.
     // -->
 
     private CommandScript internal;

@@ -13,7 +13,7 @@ public class IntegerTag extends AbstractTagObject {
     // @Type IntegerTag
     // @SubType NumberTag
     // @Group Mathematics
-    // @Description Represents an integer.
+    // @Description Represents an integer. Identified as a simple integer number.
     // @Other Note that the number is internally stored as a 64-bit signed integer (a 'long').
     // -->
 

@@ -12,7 +12,7 @@ public class NullTag extends AbstractTagObject {
     // @Type NullTag
     // @SubType TextTag
     // @Group Mathematics
-    // @Description Represents a null value.
+    // @Description Represents a null value. Identified as exactly "&{NULL}".
     // -->
 
     public final static HashMap<String, Function2<TagData, AbstractTagObject, AbstractTagObject>> handlers = new HashMap<>();

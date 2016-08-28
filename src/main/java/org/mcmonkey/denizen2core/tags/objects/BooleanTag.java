@@ -14,7 +14,7 @@ public class BooleanTag extends AbstractTagObject {
     // @Type BooleanTag
     // @SubType TextTag
     // @Group Mathematics
-    // @Description Represents a true or false value.
+    // @Description Represents a true or false value. Identified as exactly "true" or "false".
     // -->
 
     private boolean internal;

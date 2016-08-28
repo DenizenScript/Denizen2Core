@@ -16,7 +16,7 @@ public class QueueTag extends AbstractTagObject {
     // @Type QueueTag
     // @SubType TextTag
     // @Group Script Systems
-    // @Description Represents a running command queue.
+    // @Description Represents a running command queue. Identified by integer ID.
     // -->
 
     private CommandQueue internal;

@@ -18,7 +18,7 @@ public class MapTag extends AbstractTagObject {
     // @Type MapTag
     // @SubType TextTag
     // @Group Mathematics
-    // @Description Represents a map of names to objects.
+    // @Description Represents a map of names to objects. Identifed as a list of escaped key:value pairs, separated by pipes.
     // -->
 
     private HashMap<String, AbstractTagObject> internal;

@@ -23,7 +23,7 @@ public class DurationTag extends AbstractTagObject {
     // @Type DurationTag
     // @SubType NumberTag
     // @Group Mathematics
-    // @Description Represents a duration of time.
+    // @Description Represents a duration of time. Identified as a numeric value, with-decimal, of seconds.
     // @Other Note that the time is internally stored as a number of seconds, using the same range as a NumberTag.
     // <@link explanation Duration Tags>What are duration tags?<@/link>
     // -->

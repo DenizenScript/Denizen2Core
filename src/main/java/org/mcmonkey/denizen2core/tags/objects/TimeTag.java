@@ -17,8 +17,7 @@ public class TimeTag extends AbstractTagObject {
     // @Type TimeTag
     // @SubType IntegerTag
     // @Group Mathematics
-    // @Description Represents a date-time.
-    // @Other Note that the date-time is internally handled as an IntegerTag, representing milliseconds since Jan 1st, 1970, 00:00 UTC.
+    // @Description Represents a date-time. Indentified as an integer number, representing milliseconds since Jan 1st, 1970, 00:00 UTC.
     // @Other Note that all time values are UTC!
     // -->
 
