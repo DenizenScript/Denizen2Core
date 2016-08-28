@@ -22,6 +22,7 @@ import org.mcmonkey.denizen2core.scripts.commontypes.TaskScript;
 import org.mcmonkey.denizen2core.scripts.commontypes.WorldScript;
 import org.mcmonkey.denizen2core.tags.AbstractTagBase;
 import org.mcmonkey.denizen2core.tags.handlers.*;
+import org.mcmonkey.denizen2core.tags.objects.MapTag;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.Function2;
 import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
@@ -276,10 +277,12 @@ public class Denizen2Core {
         addons.clear();
     }
 
-    public static void runString(String cmd) {
+    public static void runString(String cmd, MapTag defs) {
         CommandScriptSection sec = CommandScriptSection.forLine(cmd);
         if (sec != null) {
-            sec.toQueue().start();
+            CommandQueue q = sec.toQueue();
+            q.commandStack.peek().definitions.putAll(defs.getInternal());
+            q.start();
         }
     }
 
