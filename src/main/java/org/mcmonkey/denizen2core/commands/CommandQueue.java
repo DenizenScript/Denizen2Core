@@ -109,7 +109,8 @@ public class CommandQueue {
     }
 
     public void handleError(String error) {
-        handleError(currentEntry.getIndex() < currentEntry.entries.length ? currentEntry.entries[currentEntry.getIndex()] : null, error);
+        handleError((currentEntry.getIndex() > 0 && currentEntry.getIndex() - 1 < currentEntry.entries.length) ?
+                currentEntry.entries[currentEntry.getIndex() - 1] : null, error);
     }
 
     public void handleError(CommandEntry entry, String error) {
