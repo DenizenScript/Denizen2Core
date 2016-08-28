@@ -1,9 +1,13 @@
 package org.mcmonkey.denizen2core.addons;
 
 import org.mcmonkey.denizen2core.Denizen2Implementation;
+import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
+import org.mcmonkey.denizen2core.utilities.yaml.YAMLConfiguration;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.file.Files;
 
@@ -13,6 +17,8 @@ public abstract class DenizenAddon {
     private Denizen2Implementation implementation = null;
     private AddonInfo addonInfo = null;
     private File dataFolder;
+    private File configFile;
+    private YAMLConfiguration config;
 
     public DenizenAddon() {
         ClassLoader classLoader = getClass().getClassLoader();
@@ -38,8 +44,23 @@ public abstract class DenizenAddon {
         return dataFolder;
     }
 
-    public void saveDefaultConfig() {
-        saveResource("config.yml", false);
+    public void reloadConfig() {
+        try {
+            if (!configFile.exists()) {
+                if (!hasResource("config.yml")) {
+                    return;
+                }
+                saveResource("config.yml", false);
+            }
+            config = YAMLConfiguration.load(CoreUtilities.streamToString(new FileInputStream(configFile)));
+        }
+        catch (FileNotFoundException e) {
+            Debug.exception(e);
+        }
+    }
+
+    public YAMLConfiguration getConfig() {
+        return config;
     }
 
     public void saveResource(String resource, boolean overwrite) {
@@ -47,7 +68,11 @@ public abstract class DenizenAddon {
             if (inputStream == null) {
                 throw new IllegalArgumentException("Resource '" + resource + "' could not be found!");
             }
-            File output = new File(getDataFolder(), resource);
+            File output = new File(dataFolder, resource);
+            File parent = output.getParentFile();
+            if (!parent.exists()) {
+                parent.mkdirs();
+            }
             if (output.exists()) {
                 if (!overwrite) {
                     Debug.error("Resource '" + resource + "' already exists!");
@@ -61,6 +86,10 @@ public abstract class DenizenAddon {
             Debug.error("Error while saving resource '" + resource + "'.");
             Debug.exception(e);
         }
+    }
+
+    public boolean hasResource(String resource) {
+        return addonClassLoader.getResource(resource) != null;
     }
 
     public void enable() {
@@ -77,5 +106,7 @@ public abstract class DenizenAddon {
         this.implementation = impl;
         this.addonInfo = addonInfo;
         this.dataFolder = dataFolder;
+        this.configFile = new File(dataFolder, "config.yml");
+        reloadConfig();
     }
 }
