@@ -12,7 +12,6 @@ public class ResumeCommand extends AbstractCommand {
     // @Arguments <queue>
     // @Short resumes the specified queue.
     // @Updated 2016/08/12
-    // @Authors mcmonkey
     // @Group Queue
     // @Minimum 1
     // @Maximum 1

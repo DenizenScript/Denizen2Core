@@ -12,7 +12,6 @@ public class EchoCommand extends AbstractCommand {
     // @Arguments <text to echo>
     // @Short echoes text back to the input command line.
     // @Updated 2016/04/02
-    // @Authors mcmonkey
     // @Group Common
     // @Procedural true
     // @Minimum 1

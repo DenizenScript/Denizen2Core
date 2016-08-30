@@ -13,7 +13,6 @@ public class GotoCommand extends AbstractCommand {
     // @Arguments <name>
     // @Short jumps to a code location specified by the mark command.
     // @Updated 2016/04/06
-    // @Authors mcmonkey
     // @Group Queue
     // @Procedural true
     // @Minimum 1

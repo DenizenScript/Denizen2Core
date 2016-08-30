@@ -13,7 +13,6 @@ public class RequireCommand extends AbstractCommand {
     // @Arguments
     // @Short throws an error if the specified definition(s) are not present.
     // @Updated 2016/08/11
-    // @Authors mcmonkey
     // @Group Queue
     // @Procedural true
     // @Minimum 1

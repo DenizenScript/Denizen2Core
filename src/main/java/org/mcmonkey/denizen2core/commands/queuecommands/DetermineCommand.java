@@ -14,7 +14,6 @@ public class DetermineCommand extends AbstractCommand {
     // @Arguments <determination> [value]
     // @Short Defines a value on the current queue.
     // @Updated 2016/08/11
-    // @Authors mcmonkey
     // @Group Queue
     // @Procedural true
     // @Minimum 1

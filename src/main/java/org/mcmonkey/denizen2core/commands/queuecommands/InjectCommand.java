@@ -17,7 +17,6 @@ public class InjectCommand extends AbstractCommand {
     // @Arguments <script>
     // @Short injects a script into the current queue.
     // @Updated 2016/08/11
-    // @Authors mcmonkey
     // @Group Queue
     // @Procedural true
     // @Minimum 1

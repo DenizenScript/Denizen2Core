@@ -14,7 +14,6 @@ public class AddtoCommand extends AbstractCommand {
     // @Arguments <definition> 'raw/parsed' <values>
     // @Short Adds all input to a definition, optionally parsing tags.
     // @Updated 2016/08/27
-    // @Authors mcmonkey
     // @Group Queue
     // @Procedural true
     // @Minimum 3

@@ -20,7 +20,6 @@ public class RepeatCommand extends AbstractCommand {
     // @Arguments "stop"/"continue"/<times>
     // @Short runs a block of code the specified number of types.
     // @Updated 2016/08/07
-    // @Authors mcmonkey
     // @Group Queue
     // @Procedural true
     // @Minimum 1

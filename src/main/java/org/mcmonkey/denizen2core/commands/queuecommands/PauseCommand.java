@@ -12,7 +12,6 @@ public class PauseCommand extends AbstractCommand {
     // @Arguments [queue]
     // @Short pauses the current queue, or the one specified if available.
     // @Updated 2016/08/12
-    // @Authors mcmonkey
     // @Group Queue
     // @Minimum 0
     // @Maximum 1

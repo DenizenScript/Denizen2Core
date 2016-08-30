@@ -12,7 +12,6 @@ public class StopCommand extends AbstractCommand {
     // @Arguments [queue]
     // @Short stops the current queue, or the one specified if available.
     // @Updated 2016/08/11
-    // @Authors mcmonkey
     // @Group Queue
     // @Procedural true
     // @Minimum 0

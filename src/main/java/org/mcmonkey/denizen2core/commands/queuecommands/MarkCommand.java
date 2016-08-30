@@ -11,7 +11,6 @@ public class MarkCommand extends AbstractCommand {
     // @Arguments <name>
     // @Short marks a code location for the goto command.
     // @Updated 2016/04/06
-    // @Authors mcmonkey
     // @Group Queue
     // @Procedural true
     // @Minimum 1

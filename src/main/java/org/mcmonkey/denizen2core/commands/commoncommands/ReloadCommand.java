@@ -12,7 +12,6 @@ public class ReloadCommand extends AbstractCommand {
     // @Arguments
     // @Short reloads the script engine, recalculating any scripts available.
     // @Updated 2016/08/07
-    // @Authors mcmonkey
     // @Group Common
     // @Minimum 0
     // @Maximum 0

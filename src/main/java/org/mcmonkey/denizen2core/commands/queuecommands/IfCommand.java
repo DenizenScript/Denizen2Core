@@ -27,7 +27,6 @@ public class IfCommand extends AbstractCommand {
     // @Arguments <if comparisons>
     // @Short runs a block of code if-and-only-if the comparisons return true.
     // @Updated 2016/04/18
-    // @Authors mcmonkey
     // @Group Queue
     // @Procedural true
     // @Minimum 1

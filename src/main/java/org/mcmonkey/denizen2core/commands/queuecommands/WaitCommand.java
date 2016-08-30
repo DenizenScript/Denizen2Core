@@ -13,7 +13,6 @@ public class WaitCommand extends AbstractCommand {
     // @Arguments <duration>
     // @Short causes the current queue to wait for a duration.
     // @Updated 2016/04/30
-    // @Authors mcmonkey
     // @Group Queue
     // @Minimum 1
     // @Maximum 1

@@ -12,7 +12,6 @@ public class AssertCommand extends AbstractCommand {
     // @Arguments <required boolean> <error message>
     // @Short throws an error if the specified boolean is false.
     // @Updated 2016/08/11
-    // @Authors mcmonkey
     // @Group Queue
     // @Procedural true
     // @Minimum 2

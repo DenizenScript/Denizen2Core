@@ -11,7 +11,6 @@ public class WhileCommand extends AbstractCommand {
     // @Arguments <if comparisons>
     // @Short runs a block of code repeatedly for so long as the comparisons return true.
     // @Updated 2016/08/08
-    // @Authors mcmonkey
     // @Group Queue
     // @Procedural true
     // @Minimum 1
@@ -20,7 +19,7 @@ public class WhileCommand extends AbstractCommand {
     // Runs a block of code repeatedly for so long as the comparisons return true.
     // TODO: Explain more!
     // @Example
-    // # This example runs forever, and echoes "hi" a lot.
+    // # This example runs forever, and echoes "hi" every half second.
     // - while true:
     //   - echo "hi"
     //   - wait 0.5s

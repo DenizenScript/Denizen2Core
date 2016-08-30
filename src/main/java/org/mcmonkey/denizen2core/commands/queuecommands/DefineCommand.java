@@ -13,7 +13,6 @@ public class DefineCommand extends AbstractCommand {
     // @Arguments <definition> <value> [queue]
     // @Short Defines a value on the current queue.
     // @Updated 2016/07/15
-    // @Authors mcmonkey
     // @Group Queue
     // @Procedural true
     // @Minimum 2

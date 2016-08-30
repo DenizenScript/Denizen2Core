@@ -13,7 +13,6 @@ public class ElseCommand extends AbstractCommand {
     // @Arguments ["if" <if comparisons>]
     // @Short runs a block of code if-and-only-if the comparisons return true, or no comparison is specified, and the preceding if did not run.
     // @Updated 2016/04/18
-    // @Authors mcmonkey
     // @Group Queue
     // @Procedural true
     // @Minimum 0
