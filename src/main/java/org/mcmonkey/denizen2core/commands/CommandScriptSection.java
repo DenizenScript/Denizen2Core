@@ -3,6 +3,7 @@ package org.mcmonkey.denizen2core.commands;
 import org.mcmonkey.denizen2core.DebugMode;
 import org.mcmonkey.denizen2core.scripts.CommandScript;
 import org.mcmonkey.denizen2core.utilities.ErrorInducedException;
+import org.mcmonkey.denizen2core.utilities.Tuple;
 import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 
@@ -54,24 +55,25 @@ public class CommandScriptSection {
         return split;
     }
 
-    public static CommandScriptSection forLine(String line) {
+    public static Tuple<CommandScriptSection, String> forLine(String line) {
         try {
             List<String> data = splitSingleLine(line);
             CommandEntry[] cmds = new CommandEntry[data.size()];
             for (int i = 0; i < data.size(); i++) {
                 cmds[i] = CommandEntry.forLine("<single line>", data.get(i));
             }
-            return new CommandScriptSection(new CommandStackEntry(cmds, "<single line>", null));
+            return new Tuple<>(new CommandScriptSection(new CommandStackEntry(cmds, "<single line>", null)), null);
         }
         catch (Exception ex) {
             Debug.error("Compiling script <single line>: ");
             if (ex instanceof ErrorInducedException) {
                 Debug.error(ex.getMessage());
+                return new Tuple<>(null, ex.getMessage());
             }
             else {
                 Debug.exception(ex);
+                return new Tuple<>(null, ex.getClass().getCanonicalName() + ": " + ex.getMessage());
             }
-            return null;
         }
     }
 

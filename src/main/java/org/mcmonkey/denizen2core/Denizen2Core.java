@@ -23,9 +23,7 @@ import org.mcmonkey.denizen2core.scripts.commontypes.WorldScript;
 import org.mcmonkey.denizen2core.tags.AbstractTagBase;
 import org.mcmonkey.denizen2core.tags.handlers.*;
 import org.mcmonkey.denizen2core.tags.objects.MapTag;
-import org.mcmonkey.denizen2core.utilities.Action;
-import org.mcmonkey.denizen2core.utilities.CoreUtilities;
-import org.mcmonkey.denizen2core.utilities.Function2;
+import org.mcmonkey.denizen2core.utilities.*;
 import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 import org.mcmonkey.denizen2core.utilities.yaml.StringHolder;
@@ -279,12 +277,16 @@ public class Denizen2Core {
         addons.clear();
     }
 
-    public static void runString(String cmd, MapTag defs) {
-        CommandScriptSection sec = CommandScriptSection.forLine(cmd);
-        if (sec != null) {
-            CommandQueue q = sec.toQueue();
+    public static void runString(String cmd, MapTag defs, AbstractSender sender) {
+        Tuple<CommandScriptSection, String> sec = CommandScriptSection.forLine(cmd);
+        if (sec.one != null) {
+            CommandQueue q = sec.one.toQueue();
+            q.sender = sender;
             q.commandStack.peek().definitions.putAll(defs.getInternal());
             q.start();
+        }
+        else if (sec.two != null && sender != null) {
+            sender.sendColoredMessage(ColorSet.warning + "[Denizen2/Error] " + sec.two);
         }
     }
 

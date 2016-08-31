@@ -99,6 +99,7 @@ public class RunCommand extends AbstractCommand {
             MapTag defs = MapTag.getFor(queue.error, entry.getArgumentObject(queue, 1));
             nq.commandStack.peek().definitions.putAll(defs.getInternal());
         }
+        nq.sender = queue.sender;
         nq.start();
         queue.commandStack.peek().setDefinition("run_queue", new QueueTag(nq));
     }

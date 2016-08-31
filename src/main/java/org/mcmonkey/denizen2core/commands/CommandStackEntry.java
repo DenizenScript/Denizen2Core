@@ -76,9 +76,13 @@ public class CommandStackEntry implements Cloneable {
                 return CommandStackRetVal.STOP;
             }
             if (getDebugMode().showFull && !currentCommand.originalLine.contains("\0")) {
-                Debug.good("Script '" + ColorSet.emphasis + scriptTitle + ColorSet.good
+                String good = "Script '" + ColorSet.emphasis + scriptTitle + ColorSet.good
                         + "' in queue " + ColorSet.emphasis + queue.qID + ColorSet.good
-                        + " executing command: " + ColorSet.emphasis + currentCommand.originalLine);
+                        + " executing command: " + ColorSet.emphasis + currentCommand.originalLine;
+                Debug.good(good);
+                if (queue.sender != null) {
+                    queue.sender.sendColoredMessage(ColorSet.good + "[Denizen2/Good] " + good);
+                }
             }
             try {
                 currentCommand.command.execute(queue, currentCommand);

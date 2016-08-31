@@ -2,8 +2,10 @@ package org.mcmonkey.denizen2core.commands;
 
 import org.mcmonkey.denizen2core.Denizen2Core;
 import org.mcmonkey.denizen2core.tags.objects.MapTag;
+import org.mcmonkey.denizen2core.utilities.AbstractSender;
 import org.mcmonkey.denizen2core.utilities.Action;
 import org.mcmonkey.denizen2core.utilities.ErrorInducedException;
+import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 
 import java.util.Stack;
@@ -51,6 +53,8 @@ public class CommandQueue {
 
     public MapTag determinations = new MapTag();
 
+    public AbstractSender sender = null;
+
     public void start() {
         qID = Denizen2Core.cqID++;
         if (!run(0)) {
@@ -66,9 +70,19 @@ public class CommandQueue {
         return commandStack.size() == 0 || commandStack.peek().getDebugMode().showFull;
     }
 
+    public void outInfo(String message) {
+        Debug.info(message);
+        if (sender != null) {
+            sender.sendColoredMessage(ColorSet.base + "[Denizen2/Info] " + message);
+        }
+    }
+
     public void outGood(String message) {
         if (shouldShowGood()) {
             Debug.good(message);
+            if (sender != null) {
+                sender.sendColoredMessage(ColorSet.good + "[Denizen2/Good] " + message);
+            }
         }
     }
 
@@ -124,6 +138,9 @@ public class CommandQueue {
         // TODO: Error event.
         if (shouldShowError()) {
             Debug.error(emsg);
+            if (sender != null) {
+                sender.sendColoredMessage(ColorSet.warning + "[Denizen2/Error] " + emsg);
+            }
         }
         stop();
         throw new ErrorInducedException("Stopping queue...");
