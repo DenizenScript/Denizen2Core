@@ -2,6 +2,7 @@ package org.mcmonkey.denizen2core.commands;
 
 import org.mcmonkey.denizen2core.DebugMode;
 import org.mcmonkey.denizen2core.scripts.CommandScript;
+import org.mcmonkey.denizen2core.utilities.ErrorInducedException;
 import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
 import org.mcmonkey.denizen2core.utilities.debugging.Debug;
 
@@ -64,7 +65,12 @@ public class CommandScriptSection {
         }
         catch (Exception ex) {
             Debug.error("Compiling script <single line>: ");
-            Debug.exception(ex);
+            if (ex instanceof ErrorInducedException) {
+                Debug.error(ex.getMessage());
+            }
+            else {
+                Debug.exception(ex);
+            }
             return null;
         }
     }
@@ -115,7 +121,12 @@ public class CommandScriptSection {
         }
         catch (Exception ex) {
             Debug.error("Compiling script '" + ColorSet.emphasis + scriptName + ColorSet.warning + "': ");
-            Debug.exception(ex);
+            if (ex instanceof ErrorInducedException) {
+                Debug.error(ex.getMessage());
+            }
+            else {
+                Debug.exception(ex);
+            }
             return null;
         }
     }

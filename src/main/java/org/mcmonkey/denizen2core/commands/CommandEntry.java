@@ -6,6 +6,7 @@ import org.mcmonkey.denizen2core.arguments.Argument;
 import org.mcmonkey.denizen2core.commands.commoncommands.DebugInvalidCommand;
 import org.mcmonkey.denizen2core.tags.AbstractTagObject;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
+import org.mcmonkey.denizen2core.utilities.ErrorInducedException;
 import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
 
 import java.util.ArrayList;
@@ -49,6 +50,10 @@ public class CommandEntry {
         return arguments.get(index).parse(queue, new HashMap<>(), DebugMode.FULL, queue.error);
     }
 
+    private static void setupError(String message) {
+        throw new ErrorInducedException(message);
+    }
+
     public static CommandEntry forLine(String scrName, String input) {
         input = input.replace('\0', ' ');
         ArrayList<Argument> fargs = new ArrayList<>();
@@ -74,7 +79,7 @@ public class CommandEntry {
             else if (!quoted && c == ' ') {
                 if (i - start > 0) {
                     String arg = input.substring(start, i).trim().replace('\'', '"').replace("\"", "");
-                    fargs.add(Denizen2Core.splitToArgument(arg, thisArgQuoted, qtype));
+                    fargs.add(Denizen2Core.splitToArgument(arg, thisArgQuoted, qtype, CommandEntry::setupError));
                     start = i + 1;
                     thisArgQuoted = false;
                 }
@@ -85,7 +90,7 @@ public class CommandEntry {
         }
         if (input.length() - start > 0) {
             String arg = input.substring(start, input.length()).trim().replace('\'', '"').replace("\"", "");
-            fargs.add(Denizen2Core.splitToArgument(arg, thisArgQuoted, qtype));
+            fargs.add(Denizen2Core.splitToArgument(arg, thisArgQuoted, qtype, CommandEntry::setupError));
         }
         if (fargs.size() == 0) {
             throw new RuntimeException("Invalid command line - looks blank!");

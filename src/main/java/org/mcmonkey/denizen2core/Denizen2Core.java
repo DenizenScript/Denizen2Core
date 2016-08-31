@@ -23,6 +23,7 @@ import org.mcmonkey.denizen2core.scripts.commontypes.WorldScript;
 import org.mcmonkey.denizen2core.tags.AbstractTagBase;
 import org.mcmonkey.denizen2core.tags.handlers.*;
 import org.mcmonkey.denizen2core.tags.objects.MapTag;
+import org.mcmonkey.denizen2core.utilities.Action;
 import org.mcmonkey.denizen2core.utilities.CoreUtilities;
 import org.mcmonkey.denizen2core.utilities.Function2;
 import org.mcmonkey.denizen2core.utilities.debugging.ColorSet;
@@ -295,7 +296,7 @@ public class Denizen2Core {
         return input.replace("\0TAGSTART", "<").replace("\0TAGEND", ">");
     }
 
-    public static Argument splitToArgument(String input, boolean wasQuoted, boolean quoteMode) {
+    public static Argument splitToArgument(String input, boolean wasQuoted, boolean quoteMode, Action<String> error) {
         if (input.length() == 0) {
             return new Argument();
         }
@@ -353,7 +354,7 @@ public class Denizen2Core {
                         Argument variable;
                         if (split.get(x).length() > 1 && split.get(x).contains("[") && split.get(x).charAt(split.get(x).length() - 1) == ']') {
                             int index = split.get(x).indexOf('[');
-                            variable = splitToArgument(split.get(x).substring(index + 1, split.get(x).length() - 1), wasQuoted, quoteMode);
+                            variable = splitToArgument(split.get(x).substring(index + 1, split.get(x).length() - 1), wasQuoted, quoteMode, error);
                             split.set(x, CoreUtilities.toLowerCase(split.get(x).substring(0, index)));
                             if (split.get(x).length() == 0) {
                                 if (x == 0) {
@@ -374,10 +375,13 @@ public class Denizen2Core {
                     TagBit[] tbits = new TagBit[bits.size()];
                     TagArgumentBit tab = new TagArgumentBit(bits.toArray(tbits));
                     if (tab.bits.length > 0) {
-                        AbstractTagBase start;
-                        tab.setStart(tagBases.get(CoreUtilities.toLowerCase(tab.bits[0].key)));
+                        AbstractTagBase start = tagBases.get(CoreUtilities.toLowerCase(tab.bits[0].key));
+                        if (start == null) {
+                            error.run("Invalid tag start: " + tab.bits[0].key + "!");
+                        }
+                        tab.setStart(start);
                     }
-                    tab.setFallback(fallback == null ? null : splitToArgument(fallback, false, false));
+                    tab.setFallback(fallback == null ? null : splitToArgument(fallback, false, false, error));
                     arg.addBit(tab);
                     blockbuilder = new StringBuilder();
                     continue;

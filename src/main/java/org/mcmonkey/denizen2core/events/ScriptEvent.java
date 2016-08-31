@@ -101,21 +101,27 @@ public abstract class ScriptEvent implements Cloneable {
                 data.script = script;
                 data.eventPath = evt.str.substring("on ".length());
                 if (couldMatch(data)) {
-                    for (String possible : CoreUtilities.split(data.eventPath, ' ')) {
-                        List<String> split = CoreUtilities.split(possible, ':', 2);
-                        String low = CoreUtilities.toLowerCase(split.get(0));
-                        if (split.size() > 1 && low.equals("require")) {
-                            data.requirements.add(Denizen2Core.splitToArgument(split.get(1), false, false));
+                    try {
+                        for (String possible : CoreUtilities.split(data.eventPath, ' ')) {
+                            List<String> split = CoreUtilities.split(possible, ':', 2);
+                            String low = CoreUtilities.toLowerCase(split.get(0));
+                            if (split.size() > 1 && low.equals("require")) {
+                                data.requirements.add(Denizen2Core.splitToArgument(split.get(1), false, false, this::error));
+                            }
+                            else if (split.size() > 1) {
+                                data.switches.put(low, split.get(1));
+                            }
                         }
-                        else if (split.size() > 1) {
-                            data.switches.put(low, split.get(1));
+                        usages.add(data);
+                        if (generalDebug) {
+                            Debug.good("Script event match: " + ColorSet.emphasis + getName()
+                                    + ColorSet.good + " matched for: " + ColorSet.emphasis + script.title + "." + evt.str
+                                    + ColorSet.good + "!");
                         }
                     }
-                    usages.add(data);
-                    if (generalDebug) {
-                        Debug.good("Script event match: " + ColorSet.emphasis + getName()
-                                + ColorSet.good + " matched for: " + ColorSet.emphasis + script.title + "." + evt.str
-                                + ColorSet.good + "!");
+                    catch (ErrorInducedException ex) {
+                        Debug.error("While managing script event " +getName() + ", tried to match "
+                                + script.title + "." + evt.str + ", but got error: " + ex.getMessage());
                     }
                 }
             }
