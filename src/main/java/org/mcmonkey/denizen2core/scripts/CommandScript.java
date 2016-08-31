@@ -24,6 +24,29 @@ public abstract class CommandScript {
         contents = section;
     }
 
+    // <--[explanation]
+    // @Name Debug Modes
+    // @Group Script Options
+    // @Description
+    // There are three different debug modes any script can have.
+    //
+    // FULL: All debug output is shown.
+    // MINIMAL: (Recommended!) only errors are shown.
+    // NONE: Nothing at all is shown.
+    //
+    // You can set these in any script container like this example
+    // <@code>
+    // # Any script name is valid here
+    // my_script:
+    //   # Any type is valid here
+    //   type: task
+    //   # Note the "debug: " option, which can be any of the three options specified above.
+    //   debug: minimal
+    //   # ... contents of the script code here ...
+    // <@/code>
+    // TODO: Explain better
+    // -->
+
     public DebugMode getDebugMode() {
         String dbm = CoreUtilities.toUpperCase(contents.getString("debug", "FULL"));
         if (dbm.equals("TRUE")) {

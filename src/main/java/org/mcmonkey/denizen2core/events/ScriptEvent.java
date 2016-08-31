@@ -198,7 +198,7 @@ public abstract class ScriptEvent implements Cloneable {
                 return;
             }
         }
-        if (Denizen2Core.getImplementation().generalDebug()) {
+        if (data.script.getDebugMode().showFull) {
             Debug.good("Running script event: " + ColorSet.emphasis + data.script.title
                     + ColorSet.good + ", event: " + "on " + ColorSet.emphasis + data.eventPath);
             for (Map.Entry<String, AbstractTagObject> def : defs.entrySet()) {
