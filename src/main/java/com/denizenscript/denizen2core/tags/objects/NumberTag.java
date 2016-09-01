@@ -369,6 +369,24 @@ public class NumberTag extends AbstractTagObject {
         handlers.put("square_root", (dat, obj) -> {
             return new NumberTag(Math.sqrt(((NumberTag) obj).internal));
         });
+        // <--[tag]
+        // @Name NumberTag.truncate
+        // @Updated 2016/08/26
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the number, truncated (rounded towards zero).
+        // @Example "-2.8" .truncate returns "-2".
+        // -->
+        handlers.put("truncate", (dat, obj) -> {
+            return new NumberTag(truncate(((NumberTag) obj).internal));
+        });
+    }
+
+    private static double truncate(double val) {
+        if (val < 0) {
+            return Math.ceil(val);
+        }
+        return Math.floor(val);
     }
 
     public static NumberTag getFor(Action<String> error, String text) {
