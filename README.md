@@ -5,6 +5,14 @@ The core of the Denizen2 script engine!
 
 For a reference implementation, see [https://github.com/DenizenScript/Denizen2Console](https://github.com/DenizenScript/Denizen2Console).
 
+For a Minecraft/Sponge implementation, see [https://github.com/DenizenScript/Denizen2Sponge](https://github.com/DenizenScript/Denizen2Sponge).
+
+For builds, see [http://jci.denizenscript.com/job/Denizen2Core/](http://jci.denizenscript.com/job/Denizen2Core/).
+
+Discuss on our forums at [http://forum.denizenscript.com/](http://forum.denizenscript.com/).
+
+Discuss in a live IRC chat room at [http://one.denizenscript.com/ircchat_denizen](http://one.denizenscript.com/ircchat_denizen).
+
 Inspired and based upon the original Denizen and FreneticScript.
 
 ### Licensing pre-note:
