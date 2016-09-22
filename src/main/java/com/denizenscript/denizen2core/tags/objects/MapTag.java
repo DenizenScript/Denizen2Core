@@ -67,7 +67,7 @@ public class MapTag extends AbstractTagObject {
             List<String> datums = CoreUtilities.split(strs.get(i), ':', 2);
             String key = EscapeTagBase.unescape(datums.get(0));
             if (datums.size() < 2) {
-                error.run("Invalid map tag input!");
+                error.run("Invalid map tag input! (Parsing item: " + i + ": " + strs.get(i) + ")");
             }
             String data = EscapeTagBase.unescape(datums.get(1));
             TextArgumentBit tab = new TextArgumentBit(data, false);
