@@ -18,6 +18,14 @@ public class CoreUtilities {
 
     public final static Random random = new Random();
 
+    public static String after(String input, String sep) {
+        int ind = input.indexOf(sep);
+        if (ind == -1) {
+            return input;
+        }
+        return input.substring(ind + sep.length());
+    }
+
     public static String doubleToString(double input) {
         String temp = String.valueOf(input);
         if (temp.endsWith(".0")) {

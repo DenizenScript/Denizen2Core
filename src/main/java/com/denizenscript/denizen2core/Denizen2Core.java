@@ -5,6 +5,7 @@ import com.denizenscript.denizen2core.arguments.TagBit;
 import com.denizenscript.denizen2core.commands.queuecommands.*;
 import com.denizenscript.denizen2core.events.ScriptEvent;
 import com.denizenscript.denizen2core.events.commonevents.ScriptReloadEvent;
+import com.denizenscript.denizen2core.events.commonevents.SystemLoadEvent;
 import com.denizenscript.denizen2core.scripts.commontypes.TaskScript;
 import com.denizenscript.denizen2core.tags.handlers.*;
 import com.denizenscript.denizen2core.tags.objects.MapTag;
@@ -169,9 +170,13 @@ public class Denizen2Core {
         // Common script events
         scriptReload = new ScriptReloadEvent();
         register(scriptReload);
+        systemLoad = new SystemLoadEvent();
+        register(systemLoad);
     }
 
-    private static ScriptReloadEvent scriptReload = new ScriptReloadEvent();
+    private static ScriptReloadEvent scriptReload = null;
+
+    private static SystemLoadEvent systemLoad = null;
 
     public static void reload() {
         currentScripts.clear();
@@ -225,6 +230,7 @@ public class Denizen2Core {
             addons.addAll(AddonLoader.loadAddons(addonsFolder));
         }
         load();
+        systemLoad.call();
     }
 
     private static void load() {
