@@ -11,7 +11,7 @@ public class UnescapeTagBase extends AbstractTagBase {
     // @Base unescape[<TextTag>]
     // @Group Escaping
     // @ReturnType TextTag
-    // @Returns an unescaped copy of the input text. See <@link explanation Property Escaping>Property Escaping<@/link>.
+    // @Returns an unescaped copy of the input text. See <@link explanation Escaping>Escaping<@/link>.
     // -->
 
     @Override

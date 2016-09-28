@@ -8,14 +8,12 @@ import com.denizenscript.denizen2core.tags.objects.TextTag;
 public class EscapeTagBase extends AbstractTagBase {
 
     // <--[explanation]
-    // @name Property Escaping
-    // @group Useful Lists
+    // @name Escaping
+    // @group Escaping
     // @description
-    // Some item properties (and corresponding mechanisms) need to escape their
-    // text output/input to prevent players using them to cheat the system
-    // (EG, if a player set the display name of an item to:
-    //      'name;enchantments=damage_all,3', they would get a free enchantment!)
-    // These are the escape codes used to prevent that:
+    // There are several text codes ("escape codes") to prevent errors while parsing complicated text.
+    // For example, to properly include a pipe (the | symbol) in a list without it reading as a new list item.
+    // These are those codes:
     //
     // | = &pipe
     // < = &lt
@@ -36,17 +34,13 @@ public class EscapeTagBase extends AbstractTagBase {
     // § = &ss
     //
     // Also, you can input a non-breaking space via &sp
-    //
-    // These symbols are automatically used by the internal system, if you are
-    // writing your own property string and need to escape some symbols, you
-    // can just directly type them in, EG: i@stick[display_name=&ltFancy&spStick&gt]
     // -->
 
     // <--[tagbase]
     // @Base escape[<TextTag>]
     // @Group Escaping
     // @ReturnType TextTag
-    // @Returns an escaped copy of the input text. See <@link explanation Property Escaping>Property Escaping<@/link>.
+    // @Returns an escaped copy of the input text. See <@link explanation Escaping>Escaping<@/link>.
     // -->
 
     /**
