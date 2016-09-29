@@ -192,6 +192,9 @@ public abstract class ScriptEvent implements Cloneable {
         HashMap<String, AbstractTagObject> contextHelper = new HashMap<>();
         contextHelper.put("context", defmap);
         CommandScriptSection css = data.script.getSection("events.on " + data.eventPath);
+        if (css == null) {
+            return; // Something went wrong. Perhaps the script didn't load?
+        }
         for (Argument req : data.requirements) {
             BooleanTag bt = BooleanTag.getFor(this::error, req.parse(null, contextHelper, css.created.getDebugMode(), this::error));
             if (!bt.getInternal()) {

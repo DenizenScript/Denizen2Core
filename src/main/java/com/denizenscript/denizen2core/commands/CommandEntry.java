@@ -93,7 +93,7 @@ public class CommandEntry {
             fargs.add(Denizen2Core.splitToArgument(arg, thisArgQuoted, qtype, CommandEntry::setupError));
         }
         if (fargs.size() == 0) {
-            throw new RuntimeException("Invalid command line - looks blank!");
+            throw new ErrorInducedException("Invalid command line - looks blank!");
         }
         String cmd = CoreUtilities.toLowerCase(fargs.get(0).toString());
         boolean wf = false;
@@ -117,12 +117,12 @@ public class CommandEntry {
         waitFor = wf;
         scriptName = scrName;
         if (args.size() < cmd.getMinimumArguments()) {
-            throw new RuntimeException("Not enough arguments for command '" + originalLine
+            throw new ErrorInducedException("Not enough arguments for command '" + originalLine
                     + "', expected: " + ColorSet.emphasis + cmd.getArguments());
         }
         int max = cmd.getMaximumArguments();
         if (max >= 0 && args.size() > max) {
-            throw new RuntimeException("Too many arguments for command '" + originalLine
+            throw new ErrorInducedException("Too many arguments for command '" + originalLine
                     + "', expected: " + ColorSet.emphasis + cmd.getArguments());
         }
     }

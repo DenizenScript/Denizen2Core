@@ -87,7 +87,7 @@ public class MapTag extends AbstractTagObject {
 
     @Override
     public AbstractTagObject handleElseCase(TagData data) {
-        return new TextTag(toString());
+        return new TextTag(toString()).handle(data);
     }
 
     @Override
