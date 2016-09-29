@@ -88,7 +88,21 @@ public class CommandStackEntry implements Cloneable {
                 currentCommand.command.execute(queue, currentCommand);
             }
             catch (Exception ex) {
-                if (!(ex instanceof ErrorInducedException)) {
+                if (ex instanceof ErrorInducedException) {
+                    if (ex.getMessage() != null) {
+                        try {
+                            queue.handleError("Error running script: " + ex.getMessage());
+                        }
+                        catch (Exception ex2) {
+                            if (!(ex2 instanceof ErrorInducedException) && dbMode.showMinimal) {
+                                Debug.exception(ex2);
+                            }
+                            index = entries.length + 1;
+                            queue.commandStack.clear();
+                        }
+                    }
+                }
+                else {
                     try {
                         // TODO: System exception event
                         queue.handleError(currentCommand, "Internal exception: " + CoreUtilities.exceptionString(ex));

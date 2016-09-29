@@ -143,6 +143,6 @@ public class CommandQueue {
             }
         }
         stop();
-        throw new ErrorInducedException("Stopping queue...");
+        throw new ErrorInducedException(null);
     }
 }
