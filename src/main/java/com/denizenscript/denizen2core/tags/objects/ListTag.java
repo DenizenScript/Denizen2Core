@@ -53,6 +53,24 @@ public class ListTag extends AbstractTagObject {
             }
             return ((ListTag) obj).internal.get(i);
         });
+        // <--[tag]
+        // @Name ListTag.random
+        // @Updated 2016/09/28
+        // @Group Mathematics
+        // @ReturnType Dynamic
+        // @Returns the object at a random index in the list.
+        // @Example "one|two|three|" .random might return "one", "two", or "three".
+        // -->
+        handlers.put("random", (dat, obj) -> {
+            int size = ((ListTag) obj).internal.size();
+            if (size <= 0) {
+                if (dat.fallback != null) {
+                    dat.error.run("Empty list can't be read from!");
+                }
+                return new NullTag();
+            }
+            return ((ListTag) obj).internal.get(CoreUtilities.random.nextInt(size));
+        });
     }
 
     public static ListTag getFor(Action<String> error, String text) {
