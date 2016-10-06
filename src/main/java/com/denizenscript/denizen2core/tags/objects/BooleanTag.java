@@ -35,7 +35,7 @@ public class BooleanTag extends AbstractTagObject {
         // @Updated 2016/08/26
         // @Group Boolean Logic
         // @ReturnType BooleanTag
-        // @Returns whether the opposite of this boolean.
+        // @Returns the opposite of this boolean.
         // @Example "true" .not returns "false".
         // @Example "false" .not returns "true".
         // -->

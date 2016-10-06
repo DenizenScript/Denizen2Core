@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ScriptHelper {
 
-    public static String ClearComments(String input) {
+    public static String clearComments(String input) {
         StringBuilder result = new StringBuilder(input.length());
         List<String> lines = CoreUtilities.split(input.replace("\t", "    ").replace("\r", ""), '\n');
         for (String l : lines) {

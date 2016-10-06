@@ -205,7 +205,7 @@ public class Denizen2Core {
 
     private static void loadFile(String fname, String file) {
         try {
-            YAMLConfiguration config = YAMLConfiguration.load(ScriptHelper.ClearComments(file));
+            YAMLConfiguration config = YAMLConfiguration.load(ScriptHelper.clearComments(file));
             if (config == null) {
                 Debug.error("Invalid YAML for script " + ColorSet.emphasis + fname);
                 return;
