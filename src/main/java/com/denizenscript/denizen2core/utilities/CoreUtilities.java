@@ -56,7 +56,6 @@ public class CoreUtilities {
      */
     public static String streamToString(InputStream is) {
         try {
-            InputStreamReader isr = new InputStreamReader(is, encoding);
             final char[] buffer = new char[buff10k];
             final StringBuilder out = new StringBuilder();
             try (Reader in = new InputStreamReader(is, encoding)) {
