@@ -27,7 +27,7 @@ public class DefTagBase extends AbstractTagBase {
             obj = data.currentQueue.commandStack.peek().getDefinition(def);
         }
         if (obj == null) {
-            data.error.run("Invalid definition name!");
+            data.error.run("Invalid definition name: '" + def + "'!");
             return new NullTag();
         }
         return obj.handle(data.shrink());
