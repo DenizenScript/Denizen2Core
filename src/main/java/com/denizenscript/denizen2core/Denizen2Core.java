@@ -160,6 +160,7 @@ public class Denizen2Core {
         register(new QueueTagBase());
         register(new ScriptTagBase());
         register(new SystemTagBase());
+        register(new TaskTagBase());
         register(new TextTagBase());
         register(new TimeTagBase());
         register(new UnescapeTagBase());

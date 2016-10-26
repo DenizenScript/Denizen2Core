@@ -31,4 +31,30 @@ public class TaskScript extends CommandScript {
         }
         return sections.get(CoreUtilities.toLowerCase(name));
     }
+
+    public static enum TaggableType {
+        NONE,
+        ON,
+        ALWAYS
+    }
+
+    public TaggableType isTaggable = TaggableType.NONE;
+
+    @Override
+    public boolean init() {
+        isTaggable = TaggableType.NONE;
+        if (super.init()) {
+            if (contents.contains("taggable")) {
+                String tt = CoreUtilities.toLowerCase(contents.getString("taggable"));
+                if (tt.equals("true") || tt.equals("on")) {
+                    isTaggable = TaggableType.ON;
+                }
+                else if (tt.equals("always")) {
+                    isTaggable = TaggableType.ALWAYS;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
 }
