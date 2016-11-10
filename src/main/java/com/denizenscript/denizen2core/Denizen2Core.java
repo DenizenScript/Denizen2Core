@@ -204,11 +204,11 @@ public class Denizen2Core {
         }
     }
 
-    private static void loadFile(String fname, String file) {
+    public static void loadFile(String fileName, String contents) {
         try {
-            YAMLConfiguration config = YAMLConfiguration.load(ScriptHelper.clearComments(file));
+            YAMLConfiguration config = YAMLConfiguration.load(ScriptHelper.clearComments(contents));
             if (config == null) {
-                Debug.error("Invalid YAML for script " + ColorSet.emphasis + fname);
+                Debug.error("Invalid YAML for script " + ColorSet.emphasis + fileName);
                 return;
             }
             Set<StringHolder> strs = config.getKeys(false);
@@ -217,7 +217,7 @@ public class Denizen2Core {
             }
         }
         catch (Exception ex) {
-            Debug.error("Failed to load script: " + ColorSet.emphasis + fname);
+            Debug.error("Failed to load script: " + ColorSet.emphasis + fileName);
             Debug.exception(ex);
         }
     }
