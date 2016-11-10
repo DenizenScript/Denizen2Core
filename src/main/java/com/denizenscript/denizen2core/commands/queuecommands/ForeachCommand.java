@@ -14,6 +14,7 @@ public class ForeachCommand extends AbstractCommand {
     public static class ForeachCommandData {
         public int current = 0;
         public ListTag list;
+        public String resName;
     }
 
     // <--[command]
@@ -28,6 +29,7 @@ public class ForeachCommand extends AbstractCommand {
     // @Tag <def[foreach_index]> (IntegerTag) returns the current index in the loop.
     // @Tag <def[foreach_value]> (Dynamic) returns the current object in the loop.
     // @Tag <def[foreach_list]> (ListTag) returns the list of values in the loop.
+    // @Save foreach_value (Dynamic) returns the current value in the loop.
     // @Description
     // Runs a block of code once for each entry in a list.
     // TODO: Explain more!
@@ -70,7 +72,7 @@ public class ForeachCommand extends AbstractCommand {
             queue.commandStack.peek().setDefinition("foreach_index", new IntegerTag(fcd.current));
             queue.commandStack.peek().setDefinition("foreach_list", fcd.list);
             if (fcd.current <= fcd.list.getInternal().size()) {
-                queue.commandStack.peek().setDefinition("foreach_value", fcd.list.getInternal().get(fcd.current - 1));
+                queue.commandStack.peek().setDefinition(fcd.resName, fcd.list.getInternal().get(fcd.current - 1));
                 if (queue.shouldShowGood()) {
                     queue.outGood("Foreach looping " + ColorSet.emphasis + fcd.current + "/" + fcd.list.getInternal().size());
                 }
@@ -106,9 +108,10 @@ public class ForeachCommand extends AbstractCommand {
             ForeachCommandData fcd = new ForeachCommandData();
             fcd.current = 1;
             fcd.list = nltag;
+            fcd.resName = entry.resName(queue, "foreach_value");
             entry.setData(queue, fcd);
             queue.commandStack.peek().setDefinition("foreach_index", new IntegerTag(fcd.current));
-            queue.commandStack.peek().setDefinition("foreach_value", fcd.list.getInternal().get(fcd.current - 1));
+            queue.commandStack.peek().setDefinition(fcd.resName, fcd.list.getInternal().get(fcd.current - 1));
             queue.commandStack.peek().setDefinition("foreach_list", fcd.list);
             if (queue.shouldShowGood()) {
                 queue.outGood("Foreach count is is " + ColorSet.emphasis + fcd.list.getInternal().size() + ColorSet.good + ", repeating...");

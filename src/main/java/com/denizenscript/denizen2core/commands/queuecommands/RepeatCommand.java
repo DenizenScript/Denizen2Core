@@ -13,6 +13,7 @@ public class RepeatCommand extends AbstractCommand {
     public static class RepeatCommandData {
         public int current = 0;
         public int end = 0;
+        public String resName;
     }
 
     // <--[command]
@@ -26,6 +27,7 @@ public class RepeatCommand extends AbstractCommand {
     // @Maximum 1
     // @Tag <def[repeat_index]> (IntegerTag) returns the current index in the loop.
     // @Tag <def[repeat_total]> (IntegerTag) returns the value the repeat is counting up to.
+    // @Save repeat_index (IntegerTag) returns the current index in the loop.
     // @Description
     // Runs a block of code the specified number of types.
     // TODO: Explain more!
@@ -65,7 +67,7 @@ public class RepeatCommand extends AbstractCommand {
         if (entry.arguments.get(0).toString().equals("\0CALLBACK")) {
             RepeatCommandData rcd = (RepeatCommandData) queue.commandStack.peek().entries[entry.blockStart - 1].getData(queue);
             rcd.current++;
-            queue.commandStack.peek().setDefinition("repeat_index", new IntegerTag(rcd.current));
+            queue.commandStack.peek().setDefinition(rcd.resName, new IntegerTag(rcd.current));
             queue.commandStack.peek().setDefinition("repeat_total", new IntegerTag(rcd.end));
             if (rcd.current <= rcd.end) {
                 if (queue.shouldShowGood()) {
@@ -103,8 +105,9 @@ public class RepeatCommand extends AbstractCommand {
             RepeatCommandData rcd = new RepeatCommandData();
             rcd.current = 1;
             rcd.end = (int) itag.getInternal();
+            rcd.resName = entry.resName(queue, "repeat_index");
             entry.setData(queue, rcd);
-            queue.commandStack.peek().setDefinition("repeat_index", new IntegerTag(rcd.current));
+            queue.commandStack.peek().setDefinition(rcd.resName, new IntegerTag(rcd.current));
             queue.commandStack.peek().setDefinition("repeat_total", new IntegerTag(rcd.end));
             if (queue.shouldShowGood()) {
                 queue.outGood("Repeat number is " + ColorSet.emphasis + itag.getInternal() + ColorSet.good + ", repeating...");

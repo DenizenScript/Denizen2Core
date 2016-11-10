@@ -26,6 +26,7 @@ public class RunCommand extends AbstractCommand {
     // @Minimum 1
     // @Maximum 2
     // @Tag <[run_queue]> (QueueTag) returns the ran queue.
+    // @Save run_queue (QueueTag) returns the queue that was created and ran.
     // @Description
     // Runs a script as a new queue.
     // Optionally add definitions to pass to the new queue.
@@ -101,6 +102,6 @@ public class RunCommand extends AbstractCommand {
         }
         nq.sender = queue.sender;
         nq.start();
-        queue.commandStack.peek().setDefinition("run_queue", new QueueTag(nq));
+        queue.commandStack.peek().setDefinition(entry.resName(queue, "run_queue"), new QueueTag(nq));
     }
 }
