@@ -183,6 +183,7 @@ public class Denizen2Core {
         currentScripts.clear();
         ScriptEvent.currentWorldScripts.clear();
         load();
+        implementation.reload();
         addons.forEach(DenizenAddon::reload);
         scriptReload.call();
     }
