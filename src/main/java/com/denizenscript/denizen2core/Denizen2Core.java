@@ -102,8 +102,7 @@ public class Denizen2Core {
     public static long cqID = 0;
 
     public static void tick(double delta) {
-        int size = queues.size();
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < queues.size(); i++) {
             CommandQueue q = queues.get(i);
             if (q.run(delta)) {
                 queues.remove(i);
