@@ -102,11 +102,12 @@ public class Denizen2Core {
     public static long cqID = 0;
 
     public static void tick(double delta) {
-        Iterator<CommandQueue> qi = queues.iterator();
-        while (qi.hasNext()) {
-            CommandQueue queue = qi.next();
-            if (queue.run(delta)) {
-                qi.remove();
+        int size = queues.size();
+        for (int i = 0; i < size; i++) {
+            CommandQueue q = queues.get(i);
+            if (q.run(delta)) {
+                queues.remove(i);
+                i--;
             }
         }
     }
