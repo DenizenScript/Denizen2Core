@@ -178,7 +178,7 @@ public class IntegerTag extends AbstractTagObject {
 
     @Override
     public AbstractTagObject handleElseCase(TagData data) {
-        return new NumberTag(internal).handle(data);
+        return new NumberTag(internal);
     }
 
     @Override

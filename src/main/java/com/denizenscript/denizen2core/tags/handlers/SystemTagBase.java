@@ -97,7 +97,7 @@ public class SystemTagBase extends AbstractTagBase {
 
         @Override
         public AbstractTagObject handleElseCase(TagData data) {
-            return new TextTag(getName()).handle(data);
+            return new TextTag(getName());
         }
     }
 }

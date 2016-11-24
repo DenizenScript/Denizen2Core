@@ -1,5 +1,6 @@
 package com.denizenscript.denizen2core.tags;
 
+import com.denizenscript.denizen2core.tags.objects.NullTag;
 import com.denizenscript.denizen2core.utilities.Function2;
 
 import java.util.HashMap;
@@ -17,7 +18,11 @@ public abstract class AbstractTagObject {
         if (handle != null) {
             return handle.apply(data, this).handle(data.shrink());
         }
-        return handleElseCase(data);
+        AbstractTagObject ato = handleElseCase(data);
+        if (ato != null) {
+            return ato.handle(data);
+        }
+        return new NullTag();
     }
 
     public abstract AbstractTagObject handleElseCase(TagData data);

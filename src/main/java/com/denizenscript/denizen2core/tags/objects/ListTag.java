@@ -58,6 +58,15 @@ public class ListTag extends AbstractTagObject {
             return ((ListTag) obj).internal.get(i);
         });
         // <--[tag]
+        // @Name ListTag.size
+        // @Updated 2016/11/24
+        // @Group General Information
+        // @ReturnType IntegerTag
+        // @Returns the length of the list.
+        // @Example "one|two|three|" .size returns "3".
+        // -->
+        handlers.put("size", (dat, obj) -> new IntegerTag(((ListTag) obj).getInternal().size()));
+        // <--[tag]
         // @Name ListTag.random
         // @Updated 2016/09/28
         // @Group Mathematics
@@ -108,7 +117,7 @@ public class ListTag extends AbstractTagObject {
 
     @Override
     public AbstractTagObject handleElseCase(TagData data) {
-        return new TextTag(toString()).handle(data);
+        return new TextTag(toString());
     }
 
     @Override
