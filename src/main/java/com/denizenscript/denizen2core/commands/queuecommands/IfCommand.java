@@ -70,7 +70,16 @@ public class IfCommand extends AbstractCommand {
     }
 
     public static boolean getBool(Action<String> error, AbstractTagObject obj) {
-        return BooleanTag.getFor(error, obj).getInternal();
+        boolean negate = false;
+        if (obj instanceof TextTag && obj.toString().startsWith("!")) {
+            negate = true;
+            obj = new TextTag(obj.toString().substring(1));
+        }
+        boolean b = BooleanTag.getFor(error, obj).getInternal();
+        if (negate) {
+            b = !b;
+        }
+        return b;
     }
 
     public static class ObjectHolder {
