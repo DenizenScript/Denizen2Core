@@ -34,6 +34,10 @@ public class TagData {
 
     public final DebugMode dbmode;
 
+    public boolean hasFallback() {
+        return fallback != null;
+    }
+
     public TagData shrink() {
         cInd++;
         return this;

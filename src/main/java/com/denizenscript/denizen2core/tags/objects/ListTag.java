@@ -27,6 +27,10 @@ public class ListTag extends AbstractTagObject {
         internal = new ArrayList<>();
     }
 
+    public ListTag(List<AbstractTagObject> inty) {
+        internal = new ArrayList<>(inty);
+    }
+
     public List<AbstractTagObject> getInternal() {
         return internal;
     }
@@ -46,8 +50,8 @@ public class ListTag extends AbstractTagObject {
             IntegerTag ind = IntegerTag.getFor(dat.error, dat.getNextModifier());
             int i = (int) ind.getInternal() - 1;
             if (i < 0 || i >= ((ListTag) obj).internal.size()) {
-                if (dat.fallback != null) {
-                    dat.error.run("Invalid GET index!");
+                if (!dat.hasFallback()) {
+                    dat.error.run("Invalid ListTag.GET[...] index!");
                 }
                 return new NullTag();
             }
@@ -64,8 +68,8 @@ public class ListTag extends AbstractTagObject {
         handlers.put("random", (dat, obj) -> {
             int size = ((ListTag) obj).internal.size();
             if (size <= 0) {
-                if (dat.fallback != null) {
-                    dat.error.run("Empty list can't be read from!");
+                if (!dat.hasFallback()) {
+                    dat.error.run("Empty list can't be read from for random tag!");
                 }
                 return new NullTag();
             }
