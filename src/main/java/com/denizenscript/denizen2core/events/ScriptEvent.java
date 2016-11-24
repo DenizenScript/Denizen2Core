@@ -205,7 +205,7 @@ public abstract class ScriptEvent implements Cloneable {
             Debug.good("Running script event: " + ColorSet.emphasis + data.script.title
                     + ColorSet.good + ", event: " + "on " + ColorSet.emphasis + data.eventPath);
             for (Map.Entry<String, AbstractTagObject> def : defs.entrySet()) {
-                Debug.good("Definition: " + ColorSet.emphasis + def.getKey() + ColorSet.good
+                Debug.good("Context Definition: " + ColorSet.emphasis + def.getKey() + ColorSet.good
                         + " is " + ColorSet.emphasis + def.getValue().toString());
             }
         }
