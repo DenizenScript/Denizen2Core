@@ -10,6 +10,8 @@ import java.io.File;
  */
 public abstract class Denizen2Implementation {
 
+    public abstract void preReload();
+
     public abstract void reload();
 
     public abstract void outputException(Exception ex); // TODO: Throwable?

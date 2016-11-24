@@ -180,6 +180,7 @@ public class Denizen2Core {
     private static SystemLoadEvent systemLoad = null;
 
     public static void reload() {
+        implementation.preReload();
         currentScripts.clear();
         ScriptEvent.currentWorldScripts.clear();
         load();
