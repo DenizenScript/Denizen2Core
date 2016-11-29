@@ -11,6 +11,7 @@ import com.denizenscript.denizen2core.commands.CommandQueue;
 import com.denizenscript.denizen2core.commands.CommandStackEntry;
 import com.denizenscript.denizen2core.tags.objects.NumberTag;
 import com.denizenscript.denizen2core.utilities.Action;
+import com.denizenscript.denizen2core.utilities.debugging.Debug;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -116,6 +117,9 @@ public class IfCommand extends AbstractCommand {
 
     public static boolean tryIf(TryIfHelper helper) {
         helper.ensure();
+        if (DEBUG) {
+            Debug.info("[IF:DEBUG] Args: " + helper.arguments.size());
+        }
         if (helper.arguments.size() == 0) {
             return false;
         }
@@ -198,6 +202,9 @@ public class IfCommand extends AbstractCommand {
                 return tryIf(tif2);
             }
         }
+        if (DEBUG) {
+            Debug.info("[IF:DEBUG] Args [Pos2]: " + helper.arguments.size());
+        }
         if (helper.arguments.size() == 1) {
             return getBool(helper.queue.error, helper.getObj(0));
         }
@@ -205,6 +212,9 @@ public class IfCommand extends AbstractCommand {
             AbstractTagObject obj1 = helper.getObj(0);
             AbstractTagObject obj2 = helper.getObj(2);
             String comp = helper.arguments.get(1).toString();
+            if (DEBUG) {
+                Debug.info("[IF:DEBUG] Comparison operator: " + comp);
+            }
             if (comp.equals("==")) {
                 return obj1.toString().equalsIgnoreCase(obj2.toString());
             }
@@ -213,6 +223,9 @@ public class IfCommand extends AbstractCommand {
             }
             NumberTag n1 = NumberTag.getFor(helper.queue.error, obj1);
             NumberTag n2 = NumberTag.getFor(helper.queue.error, obj2);
+            if (DEBUG) {
+                Debug.info("[IF:DEBUG] Numeric operands: " + n1.getInternal() + ", " + n2.getInternal());
+            }
             if (comp.equals(">=")) {
                 return n1.getInternal() >= n2.getInternal();
             }
@@ -228,6 +241,8 @@ public class IfCommand extends AbstractCommand {
         }
         return false;
     }
+
+    private static final boolean DEBUG = false;
 
     @Override
     public void execute(CommandQueue queue, CommandEntry entry) {

@@ -185,8 +185,14 @@ public class Denizen2Core {
         ScriptEvent.currentWorldScripts.clear();
         load();
         implementation.reload();
-        addons.forEach(DenizenAddon::reload);
+        reloadAddons();
         scriptReload.call();
+    }
+
+    private static void reloadAddons() {
+        for (DenizenAddon addon : addons) {
+            addon.reload();
+        }
     }
 
     private static void loadSection(String scriptName, YAMLConfiguration section) {
@@ -311,7 +317,9 @@ public class Denizen2Core {
         if (input.length() == 0) {
             return new Argument();
         }
-        if (input.indexOf('<') < 0) {
+        int i1 = input.indexOf('<');
+        int i2 = input.lastIndexOf('>');
+        if (i1 < 0 || i1 > i2) {
             Argument arg = new Argument();
             arg.addBit(new TextArgumentBit(input, wasQuoted));
             return arg;
@@ -327,12 +335,23 @@ public class Denizen2Core {
         for (int i = 0; i < len; i++) {
             char c = input.charAt(i);
             if (c == '<') {
-                blocks++;
-                if (blocks == 1) {
+                // Awkward backup cheat here...
+                if (input.lastIndexOf('>') > i) {
+                    blocks++;
+                    if (blocks == 1) {
+                        continue;
+                    }
+                }
+                else {
+                    tbuilder.append(c);
                     continue;
                 }
             }
             else if (c == '>') {
+                if (blocks == 0) {
+                    tbuilder.append(c);
+                    continue;
+                }
                 blocks--;
                 if (blocks == 0) {
                     if (tbuilder.length() > 0) {
