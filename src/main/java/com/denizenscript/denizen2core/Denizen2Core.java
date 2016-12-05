@@ -2,6 +2,7 @@ package com.denizenscript.denizen2core;
 
 import com.denizenscript.denizen2core.addons.AddonInfo;
 import com.denizenscript.denizen2core.arguments.TagBit;
+import com.denizenscript.denizen2core.commands.filecommands.YamlCommand;
 import com.denizenscript.denizen2core.commands.queuecommands.*;
 import com.denizenscript.denizen2core.events.ScriptEvent;
 import com.denizenscript.denizen2core.events.commonevents.ScriptReloadEvent;
@@ -77,6 +78,8 @@ public class Denizen2Core {
 
     public final static HashMap<String, Function2<String, YAMLConfiguration, CommandScript>> scriptTypeGetters = new HashMap<>();
 
+    public final static HashMap<String, Object> filesLoadedByScripts = new HashMap<>();
+
     public static Denizen2Implementation getImplementation() {
         return implementation;
     }
@@ -128,6 +131,8 @@ public class Denizen2Core {
         // Common Commands
         register(new EchoCommand());
         register(new ReloadCommand());
+        // File Commands
+        register(new YamlCommand());
         // Queue Commands
         register(new AddtoCommand());
         register(new AssertCommand());

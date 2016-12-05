@@ -35,4 +35,8 @@ public abstract class Denizen2Implementation {
     public abstract String getImplementationVersion();
 
     public abstract boolean enforceLocale();
+
+    public abstract File getScriptDataFolder();
+
+    public abstract boolean isSafePath(String file);
 }
