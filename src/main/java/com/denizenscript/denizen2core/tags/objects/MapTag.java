@@ -55,6 +55,15 @@ public class MapTag extends AbstractTagObject {
             }
             return ato;
         });
+        // <--[tag]
+        // @Name MapTag.size
+        // @Updated 2016/12/05
+        // @Group Mathematics
+        // @ReturnType IntegerTag
+        // @Returns the size (number of entries) of the map.
+        // @Example "one:a|two:b|three:c|" .size returns "3".
+        // -->
+        handlers.put("size", (dat, obj) -> new IntegerTag(((MapTag) obj).getInternal().size()));
     }
 
     public static MapTag getFor(Action<String> error, String text) {

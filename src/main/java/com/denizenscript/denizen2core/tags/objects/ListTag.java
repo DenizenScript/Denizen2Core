@@ -62,7 +62,7 @@ public class ListTag extends AbstractTagObject {
         // @Updated 2016/11/24
         // @Group General Information
         // @ReturnType IntegerTag
-        // @Returns the length of the list.
+        // @Returns the size (number of entries) of the list.
         // @Example "one|two|three|" .size returns "3".
         // -->
         handlers.put("size", (dat, obj) -> new IntegerTag(((ListTag) obj).getInternal().size()));
