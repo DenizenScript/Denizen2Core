@@ -155,6 +155,7 @@ public class Denizen2Core {
         register(new IntegerTagBase());
         register(new ListTagBase());
         register(new MapTagBase());
+        register(new NullTagBase());
         register(new NumberTagBase());
         register(new ProcedureTagBase());
         register(new QueueTagBase());
