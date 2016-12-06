@@ -11,7 +11,7 @@ public class NullTagBase extends AbstractTagBase {
     // @Base null
     // @Group Common Base Types
     // @ReturnType NullTag
-    // @Returns a null.
+    // @Returns a NullTag.
     // -->
 
     @Override

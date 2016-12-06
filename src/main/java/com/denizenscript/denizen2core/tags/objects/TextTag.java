@@ -53,11 +53,38 @@ public class TextTag extends AbstractTagObject {
         // @Name TextTag.to_boolean
         // @Updated 2016/08/26
         // @Group Text Modification
-        // @ReturnType NumberTag
+        // @ReturnType BooleanTag
         // @Returns the text parsed as a boolean.
         // @Example "true" .to_boolean returns "true".
         // -->
         handlers.put("to_boolean", (dat, obj) -> BooleanTag.getFor(dat.error, ((TextTag) obj).internal));
+        // <--[tag]
+        // @Name TextTag.is_integer
+        // @Updated 2016/12/05
+        // @Group Text Details
+        // @ReturnType BooleanTag
+        // @Returns whether the text can be parsed as an integer.
+        // @Example "1" .is_integer returns "true".
+        // -->
+        handlers.put("is_integer", (dat, obj) -> new BooleanTag(IntegerTag.getFor(TextTag::doNothing, ((TextTag) obj).internal) != null));
+        // <--[tag]
+        // @Name TextTag.is_number
+        // @Updated 2016/12/05
+        // @Group Text Details
+        // @ReturnType BooleanTag
+        // @Returns whether the text can be parsed as a number.
+        // @Example "1" .is_number returns "true".
+        // -->
+        handlers.put("is_number", (dat, obj) -> new BooleanTag(NumberTag.getFor(TextTag::doNothing, ((TextTag) obj).internal) != null));
+        // <--[tag]
+        // @Name TextTag.is_boolean
+        // @Updated 2016/12/05
+        // @Group Text Details
+        // @ReturnType BooleanTag
+        // @Returns whether the text can be parsed as a boolean.
+        // @Example "true" .is_boolean returns "true".
+        // -->
+        handlers.put("is_boolean", (dat, obj) -> new BooleanTag(BooleanTag.getFor(TextTag::doNothing, ((TextTag) obj).internal) != null));
         // <--[tag]
         // @Name TextTag.escaped
         // @Updated 2016/09/28
@@ -76,6 +103,37 @@ public class TextTag extends AbstractTagObject {
         // @Example "a&ampb" .unescaped returns "a&b".
         // -->
         handlers.put("unescaped", (dat, obj) -> new TextTag(EscapeTagBase.unescape(((TextTag) obj).internal)));
+        // <--[tag]
+        // @Name TextTag.length
+        // @Updated 2016/12/05
+        // @Group Text Details
+        // @ReturnType IntegerTag
+        // @Returns the length of the text, in characters.
+        // @Example "abc" .length returns "3".
+        // -->
+        handlers.put("length", (dat, obj) -> new IntegerTag(((TextTag) obj).internal.length()));
+        // <--[tag]
+        // @Name TextTag.char_at[<IntegerTag>]
+        // @Updated 2016/12/05
+        // @Group Text Details
+        // @ReturnType Dynamic
+        // @Returns the character at the specified index in the text (treating the text as a list of characters).
+        // @Example "abc" .char_at[1] returns "a".
+        // -->
+        handlers.put("char_at", (dat, obj) -> {
+            IntegerTag ind = IntegerTag.getFor(dat.error, dat.getNextModifier());
+            int i = (int) ind.getInternal() - 1;
+            if (i < 0 || i >= ((TextTag) obj).internal.length()) {
+                if (!dat.hasFallback()) {
+                    dat.error.run("Invalid TextTag.CHAR_AT[...] index!");
+                }
+                return new NullTag();
+            }
+            return new TextTag(String.valueOf(((TextTag) obj).internal.charAt(i)));
+        });
+    }
+
+    public static void doNothing(String s) {
     }
 
     public static TextTag getFor(Action<String> error, String text) {
