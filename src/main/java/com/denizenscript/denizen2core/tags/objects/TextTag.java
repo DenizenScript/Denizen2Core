@@ -7,6 +7,8 @@ import com.denizenscript.denizen2core.utilities.Function2;
 import com.denizenscript.denizen2core.utilities.Action;
 
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class TextTag extends AbstractTagObject {
 
@@ -58,6 +60,24 @@ public class TextTag extends AbstractTagObject {
         // @Example "true" .to_boolean returns "true".
         // -->
         handlers.put("to_boolean", (dat, obj) -> BooleanTag.getFor(dat.error, ((TextTag) obj).internal));
+        // <--[tag]
+        // @Name TextTag.to_upper
+        // @Updated 2016/12/05
+        // @Group Text Modification
+        // @ReturnType TextTag
+        // @Returns the text in full uppercase.
+        // @Example "Hello" .to_upper returns "HELLO".
+        // -->
+        handlers.put("to_upper", (dat, obj) -> new TextTag(((TextTag) obj).internal.toUpperCase(Locale.ENGLISH)));
+        // <--[tag]
+        // @Name TextTag.to_lower
+        // @Updated 2016/12/05
+        // @Group Text Modification
+        // @ReturnType TextTag
+        // @Returns the text in full lowercase.
+        // @Example "hELLO" .to_lower returns "hello".
+        // -->
+        handlers.put("to_upper", (dat, obj) -> new TextTag(((TextTag) obj).internal.toLowerCase(Locale.ENGLISH)));
         // <--[tag]
         // @Name TextTag.is_integer
         // @Updated 2016/12/05
@@ -113,10 +133,28 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("length", (dat, obj) -> new IntegerTag(((TextTag) obj).internal.length()));
         // <--[tag]
+        // @Name TextTag.equals[<TextTag>]
+        // @Updated 2016/12/05
+        // @Group Text Details
+        // @ReturnType BooleanTag
+        // @Returns whether the two sets of text are equal. Case-Insensitive.
+        // @Example "abc" .equals[abc] returns "true".
+        // -->
+        handlers.put("equala", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.equalsIgnoreCase(dat.getNextModifier().toString())));
+        // <--[tag]
+        // @Name TextTag.equals_with_case[<TextTag>]
+        // @Updated 2016/12/05
+        // @Group Text Details
+        // @ReturnType BooleanTag
+        // @Returns whether the two sets of text are equal. Case Sensitive.
+        // @Example "abc" .equals[abc] returns "true".
+        // -->
+        handlers.put("equals_with_case", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.equals(dat.getNextModifier().toString())));
+        // <--[tag]
         // @Name TextTag.char_at[<IntegerTag>]
         // @Updated 2016/12/05
         // @Group Text Details
-        // @ReturnType Dynamic
+        // @ReturnType TextTag
         // @Returns the character at the specified index in the text (treating the text as a list of characters).
         // @Example "abc" .char_at[1] returns "a".
         // -->
@@ -130,6 +168,72 @@ public class TextTag extends AbstractTagObject {
                 return new NullTag();
             }
             return new TextTag(String.valueOf(((TextTag) obj).internal.charAt(i)));
+        });
+        // <--[tag]
+        // @Name TextTag.to_list_of_characters
+        // @Updated 2016/12/05
+        // @Group Text Details
+        // @ReturnType ListTag
+        // @Returns the characters in the text as a list.
+        // @Example "abc" .to_list_of_characters returns "a|b|c|".
+        // -->
+        handlers.put("to_list_of_characters", (dat, obj) -> {
+            ListTag list = new ListTag();
+            String text = ((TextTag) obj).internal;
+            for (int i = 0; i < text.length(); i++) {
+                list.getInternal().add(new TextTag(text.substring(i, i)));
+            }
+            return list;
+        });
+        // <--[tag]
+        // @Name TextTag.replace[<MapTag>]
+        // @Updated 2016/12/05
+        // @Group Text Modification
+        // @ReturnType TextTag
+        // @Returns the text, with the specified key text swapped for the specified value text.
+        // @Example "abc" .replace[b:d] returns "abc".
+        // -->
+        handlers.put("replace", (dat, obj) -> {
+            MapTag map = MapTag.getFor(dat.error, dat.getNextModifier());
+            String temp = ((TextTag) obj).internal;
+            for (Map.Entry<String, AbstractTagObject> entry : map.getInternal().entrySet()) {
+                temp = temp.replace(entry.getKey(), entry.getValue().toString());
+            }
+            return new TextTag(temp);
+        });
+        // <--[tag]
+        // @Name TextTag.substring[<ListTag>]
+        // @Updated 2016/12/05
+        // @Group Text Modification
+        // @ReturnType TextTag
+        // @Returns the portion of text specified by the two sub-indices.
+        // @Example "abc" .substring[1|2] returns "ab".
+        // -->
+        handlers.put("substring", (dat, obj) -> {
+            ListTag inputinds = ListTag.getFor(dat.error, dat.getNextModifier());
+            if (inputinds.getInternal().size() != 2) {
+                if (!dat.hasFallback()) {
+                    dat.error.run("Invalid input!");
+                }
+                return new NullTag();
+            }
+            int i1 = (int)IntegerTag.getFor(dat.error, inputinds.getInternal().get(0)).getInternal() - 1;
+            int i2 = (int)IntegerTag.getFor(dat.error, inputinds.getInternal().get(1)).getInternal() - 1;
+            String text = ((TextTag) obj).internal;
+            if (i1 < 0) {
+                i1 = 0;
+            }
+            if (i2 < 0) {
+                i2 = 0;
+            }
+            if (i1 > text.length()) {
+                i1 = text.length();
+            }
+            if (i2 > text.length()) {
+                i2 = text.length();
+            }
+            String res = text.substring(i1, i2);
+            return new TextTag(res);
         });
     }
 
