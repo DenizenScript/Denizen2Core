@@ -30,35 +30,6 @@ public class IntegerTag extends AbstractTagObject {
     public final static HashMap<String, Function2<TagData, AbstractTagObject, AbstractTagObject>> handlers = new HashMap<>();
 
     static {
-        // Documented in NumberTag.
-        handlers.put("is_greater_than", (dat, obj) -> {
-            IntegerTag two = IntegerTag.getFor(dat.error, dat.getNextModifier());
-            return new BooleanTag(((IntegerTag) obj).internal > two.internal);
-        });
-        // Documented in NumberTag.
-        handlers.put("is_greater_than_or_equal_to", (dat, obj) -> {
-            IntegerTag two = IntegerTag.getFor(dat.error, dat.getNextModifier());
-            return new BooleanTag(((IntegerTag) obj).internal >= two.internal);
-        });
-        // Documented in NumberTag.
-        handlers.put("is_less_than", (dat, obj) -> {
-            IntegerTag two = IntegerTag.getFor(dat.error, dat.getNextModifier());
-            return new BooleanTag(((IntegerTag) obj).internal < two.internal);
-        });
-        // Documented in NumberTag.
-        handlers.put("is_less_than_or_equal_to", (dat, obj) -> {
-            IntegerTag two = IntegerTag.getFor(dat.error, dat.getNextModifier());
-            return new BooleanTag(((IntegerTag) obj).internal <= two.internal);
-        });
-        // Documented in TextTag.
-        handlers.put("equals", (dat, obj) -> {
-            IntegerTag two = IntegerTag.getFor(dat.error, dat.getNextModifier());
-            return new BooleanTag(((IntegerTag) obj).internal == two.internal);
-        });
-        // Documented in NumberTag.
-        handlers.put("sign", (dat, obj) -> {
-            return new IntegerTag((int)Math.signum(((IntegerTag) obj).internal));
-        });
         // <--[tag]
         // @Name IntegerTag.add_integer[<IntegerTag>]
         // @Updated 2016/08/26
