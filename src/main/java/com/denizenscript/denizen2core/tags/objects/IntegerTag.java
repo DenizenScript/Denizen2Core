@@ -138,7 +138,7 @@ public class IntegerTag extends AbstractTagObject {
         // @ReturnType IntegerTag
         // @Returns whichever is smaller: this integer, or the specified integer.
         // @Example "1" .minimum_integer[2] returns "1".
-        // -->1
+        // -->
         handlers.put("minimum_integer", (dat, obj) -> {
             IntegerTag two = IntegerTag.getFor(dat.error, dat.getNextModifier());
             return new IntegerTag(Math.min(((IntegerTag) obj).internal, two.internal));
