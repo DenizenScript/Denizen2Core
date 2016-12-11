@@ -3,20 +3,20 @@ package com.denizenscript.denizen2core.tags.handlers;
 import com.denizenscript.denizen2core.tags.AbstractTagBase;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.TagData;
-import com.denizenscript.denizen2core.tags.objects.NullTag;
+import com.denizenscript.denizen2core.tags.objects.BooleanTag;
 
-public class DefTagBase extends AbstractTagBase {
+public class DefExistsTagBase extends AbstractTagBase {
 
     // <--[tagbase]
-    // @Base def[<TextTag>]
+    // @Base def_exists[<TextTag>]
     // @Group Definitions
-    // @ReturnType Dynamic
-    // @Returns a current definition by the given name.
+    // @ReturnType BooleanTag
+    // @Returns whether a current definition by the given name exists.
     // -->
 
     @Override
     public String getName() {
-        return "def";
+        return "def_exists";
     }
 
     @Override
@@ -27,11 +27,8 @@ public class DefTagBase extends AbstractTagBase {
             obj = data.currentQueue.commandStack.peek().getDefinition(def);
         }
         if (obj == null) {
-            if (!data.hasFallback()) {
-                data.error.run("Invalid definition name: '" + def + "'!");
-            }
-            return new NullTag();
+            return new BooleanTag(false).handle(data.shrink());
         }
-        return obj.handle(data.shrink());
+        return new BooleanTag(true).handle(data.shrink());
     }
 }
