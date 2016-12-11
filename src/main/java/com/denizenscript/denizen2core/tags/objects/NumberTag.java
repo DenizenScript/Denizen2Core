@@ -97,6 +97,18 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(((NumberTag) obj).internal + two.internal);
         });
         // <--[tag]
+        // @Name NumberTag.+[<NumberTag>]
+        // @Updated 2016/12/11
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the number plus another number.
+        // @Example "1" .+[1] returns "2".
+        // -->
+        handlers.put("+", (dat, obj) -> {
+            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            return new NumberTag(((NumberTag) obj).internal + two.internal);
+        });
+        // <--[tag]
         // @Name NumberTag.subtract[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -105,6 +117,18 @@ public class NumberTag extends AbstractTagObject {
         // @Example "1" .subtract[1] returns "0".
         // -->
         handlers.put("subtract", (dat, obj) -> {
+            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            return new NumberTag(((NumberTag) obj).internal - two.internal);
+        });
+        // <--[tag]
+        // @Name NumberTag.-[<NumberTag>]
+        // @Updated 2016/12/11
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the number minus another number.
+        // @Example "1" .-[1] returns "0".
+        // -->
+        handlers.put("-", (dat, obj) -> {
             NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
             return new NumberTag(((NumberTag) obj).internal - two.internal);
         });
@@ -121,6 +145,18 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(((NumberTag) obj).internal * two.internal);
         });
         // <--[tag]
+        // @Name NumberTag.*[<NumberTag>]
+        // @Updated 2016/12/11
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the number times another number.
+        // @Example "1" .*[1] returns "1".
+        // -->
+        handlers.put("*", (dat, obj) -> {
+            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            return new NumberTag(((NumberTag) obj).internal * two.internal);
+        });
+        // <--[tag]
         // @Name NumberTag.divide[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -133,6 +169,18 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(((NumberTag) obj).internal / two.internal);
         });
         // <--[tag]
+        // @Name NumberTag./[<NumberTag>]
+        // @Updated 2016/12/11
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the number divided by another number.
+        // @Example "1" ./[1] returns "1".
+        // -->
+        handlers.put("/", (dat, obj) -> {
+            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            return new NumberTag(((NumberTag) obj).internal / two.internal);
+        });
+        // <--[tag]
         // @Name NumberTag.modulo[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -141,6 +189,18 @@ public class NumberTag extends AbstractTagObject {
         // @Example "1" .modulo[1] returns "0".
         // -->
         handlers.put("modulo", (dat, obj) -> {
+            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            return new NumberTag(((NumberTag) obj).internal % two.internal);
+        });
+        // <--[tag]
+        // @Name NumberTag.%[<NumberTag>]
+        // @Updated 2016/08/26
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the number modulo another number.
+        // @Example "1" .%[1] returns "0".
+        // -->
+        handlers.put("%", (dat, obj) -> {
             NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
             return new NumberTag(((NumberTag) obj).internal % two.internal);
         });
@@ -189,6 +249,18 @@ public class NumberTag extends AbstractTagObject {
         // @Example "2" .power[2] returns "4".
         // -->
         handlers.put("power", (dat, obj) -> {
+            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            return new NumberTag(Math.pow(((NumberTag) obj).internal, two.internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.^[<NumberTag>]
+        // @Updated 2016/12/11
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the number to the power of the specified number.
+        // @Example "2" .^[2] returns "4".
+        // -->
+        handlers.put("^", (dat, obj) -> {
             NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
             return new NumberTag(Math.pow(((NumberTag) obj).internal, two.internal));
         });
