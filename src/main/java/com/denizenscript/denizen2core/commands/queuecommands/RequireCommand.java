@@ -9,8 +9,8 @@ import com.denizenscript.denizen2core.tags.objects.ListTag;
 public class RequireCommand extends AbstractCommand {
 
     // <--[command]
-    // @Name require <list of definition names>
-    // @Arguments
+    // @Name require
+    // @Arguments <list of definition names>
     // @Short throws an error if the specified definition(s) are not present.
     // @Updated 2016/08/11
     // @Group Queue
