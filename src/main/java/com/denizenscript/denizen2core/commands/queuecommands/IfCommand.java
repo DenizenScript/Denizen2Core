@@ -41,7 +41,7 @@ public class IfCommand extends AbstractCommand {
     // - if true:
     //   - echo "hi"
     // # This example never does anything.
-    // - if false
+    // - if false:
     //   - echo "This won't show"
     // -->
 
