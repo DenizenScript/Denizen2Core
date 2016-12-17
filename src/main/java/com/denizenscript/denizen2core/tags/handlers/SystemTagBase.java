@@ -5,10 +5,7 @@ import com.denizenscript.denizen2core.commands.CommandQueue;
 import com.denizenscript.denizen2core.tags.AbstractTagBase;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.TagData;
-import com.denizenscript.denizen2core.tags.objects.ListTag;
-import com.denizenscript.denizen2core.tags.objects.QueueTag;
-import com.denizenscript.denizen2core.tags.objects.TextTag;
-import com.denizenscript.denizen2core.tags.objects.TimeTag;
+import com.denizenscript.denizen2core.tags.objects.*;
 import com.denizenscript.denizen2core.utilities.Function2;
 
 import java.time.Clock;
@@ -43,6 +40,14 @@ public class SystemTagBase extends AbstractTagBase {
         // @Returns the system's current time.
         // -->
         handlers.put("current_time", (dat, obj) -> new TimeTag(LocalDateTime.now(Clock.systemUTC())));
+        // <--[tag]
+        // @Name SystemTag.current_time_milliseconds
+        // @Updated 2016/12/16
+        // @Group Utilities
+        // @ReturnType IntegerTag
+        // @Returns the system's current time, as a number of milliseconds since the epoch.
+        // -->
+        handlers.put("current_time_milliseconds", (dat, obj) -> new IntegerTag(System.currentTimeMillis()));
         // <--[tag]
         // @Name SystemTag.core_version
         // @Updated 2016/08/26
