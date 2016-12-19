@@ -191,6 +191,7 @@ public class Denizen2Core {
         implementation.preReload();
         currentScripts.clear();
         ScriptEvent.currentWorldScripts.clear();
+        implementation.midLoad();
         load();
         implementation.reload();
         reloadAddons();
