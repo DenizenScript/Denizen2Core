@@ -10,6 +10,8 @@ public class SystemLoadEvent extends ScriptEvent {
     //
     // @Updated 2016/08/26
     //
+    // @Group Common
+    //
     // @Triggers when the Denizen engine loads for the first time.
     //
     // @Context

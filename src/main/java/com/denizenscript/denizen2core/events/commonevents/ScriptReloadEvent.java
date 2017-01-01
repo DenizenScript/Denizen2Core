@@ -10,6 +10,8 @@ public class ScriptReloadEvent extends ScriptEvent {
     //
     // @Updated 2016/08/26
     //
+    // @Group Common
+    //
     // @Triggers when the Denizen engine reloads all scripts.
     // See <@link command reload>the reload command<@/link>.
     //
