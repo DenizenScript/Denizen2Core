@@ -186,6 +186,22 @@ public abstract class ScriptEvent implements Cloneable {
     // An example of the syntax is: "on my object does a thing require:<[context].[object].is_type[BIG]>"
     // -->
 
+    // <--[explanation]
+    // @Name Script Event Switches
+    // @Group Events
+    // @Description
+    // Any ScriptEvent can take certain switches, such as the "ignorecancelled" switch, the "require" switch, or custom switches unique to the event.
+    // Switches must all pass for an event script to run. If even one fails (EG a require switch returns false,
+    // or a custom switch has been given incorrect or irrelevant input for that specific firing ofthe event)
+    // then the event script will not run for that firing.
+    //
+    // In many cases, a switch is similar to being a shorthand for an if statement - one that runs very quickly on the internals,
+    // and also that fits in line with the event declaration itself.
+    //
+    // An example of the syntax is: "on my object does a thing require:<[context].[object].is_type[BIG]>"
+    // In the example above, "require" is a switch, and the long tag is the switch argument.
+    // -->
+
     public void subRun(ScriptEventData data) {
         HashMap<String, AbstractTagObject> defs = getDefinitions(data);
         MapTag defmap = new MapTag(defs);
