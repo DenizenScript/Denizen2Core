@@ -24,7 +24,6 @@ public class EscapeTagBase extends AbstractTagBase {
     // [ = &lb
     // ] = &rb
     // : = &co
-    // @ = &at
     // . = &dot
     // \ = &bs
     // ' = &sq
@@ -32,6 +31,7 @@ public class EscapeTagBase extends AbstractTagBase {
     // ! = &exc
     // / = &fs
     // § = &ss
+    // and finally @ = &at
     //
     // Also, you can input a non-breaking space via &sp
     // -->
