@@ -370,14 +370,14 @@ public class Denizen2Core {
                     String value = blockbuilder.toString();
                     String fallback = null;
                     int brack = 0;
-                    for (int fb = 1; fb < value.length(); fb++) {
+                    for (int fb = 0; fb < value.length(); fb++) {
                         if (value.charAt(fb) == '[') {
                             brack++;
                         }
-                        if (value.charAt(fb) == ']') {
+                        else if (value.charAt(fb) == ']') {
                             brack--;
                         }
-                        if (brack == 0 && value.charAt(fb) == '|' && value.charAt(fb - 1) == '|') {
+                        else if (brack == 0 && value.charAt(fb) == '|' && value.charAt(fb - 1) == '|') {
                             fallback = value.substring(fb + 1);
                             value = value.substring(0, fb - 1);
                             break;
@@ -420,7 +420,7 @@ public class Denizen2Core {
                         }
                         tab.setStart(start);
                     }
-                    tab.setFallback(fallback == null ? null : splitToArgument(fallback, false, false, error));
+                    tab.setFallback(fallback == null ? null : splitToArgument(fallback.replace("&dot", ".").replace("&amp", "&"), false, false, error));
                     arg.addBit(tab);
                     blockbuilder = new StringBuilder();
                     continue;
@@ -439,11 +439,16 @@ public class Denizen2Core {
                             blockbuilder.append("&dot");
                         }
                         else {
-                            blockbuilder.append(".");
+                            blockbuilder.append(c);
                         }
                         break;
                     case '&':
-                        blockbuilder.append("&amp");
+                        if (blocks > 1 || brackets > 0) {
+                            blockbuilder.append("&amp");
+                        }
+                        else {
+                            blockbuilder.append(c);
+                        }
                         break;
                     default:
                         blockbuilder.append(c);
