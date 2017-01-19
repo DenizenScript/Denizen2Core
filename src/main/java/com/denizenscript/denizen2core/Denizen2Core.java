@@ -5,6 +5,7 @@ import com.denizenscript.denizen2core.arguments.TagBit;
 import com.denizenscript.denizen2core.commands.filecommands.YamlCommand;
 import com.denizenscript.denizen2core.commands.queuecommands.*;
 import com.denizenscript.denizen2core.events.ScriptEvent;
+import com.denizenscript.denizen2core.events.commonevents.DeltaTimeEvent;
 import com.denizenscript.denizen2core.events.commonevents.ScriptReloadEvent;
 import com.denizenscript.denizen2core.events.commonevents.SystemLoadEvent;
 import com.denizenscript.denizen2core.scripts.commontypes.TaskScript;
@@ -104,6 +105,10 @@ public class Denizen2Core {
 
     public static long cqID = 0;
 
+    public static double totalTime;
+
+    static double pTotal;
+
     public static void tick(double delta) {
         for (int i = 0; i < queues.size(); i++) {
             CommandQueue q = queues.get(i);
@@ -111,6 +116,11 @@ public class Denizen2Core {
                 queues.remove(i);
                 i--;
             }
+        }
+        totalTime += delta;
+        while (pTotal + 1.0 < totalTime) {
+            deltaTime.call((long)Math.floor(totalTime));
+            pTotal += 1.0;
         }
     }
 
@@ -177,15 +187,16 @@ public class Denizen2Core {
         register("task", TaskScript::new);
         register("world", WorldScript::new);
         // Common script events
-        scriptReload = new ScriptReloadEvent();
-        register(scriptReload);
-        systemLoad = new SystemLoadEvent();
-        register(systemLoad);
+        register(deltaTime = new DeltaTimeEvent());
+        register(scriptReload = new ScriptReloadEvent());
+        register(systemLoad = new SystemLoadEvent());
     }
 
     private static ScriptReloadEvent scriptReload = null;
 
     private static SystemLoadEvent systemLoad = null;
+
+    private static DeltaTimeEvent deltaTime = null;
 
     public static void reload() {
         implementation.preReload();
