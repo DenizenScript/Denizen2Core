@@ -2,6 +2,7 @@ package com.denizenscript.denizen2core;
 
 import com.denizenscript.denizen2core.addons.AddonInfo;
 import com.denizenscript.denizen2core.arguments.TagBit;
+import com.denizenscript.denizen2core.commands.*;
 import com.denizenscript.denizen2core.commands.filecommands.YamlCommand;
 import com.denizenscript.denizen2core.commands.queuecommands.*;
 import com.denizenscript.denizen2core.events.ScriptEvent;
@@ -19,9 +20,6 @@ import com.denizenscript.denizen2core.addons.DenizenAddon;
 import com.denizenscript.denizen2core.arguments.Argument;
 import com.denizenscript.denizen2core.arguments.TagArgumentBit;
 import com.denizenscript.denizen2core.arguments.TextArgumentBit;
-import com.denizenscript.denizen2core.commands.AbstractCommand;
-import com.denizenscript.denizen2core.commands.CommandQueue;
-import com.denizenscript.denizen2core.commands.CommandScriptSection;
 import com.denizenscript.denizen2core.commands.commoncommands.EchoCommand;
 import com.denizenscript.denizen2core.commands.commoncommands.ReloadCommand;
 import com.denizenscript.denizen2core.scripts.CommandScript;
@@ -474,5 +472,25 @@ public class Denizen2Core {
             arg.addBit(new TextArgumentBit(tbuilder.toString(), wasQuoted));
         }
         return arg;
+    }
+
+    public static void dumpDebug() {
+        for (Map.Entry<String, CommandScript> script : currentScripts.entrySet()) {
+            Debug.info("Script: " + script.getKey() + " / " + script.getValue().title);
+            Debug.info("Debug mode: " + script.getValue().getDebugMode());
+            Debug.info("YAML Contents: " + script.getValue().contents.saveToString());
+            for (Map.Entry<String, CommandScriptSection> section : script.getValue().sections.entrySet()) {
+                CommandStackEntry cse = section.getValue().toCSE();
+                Debug.info(" --> Section: " + section.getKey() + " / " + cse.scriptTitle);
+                Debug.info(" --> Debug mode: " + cse.getDebugMode());
+                for (CommandEntry entry : cse.entries) {
+                    Debug.info(" --> - " + entry.originalLine);
+                    Debug.info(" --> --> " + entry.ownIndex + " / " + entry.blockStart + " / " + entry.blockEnd);
+                    Debug.info(" --> --> " + entry.arguments.toString() + ", " + entry.namedArgs.toString());
+                    Debug.info(" --> --> " + entry.cmdName + " / " + entry.command.getName()
+                            + " / Waited?: " + entry.waitFor + " / Has-Block?: " + (entry.innerCommandBlock != null));
+                }
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@ import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
 import com.denizenscript.denizen2core.commands.AbstractCommand;
 import com.denizenscript.denizen2core.commands.CommandEntry;
 import com.denizenscript.denizen2core.commands.CommandQueue;
+import com.denizenscript.denizen2core.utilities.debugging.Debug;
 
 public class ForeachCommand extends AbstractCommand {
 
@@ -79,7 +80,7 @@ public class ForeachCommand extends AbstractCommand {
                 queue.commandStack.peek().goTo(entry.blockStart);
             }
             else {
-                queue.commandStack.peek().setDefinition("foreach_value", new NullTag());
+                queue.commandStack.peek().setDefinition(fcd.resName, new NullTag());
                 if (queue.shouldShowGood()) {
                     queue.outGood("Foreach completed!");
                 }
@@ -100,7 +101,7 @@ public class ForeachCommand extends AbstractCommand {
                 if (queue.shouldShowGood()) {
                     queue.outGood("Foreach count is 0, skipping.");
                 }
-                queue.commandStack.peek().goTo(entry.blockEnd + 1);
+                queue.commandStack.peek().goTo(entry.blockEnd + 2);
                 return;
             }
             ListTag nltag = new ListTag();
