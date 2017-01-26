@@ -80,9 +80,7 @@ public class CommandEntry {
     // -->
 
     public String resName(CommandQueue queue, String def) {
-        return namedArgs.containsKey("save") ? namedArgs.get("save")
-                .parse(queue, new HashMap<>(), queue.commandStack.peek().getDebugMode(), queue.error).toString()
-                : def;
+        return namedArgs.containsKey("save") ? getNamedArgumentObject(queue, "save").toString() : def;
     }
 
     public Object getData(CommandQueue queue) {
@@ -91,6 +89,14 @@ public class CommandEntry {
 
     public void setData(CommandQueue queue, Object obj) {
         queue.commandStack.peek().entryObjects[ownIndex] = obj;
+    }
+
+    public AbstractTagObject getNamedArgumentObject(CommandQueue queue, String name) {
+        Argument obj = namedArgs.get(name);
+        if (obj == null) {
+            return null;
+        }
+        return obj.parse(queue, new HashMap<>(), queue.commandStack.peek().getDebugMode(), queue.error);
     }
 
     public AbstractTagObject getArgumentObject(CommandQueue queue, int index) {
