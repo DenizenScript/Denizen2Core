@@ -140,16 +140,25 @@ public class TextTag extends AbstractTagObject {
         // @Returns whether the two sets of text are equal. Case-Insensitive.
         // @Example "abc" .equals[abc] returns "true".
         // -->
-        handlers.put("equala", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.equalsIgnoreCase(dat.getNextModifier().toString())));
+        handlers.put("equals", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.equalsIgnoreCase(dat.getNextModifier().toString())));
         // <--[tag]
-        // @Name TextTag.equals_with_case[<TextTag>]
+        // @Name TextTag.equals_cased[<TextTag>]
         // @Updated 2016/12/05
         // @Group Text Details
         // @ReturnType BooleanTag
         // @Returns whether the two sets of text are equal. Case Sensitive.
-        // @Example "abc" .equals[abc] returns "true".
+        // @Example "abc" .equals_cased[abc] returns "true".
         // -->
-        handlers.put("equals_with_case", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.equals(dat.getNextModifier().toString())));
+        handlers.put("equals_cased", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.equals(dat.getNextModifier().toString())));
+        // <--[tag]
+        // @Name TextTag.starts_with_cased[<TextTag>]
+        // @Updated 2016/12/05
+        // @Group Text Details
+        // @ReturnType BooleanTag
+        // @Returns whether the the text starts with the specified text. Case Sensitive.
+        // @Example "abc" .starts_with_cased[a] returns "true".
+        // -->
+        handlers.put("starts_with_cased", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.startsWith(dat.getNextModifier().toString())));
         // <--[tag]
         // @Name TextTag.char_at[<IntegerTag>]
         // @Updated 2016/12/05
