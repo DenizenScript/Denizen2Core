@@ -216,10 +216,10 @@ public class IfCommand extends AbstractCommand {
                 Debug.info("[IF:DEBUG] Comparison operator: " + comp);
             }
             if (comp.equals("==")) {
-                return obj1.toString().equalsIgnoreCase(obj2.toString());
+                return compare(obj1, obj2);
             }
             else if (comp.equals("!=")) {
-                return !obj1.toString().equalsIgnoreCase(obj2.toString());
+                return !compare(obj1, obj2);
             }
             NumberTag n1 = NumberTag.getFor(helper.queue.error, obj1);
             NumberTag n2 = NumberTag.getFor(helper.queue.error, obj2);
@@ -240,6 +240,24 @@ public class IfCommand extends AbstractCommand {
             }
         }
         return false;
+    }
+
+    private static boolean compare(AbstractTagObject ato1, AbstractTagObject ato2) {
+        if (ato1.toString().equalsIgnoreCase(ato2.toString())) {
+            return true;
+        }
+        NumberTag nt = NumberTag.getFor(IfCommand::doNothing, ato1);
+        if (nt != null) {
+            NumberTag nt2 = NumberTag.getFor(IfCommand::doNothing, ato2);
+            if (nt2 != null) {
+                return nt.getInternal() == nt2.getInternal();
+            }
+        }
+        return false;
+    }
+
+    private static void doNothing(String e) {
+        // Nothing here.
     }
 
     private static final boolean DEBUG = false;
