@@ -92,6 +92,7 @@ public abstract class CommandScript {
 
     // <--[explanation]
     // @Name Executable Script Section
+    // @Group Script Options
     // @Description
     // An executable script section is any part of a script that contains valid Denizen code.
     // This is not determined by the validity of code, but rather by the section title.
