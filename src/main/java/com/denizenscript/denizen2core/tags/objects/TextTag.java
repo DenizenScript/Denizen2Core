@@ -17,7 +17,7 @@ public class TextTag extends AbstractTagObject {
     // @SubType NONE
     // @Group Mathematics
     // @Description Represents any text. Identified as exactly the input text.
-    // @Other <@link explanation Text Tags>What are text tags?<@/link>
+    // @Note <@link explanation Text Tags>What are text tags?<@/link>
     // -->
 
     private String internal;

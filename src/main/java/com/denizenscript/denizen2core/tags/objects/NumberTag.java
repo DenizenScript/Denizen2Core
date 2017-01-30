@@ -15,7 +15,7 @@ public class NumberTag extends AbstractTagObject {
     // @SubType TextTag
     // @Group Mathematics
     // @Description Represents a decimal number. Identified as a number with a decimal point.
-    // @Other Note that the number is internally stored as a 64-bit signed floating point number (a 'double').
+    // @Note The number is internally stored as a 64-bit signed floating point number (a 'double').
     // -->
 
     private double internal;
