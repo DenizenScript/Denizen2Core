@@ -43,6 +43,26 @@ public class ScriptTag extends AbstractTagObject {
         handlers.put("title", (dat, obj) -> {
             return new TextTag(((ScriptTag) obj).internal.title);
         });
+        // <--[tag]
+        // @Name ScriptTag.time_ran
+        // @Updated 2017/01/30
+        // @Group Identification
+        // @ReturnType DurationTag
+        // @Returns the amount of time a script has ran for, in total.
+        // -->
+        handlers.put("time_ran", (dat, obj) -> {
+            return new DurationTag(((ScriptTag) obj).internal.nsUsed / 1000000000.0);
+        });
+        // <--[tag]
+        // @Name ScriptTag.ticks_ran
+        // @Updated 2017/01/30
+        // @Group Identification
+        // @ReturnType IntegerTag
+        // @Returns the number of ticks that the script has been run during.
+        // -->
+        handlers.put("ticks_ran", (dat, obj) -> {
+            return new IntegerTag(((ScriptTag) obj).internal.ticksRan);
+        });
     }
 
     public static ScriptTag getFor(Action<String> error, String text) {

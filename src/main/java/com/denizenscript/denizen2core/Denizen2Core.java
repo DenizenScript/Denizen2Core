@@ -107,7 +107,10 @@ public class Denizen2Core {
 
     static double pTotal;
 
+    public static long currentTick = 0;
+
     public static void tick(double delta) {
+        currentTick++;
         for (int i = 0; i < queues.size(); i++) {
             CommandQueue q = queues.get(i);
             if (q.run(delta)) {

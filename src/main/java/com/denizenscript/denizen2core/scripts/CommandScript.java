@@ -17,6 +17,10 @@ public abstract class CommandScript {
 
     public final YAMLConfiguration contents;
 
+    public long nsUsed = 0;
+
+    public long ticksRan = 0;
+
     public final HashMap<String, CommandScriptSection> sections = new HashMap<>();
 
     public CommandScript(String name, YAMLConfiguration section) {

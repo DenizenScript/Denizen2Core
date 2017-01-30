@@ -1,5 +1,6 @@
 package com.denizenscript.denizen2core.commands;
 
+import com.denizenscript.denizen2core.Denizen2Core;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.utilities.ErrorInducedException;
 import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
@@ -64,7 +65,14 @@ public class CommandStackEntry implements Cloneable {
         originalScript = cs;
     }
 
+    public long lastTickUsed = 0;
+
     public CommandStackRetVal run(CommandQueue queue) {
+        long nsNow = System.nanoTime();
+        if (originalScript != null && lastTickUsed != Denizen2Core.currentTick) {
+            lastTickUsed = Denizen2Core.currentTick;
+            originalScript.ticksRan++;
+        }
         while (index < entries.length) {
             CommandEntry currentCommand = entries[index];
             index++;
@@ -73,6 +81,9 @@ public class CommandStackEntry implements Cloneable {
             }
             if (queue.procedural && !currentCommand.command.isProcedural()) {
                 queue.handleError(currentCommand, "Tried to run a non-procedural command in a procedural queue!");
+                if (originalScript != null) {
+                    originalScript.nsUsed += System.nanoTime() - nsNow;
+                }
                 return CommandStackRetVal.STOP;
             }
             if (getDebugMode().showFull && !currentCommand.originalLine.contains("\0")) {
@@ -117,12 +128,21 @@ public class CommandStackEntry implements Cloneable {
                 }
             }
             if ((queue.getWait() > 0f) || queue.waitingFor() != null || queue.paused) {
+                if (originalScript != null) {
+                    originalScript.nsUsed += System.nanoTime() - nsNow;
+                }
                 return CommandStackRetVal.BREAK;
             }
             if (queue.commandStack.size() == 0) {
+                if (originalScript != null) {
+                    originalScript.nsUsed += System.nanoTime() - nsNow;
+                }
                 return CommandStackRetVal.BREAK;
             }
             if (queue.commandStack.peek() != this) {
+                if (originalScript != null) {
+                    originalScript.nsUsed += System.nanoTime() - nsNow;
+                }
                 return CommandStackRetVal.CONTINUE;
             }
         }
@@ -138,7 +158,13 @@ public class CommandStackEntry implements Cloneable {
                     queue.setDeterminations(null);
             }
             */
+            if (originalScript != null) {
+                originalScript.nsUsed += System.nanoTime() - nsNow;
+            }
             return CommandStackRetVal.CONTINUE;
+        }
+        if (originalScript != null) {
+            originalScript.nsUsed += System.nanoTime() - nsNow;
         }
         return CommandStackRetVal.STOP;
     }
