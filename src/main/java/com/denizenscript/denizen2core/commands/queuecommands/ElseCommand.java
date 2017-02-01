@@ -6,6 +6,8 @@ import com.denizenscript.denizen2core.commands.CommandQueue;
 import com.denizenscript.denizen2core.commands.CommandStackEntry;
 import com.denizenscript.denizen2core.utilities.CoreUtilities;
 
+import java.util.ArrayList;
+
 public class ElseCommand extends AbstractCommand {
 
     // <--[command]
@@ -95,7 +97,8 @@ public class ElseCommand extends AbstractCommand {
                 IfCommand.TryIfHelper helper = new IfCommand.TryIfHelper();
                 helper.queue = queue;
                 helper.entry = entry;
-                helper.arguments = entry.arguments;
+                helper.arguments = new ArrayList<>(entry.arguments);
+                helper.arguments.remove(0);
                 success = IfCommand.tryIf(helper);
             }
         }
