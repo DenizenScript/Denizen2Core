@@ -96,6 +96,11 @@ public class MapTag extends AbstractTagObject {
 
     @Override
     public AbstractTagObject handleElseCase(TagData data) {
+        AbstractTagObject handle = internal.get(data.getNext());
+        if (handle != null) {
+            data.shrink();
+            return handle;
+        }
         return new TextTag(toString());
     }
 
