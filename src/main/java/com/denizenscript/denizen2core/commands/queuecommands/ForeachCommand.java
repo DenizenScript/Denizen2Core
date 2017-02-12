@@ -1,5 +1,6 @@
 package com.denizenscript.denizen2core.commands.queuecommands;
 
+import com.denizenscript.denizen2core.commands.CommandStackEntry;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.objects.IntegerTag;
 import com.denizenscript.denizen2core.tags.objects.ListTag;
@@ -20,7 +21,7 @@ public class ForeachCommand extends AbstractCommand {
 
     // <--[command]
     // @Name foreach
-    // @Arguments "stop"/"continue"/"start" [list]
+    // @Arguments "stop"/"next"/"start" [list]
     // @Short runs a block of code once for each entry in a list.
     // @Updated 2016/08/08
     // @Group Queue
@@ -90,10 +91,30 @@ public class ForeachCommand extends AbstractCommand {
         AbstractTagObject cobj = entry.getArgumentObject(queue, 0);
         String val = cobj.toString();
         if (val.equals("stop")) {
-            // TODO: Impl!
+            CommandStackEntry cse = queue.commandStack.peek();
+            for (int i = cse.getIndex() + 1; i < cse.entries.length; i++) {
+                if (cse.entries[i].command instanceof ForeachCommand && cse.entries[i].arguments.get(0).toString().equals("\0CALLBACK")) {
+                    if (queue.shouldShowGood()) {
+                        queue.outGood("Stopping a foreach loop.");
+                    }
+                    cse.goTo(i + 1);
+                    return;
+                }
+            }
+            queue.handleError(entry, "Cannot stop foreach: not in one!");
         }
         else if (val.equals("next")) {
-            // TODO: Impl!
+            CommandStackEntry cse = queue.commandStack.peek();
+            for (int i = cse.getIndex() + 1; i < cse.entries.length; i++) {
+                if (cse.entries[i].command instanceof ForeachCommand && cse.entries[i].arguments.get(0).toString().equals("\0CALLBACK")) {
+                    if (queue.shouldShowGood()) {
+                        queue.outGood("Jumping forward in a foreach loop.");
+                    }
+                    cse.goTo(i);
+                    return;
+                }
+            }
+            queue.handleError(entry, "Cannot advance foreach: not in one!");
         }
         else if (val.equals("start") && entry.arguments.size() > 1) {
             ListTag ltag = ListTag.getFor(queue.error, entry.getArgumentObject(queue, 1));
@@ -115,7 +136,7 @@ public class ForeachCommand extends AbstractCommand {
             queue.commandStack.peek().setDefinition(fcd.resName, fcd.list.getInternal().get(fcd.current - 1));
             queue.commandStack.peek().setDefinition("foreach_list", fcd.list);
             if (queue.shouldShowGood()) {
-                queue.outGood("Foreach count is is " + ColorSet.emphasis + fcd.list.getInternal().size() + ColorSet.good + ", repeating...");
+                queue.outGood("Foreach count is " + ColorSet.emphasis + fcd.list.getInternal().size() + ColorSet.good + ", repeating...");
             }
         }
         else {
