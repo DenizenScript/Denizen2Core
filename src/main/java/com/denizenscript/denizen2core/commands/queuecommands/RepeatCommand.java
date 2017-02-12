@@ -3,6 +3,7 @@ package com.denizenscript.denizen2core.commands.queuecommands;
 import com.denizenscript.denizen2core.commands.AbstractCommand;
 import com.denizenscript.denizen2core.commands.CommandEntry;
 import com.denizenscript.denizen2core.commands.CommandQueue;
+import com.denizenscript.denizen2core.commands.CommandStackEntry;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.objects.IntegerTag;
 import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
@@ -18,7 +19,7 @@ public class RepeatCommand extends AbstractCommand {
 
     // <--[command]
     // @Name repeat
-    // @Arguments "stop"/"continue"/<times>
+    // @Arguments "stop"/"next"/<times>
     // @Short runs a block of code the specified number of types.
     // @Updated 2016/08/07
     // @Group Queue
@@ -88,10 +89,30 @@ public class RepeatCommand extends AbstractCommand {
             val = CoreUtilities.toLowerCase(cobj.toString());
         }
         if (val.equals("stop")) {
-            // TODO: Impl!
+            CommandStackEntry cse = queue.commandStack.peek();
+            for (int i = cse.getIndex() + 1; i < cse.entries.length; i++) {
+                if (cse.entries[i].command instanceof RepeatCommand && cse.entries[i].arguments.get(0).toString().equals("\0CALLBACK")) {
+                    if (queue.shouldShowGood()) {
+                        queue.outGood("Stopping a repeat loop.");
+                    }
+                    cse.goTo(i + 1);
+                    return;
+                }
+            }
+            queue.handleError(entry, "Cannot stop repeat: not in one!");
         }
         else if (val.equals("next")) {
-            // TODO: Impl!
+            CommandStackEntry cse = queue.commandStack.peek();
+            for (int i = cse.getIndex() + 1; i < cse.entries.length; i++) {
+                if (cse.entries[i].command instanceof RepeatCommand && cse.entries[i].arguments.get(0).toString().equals("\0CALLBACK")) {
+                    if (queue.shouldShowGood()) {
+                        queue.outGood("Jumping forward in a repeat loop.");
+                    }
+                    cse.goTo(i);
+                    return;
+                }
+            }
+            queue.handleError(entry, "Cannot advance repeat: not in one!");
         }
         else {
             IntegerTag itag = IntegerTag.getFor(queue.error, cobj);
