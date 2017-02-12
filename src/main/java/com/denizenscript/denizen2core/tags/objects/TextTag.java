@@ -212,7 +212,7 @@ public class TextTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name TextTag.after[<TextTag>]
-        // @Updated 2018/02/12
+        // @Updated 2017/02/12
         // @Group Text Modification
         // @ReturnType TextTag
         // @Returns the text after the specified text.
@@ -221,7 +221,7 @@ public class TextTag extends AbstractTagObject {
         handlers.put("after", (dat, obj) -> new TextTag(((TextTag) obj).after(dat.getNextModifier().toString())));
         // <--[tag]
         // @Name TextTag.before[<TextTag>]
-        // @Updated 2018/02/12
+        // @Updated 2017/02/12
         // @Group Text Modification
         // @ReturnType TextTag
         // @Returns the text before the specified text.
@@ -265,22 +265,22 @@ public class TextTag extends AbstractTagObject {
     }
 
     public String after(String inp) {
-        int ind = inp.indexOf(inp);
+        int ind = internal.indexOf(inp);
         if (ind <= -1) {
             return internal;
         }
         else {
-            return internal.substring(ind + inp.length() + 1);
+            return internal.substring(ind + inp.length());
         }
     }
 
     public String before(String inp) {
-        int ind = inp.indexOf(inp);
+        int ind = internal.indexOf(inp);
         if (ind <= -1) {
             return internal;
         }
         else {
-            return internal.substring(0, ind + 1);
+            return internal.substring(0, ind);
         }
     }
 
