@@ -39,7 +39,7 @@ public class MapTag extends AbstractTagObject {
 
     static {
         // <--[tag]
-        // @Name MapTag.get[<IntegerTag>]
+        // @Name MapTag.get[<TextTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType Dynamic
