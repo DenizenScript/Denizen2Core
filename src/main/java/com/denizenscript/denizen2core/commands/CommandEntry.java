@@ -32,7 +32,7 @@ public class CommandEntry {
     //
     // An example of the syntax is the following:
     // <@code>
-    // - do a thing -power 7
+    // - do a thing --power 7
     // <@/code>
     // In that example, 'do' is the command, 'a' and 'thing' are arguments, and 'power' is a named argument with value '7'.
     //
@@ -70,7 +70,7 @@ public class CommandEntry {
     //
     // An example of the syntax is as follows:
     // <@code>
-    // - do a thing -save example
+    // - do a thing --save example
     // <@/code>
     // In that example, 'do a thing' is the command with arguments, and any data it gives back is saved under the definition 'example'.
     // To access the data, one would simply type '<[example]>' as per normal definition access!
@@ -156,8 +156,8 @@ public class CommandEntry {
         }
         HashMap<String, Argument> nameds = new HashMap<>();
         for (int i = 0; i < fargs.size(); i++) {
-            if (!fargs.get(i).getQuoted() && fargs.get(i).toString().startsWith("-")) {
-                nameds.put(CoreUtilities.toLowerCase(fargs.get(i).toString().substring(1)), fargs.get(i + 1));
+            if (!fargs.get(i).getQuoted() && fargs.get(i).toString().startsWith("--")) {
+                nameds.put(CoreUtilities.toLowerCase(fargs.get(i).toString().substring(2)), fargs.get(i + 1));
                 fargs.remove(i);
                 fargs.remove(i);
                 i -= 2;
