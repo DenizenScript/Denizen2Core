@@ -6,49 +6,47 @@ import com.denizenscript.denizen2core.commands.CommandQueue;
 import com.denizenscript.denizen2core.tags.objects.QueueTag;
 import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
 
-public class DefineCommand extends AbstractCommand {
+public class UndefineCommand extends AbstractCommand {
 
     // <--[command]
-    // @Name define
-    // @Arguments <definition> <value> [queue]
+    // @Name undefine
+    // @Arguments <definition> [queue]
     // @Short Defines a value on the current queue.
-    // @Updated 2016/07/15
+    // @Updated 2017/02/16
     // @Group Queue
     // @Procedural true
-    // @Minimum 2
-    // @Maximum 3
-    // @tag <def[<TextTag>]> (Dynamic) returns the defined value.
+    // @Minimum 1
+    // @Maximum 2
     // @Description
-    // Defines a value on the current queue.
-    // You can optionally define a value on a specific queue.
+    // Removes a value from the current queue.
+    // You can optionally remove a value from a specific queue.
     // TODO: Explain more!
     // @Example
-    // # This example defines the variable "test" as the value "3", then echoes it back.
-    // - define test 3
-    // - echo <[test]>
+    // # This example removes the variable "test".
+    // - undefine test
     // @Example
-    // # This example defines the variable "test" as the value "Hello World" on the queue specified by the definition "run_queue".
-    // - define test "Hello World" <[run_queue]>
+    // # This example removes the variable "test"  from the queue specified by the definition "run_queue".
+    // - undefine test <[run_queue]>
     // -->
 
     @Override
     public String getName() {
-        return "define";
+        return "undefine";
     }
 
     @Override
     public String getArguments() {
-        return "<definition> <value> [queue]";
+        return "<definition> [queue]";
     }
 
     @Override
     public int getMinimumArguments() {
-        return 2;
+        return 1;
     }
 
     @Override
     public int getMaximumArguments() {
-        return 3;
+        return 2;
     }
 
     @Override
@@ -59,19 +57,19 @@ public class DefineCommand extends AbstractCommand {
     @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
         CommandQueue tq = queue;
-        if (entry.arguments.size() > 2) {
-            tq = QueueTag.getFor(queue.error, entry.getArgumentObject(queue, 2)).getInternal();
+        if (entry.arguments.size() > 1) {
+            tq = QueueTag.getFor(queue.error, entry.getArgumentObject(queue, 1)).getInternal();
         }
         String def = entry.getArgumentObject(queue, 0).toString();
-        tq.commandStack.peek().setDefinition(def, entry.getArgumentObject(queue, 1));
+        tq.commandStack.peek().removeDefinition(def);
         if (queue.shouldShowGood()) {
             if (tq == queue) {
-                queue.outGood("Defined new definition '" + ColorSet.emphasis + def
+                queue.outGood("Removed definition '" + ColorSet.emphasis + def
                         + ColorSet.good + "' successfully.");
             }
             else {
-                queue.outGood("Defined new definition '" + ColorSet.emphasis + def
-                        + ColorSet.good + "' successfully on queue " + ColorSet.emphasis + tq.qID
+                queue.outGood("Removed definition '" + ColorSet.emphasis + def
+                        + ColorSet.good + "' successfully from queue " + ColorSet.emphasis + tq.qID
                         + ColorSet.good + ".");
             }
         }
