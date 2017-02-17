@@ -6,8 +6,12 @@ import com.denizenscript.denizen2core.tags.AbstractTagBase;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.TagData;
 import com.denizenscript.denizen2core.tags.objects.*;
+import com.denizenscript.denizen2core.utilities.CoreUtilities;
 import com.denizenscript.denizen2core.utilities.Function2;
+import com.denizenscript.denizen2core.utilities.yaml.YAMLConfiguration;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -85,6 +89,28 @@ public class SystemTagBase extends AbstractTagBase {
                 lt.getInternal().add(new QueueTag(queue));
             }
             return lt;
+        });
+        // <--[tag]
+        // @Name SystemTag.has_file
+        // @Updated 2017/02/16
+        // @Group Denizen2
+        // @ReturnType BooleanTag
+        // @Returns whether the system has the specified file.
+        // -->
+        handlers.put("has_file", (dat, obj) -> {
+            String path = dat.getNextModifier().toString();
+            if (!Denizen2Core.getImplementation().isSafePath(path)) {
+                dat.error.run("Cannot load from that path ('" + path + "'), it's marked un-safe.");
+                return new NullTag();
+            }
+            try {
+                File f = new File(Denizen2Core.getImplementation().getScriptDataFolder(), path);
+                return new BooleanTag(f.exists());
+            }
+            catch (Exception e) {
+                dat.error.run("Failed to read YAML file: " + e.getClass().getCanonicalName() + ": " + e.getMessage());
+                return new NullTag();
+            }
         });
     }
 
