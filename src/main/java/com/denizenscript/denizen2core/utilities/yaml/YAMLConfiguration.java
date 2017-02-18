@@ -44,7 +44,7 @@ public class YAMLConfiguration {
         for (Object o : new ArrayList<>(objs.keySet())) {
             Object got = objs.get(o);
             objs.remove(o);
-            objs.put(new StringHolder(o.toString()), got);
+            objs.put(new StringHolder(o == null ? "null" : o.toString()), got);
         }
         for (Map.Entry<StringHolder, Object> str : objs.entrySet()) {
             if (str.getValue() instanceof Map) {
