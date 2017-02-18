@@ -41,7 +41,7 @@ public class ListTag extends AbstractTagObject {
         // <--[tag]
         // @Name ListTag.get[<IntegerTag>]
         // @Updated 2016/08/26
-        // @Group Mathematics
+        // @Group Lists
         // @ReturnType Dynamic
         // @Returns the object at the specified index in the list.
         // @Example "one|two|three|" .get[1] returns "one".
@@ -58,9 +58,27 @@ public class ListTag extends AbstractTagObject {
             return ((ListTag) obj).internal.get(i);
         });
         // <--[tag]
+        // @Name ListTag.contains[<TextTag>]
+        // @Updated 2017/02/17
+        // @Group Lists
+        // @ReturnType BooleanTag
+        // @Returns whether the list contains the specified text.
+        // @Example "one|two|three|" .contans[one] returns "true".
+        // -->
+        handlers.put("contains", (dat, obj) -> {
+            String contain_check = dat.getNextModifier().toString();
+            ListTag list = (ListTag) obj;
+            for (int i = 0; i < list.getInternal().size(); i++) {
+                if (list.getInternal().get(i).toString().equals(contain_check)) {
+                    return new BooleanTag(true);
+                }
+            }
+            return new BooleanTag(false);
+        });
+        // <--[tag]
         // @Name ListTag.size
         // @Updated 2016/11/24
-        // @Group General Information
+        // @Group Lists
         // @ReturnType IntegerTag
         // @Returns the size (number of entries) of the list.
         // @Example "one|two|three|" .size returns "3".
@@ -69,7 +87,7 @@ public class ListTag extends AbstractTagObject {
         // <--[tag]
         // @Name ListTag.random
         // @Updated 2016/09/28
-        // @Group Mathematics
+        // @Group Randomization
         // @ReturnType Dynamic
         // @Returns the object at a random index in the list.
         // @Example "one|two|three|" .random might return "one", "two", or "three".
