@@ -160,6 +160,15 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("starts_with_cased", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.startsWith(dat.getNextModifier().toString())));
         // <--[tag]
+        // @Name TextTag.ends_with_cased[<TextTag>]
+        // @Updated 2017/02/17
+        // @Group Text Details
+        // @ReturnType BooleanTag
+        // @Returns whether the the text ends with the specified text. Case Sensitive.
+        // @Example "abc" .ends_with_cased[c] returns "true".
+        // -->
+        handlers.put("ends_with_cased", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.endsWith(dat.getNextModifier().toString())));
+        // <--[tag]
         // @Name TextTag.char_at[<IntegerTag>]
         // @Updated 2016/12/05
         // @Group Text Details
