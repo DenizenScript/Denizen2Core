@@ -44,6 +44,24 @@ public class ScriptTag extends AbstractTagObject {
             return new TextTag(((ScriptTag) obj).internal.title);
         });
         // <--[tag]
+        // @Name ScriptTag.yaml_key[<TextTag>]
+        // @Updated 2017/02/19
+        // @Group Identification
+        // @ReturnType TextTag
+        // @Returns the contents of a specific yaml key, as text.
+        // @Example "MyTask" .yaml_key[type] returns "task".
+        // -->
+        handlers.put("yaml_key", (dat, obj) -> {
+            String val = ((ScriptTag) obj).internal.contents.getString(dat.getNextModifier().toString());
+            if (val == null) {
+                if (!dat.hasFallback()) {
+                    dat.error.run("No contents for the specified YAML key! Does it exist in the script?");
+                }
+                return new NullTag();
+            }
+            return new TextTag(val);
+        });
+        // <--[tag]
         // @Name ScriptTag.time_ran
         // @Updated 2017/01/30
         // @Group Identification
