@@ -10,6 +10,7 @@ import com.denizenscript.denizen2core.events.commonevents.DeltaTimeEvent;
 import com.denizenscript.denizen2core.events.commonevents.ScriptReloadEvent;
 import com.denizenscript.denizen2core.events.commonevents.SystemLoadEvent;
 import com.denizenscript.denizen2core.scripts.commontypes.TaskScript;
+import com.denizenscript.denizen2core.scripts.commontypes.YamlDataScript;
 import com.denizenscript.denizen2core.tags.handlers.*;
 import com.denizenscript.denizen2core.tags.objects.MapTag;
 import com.denizenscript.denizen2core.utilities.*;
@@ -188,6 +189,7 @@ public class Denizen2Core {
         register("procedure", ProcedureScript::new);
         register("task", TaskScript::new);
         register("world", WorldScript::new);
+        register("yaml data", YamlDataScript::new);
         // Common script events
         register(deltaTime = new DeltaTimeEvent());
         register(scriptReload = new ScriptReloadEvent());
