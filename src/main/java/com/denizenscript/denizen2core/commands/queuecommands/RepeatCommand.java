@@ -90,7 +90,7 @@ public class RepeatCommand extends AbstractCommand {
         }
         if (val.equals("stop")) {
             CommandStackEntry cse = queue.commandStack.peek();
-            for (int i = cse.getIndex() + 1; i < cse.entries.length; i++) {
+            for (int i = cse.getIndex(); i < cse.entries.length; i++) {
                 if (cse.entries[i].command instanceof RepeatCommand && cse.entries[i].arguments.get(0).toString().equals("\0CALLBACK")) {
                     if (queue.shouldShowGood()) {
                         queue.outGood("Stopping a repeat loop.");
@@ -103,7 +103,7 @@ public class RepeatCommand extends AbstractCommand {
         }
         else if (val.equals("next")) {
             CommandStackEntry cse = queue.commandStack.peek();
-            for (int i = cse.getIndex() + 1; i < cse.entries.length; i++) {
+            for (int i = cse.getIndex(); i < cse.entries.length; i++) {
                 if (cse.entries[i].command instanceof RepeatCommand && cse.entries[i].arguments.get(0).toString().equals("\0CALLBACK")) {
                     if (queue.shouldShowGood()) {
                         queue.outGood("Jumping forward in a repeat loop.");
