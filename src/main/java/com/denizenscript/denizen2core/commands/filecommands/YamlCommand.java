@@ -18,11 +18,10 @@ public class YamlCommand extends AbstractCommand {
 
     // <--[command]
     // @Name yaml
-    // @Arguments <id> 'create'/'load'/'save'/'set'/'remove'/'close'/'read' [path] [value]
+    // @Arguments <id> 'create'/'load'/'save'/'set'/'remove'/'close' [path] [value]
     // @Short handles and manipulates YAML-formatted data.
     // @Updated 2016/04/02
     // @Group Common
-    // @Procedural true
     // @Minimum 2
     // @Maximum 4
     // @Description
@@ -72,12 +71,6 @@ public class YamlCommand extends AbstractCommand {
     }
 
     @Override
-    public boolean isProcedural() {
-        // NOTE: Sometimes can be procedural, handled in-code.
-        return true;
-    }
-
-    @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
         String id = CoreUtilities.toLowerCase(entry.getArgumentObject(queue, 0).toString());
         String mode = CoreUtilities.toLowerCase(entry.getArgumentObject(queue, 1).toString());
@@ -97,10 +90,6 @@ public class YamlCommand extends AbstractCommand {
         }
         boolean hasAlready = Denizen2Core.filesLoadedByScripts.containsKey(id);
         if (mode.equals("load")) {
-            if (queue.procedural) {
-                queue.handleError(entry, "Cannot load things from a procedural queue!");
-                return;
-            }
             if (hasAlready) {
                 queue.handleError(entry, "Cannot load to an already-loaded ID ('" + id + "').");
                 return;
@@ -128,10 +117,6 @@ public class YamlCommand extends AbstractCommand {
             }
         }
         if (mode.equals("create")) {
-            if (queue.procedural) {
-                queue.handleError(entry, "Cannot create things from a procedural queue!");
-                return;
-            }
             if (hasAlready) {
                 queue.handleError(entry, "Cannot create to an already-loaded ID ('" + id + "').");
                 return;
@@ -157,10 +142,6 @@ public class YamlCommand extends AbstractCommand {
             return;
         }
         if (mode.equals("save")) {
-            if (queue.procedural) {
-                queue.handleError(entry, "Cannot save things from a procedural queue!");
-                return;
-            }
             String path = "./" + entry.getArgumentObject(queue, 2).toString() + ".yml";
             if (!Denizen2Core.getImplementation().isSafePath(path)) {
                 queue.handleError(entry, "Cannot save to that path ('" + path + "'), it's marked un-safe.");
@@ -185,10 +166,6 @@ public class YamlCommand extends AbstractCommand {
             }
         }
         if (mode.equals("set")) {
-            if (queue.procedural) {
-                queue.handleError(entry, "Cannot set things from a procedural queue!");
-                return;
-            }
             String path = entry.getArgumentObject(queue, 2).toString();
             String val = entry.getArgumentObject(queue, 3).toString();
             yconfig.set(path, val);
@@ -198,32 +175,10 @@ public class YamlCommand extends AbstractCommand {
             return;
         }
         if (mode.equals("remove")) {
-            if (queue.procedural) {
-                queue.handleError(entry, "Cannot remove things from a procedural queue!");
-                return;
-            }
             String path = entry.getArgumentObject(queue, 2).toString();
             yconfig.set(path, null);
             if (queue.shouldShowGood()) {
                 queue.outGood("Removed a value!");
-            }
-            return;
-        }
-        if (mode.equals("read")) {
-            // Procedural case!
-            String path = entry.getArgumentObject(queue, 2).toString();
-            String res = yconfig.getString(path);
-            AbstractTagObject val;
-            if (res != null) {
-                val = new TextTag(res);
-            }
-            else {
-                val = new NullTag();
-            }
-            String saveName = entry.resName(queue, "yaml_read");
-            queue.commandStack.peek().setDefinition(saveName, val);
-            if (queue.shouldShowGood()) {
-                queue.outGood("Read a value into: " + saveName);
             }
             return;
         }

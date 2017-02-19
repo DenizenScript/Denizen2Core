@@ -7,8 +7,10 @@ import com.denizenscript.denizen2core.Denizen2Core;
 import com.denizenscript.denizen2core.scripts.CommandScript;
 import com.denizenscript.denizen2core.utilities.Action;
 import com.denizenscript.denizen2core.utilities.CoreUtilities;
+import com.denizenscript.denizen2core.utilities.yaml.StringHolder;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class ScriptTag extends AbstractTagObject {
 
@@ -60,6 +62,29 @@ public class ScriptTag extends AbstractTagObject {
                 return new NullTag();
             }
             return new TextTag(val);
+        });
+        // <--[tag]
+        // @Name ScriptTag.list_keys[<TextTag>]
+        // @Updated 2017/02/19
+        // @Group Identification
+        // @ReturnType TextTag
+        // @Returns the contents of a specific yaml key, as text.
+        // @Example "MyTask" .yaml_key[type] returns "task".
+        // -->
+        handlers.put("list_keys", (dat, obj) -> {
+            // TODO: Root option
+            Set<StringHolder> val = ((ScriptTag) obj).internal.contents.getConfigurationSection(dat.getNextModifier().toString()).getKeys(false);
+            if (val == null) {
+                if (!dat.hasFallback()) {
+                    dat.error.run("No valid keys at the specified yaml key! Does it exist?");
+                }
+                return new NullTag();
+            }
+            ListTag list = new ListTag();
+            for (StringHolder str : val) {
+                list.getInternal().add(new TextTag(str.str));
+            }
+            return list;
         });
         // <--[tag]
         // @Name ScriptTag.time_ran
