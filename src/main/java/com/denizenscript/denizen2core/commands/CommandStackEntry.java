@@ -18,7 +18,7 @@ public class CommandStackEntry implements Cloneable {
 
     public final CommandEntry[] entries;
 
-    public final Object[] entryObjects;
+    public Object[] entryObjects;
 
     public final String scriptTitle;
 
@@ -178,6 +178,7 @@ public class CommandStackEntry implements Cloneable {
         try {
             CommandStackEntry cse = (CommandStackEntry) super.clone();
             cse.definitions = new HashMap<>(cse.definitions);
+            cse.entryObjects = cse.entryObjects.clone();
             return cse;
         }
         catch (CloneNotSupportedException ex) {
