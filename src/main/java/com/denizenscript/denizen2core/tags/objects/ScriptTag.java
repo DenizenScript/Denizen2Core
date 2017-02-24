@@ -68,7 +68,7 @@ public class ScriptTag extends AbstractTagObject {
         // @Updated 2017/02/19
         // @Group Identification
         // @ReturnType TextTag
-        // @Returns the contents of a specific yaml key, as text.
+        // @Returns the contents of a specific yaml key, as a list of keys.
         // @Example "MyTask" .yaml_key[type] returns "task".
         // -->
         handlers.put("list_keys", (dat, obj) -> {

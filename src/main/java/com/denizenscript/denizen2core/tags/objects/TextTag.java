@@ -199,7 +199,7 @@ public class TextTag extends AbstractTagObject {
             ListTag list = new ListTag();
             String text = ((TextTag) obj).internal;
             for (int i = 0; i < text.length(); i++) {
-                list.getInternal().add(new TextTag(text.substring(i, i)));
+                list.getInternal().add(new TextTag(String.valueOf(text.charAt(i))));
             }
             return list;
         });
@@ -254,7 +254,7 @@ public class TextTag extends AbstractTagObject {
                 return new NullTag();
             }
             int i1 = (int)IntegerTag.getFor(dat.error, inputinds.getInternal().get(0)).getInternal() - 1;
-            int i2 = (int)IntegerTag.getFor(dat.error, inputinds.getInternal().get(1)).getInternal() - 1;
+            int i2 = (int)IntegerTag.getFor(dat.error, inputinds.getInternal().get(1)).getInternal();
             String text = ((TextTag) obj).internal;
             if (i1 < 0) {
                 i1 = 0;
