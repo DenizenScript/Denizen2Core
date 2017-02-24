@@ -70,6 +70,16 @@ public class YamlTag extends AbstractTagObject {
             return new TextTag(val);
         });
         // <--[tag]
+        // @Name YamlTag.has_key[<TextTag>]
+        // @Updated 2017/02/24
+        // @Group Identification
+        // @ReturnType BooleanTag
+        // @Returns whether the YAML has the specified key.
+        // -->
+        handlers.put("has_key", (dat, obj) -> {
+            return new BooleanTag(((YamlTag) obj).internal.contains(dat.getNextModifier().toString()));
+        });
+        // <--[tag]
         // @Name YamlTag.read_list[<TextTag>]
         // @Updated 2017/02/19
         // @Group Identification
