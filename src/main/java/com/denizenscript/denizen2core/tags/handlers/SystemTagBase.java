@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Map;
 
 public class SystemTagBase extends AbstractTagBase {
 
@@ -89,6 +90,33 @@ public class SystemTagBase extends AbstractTagBase {
                 lt.getInternal().add(new QueueTag(queue));
             }
             return lt;
+        });
+        // <--[tag]
+        // @Name SystemTag.yaml_files
+        // @Updated 2017/02/24
+        // @Group Denizen2
+        // @ReturnType ListTag
+        // @Returns a list of all currently loaded YAML file IDs.
+        // -->
+        handlers.put("yaml_files", (dat, obj) -> {
+            ListTag lt = new ListTag();
+            for (Map.Entry<String, Object> entry : Denizen2Core.filesLoadedByScripts.entrySet()) {
+                if (entry.getValue() instanceof  YAMLConfiguration) {
+                    lt.getInternal().add(new TextTag(entry.getKey()));
+                }
+            }
+            return lt;
+        });
+        // <--[tag]
+        // @Name SystemTag.has_yaml
+        // @Updated 2017/02/24
+        // @Group Denizen2
+        // @ReturnType BooleanTag
+        // @Returns whether the system has the specified YAML file loaded.
+        // -->
+        handlers.put("has_yaml", (dat, obj) -> {
+            String name = dat.getNextModifier().toString();
+            return new BooleanTag(Denizen2Core.filesLoadedByScripts.containsKey(CoreUtilities.toLowerCase(name)));
         });
         // <--[tag]
         // @Name SystemTag.has_file
