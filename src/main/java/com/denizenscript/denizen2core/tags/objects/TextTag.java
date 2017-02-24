@@ -169,6 +169,24 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("ends_with_cased", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.endsWith(dat.getNextModifier().toString())));
         // <--[tag]
+        // @Name TextTag.index_of_cased[<TextTag>]
+        // @Updated 2017/02/24
+        // @Group Text Details
+        // @ReturnType IntegerTag
+        // @Returns the location in the text of the exact input text, returns 0 if not found.
+        // @Example "abcabc" .index_of_cased[c] returns "3".
+        // -->
+        handlers.put("index_of_cased", (dat, obj) -> new IntegerTag(((TextTag) obj).internal.indexOf(dat.getNextModifier().toString()) + 1));
+        // <--[tag]
+        // @Name TextTag.last_index_of_cased[<TextTag>]
+        // @Updated 2017/02/24
+        // @Group Text Details
+        // @ReturnType IntegerTag
+        // @Returns the last location in the text of the exact input text, returns 0 if not found.
+        // @Example "abcabc" .last_index_of_cased[c] returns "6".
+        // -->
+        handlers.put("last_index_of_cased", (dat, obj) -> new IntegerTag(((TextTag) obj).internal.lastIndexOf(dat.getNextModifier().toString()) + 1));
+        // <--[tag]
         // @Name TextTag.char_at[<IntegerTag>]
         // @Updated 2016/12/05
         // @Group Text Details
