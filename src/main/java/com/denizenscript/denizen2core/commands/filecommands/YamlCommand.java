@@ -5,6 +5,7 @@ import com.denizenscript.denizen2core.commands.AbstractCommand;
 import com.denizenscript.denizen2core.commands.CommandEntry;
 import com.denizenscript.denizen2core.commands.CommandQueue;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
+import com.denizenscript.denizen2core.tags.objects.ListTag;
 import com.denizenscript.denizen2core.tags.objects.NullTag;
 import com.denizenscript.denizen2core.tags.objects.TextTag;
 import com.denizenscript.denizen2core.utilities.CoreUtilities;
@@ -13,6 +14,8 @@ import com.denizenscript.denizen2core.utilities.yaml.YAMLConfiguration;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class YamlCommand extends AbstractCommand {
 
@@ -167,8 +170,17 @@ public class YamlCommand extends AbstractCommand {
         }
         if (mode.equals("set")) {
             String path = entry.getArgumentObject(queue, 2).toString();
-            String val = entry.getArgumentObject(queue, 3).toString();
-            yconfig.set(path, val);
+            AbstractTagObject val = entry.getArgumentObject(queue, 3);
+            if (val instanceof ListTag) {
+                List<String> res = new ArrayList<>();
+                for (AbstractTagObject str : ((ListTag) val).getInternal()) {
+                    res.add(str.toString());
+                }
+                yconfig.set(path, res);
+            }
+            else {
+                yconfig.set(path, val.toString());
+            }
             if (queue.shouldShowGood()) {
                 queue.outGood("Set a value!");
             }
