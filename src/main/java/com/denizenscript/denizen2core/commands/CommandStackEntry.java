@@ -176,7 +176,9 @@ public class CommandStackEntry implements Cloneable {
     @Override
     public CommandStackEntry clone() {
         try {
-            return (CommandStackEntry) super.clone();
+            CommandStackEntry cse = (CommandStackEntry) super.clone();
+            cse.definitions = new HashMap<>(cse.definitions);
+            return cse;
         }
         catch (CloneNotSupportedException ex) {
             // Should never happen.
