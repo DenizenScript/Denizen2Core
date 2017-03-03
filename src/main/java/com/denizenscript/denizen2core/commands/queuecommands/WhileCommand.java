@@ -62,7 +62,6 @@ public class WhileCommand extends AbstractCommand {
             helper.queue = queue;
             helper.entry = orig;
             helper.arguments = new ArrayList<>(orig.arguments);
-            helper.arguments.remove(0);
             boolean success = IfCommand.tryIf(helper);
             if (success) {
                 if (queue.shouldShowGood()) {
