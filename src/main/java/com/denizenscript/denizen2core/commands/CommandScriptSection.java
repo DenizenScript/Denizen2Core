@@ -40,7 +40,7 @@ public class CommandScriptSection {
                     qtype = true;
                 }
             }
-            if (!quoted && line.charAt(i) == '-' && (i == 0 || line.charAt(i - 1) == ' ')) {
+            if (!quoted && line.charAt(i) == '-' && (i == 0 || (line.charAt(i - 1) == ' ' && i + 1 < line.length() && line.charAt(i + 1) == ' '))) {
                 String l = line.substring(start, i).trim();
                 if (l.length() > 0) {
                     split.add(l);
