@@ -47,8 +47,7 @@ public class MapTag extends AbstractTagObject {
         // @Example "one:a|two:b|three:c|" .get[one] returns "a".
         // -->
         handlers.put("get", (dat, obj) -> {
-            TextTag ind = TextTag.getFor(dat.error, dat.getNextModifier());
-            String key = ind.getInternal();
+            String key = dat.getNextModifier().toString();
             AbstractTagObject ato = ((MapTag) obj).internal.get(CoreUtilities.toLowerCase(key));
             if (ato == null) {
                 return new NullTag();
@@ -74,10 +73,10 @@ public class MapTag extends AbstractTagObject {
                 break;
             }
             List<String> datums = CoreUtilities.split(strs.get(i), ':', 2);
-            String key = EscapeTagBase.unescape(datums.get(0));
             if (datums.size() < 2) {
                 error.run("Invalid map tag input! (Parsing item: " + i + ": " + strs.get(i) + ")");
             }
+            String key = CoreUtilities.toLowerCase(EscapeTagBase.unescape(datums.get(0)));
             String data = EscapeTagBase.unescape(datums.get(1));
             TextArgumentBit tab = new TextArgumentBit(data, false);
             lt.internal.put(key, tab.value);
