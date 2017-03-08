@@ -146,4 +146,13 @@ public class ListTag extends AbstractTagObject {
         }
         return sb.toString();
     }
+
+    @Override
+    public String debug() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < internal.size(); i++) {
+            sb.append(internal.get(i).debug()).append(" | ");
+        }
+        return sb.toString();
+    }
 }

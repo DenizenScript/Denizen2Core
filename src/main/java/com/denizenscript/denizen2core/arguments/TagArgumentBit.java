@@ -68,7 +68,7 @@ public class TagArgumentBit extends ArgumentBit {
         }
         if (queue.shouldShowGood()) {
             queue.outGood("Filled tag '" + ColorSet.emphasis + getString() + ColorSet.good
-                    + "' with '" + ColorSet.emphasis + res.toString() + ColorSet.good + "'.");
+                    + "' with '" + ColorSet.emphasis + res.debug() + ColorSet.good + "'.");
         }
         return res;
     }

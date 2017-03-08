@@ -69,7 +69,7 @@ public class UndefineCommand extends AbstractCommand {
             }
             else {
                 queue.outGood("Removed definition '" + ColorSet.emphasis + def
-                        + ColorSet.good + "' successfully from queue " + ColorSet.emphasis + tq.qID
+                        + ColorSet.good + "' successfully from queue " + ColorSet.emphasis + new QueueTag(tq).debug()
                         + ColorSet.good + ".");
             }
         }

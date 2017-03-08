@@ -49,7 +49,7 @@ public class ResumeCommand extends AbstractCommand {
         QueueTag qid = QueueTag.getFor(queue.error, entry.getArgumentObject(queue, 0));
         CommandQueue q = qid.getInternal();
         if (queue.shouldShowGood()) {
-            queue.outGood("Resuming queue: " + q.qID);
+            queue.outGood("Resuming queue: " + qid.debug());
         }
         q.paused = false;
     }

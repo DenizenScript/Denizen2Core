@@ -157,4 +157,13 @@ public class QueueTag extends AbstractTagObject {
     public String toString() {
         return String.valueOf(internal.qID);
     }
+
+    @Override
+    public String debug() {
+        if (internal.commandStack.size() == 0) {
+            return toString();
+        }
+        CommandScript cs = internal.commandStack.firstElement().originalScript;
+        return toString() + "/" + cs.title;
+    }
 }

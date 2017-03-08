@@ -61,7 +61,7 @@ public class StopCommand extends AbstractCommand {
             QueueTag qid = QueueTag.getFor(queue.error, entry.getArgumentObject(queue, 0));
             CommandQueue q = qid.getInternal();
             if (queue.shouldShowGood()) {
-                queue.outGood("Stopping queue: " + q.qID);
+                queue.outGood("Stopping queue: " + qid.debug());
             }
             q.stop();
         }

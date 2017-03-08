@@ -136,7 +136,7 @@ public class ForeachCommand extends AbstractCommand {
             queue.commandStack.peek().setDefinition(fcd.resName, fcd.list.getInternal().get(fcd.current - 1));
             queue.commandStack.peek().setDefinition("foreach_list", fcd.list);
             if (queue.shouldShowGood()) {
-                queue.outGood("Foreach count is " + ColorSet.emphasis + fcd.list.getInternal().size() + ColorSet.good + ", repeating...");
+                queue.outGood("Foreach input is " + ColorSet.emphasis + fcd.list.debug() + ColorSet.good + ", looping...");
             }
         }
         else {

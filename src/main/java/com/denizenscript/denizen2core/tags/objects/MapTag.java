@@ -112,4 +112,13 @@ public class MapTag extends AbstractTagObject {
         }
         return sb.toString();
     }
+
+    @Override
+    public String debug() {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, AbstractTagObject> obj : internal.entrySet()) {
+            sb.append(obj.getKey()).append(": ").append(obj.getValue().debug()).append(" | ");
+        }
+        return sb.toString();
+    }
 }

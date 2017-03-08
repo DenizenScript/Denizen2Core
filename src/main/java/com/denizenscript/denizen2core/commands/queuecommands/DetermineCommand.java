@@ -6,6 +6,7 @@ import com.denizenscript.denizen2core.commands.AbstractCommand;
 import com.denizenscript.denizen2core.commands.CommandEntry;
 import com.denizenscript.denizen2core.commands.CommandQueue;
 import com.denizenscript.denizen2core.utilities.CoreUtilities;
+import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
 
 public class DetermineCommand extends AbstractCommand {
 
@@ -61,7 +62,9 @@ public class DetermineCommand extends AbstractCommand {
         }
         queue.determinations.getInternal().put(det, ato);
         if (queue.shouldShowGood()) {
-            queue.outGood("Determined successfully.");
+            queue.outGood("Determined '" + ColorSet.emphasis + det
+                    + ColorSet.good + "' as '" + ColorSet.emphasis + ato.debug()
+                    + ColorSet.good + "' successfully.");
         }
     }
 }

@@ -53,7 +53,7 @@ public class PauseCommand extends AbstractCommand {
             QueueTag qid = QueueTag.getFor(queue.error, entry.getArgumentObject(queue, 0));
             CommandQueue q = qid.getInternal();
             if (queue.shouldShowGood()) {
-                queue.outGood("Pausing queue: " + q.qID);
+                queue.outGood("Pausing queue: " + qid.debug());
             }
             q.paused = true;
         }

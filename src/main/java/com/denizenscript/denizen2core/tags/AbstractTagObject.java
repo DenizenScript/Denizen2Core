@@ -26,4 +26,8 @@ public abstract class AbstractTagObject {
     }
 
     public abstract AbstractTagObject handleElseCase(TagData data);
+
+    public String debug() {
+        return toString();
+    }
 }

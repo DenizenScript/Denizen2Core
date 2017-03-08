@@ -48,7 +48,7 @@ public class WaitCommand extends AbstractCommand {
 
     @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
-        queue.setWait(DurationTag.getFor(queue::handleError, entry.getArgumentObject(queue, 0)).seconds());
+        queue.setWait(DurationTag.getFor(queue.error, entry.getArgumentObject(queue, 0)).seconds());
         if (queue.shouldShowGood()) {
             queue.outGood("Waiting for: " + queue.getWait() + " seconds!");
         }

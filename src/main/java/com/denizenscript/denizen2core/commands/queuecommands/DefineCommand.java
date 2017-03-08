@@ -3,6 +3,7 @@ package com.denizenscript.denizen2core.commands.queuecommands;
 import com.denizenscript.denizen2core.commands.AbstractCommand;
 import com.denizenscript.denizen2core.commands.CommandEntry;
 import com.denizenscript.denizen2core.commands.CommandQueue;
+import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.objects.QueueTag;
 import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
 
@@ -63,15 +64,18 @@ public class DefineCommand extends AbstractCommand {
             tq = QueueTag.getFor(queue.error, entry.getArgumentObject(queue, 2)).getInternal();
         }
         String def = entry.getArgumentObject(queue, 0).toString();
-        tq.commandStack.peek().setDefinition(def, entry.getArgumentObject(queue, 1));
+        AbstractTagObject ato = entry.getArgumentObject(queue, 1);
+        tq.commandStack.peek().setDefinition(def, ato);
         if (queue.shouldShowGood()) {
             if (tq == queue) {
                 queue.outGood("Defined new definition '" + ColorSet.emphasis + def
+                        + ColorSet.good + "' as '" + ColorSet.emphasis + ato.debug()
                         + ColorSet.good + "' successfully.");
             }
             else {
                 queue.outGood("Defined new definition '" + ColorSet.emphasis + def
-                        + ColorSet.good + "' successfully on queue " + ColorSet.emphasis + tq.qID
+                        + ColorSet.good + "' as '" + ColorSet.emphasis + ato.debug()
+                    + ColorSet.good + "' successfully on queue " + ColorSet.emphasis + new QueueTag(tq).debug()
                         + ColorSet.good + ".");
             }
         }
