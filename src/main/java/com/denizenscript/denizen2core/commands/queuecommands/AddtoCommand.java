@@ -5,6 +5,7 @@ import com.denizenscript.denizen2core.commands.CommandEntry;
 import com.denizenscript.denizen2core.commands.CommandQueue;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.objects.ListTag;
+import com.denizenscript.denizen2core.tags.objects.MapTag;
 import com.denizenscript.denizen2core.tags.objects.TextTag;
 import com.denizenscript.denizen2core.utilities.CoreUtilities;
 import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
@@ -13,7 +14,7 @@ public class AddtoCommand extends AbstractCommand {
 
     // <--[command]
     // @Name addto
-    // @Arguments <definition> 'raw/parsed/list' <values>
+    // @Arguments <definition> 'raw/parsed/list/map' <values>
     // @Short Adds all input to a definition, optionally parsing tags.
     // @Updated 2016/11/24
     // @Group Queue
@@ -46,6 +47,10 @@ public class AddtoCommand extends AbstractCommand {
     // # This example adds some new entries to the list definition "mylist".
     // - define mylist <list[a|b]>
     // - addto mylist list c d e
+    // @Example
+    // # This example adds some a new entry to the map definition "mymap".
+    // - define mymap <map[a:1]>
+    // - addto mymap map b 2
     // -->
 
     // TODO "web" style tag parsing as an option maybe?
@@ -57,7 +62,7 @@ public class AddtoCommand extends AbstractCommand {
 
     @Override
     public String getArguments() {
-        return "<definition> 'raw/parsed' <values>";
+        return "<definition> 'raw/parsed/list/map' <values>";
     }
 
     @Override
@@ -85,7 +90,14 @@ public class AddtoCommand extends AbstractCommand {
             return;
         }
         String mode = CoreUtilities.toLowerCase(entry.getArgumentObject(queue, 1).toString());
-        if (mode.equals("list")) {
+        if (mode.equals("map")) {
+            MapTag mt = MapTag.getFor(queue.error, ato);
+            String mapObj = entry.getArgumentObject(queue, 2).toString();
+            AbstractTagObject mapVal = entry.getArgumentObject(queue, 3);
+            mt.getInternal().put(mapObj, mapVal);
+            resultant = mt;
+        }
+        else if (mode.equals("list")) {
             ListTag lt = ListTag.getFor(queue.error, ato);
             for (int i = 2; i < entry.arguments.size(); i++) {
                 lt.getInternal().add(entry.getArgumentObject(queue, i));
