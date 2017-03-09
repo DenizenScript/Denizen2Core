@@ -77,7 +77,7 @@ public class TextTag extends AbstractTagObject {
         // @Returns the text in full lowercase.
         // @Example "hELLO" .to_lower returns "hello".
         // -->
-        handlers.put("to_upper", (dat, obj) -> new TextTag(((TextTag) obj).internal.toLowerCase(Locale.ENGLISH)));
+        handlers.put("to_lower", (dat, obj) -> new TextTag(((TextTag) obj).internal.toLowerCase(Locale.ENGLISH)));
         // <--[tag]
         // @Name TextTag.is_integer
         // @Updated 2016/12/05
