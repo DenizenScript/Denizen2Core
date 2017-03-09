@@ -59,13 +59,31 @@ public class ListTag extends AbstractTagObject {
         });
         // <--[tag]
         // @Name ListTag.contains[<TextTag>]
-        // @Updated 2017/02/17
+        // @Updated 2017/03/08
         // @Group Lists
         // @ReturnType BooleanTag
-        // @Returns whether the list contains the specified text.
-        // @Example "one|two|three|" .contans[one] returns "true".
+        // @Returns whether the list contains the specified text, case insensitive.
+        // @Example "one|two|three|" .contans[ONE] returns "true".
         // -->
         handlers.put("contains", (dat, obj) -> {
+            String contain_check = CoreUtilities.toLowerCase(dat.getNextModifier().toString());
+            ListTag list = (ListTag) obj;
+            for (int i = 0; i < list.getInternal().size(); i++) {
+                if (CoreUtilities.toLowerCase(list.getInternal().get(i).toString()).equals(contain_check)) {
+                    return new BooleanTag(true);
+                }
+            }
+            return new BooleanTag(false);
+        });
+        // <--[tag]
+        // @Name ListTag.contains_cased[<TextTag>]
+        // @Updated 2017/03/08
+        // @Group Lists
+        // @ReturnType BooleanTag
+        // @Returns whether the list contains the specified text, case sensitive.
+        // @Example "one|two|three|" .contans[one] returns "true".
+        // -->
+        handlers.put("contains_cased", (dat, obj) -> {
             String contain_check = dat.getNextModifier().toString();
             ListTag list = (ListTag) obj;
             for (int i = 0; i < list.getInternal().size(); i++) {

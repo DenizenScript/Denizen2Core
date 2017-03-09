@@ -48,7 +48,7 @@ public class AddtoCommand extends AbstractCommand {
     // - define mylist <list[a|b]>
     // - addto mylist list c d e
     // @Example
-    // # This example adds some a new entry to the map definition "mymap".
+    // # This example adds a new entry to the map definition "mymap".
     // - define mymap <map[a:1]>
     // - addto mymap map b 2
     // -->
