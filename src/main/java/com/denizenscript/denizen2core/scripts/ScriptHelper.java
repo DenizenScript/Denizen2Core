@@ -20,6 +20,10 @@ public class ScriptHelper {
                         liner = liner.substring(0, liner.length() - 2) + ":";
                     }
                 }
+                else if (line.endsWith(":") && !line.startsWith("-")) {
+                    liner = liner.replace("&", "&amp");
+                    liner = liner.replace(".", "&dot");
+                }
                 result.append(liner).append("\n");
             }
             else {

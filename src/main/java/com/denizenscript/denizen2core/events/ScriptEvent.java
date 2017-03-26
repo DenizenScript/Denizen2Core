@@ -3,6 +3,7 @@ package com.denizenscript.denizen2core.events;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.objects.BooleanTag;
 import com.denizenscript.denizen2core.tags.objects.MapTag;
+import com.denizenscript.denizen2core.utilities.FakeQueueHelper;
 import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
 import com.denizenscript.denizen2core.Denizen2Core;
 import com.denizenscript.denizen2core.arguments.Argument;
@@ -106,7 +107,8 @@ public abstract class ScriptEvent implements Cloneable {
                             List<String> split = CoreUtilities.split(possible, ':', 2);
                             String low = CoreUtilities.toLowerCase(split.get(0));
                             if (split.size() > 1 && low.equals("require")) {
-                                data.requirements.add(Denizen2Core.splitToArgument(split.get(1), false, false, this::error));
+                                data.requirements.add(Denizen2Core.splitToArgument(split.get(1).replace("&dot", ".")
+                                        .replace("&amp", "&"), false, false, this::error));
                             }
                             else if (split.size() > 1) {
                                 data.switches.put(low, split.get(1));
@@ -209,17 +211,27 @@ public abstract class ScriptEvent implements Cloneable {
         contextHelper.put("context", defmap);
         CommandScriptSection css = data.script.getSection("events.on " + data.eventPath);
         if (css == null) {
+            if (Denizen2Core.getImplementation().generalDebug()) {
+                Debug.info("Script: " + data.eventPath + " failed to load...");
+            }
             return; // Something went wrong. Perhaps the script didn't load?
         }
         for (Argument req : data.requirements) {
-            BooleanTag bt = BooleanTag.getFor(this::error, req.parse(null, contextHelper, css.created.getDebugMode(), this::error));
+            if (css.created.getDebugMode().showFull) {
+                Debug.info("Checking requirement: " + req.toString());
+            }
+            CommandQueue q = FakeQueueHelper.genFakeQueueFor(contextHelper, this::error);
+            BooleanTag bt = BooleanTag.getFor(this::error, req.parse(q, contextHelper, css.created.getDebugMode(), this::error));
+            if (css.created.getDebugMode().showFull) {
+                Debug.info("Requirement result: " + bt.getInternal());
+            }
             if (!bt.getInternal()) {
                 return;
             }
         }
         if (data.script.getDebugMode().showFull) {
             Debug.good("Running script event: " + ColorSet.emphasis + data.script.title
-                    + ColorSet.good + ", event: " + "on " + ColorSet.emphasis + data.eventPath);
+                    + ColorSet.good + ", event: on " + ColorSet.emphasis + data.eventPath);
             for (Map.Entry<String, AbstractTagObject> def : defs.entrySet()) {
                 Debug.good("Context Definition: " + ColorSet.emphasis + def.getKey() + ColorSet.good
                         + " is " + ColorSet.emphasis + def.getValue().toString());

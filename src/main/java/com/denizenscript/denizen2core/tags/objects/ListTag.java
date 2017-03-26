@@ -63,7 +63,7 @@ public class ListTag extends AbstractTagObject {
         // @Group Lists
         // @ReturnType BooleanTag
         // @Returns whether the list contains the specified text, case insensitive.
-        // @Example "one|two|three|" .contans[ONE] returns "true".
+        // @Example "one|two|three|" .contains[ONE] returns "true".
         // -->
         handlers.put("contains", (dat, obj) -> {
             String contain_check = CoreUtilities.toLowerCase(dat.getNextModifier().toString());
@@ -81,7 +81,7 @@ public class ListTag extends AbstractTagObject {
         // @Group Lists
         // @ReturnType BooleanTag
         // @Returns whether the list contains the specified text, case sensitive.
-        // @Example "one|two|three|" .contans[one] returns "true".
+        // @Example "one|two|three|" .contains_cased[one] returns "true".
         // -->
         handlers.put("contains_cased", (dat, obj) -> {
             String contain_check = dat.getNextModifier().toString();
