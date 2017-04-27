@@ -114,7 +114,6 @@ public class ScriptTag extends AbstractTagObject {
         // @Example "MyTask" .yaml_key[type] returns "task".
         // -->
         handlers.put("list_keys", (dat, obj) -> {
-            // TODO: Root option
             Set<StringHolder> val = ((ScriptTag) obj).internal.contents.getConfigurationSection(dat.getNextModifier().toString()).getKeys(false);
             if (val == null) {
                 if (!dat.hasFallback()) {

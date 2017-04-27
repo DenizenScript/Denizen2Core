@@ -132,6 +132,9 @@ public class Denizen2Core {
         // Track this implementation value
         implementation = impl;
         // Enforce a reasonable locale on the machine - to prevent format errors
+        // Note that US is chosen primarily as it is:
+        // - the most likely to be used by a user of Denizen2 anyway (All Denizen2 info is EN-US)
+        // - The least likely to screw with commonly accepted (international) formatting
         if (implementation.enforceLocale()) {
             Locale.setDefault(Locale.US);
         }
