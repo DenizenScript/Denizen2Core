@@ -63,7 +63,7 @@ public class YamlTag extends AbstractTagObject {
             String val = ((YamlTag) obj).internal.getString(dat.getNextModifier().toString());
             if (val == null) {
                 if (!dat.hasFallback()) {
-                    dat.error.run("No valid text at the specified yaml key! Does it exist?");
+                    dat.error.run("No valid text at the specified YAML key! Does it exist?");
                 }
                 return new NullTag();
             }
@@ -80,6 +80,16 @@ public class YamlTag extends AbstractTagObject {
             return new BooleanTag(((YamlTag) obj).internal.contains(dat.getNextModifier().toString()));
         });
         // <--[tag]
+        // @Name YamlTag.is_list[<TextTag>]
+        // @Updated 2017/04/27
+        // @Group Identification
+        // @ReturnType BooleanTag
+        // @Returns whether the YAML has the specified key and it is a list typed YAML key.
+        // -->
+        handlers.put("is_list", (dat, obj) -> {
+            return new BooleanTag(((YamlTag) obj).internal.isList(dat.getNextModifier().toString()));
+        });
+        // <--[tag]
         // @Name YamlTag.read_list[<TextTag>]
         // @Updated 2017/02/19
         // @Group Identification
@@ -90,7 +100,7 @@ public class YamlTag extends AbstractTagObject {
             List<String> val = ((YamlTag) obj).internal.getStringList(dat.getNextModifier().toString());
             if (val == null) {
                 if (!dat.hasFallback()) {
-                    dat.error.run("No valid list at the specified yaml key! Does it exist?");
+                    dat.error.run("No valid list at the specified YAML key! Does it exist?");
                 }
                 return new NullTag();
             }
@@ -112,7 +122,7 @@ public class YamlTag extends AbstractTagObject {
             Set<StringHolder> val = ((YamlTag) obj).internal.getConfigurationSection(dat.getNextModifier().toString()).getKeys(false);
             if (val == null) {
                 if (!dat.hasFallback()) {
-                    dat.error.run("No valid keys at the specified yaml key! Does it exist?");
+                    dat.error.run("No valid keys at the specified YAML key! Does it exist?");
                 }
                 return new NullTag();
             }

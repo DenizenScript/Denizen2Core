@@ -10,6 +10,7 @@ import com.denizenscript.denizen2core.utilities.CoreUtilities;
 import com.denizenscript.denizen2core.utilities.yaml.StringHolder;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 public class ScriptTag extends AbstractTagObject {
@@ -46,6 +47,26 @@ public class ScriptTag extends AbstractTagObject {
             return new TextTag(((ScriptTag) obj).internal.title);
         });
         // <--[tag]
+        // @Name ScriptTag.has_yaml_key[<TextTag>]
+        // @Updated 2017/04/27
+        // @Group Identification
+        // @ReturnType BooleanTag
+        // @Returns whether the YAML has the specified key.
+        // -->
+        handlers.put("has_yaml_key", (dat, obj) -> {
+            return new BooleanTag(((ScriptTag) obj).internal.contents.contains(dat.getNextModifier().toString()));
+        });
+        // <--[tag]
+        // @Name ScriptTag.is_yaml_list[<TextTag>]
+        // @Updated 2017/04/27
+        // @Group Identification
+        // @ReturnType BooleanTag
+        // @Returns whether the YAML has the specified key and it is a list typed YAML key.
+        // -->
+        handlers.put("is_yaml_list", (dat, obj) -> {
+            return new BooleanTag(((ScriptTag) obj).internal.contents.isList(dat.getNextModifier().toString()));
+        });
+        // <--[tag]
         // @Name ScriptTag.yaml_key[<TextTag>]
         // @Updated 2017/02/19
         // @Group Identification
@@ -63,6 +84,27 @@ public class ScriptTag extends AbstractTagObject {
             }
             return new TextTag(val);
         });
+        // <--ScriptTag
+        // @Name YamlTag.read_list[<TextTag>]
+        // @Updated 2017/04/27
+        // @Group Identification
+        // @ReturnType ListTag
+        // @Returns the contents of the YAML key, as a list of text.
+        // -->
+        handlers.put("yaml_list", (dat, obj) -> {
+            List<String> val = ((ScriptTag) obj).internal.contents.getStringList(dat.getNextModifier().toString());
+            if (val == null) {
+                if (!dat.hasFallback()) {
+                    dat.error.run("No valid list at the specified YAML key! Does it exist?");
+                }
+                return new NullTag();
+            }
+            ListTag list = new ListTag();
+            for (String str : val) {
+                list.getInternal().add(new TextTag(str));
+            }
+            return list;
+        });
         // <--[tag]
         // @Name ScriptTag.list_keys[<TextTag>]
         // @Updated 2017/02/19
@@ -76,7 +118,7 @@ public class ScriptTag extends AbstractTagObject {
             Set<StringHolder> val = ((ScriptTag) obj).internal.contents.getConfigurationSection(dat.getNextModifier().toString()).getKeys(false);
             if (val == null) {
                 if (!dat.hasFallback()) {
-                    dat.error.run("No valid keys at the specified yaml key! Does it exist?");
+                    dat.error.run("No valid keys at the specified YAML key! Does it exist?");
                 }
                 return new NullTag();
             }
