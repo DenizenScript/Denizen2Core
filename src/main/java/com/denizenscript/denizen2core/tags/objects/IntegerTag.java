@@ -153,6 +153,11 @@ public class IntegerTag extends AbstractTagObject {
     }
 
     @Override
+    public String getTagTypeName() {
+        return "IntegerTag";
+    }
+
+    @Override
     public String toString() {
         return String.valueOf(internal);
     }

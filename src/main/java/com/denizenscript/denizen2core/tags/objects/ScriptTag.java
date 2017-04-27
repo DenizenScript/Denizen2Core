@@ -168,6 +168,11 @@ public class ScriptTag extends AbstractTagObject {
     }
 
     @Override
+    public String getTagTypeName() {
+        return "ScriptTag";
+    }
+
+    @Override
     public AbstractTagObject handleElseCase(TagData data) {
         return new TextTag(toString());
     }

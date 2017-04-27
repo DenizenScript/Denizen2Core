@@ -328,6 +328,11 @@ public class TextTag extends AbstractTagObject {
     }
 
     @Override
+    public String getTagTypeName() {
+        return "TextTag";
+    }
+
+    @Override
     public AbstractTagObject handleElseCase(TagData data) {
         data.error.run("Unknown tag part '" + data.getNext() + "'!");
         return new NullTag();

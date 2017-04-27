@@ -11,8 +11,9 @@ import com.denizenscript.denizen2core.events.commonevents.ScriptReloadEvent;
 import com.denizenscript.denizen2core.events.commonevents.SystemLoadEvent;
 import com.denizenscript.denizen2core.scripts.commontypes.TaskScript;
 import com.denizenscript.denizen2core.scripts.commontypes.YamlDataScript;
+import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.handlers.*;
-import com.denizenscript.denizen2core.tags.objects.MapTag;
+import com.denizenscript.denizen2core.tags.objects.*;
 import com.denizenscript.denizen2core.utilities.*;
 import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
 import com.denizenscript.denizen2core.utilities.debugging.Debug;
@@ -198,6 +199,32 @@ public class Denizen2Core {
         register(deltaTime = new DeltaTimeEvent());
         register(scriptReload = new ScriptReloadEvent());
         register(systemLoad = new SystemLoadEvent());
+        // Type Loaders
+        customSaveLoaders.put("BooleanTag", BooleanTag::getFor);
+        customSaveLoaders.put("DurationTag", DurationTag::getFor);
+        customSaveLoaders.put("IntegerTag", IntegerTag::getFor);
+        customSaveLoaders.put("ListTag", ListTag::getForSaved);
+        customSaveLoaders.put("MapTag",  MapTag::getForSaved);
+        customSaveLoaders.put("NullTag", NullTag::getFor);
+        customSaveLoaders.put("NumberTag", NumberTag::getFor);
+        customSaveLoaders.put("QueueTag", QueueTag::getFor);
+        customSaveLoaders.put("ScriptTag", ScriptTag::getFor);
+        customSaveLoaders.put("TextTag", TextTag::getFor);
+        customSaveLoaders.put("TimeTag", TimeTag::getFor);
+        customSaveLoaders.put("YamlTag", YamlTag::getFor);
+        customSaveLoaders.put("SystemTag", (e, s) -> new SystemTagBase.SystemTag());
+    }
+
+    public static final HashMap<String, Function2<Action<String>, String, AbstractTagObject>> customSaveLoaders = new HashMap<>();
+
+    public static AbstractTagObject loadFromSaved(Action<String> error, String str) {
+        List<String> dat = CoreUtilities.split(str, '@', 2);
+        String typed = dat.get(0);
+        if (!customSaveLoaders.containsKey(typed)) {
+            error.run("No save loader for the specified type: " + typed + "!");
+            return new NullTag();
+        }
+        return customSaveLoaders.get(typed).apply(error, dat.get(1));
     }
 
     private static ScriptReloadEvent scriptReload = null;

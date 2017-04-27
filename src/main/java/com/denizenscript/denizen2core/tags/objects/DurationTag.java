@@ -115,6 +115,11 @@ public class DurationTag extends AbstractTagObject {
     }
 
     @Override
+    public String getTagTypeName() {
+        return "DurationTag";
+    }
+
+    @Override
     public String toString() {
         return CoreUtilities.doubleToString(internal);
     }

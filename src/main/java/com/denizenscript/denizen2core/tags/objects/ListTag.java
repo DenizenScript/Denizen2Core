@@ -1,5 +1,6 @@
 package com.denizenscript.denizen2core.tags.objects;
 
+import com.denizenscript.denizen2core.Denizen2Core;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.TagData;
 import com.denizenscript.denizen2core.tags.handlers.EscapeTagBase;
@@ -122,24 +123,31 @@ public class ListTag extends AbstractTagObject {
         });
     }
 
-    public static ListTag getFor(Action<String> error, String text) {
-        try {
-            List<String> strs = CoreUtilities.split(text, '|');
-            ListTag lt = new ListTag();
-            for (int i = 0; i < strs.size(); i++) {
-                if (i == strs.size() - 1 && strs.get(i).length() == 0) {
-                    break;
-                }
-                String data = EscapeTagBase.unescape(strs.get(i));
-                TextArgumentBit tab = new TextArgumentBit(data, false);
-                lt.internal.add(tab.value);
+    public static ListTag getForSaved(Action<String> error, String text) {
+        List<String> strs = CoreUtilities.split(text, '|');
+        ListTag lt = new ListTag();
+        for (int i = 0; i < strs.size(); i++) {
+            if (i == strs.size() - 1 && strs.get(i).length() == 0) {
+                break;
             }
-            return lt;
+            String data = EscapeTagBase.unescape(strs.get(i));
+            lt.internal.add(Denizen2Core.loadFromSaved(error, data));
         }
-        catch (NumberFormatException ex) {
-            error.run("Invalid IntegerTag input!");
-            return null;
+        return lt;
+    }
+
+    public static ListTag getFor(Action<String> error, String text) {
+        List<String> strs = CoreUtilities.split(text, '|');
+        ListTag lt = new ListTag();
+        for (int i = 0; i < strs.size(); i++) {
+            if (i == strs.size() - 1 && strs.get(i).length() == 0) {
+                break;
+            }
+            String data = EscapeTagBase.unescape(strs.get(i));
+            TextArgumentBit tab = new TextArgumentBit(data, false);
+            lt.internal.add(tab.value);
         }
+        return lt;
     }
 
     public static ListTag getFor(Action<String> error, AbstractTagObject text) {
@@ -161,6 +169,21 @@ public class ListTag extends AbstractTagObject {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < internal.size(); i++) {
             sb.append(EscapeTagBase.escape(internal.get(i).toString())).append("|");
+        }
+        return sb.toString();
+    }
+
+    @Override
+    public String getTagTypeName() {
+        return "ListTag";
+    }
+
+    @Override
+    public String savable() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getTagTypeName()).append(saveMark());
+        for (int i = 0; i < internal.size(); i++) {
+            sb.append(EscapeTagBase.escape(internal.get(i).savable())).append("|");
         }
         return sb.toString();
     }

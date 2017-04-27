@@ -113,6 +113,11 @@ public class BooleanTag extends AbstractTagObject {
     }
 
     @Override
+    public String getTagTypeName() {
+        return "BooleanTag";
+    }
+
+    @Override
     public String toString() {
         return internal ? "true" : "false";
     }

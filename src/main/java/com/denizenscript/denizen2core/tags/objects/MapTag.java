@@ -1,5 +1,6 @@
 package com.denizenscript.denizen2core.tags.objects;
 
+import com.denizenscript.denizen2core.Denizen2Core;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.TagData;
 import com.denizenscript.denizen2core.tags.handlers.EscapeTagBase;
@@ -65,6 +66,25 @@ public class MapTag extends AbstractTagObject {
         handlers.put("size", (dat, obj) -> new IntegerTag(((MapTag) obj).getInternal().size()));
     }
 
+    public static MapTag getForSaved(Action<String> error, String text) {
+        List<String> strs = CoreUtilities.split(text, '|');
+        MapTag lt = new MapTag();
+        for (int i = 0; i < strs.size(); i++) {
+            if (i == strs.size() - 1 && strs.get(i).length() == 0) {
+                break;
+            }
+            List<String> datums = CoreUtilities.split(strs.get(i), ':', 2);
+            if (datums.size() < 2) {
+                error.run("Invalid map tag input! (Parsing item: " + i + ": " + strs.get(i) + ")");
+                continue;
+            }
+            String key = CoreUtilities.toLowerCase(EscapeTagBase.unescape(datums.get(0)));
+            String data = EscapeTagBase.unescape(datums.get(1));
+            lt.internal.put(key, Denizen2Core.loadFromSaved(error, data));
+        }
+        return lt;
+    }
+
     public static MapTag getFor(Action<String> error, String text) {
         List<String> strs = CoreUtilities.split(text, '|');
         MapTag lt = new MapTag();
@@ -75,6 +95,7 @@ public class MapTag extends AbstractTagObject {
             List<String> datums = CoreUtilities.split(strs.get(i), ':', 2);
             if (datums.size() < 2) {
                 error.run("Invalid map tag input! (Parsing item: " + i + ": " + strs.get(i) + ")");
+                continue;
             }
             String key = CoreUtilities.toLowerCase(EscapeTagBase.unescape(datums.get(0)));
             String data = EscapeTagBase.unescape(datums.get(1));
@@ -111,6 +132,22 @@ public class MapTag extends AbstractTagObject {
                     .append(EscapeTagBase.escape(obj.getValue().toString())).append("|");
         }
         return sb.toString();
+    }
+
+    @Override
+    public String savable() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getTagTypeName()).append(saveMark());
+        for (Map.Entry<String, AbstractTagObject> obj : internal.entrySet()) {
+            sb.append(EscapeTagBase.escape(obj.getKey())).append(":")
+                    .append(EscapeTagBase.escape(obj.getValue().savable())).append("|");
+        }
+        return sb.toString();
+    }
+
+    @Override
+    public String getTagTypeName() {
+        return "MapTag";
     }
 
     @Override

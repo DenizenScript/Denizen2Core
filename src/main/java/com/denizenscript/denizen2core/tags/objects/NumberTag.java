@@ -535,6 +535,11 @@ public class NumberTag extends AbstractTagObject {
     }
 
     @Override
+    public String getTagTypeName() {
+        return "NumberTag";
+    }
+
+    @Override
     public String toString() {
         return CoreUtilities.doubleToString(internal);
     }

@@ -155,6 +155,11 @@ public class TimeTag extends AbstractTagObject {
     }
 
     @Override
+    public String getTagTypeName() {
+        return "TimeTag";
+    }
+
+    @Override
     public String toString() {
         return String.valueOf(internal.toEpochSecond(ZoneOffset.UTC));
     }

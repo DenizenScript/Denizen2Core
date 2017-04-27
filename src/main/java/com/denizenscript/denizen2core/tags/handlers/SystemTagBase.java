@@ -147,7 +147,7 @@ public class SystemTagBase extends AbstractTagBase {
         return new SystemTag().handle(data.shrink());
     }
 
-    public class SystemTag extends AbstractTagObject {
+    public static class SystemTag extends AbstractTagObject {
 
         @Override
         public HashMap<String, Function2<TagData, AbstractTagObject, AbstractTagObject>> getHandlers() {
@@ -156,7 +156,12 @@ public class SystemTagBase extends AbstractTagBase {
 
         @Override
         public AbstractTagObject handleElseCase(TagData data) {
-            return new TextTag(getName());
+            return new TextTag("system");
+        }
+
+        @Override
+        public String getTagTypeName() {
+            return "SystemTag";
         }
     }
 }

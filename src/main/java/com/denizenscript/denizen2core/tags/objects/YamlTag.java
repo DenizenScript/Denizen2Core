@@ -158,6 +158,11 @@ public class YamlTag extends AbstractTagObject {
     }
 
     @Override
+    public String getTagTypeName() {
+        return "YamlTag";
+    }
+
+    @Override
     public String toString() {
         return name;
     }

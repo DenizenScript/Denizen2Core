@@ -159,6 +159,11 @@ public class QueueTag extends AbstractTagObject {
     }
 
     @Override
+    public String getTagTypeName() {
+        return "QueueTag";
+    }
+
+    @Override
     public String debug() {
         if (internal.commandStack.size() == 0) {
             return toString();

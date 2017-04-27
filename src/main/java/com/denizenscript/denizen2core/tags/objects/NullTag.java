@@ -2,6 +2,7 @@ package com.denizenscript.denizen2core.tags.objects;
 
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.TagData;
+import com.denizenscript.denizen2core.utilities.Action;
 import com.denizenscript.denizen2core.utilities.Function2;
 
 import java.util.HashMap;
@@ -28,6 +29,19 @@ public class NullTag extends AbstractTagObject {
     @Override
     public AbstractTagObject handleElseCase(TagData data) {
         return new TextTag(toString());
+    }
+
+    public static NullTag getFor(Action<String> error, String text) {
+        return new NullTag();
+    }
+
+    public static NullTag getFor(Action<String> error, AbstractTagObject text) {
+        return (text instanceof NullTag) ? (NullTag) text : getFor(error, text.toString());
+    }
+
+    @Override
+    public String getTagTypeName() {
+        return "NullTag";
     }
 
     @Override
