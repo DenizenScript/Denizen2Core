@@ -249,6 +249,9 @@ public class YAMLConfiguration {
     }
 
     public YAMLConfiguration getConfigurationSection(String path) {
+        if (path.length() == 0) {
+            return this;
+        }
         List<String> parts = CoreUtilities.split(path, '.');
         Map<StringHolder, Object> portion = contents;
         for (int i = 0; i < parts.size(); i++) {
