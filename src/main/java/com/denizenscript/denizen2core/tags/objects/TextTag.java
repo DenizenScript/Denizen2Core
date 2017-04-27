@@ -133,6 +133,15 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("length", (dat, obj) -> new IntegerTag(((TextTag) obj).internal.length()));
         // <--[tag]
+        // @Name TextTag.matches_regex
+        // @Updated 2017/04/27
+        // @Group Text Details
+        // @ReturnType BooleanTag
+        // @Returns whether the text matches a Regular Expression.
+        // @Example "abc" .matches_regex[[a-z]+] returns "true".
+        // -->
+        handlers.put("matches_regex", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.matches(dat.getNextModifier().toString())));
+        // <--[tag]
         // @Name TextTag.equals[<TextTag>]
         // @Updated 2016/12/05
         // @Group Text Details
