@@ -122,7 +122,7 @@ public abstract class ScriptEvent implements Cloneable {
                         }
                     }
                     catch (ErrorInducedException ex) {
-                        Debug.error("While managing script event " +getName() + ", tried to match "
+                        Debug.error("While managing script event " + getName() + ", tried to match "
                                 + script.title + "." + evt.str + ", but got error: " + ex.getMessage());
                     }
                 }

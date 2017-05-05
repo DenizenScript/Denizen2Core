@@ -108,7 +108,7 @@ public class SystemTagBase extends AbstractTagBase {
             return lt;
         });
         // <--[tag]
-        // @Name SystemTag.has_yaml
+        // @Name SystemTag.has_yaml[<TextTag>]
         // @Updated 2017/02/24
         // @Group Denizen2
         // @ReturnType BooleanTag
@@ -119,7 +119,7 @@ public class SystemTagBase extends AbstractTagBase {
             return new BooleanTag(Denizen2Core.filesLoadedByScripts.containsKey(CoreUtilities.toLowerCase(name)));
         });
         // <--[tag]
-        // @Name SystemTag.has_file
+        // @Name SystemTag.has_file[<TextTag>]
         // @Updated 2017/02/16
         // @Group Denizen2
         // @ReturnType BooleanTag
@@ -139,6 +139,78 @@ public class SystemTagBase extends AbstractTagBase {
                 dat.error.run("Failed to read YAML file: " + e.getClass().getCanonicalName() + ": " + e.getMessage());
                 return new NullTag();
             }
+        });
+        // <--[tag]
+        // @Name SystemTag.random_decimal_in_range[<ListTag>]
+        // @Updated 2017/05/05
+        // @Group Random
+        // @ReturnType NumberTag
+        // @Returns a random decimal number larger than the first number and smaller than the second number input.
+        // -->
+        handlers.put("random_decimal_in_range", (dat, obj) -> {
+            ListTag inp = ListTag.getFor(dat.error, dat.getNextModifier());
+            if (inp.getInternal().size() != 2){
+                dat.error.run("Invalid input! Not a list of size 2!");
+                return new NullTag();
+            }
+            double a = NumberTag.getFor(dat.error, inp.getInternal().get(0)).getInternal();
+            double b = NumberTag.getFor(dat.error, inp.getInternal().get(1)).getInternal();
+            if (b < a) {
+                dat.error.run("Invalid input! Second number less than first!");
+                return new NullTag();
+            }
+            return new NumberTag((CoreUtilities.random.nextDouble() * (b - a)) + a);
+        });
+        // <--[tag]
+        // @Name SystemTag.random_integer_in_range[<ListTag>]
+        // @Updated 2017/05/05
+        // @Group Random
+        // @ReturnType IntegerTag
+        // @Returns a random integer number larger than the first number and smaller than the second number input.
+        // -->
+        handlers.put("random_integer_in_range", (dat, obj) -> {
+            ListTag inp = ListTag.getFor(dat.error, dat.getNextModifier());
+            if (inp.getInternal().size() != 2){
+                dat.error.run("Invalid input! Not a list of size 2!");
+                return new NullTag();
+            }
+            long a = IntegerTag.getFor(dat.error, inp.getInternal().get(0)).getInternal();
+            long b = IntegerTag.getFor(dat.error, inp.getInternal().get(1)).getInternal();
+            if (b < a) {
+                dat.error.run("Invalid input! Second number less than first!");
+                return new NullTag();
+            }
+            return new IntegerTag((CoreUtilities.random.nextInt((int)(b - a)) + a));
+        });
+        // <--[tag]
+        // @Name SystemTag.random_integer_massive
+        // @Updated 2017/05/05
+        // @Group Random
+        // @ReturnType IntegerTag
+        // @Returns a random integer number, from a range of all possible 64 bit integers! (Including negatives!)
+        // -->
+        handlers.put("random_integer_massive", (dat, obj) -> {
+            return new IntegerTag((CoreUtilities.random.nextLong()));
+        });
+        // <--[tag]
+        // @Name SystemTag.random_decimal_gaussian
+        // @Updated 2017/05/05
+        // @Group Random
+        // @ReturnType NumberTag
+        // @Returns a random gaussian-distributed decimal number. (IE random negative or positive, tends to be in range -1 to 1, but sometimes goes outside.)
+        // -->
+        handlers.put("random_decimal_gaussian", (dat, obj) -> {
+            return new NumberTag((CoreUtilities.random.nextGaussian()));
+        });
+        // <--[tag]
+        // @Name SystemTag.random_boolean
+        // @Updated 2017/05/05
+        // @Group Random
+        // @ReturnType BooleanTag
+        // @Returns a randomly selected true or false value.
+        // -->
+        handlers.put("random_boolean", (dat, obj) -> {
+            return new BooleanTag((CoreUtilities.random.nextBoolean()));
         });
     }
 
