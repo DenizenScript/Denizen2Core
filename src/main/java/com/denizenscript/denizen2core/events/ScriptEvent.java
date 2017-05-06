@@ -38,6 +38,8 @@ public abstract class ScriptEvent implements Cloneable {
 
         public WorldScript script = null;
 
+        public String rawPath = null;
+
         public String eventPath = null;
 
         public int priority = 0;
@@ -100,20 +102,25 @@ public abstract class ScriptEvent implements Cloneable {
                 }
                 ScriptEventData data = new ScriptEventData();
                 data.script = script;
-                data.eventPath = evt.str.substring("on ".length());
+                data.rawPath = evt.str.substring("on ".length());
+                StringBuilder res = new StringBuilder();
+                for (String possible : CoreUtilities.split(data.rawPath, ' ')) {
+                    List<String> split = CoreUtilities.split(possible, ':', 2);
+                    String low = CoreUtilities.toLowerCase(split.get(0));
+                    if (split.size() > 1 && low.equals("require")) {
+                        data.requirements.add(Denizen2Core.splitToArgument(split.get(1).replace("&dot", ".")
+                                .replace("&amp", "&"), false, false, this::error));
+                    }
+                    else if (split.size() > 1) {
+                        data.switches.put(low, split.get(1));
+                    }
+                    else {
+                        res.append(possible).append(" ");
+                    }
+                }
+                data.eventPath = res.toString().trim();
                 if (couldMatch(data)) {
                     try {
-                        for (String possible : CoreUtilities.split(data.eventPath, ' ')) {
-                            List<String> split = CoreUtilities.split(possible, ':', 2);
-                            String low = CoreUtilities.toLowerCase(split.get(0));
-                            if (split.size() > 1 && low.equals("require")) {
-                                data.requirements.add(Denizen2Core.splitToArgument(split.get(1).replace("&dot", ".")
-                                        .replace("&amp", "&"), false, false, this::error));
-                            }
-                            else if (split.size() > 1) {
-                                data.switches.put(low, split.get(1));
-                            }
-                        }
                         usages.add(data);
                         if (generalDebug) {
                             Debug.good("Script event match: " + ColorSet.emphasis + getName()
@@ -194,7 +201,7 @@ public abstract class ScriptEvent implements Cloneable {
     // @Description
     // Any ScriptEvent can take certain switches, such as the "ignorecancelled" switch, the "require" switch, or custom switches unique to the event.
     // Switches must all pass for an event script to run. If even one fails (EG a require switch returns false,
-    // or a custom switch has been given incorrect or irrelevant input for that specific firing ofthe event)
+    // or a custom switch has been given incorrect or irrelevant input for that specific firing of the event)
     // then the event script will not run for that firing.
     //
     // In many cases, a switch is similar to being a shorthand for an if statement - one that runs very quickly on the internals,
@@ -209,10 +216,10 @@ public abstract class ScriptEvent implements Cloneable {
         MapTag defmap = new MapTag(defs);
         HashMap<String, AbstractTagObject> contextHelper = new HashMap<>();
         contextHelper.put("context", defmap);
-        CommandScriptSection css = data.script.getSection("events.on " + data.eventPath);
+        CommandScriptSection css = data.script.getSection("events.on " + data.rawPath);
         if (css == null) {
             if (Denizen2Core.getImplementation().generalDebug()) {
-                Debug.info("Script: " + data.eventPath + " failed to load...");
+                Debug.info("Script Event path: " + data.rawPath + " failed to load...");
             }
             return; // Something went wrong. Perhaps the script didn't load?
         }
@@ -231,7 +238,7 @@ public abstract class ScriptEvent implements Cloneable {
         }
         if (data.script.getDebugMode().showFull) {
             Debug.good("Running script event: " + ColorSet.emphasis + data.script.title
-                    + ColorSet.good + ", event: on " + ColorSet.emphasis + data.eventPath);
+                    + ColorSet.good + ", event: on " + ColorSet.emphasis + data.rawPath);
             for (Map.Entry<String, AbstractTagObject> def : defs.entrySet()) {
                 Debug.good("Context Definition: " + ColorSet.emphasis + def.getKey() + ColorSet.good
                         + " is " + ColorSet.emphasis + def.getValue().toString());
