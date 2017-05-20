@@ -35,10 +35,7 @@ public class YamlCommand extends AbstractCommand {
     // an object-defined value, or remove a key, or close a dataset (preventing it from being accessed further).
     // Note that depending on sub-command, the path argument can refer to either the YAML key or a disk file path.
     // Note that YAML format includes the specification that a key is split along the dot '.' symbol.
-    // So for example, key 'a.b.c' will become:
-    // a:
-    //     b:
-    //        c: VALUE HERE
+    // So for key 'a.b.c', it will output key 'a' contains key 'b' contains key 'c'.
     // An ID must be included to uniquely identify a YAML dataset while its held in memory.
     // IDs are case-insensitive currently, but it is good practice to use consistent casing.
     // This is NOT a guaranteed property: case-sensitivity may be enabled in the future!
