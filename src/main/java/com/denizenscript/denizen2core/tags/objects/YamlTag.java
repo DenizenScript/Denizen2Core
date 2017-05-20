@@ -55,9 +55,9 @@ public class YamlTag extends AbstractTagObject {
         // <--[tag]
         // @Name YamlTag.read[<TextTag>]
         // @Updated 2017/02/19
-        // @Group Identification
+        // @Group Data
         // @ReturnType TextTag
-        // @Returns the contents of the YAML key, as text.
+        // @Returns the contents of the YAML key, as text. Note that read_object is preferred!
         // -->
         handlers.put("read", (dat, obj) -> {
             String val = ((YamlTag) obj).internal.getString(dat.getNextModifier().toString());
@@ -70,9 +70,35 @@ public class YamlTag extends AbstractTagObject {
             return new TextTag(val);
         });
         // <--[tag]
+        // @Name YamlTag.read_object[<TextTag>]
+        // @Updated 2017/05/20
+        // @Group Data
+        // @ReturnType Dynamic
+        // @Returns the contents of the YAML key, as the correct object type. Interprets lists correctly.
+        // -->
+        handlers.put("read_object", (dat, obj) -> {
+            String modif = dat.getNextModifier().toString();
+            if (((YamlTag) obj).internal.isList(modif)) {
+                List<String> val = ((YamlTag) obj).internal.getStringList(dat.getNextModifier().toString());
+                ListTag list = new ListTag();
+                for (String str : val) {
+                    list.getInternal().add(Denizen2Core.loadFromSaved(dat.error, str));
+                }
+                return list;
+            }
+            String val = ((YamlTag) obj).internal.getString(dat.getNextModifier().toString());
+            if (val == null) {
+                if (!dat.hasFallback()) {
+                    dat.error.run("No valid text at the specified YAML key! Does it exist?");
+                }
+                return new NullTag();
+            }
+            return Denizen2Core.loadFromSaved(dat.error, val);
+        });
+        // <--[tag]
         // @Name YamlTag.has_key[<TextTag>]
         // @Updated 2017/02/24
-        // @Group Identification
+        // @Group Data
         // @ReturnType BooleanTag
         // @Returns whether the YAML has the specified key.
         // -->
@@ -82,7 +108,7 @@ public class YamlTag extends AbstractTagObject {
         // <--[tag]
         // @Name YamlTag.is_list[<TextTag>]
         // @Updated 2017/04/27
-        // @Group Identification
+        // @Group Data
         // @ReturnType BooleanTag
         // @Returns whether the YAML has the specified key and it is a list typed YAML key.
         // -->
@@ -92,7 +118,7 @@ public class YamlTag extends AbstractTagObject {
         // <--[tag]
         // @Name YamlTag.read_list[<TextTag>]
         // @Updated 2017/02/19
-        // @Group Identification
+        // @Group Data
         // @ReturnType ListTag
         // @Returns the contents of the YAML key, as a list of text.
         // -->
@@ -113,7 +139,7 @@ public class YamlTag extends AbstractTagObject {
         // <--[tag]
         // @Name YamlTag.list_keys[<TextTag>]
         // @Updated 2017/02/19
-        // @Group Identification
+        // @Group Data
         // @ReturnType ListTag
         // @Returns the contents of the YAML key, as a list of keys.
         // -->

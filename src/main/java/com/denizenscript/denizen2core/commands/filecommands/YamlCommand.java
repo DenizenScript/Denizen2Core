@@ -21,7 +21,7 @@ public class YamlCommand extends AbstractCommand {
 
     // <--[command]
     // @Name yaml
-    // @Arguments <id> 'create'/'load'/'save'/'set'/'remove'/'close' [path] [value]
+    // @Arguments <id> 'create'/'load'/'save'/'set'/'setobject'/'remove'/'close' [path] [value]
     // @Short handles and manipulates YAML-formatted data.
     // @Updated 2016/04/02
     // @Group Common
@@ -29,10 +29,23 @@ public class YamlCommand extends AbstractCommand {
     // @Maximum 4
     // @Description
     // Handles and manipulates YAML-formatted data.
-    // TODO: Explain more!
-    // IDs are case-insensitve currently, but it is good practice to use consistent casing.
+    // This system can work entirely in RAM, but also interacts within the file system so far as the
+    // implementing engine permits.
+    // You can create a dataset in memory, or load a dataset from disk, or save to disk, or set a value, or setobject
+    // an object-defined value, or remove a key, or close a dataset (preventing it from being accessed further).
+    // Note that depending on sub-command, the path argument can refer to either the YAML key or a disk file path.
+    // Note that YAML format includes the specification that a key is split along the dot '.' symbol.
+    // So for example, key 'a.b.c' will become:
+    // a:
+    //     b:
+    //        c: VALUE HERE
+    // An ID must be included to uniquely identify a YAML dataset while its held in memory.
+    // IDs are case-insensitive currently, but it is good practice to use consistent casing.
+    // This is NOT a guaranteed property: case-sensitivity may be enabled in the future!
     // Note that internal YAML data is manipulated as strings.
-    // TODO: Map set/read support!
+    // Also, lists in the set command are automatically split to a YAML list - this only happens if the input is a list-typed object.
+    // It is strongly recommended to use the 'setobject' subcommand to more accurately track objects with their types where possible!
+    // TODO: Set/Read MAPS support!
     // @Example
     // # This example creates an empty YAML file, and remembers it as file ID 'test'.
     // - yaml 'test' create
@@ -42,6 +55,9 @@ public class YamlCommand extends AbstractCommand {
     // @Example
     // # This example edits the YAML data loaded as ID 'test' to now have the key 'a.b' set to 'demo'.
     // - yaml 'test' set 'a.b' 'demo'
+    // @Example
+    // # This example edits the YAML data loaded as ID 'test' to now have the key 'a.b' set to an integer of 5, as an object!
+    // - yaml 'test' setobject 'a.b' '<integer[5]>'
     // @Example
     // # This example edits the YAML data loaded as ID 'test' to no longer have the key 'a.b'.
     // - yaml 'test' remove 'a.b'
@@ -60,7 +76,7 @@ public class YamlCommand extends AbstractCommand {
 
     @Override
     public String getArguments() {
-        return "<id> 'create'/'load'/'save'/'set'/'remove'/'close' [path] [value]";
+        return "<id> 'create'/'load'/'save'/'set'/'setobject'/'remove'/'close' [path] [value]";
     }
 
     @Override
@@ -180,6 +196,24 @@ public class YamlCommand extends AbstractCommand {
             }
             else {
                 yconfig.set(path, val.toString());
+            }
+            if (queue.shouldShowGood()) {
+                queue.outGood("Set a value!");
+            }
+            return;
+        }
+        if (mode.equals("setobject")) {
+            String path = entry.getArgumentObject(queue, 2).toString();
+            AbstractTagObject val = entry.getArgumentObject(queue, 3);
+            if (val instanceof ListTag) {
+                List<String> res = new ArrayList<>();
+                for (AbstractTagObject str : ((ListTag) val).getInternal()) {
+                    res.add(str.savable());
+                }
+                yconfig.set(path, res);
+            }
+            else {
+                yconfig.set(path, val.savable());
             }
             if (queue.shouldShowGood()) {
                 queue.outGood("Set a value!");
