@@ -443,7 +443,7 @@ public class NumberTag extends AbstractTagObject {
         // @Example "-5" .sign returns "-1".
         // -->
         handlers.put("sign", (dat, obj) -> {
-            return new IntegerTag((int)Math.signum(((NumberTag) obj).internal));
+            return new IntegerTag((int) Math.signum(((NumberTag) obj).internal));
         });
         // <--[tag]
         // @Name NumberTag.hyberbolic_sine

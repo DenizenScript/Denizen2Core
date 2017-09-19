@@ -75,7 +75,7 @@ public class DefineCommand extends AbstractCommand {
             else {
                 queue.outGood("Defined new definition '" + ColorSet.emphasis + def
                         + ColorSet.good + "' as '" + ColorSet.emphasis + ato.debug()
-                    + ColorSet.good + "' successfully on queue " + ColorSet.emphasis + new QueueTag(tq).debug()
+                        + ColorSet.good + "' successfully on queue " + ColorSet.emphasis + new QueueTag(tq).debug()
                         + ColorSet.good + ".");
             }
         }

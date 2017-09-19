@@ -100,7 +100,7 @@ public class SystemTagBase extends AbstractTagBase {
         handlers.put("yaml_files", (dat, obj) -> {
             ListTag lt = new ListTag();
             for (Map.Entry<String, Object> entry : Denizen2Core.filesLoadedByScripts.entrySet()) {
-                if (entry.getValue() instanceof  YAMLConfiguration) {
+                if (entry.getValue() instanceof YAMLConfiguration) {
                     lt.getInternal().add(new TextTag(entry.getKey()));
                 }
             }
@@ -148,7 +148,7 @@ public class SystemTagBase extends AbstractTagBase {
         // -->
         handlers.put("random_decimal_in_range", (dat, obj) -> {
             ListTag inp = ListTag.getFor(dat.error, dat.getNextModifier());
-            if (inp.getInternal().size() != 2){
+            if (inp.getInternal().size() != 2) {
                 dat.error.run("Invalid input! Not a list of size 2!");
                 return new NullTag();
             }
@@ -169,7 +169,7 @@ public class SystemTagBase extends AbstractTagBase {
         // -->
         handlers.put("random_integer_in_range", (dat, obj) -> {
             ListTag inp = ListTag.getFor(dat.error, dat.getNextModifier());
-            if (inp.getInternal().size() != 2){
+            if (inp.getInternal().size() != 2) {
                 dat.error.run("Invalid input! Not a list of size 2!");
                 return new NullTag();
             }
@@ -179,7 +179,7 @@ public class SystemTagBase extends AbstractTagBase {
                 dat.error.run("Invalid input! Second number less than first!");
                 return new NullTag();
             }
-            return new IntegerTag((CoreUtilities.random.nextInt((int)(b - a)) + a));
+            return new IntegerTag((CoreUtilities.random.nextInt((int) (b - a)) + a));
         });
         // <--[tag]
         // @Name SystemTag.random_integer_massive

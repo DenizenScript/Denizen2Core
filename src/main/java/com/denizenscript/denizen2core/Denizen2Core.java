@@ -122,7 +122,7 @@ public class Denizen2Core {
         }
         totalTime += delta;
         while (pTotal + 1.0 < totalTime) {
-            deltaTime.call((long)Math.floor(totalTime));
+            deltaTime.call((long) Math.floor(totalTime));
             pTotal += 1.0;
         }
     }
@@ -206,7 +206,7 @@ public class Denizen2Core {
         customSaveLoaders.put("DurationTag", DurationTag::getFor);
         customSaveLoaders.put("IntegerTag", IntegerTag::getFor);
         customSaveLoaders.put("ListTag", ListTag::getForSaved);
-        customSaveLoaders.put("MapTag",  MapTag::getForSaved);
+        customSaveLoaders.put("MapTag", MapTag::getForSaved);
         customSaveLoaders.put("NullTag", NullTag::getFor);
         customSaveLoaders.put("NumberTag", NumberTag::getFor);
         customSaveLoaders.put("QueueTag", QueueTag::getFor);

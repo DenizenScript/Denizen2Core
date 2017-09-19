@@ -129,10 +129,10 @@ public class MathHelper {
             HashMap<String, Tuple<Integer, Action<MathContext>>> tfunc = new HashMap<>();
             for (Map.Entry<String, Tuple<Integer, Action<MathContext>>> func : functions.entrySet()) {
                 tfunc.put(func.getKey(), new Tuple<>(func.getValue().one, (m) -> {
-                for (int i = 0; i < func.getValue().one; i++) {
-                    m.stk.pop();
-                }
-                m.stk.push(Double.valueOf(0)); // Ain't this one fun. IntelliJ warning here is wrong.
+                    for (int i = 0; i < func.getValue().one; i++) {
+                        m.stk.pop();
+                    }
+                    m.stk.push(Double.valueOf(0)); // Ain't this one fun. IntelliJ warning here is wrong.
                 }));
             }
             if (calcInternal(mops, tfunc).stk.size() != 1) {
@@ -148,8 +148,7 @@ public class MathHelper {
         }
     }
 
-    public static List<MathOperation> parse(String input, StringBuilder err)
-    {
+    public static List<MathOperation> parse(String input, StringBuilder err) {
         try {
             char[] inp = input.toLowerCase(Locale.US).replace(" ", "").toCharArray();
             Stack<MathWaiting> waiting = new Stack<>();
@@ -247,8 +246,7 @@ public class MathHelper {
             }
             while (waiting.size() != 0) {
                 MathWaiting waitnow = waiting.pop();
-                if (waitnow.type == '(')
-                {
+                if (waitnow.type == '(') {
                     err.append("Inconsistent parenthesis!");
                     return null;
                 }
@@ -265,8 +263,7 @@ public class MathHelper {
             }
             return result;
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             err.append(e.getClass().getCanonicalName() + ": " + e.getMessage());
             return null;
         }
