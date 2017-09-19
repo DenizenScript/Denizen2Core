@@ -6,7 +6,6 @@ import com.denizenscript.denizen2core.commands.commoncommands.DebugInvalidComman
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.utilities.ErrorInducedException;
 import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
-import com.denizenscript.denizen2core.DebugMode;
 import com.denizenscript.denizen2core.utilities.CoreUtilities;
 
 import java.util.ArrayList;

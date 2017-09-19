@@ -3,7 +3,6 @@ package com.denizenscript.denizen2core.tags.handlers;
 import com.denizenscript.denizen2core.Denizen2Core;
 import com.denizenscript.denizen2core.commands.CommandQueue;
 import com.denizenscript.denizen2core.scripts.CommandScript;
-import com.denizenscript.denizen2core.scripts.commontypes.ProcedureScript;
 import com.denizenscript.denizen2core.scripts.commontypes.TaskScript;
 import com.denizenscript.denizen2core.tags.AbstractTagBase;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;

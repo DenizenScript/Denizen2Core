@@ -97,7 +97,7 @@ public class MathHelper {
     static MathContext calcInternal(List<MathOperation> mops,
                                     HashMap<String, Tuple<Integer, Action<MathContext>>> functions) {
         MathContext math = new MathContext();
-        math.stk = new Stack<Double>();
+        math.stk = new Stack<>();
         math.functions = functions;
         for (int i = 0; i < mops.size(); i++) {
             if (mops.get(i).opValue == MathOp.LDN) {
@@ -283,7 +283,7 @@ public class MathHelper {
         public MathOp opValue;
     }
 
-    public static enum MathOp {
+    public enum MathOp {
         BAD(0),
         ADD(1),
         SUB(2),

@@ -3,7 +3,6 @@ package com.denizenscript.denizen2core.utilities;
 import com.denizenscript.denizen2core.commands.CommandEntry;
 import com.denizenscript.denizen2core.commands.CommandQueue;
 import com.denizenscript.denizen2core.commands.CommandStackEntry;
-import com.denizenscript.denizen2core.scripts.CommandScript;
 import com.denizenscript.denizen2core.scripts.commontypes.TaskScript;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.utilities.yaml.YAMLConfiguration;

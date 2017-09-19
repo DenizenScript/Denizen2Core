@@ -7,7 +7,8 @@ import java.io.InputStream;
 
 public class AddonInfo {
 
-    private final YAMLConfiguration yamlConfiguration;
+    public final YAMLConfiguration yamlConfiguration;
+
     private final String name;
     private final String version;
     private final String main;

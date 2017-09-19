@@ -2,7 +2,6 @@ package com.denizenscript.denizen2core.scripts.commontypes;
 
 import com.denizenscript.denizen2core.commands.CommandScriptSection;
 import com.denizenscript.denizen2core.scripts.CommandScript;
-import com.denizenscript.denizen2core.utilities.CoreUtilities;
 import com.denizenscript.denizen2core.utilities.yaml.YAMLConfiguration;
 
 public class YamlDataScript extends CommandScript {

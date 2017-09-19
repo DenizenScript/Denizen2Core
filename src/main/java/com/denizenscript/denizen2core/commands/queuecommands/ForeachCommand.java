@@ -9,7 +9,6 @@ import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
 import com.denizenscript.denizen2core.commands.AbstractCommand;
 import com.denizenscript.denizen2core.commands.CommandEntry;
 import com.denizenscript.denizen2core.commands.CommandQueue;
-import com.denizenscript.denizen2core.utilities.debugging.Debug;
 
 public class ForeachCommand extends AbstractCommand {
 

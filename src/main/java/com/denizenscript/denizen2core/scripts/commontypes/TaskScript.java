@@ -32,7 +32,7 @@ public class TaskScript extends CommandScript {
         return sections.get(CoreUtilities.toLowerCase(name));
     }
 
-    public static enum TaggableType {
+    public enum TaggableType {
         NONE,
         ON,
         ALWAYS

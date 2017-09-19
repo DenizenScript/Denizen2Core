@@ -50,7 +50,7 @@ public class YAMLConfiguration {
             if (str.getValue() instanceof Map) {
                 Map map = (Map<StringHolder, Object>) str.getValue();
                 switchKeys(map);
-                objs.remove(map);
+                //objs.remove(map);
                 objs.put(str.getKey(), map);
             }
         }
@@ -115,8 +115,7 @@ public class YAMLConfiguration {
         options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
         options.setAllowUnicode(true);
         Yaml yaml = new Yaml(options);
-        String dumped = yaml.dump(reverse(contents));
-        return dumped;
+        return yaml.dump(reverse(contents));
     }
 
     public Object get(String path) {

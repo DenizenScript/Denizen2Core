@@ -11,7 +11,6 @@ import com.denizenscript.denizen2core.utilities.Function2;
 import com.denizenscript.denizen2core.utilities.yaml.YAMLConfiguration;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.HashMap;

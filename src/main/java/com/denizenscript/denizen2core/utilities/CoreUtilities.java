@@ -75,7 +75,7 @@ public class CoreUtilities {
     }
 
     public static List<String> split(String str, char c) {
-        List<String> strings = new ArrayList<String>();
+        List<String> strings = new ArrayList<>();
         int start = 0;
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == c) {
@@ -99,7 +99,7 @@ public class CoreUtilities {
     }
 
     public static List<String> split(String str, char c, int max) {
-        List<String> strings = new ArrayList<String>();
+        List<String> strings = new ArrayList<>();
         int start = 0;
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == c) {
@@ -138,7 +138,6 @@ public class CoreUtilities {
         char[] data = args.toCharArray();
         StringBuilder nArg = new StringBuilder();
         int arg = 0;
-        int x = 0;
         for (int i = 0; i < data.length; i++) {
             if (data[i] == ' ') {
                 arg++;

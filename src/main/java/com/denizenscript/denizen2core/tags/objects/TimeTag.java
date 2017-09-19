@@ -7,7 +7,6 @@ import com.denizenscript.denizen2core.utilities.Function2;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.time.temporal.TemporalField;
 import java.util.HashMap;
 
 public class TimeTag extends AbstractTagObject {
