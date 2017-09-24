@@ -126,8 +126,10 @@ public class CommandQueue {
             onStop.run(this);
         }
         if (shouldDebugStart) {
-            outGood("Took: " + ((System.currentTimeMillis() - startTime) / 1000.0) + " seconds to run this queue. "
-                    + (runTime / 1000.0) + " seconds were spent in execution.");
+            outGood("Took: " + ColorSet.emphasis + ((System.currentTimeMillis() - startTime) / 1000.0)
+                    + ColorSet.good + " seconds to run this queue. "
+                    + ColorSet.emphasis + (runTime / 1000.0)
+                    + ColorSet.good + " seconds were spent in execution.");
         }
         running = false;
         return true;
