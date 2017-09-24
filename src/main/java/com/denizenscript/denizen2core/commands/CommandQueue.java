@@ -55,7 +55,13 @@ public class CommandQueue {
 
     public AbstractSender sender = null;
 
+    public long startTime;
+
+    public long runTime;
+
     public void start() {
+        shouldDebugStart = shouldShowGood();
+        startTime = System.currentTimeMillis();
         qID = Denizen2Core.cqID++;
         if (!run(0)) {
             Denizen2Core.queues.add(this);
@@ -86,6 +92,8 @@ public class CommandQueue {
         }
     }
 
+    boolean shouldDebugStart = true;
+
     public boolean run(double delta) {
         running = true;
         if (waitingOn != null) {
@@ -101,18 +109,25 @@ public class CommandQueue {
         if (wait < 0) {
             wait = 0;
         }
+        long sT = System.currentTimeMillis();
         while (commandStack.size() > 0) {
             currentEntry = commandStack.peek();
             CommandStackEntry.CommandStackRetVal ret = currentEntry.run(this);
             if (ret == CommandStackEntry.CommandStackRetVal.BREAK) {
+                runTime += System.currentTimeMillis() - sT;
                 return false;
             }
             else if (ret == CommandStackEntry.CommandStackRetVal.STOP) {
                 break;
             }
         }
+        runTime += System.currentTimeMillis() - sT;
         if (onStop != null) {
             onStop.run(this);
+        }
+        if (shouldDebugStart) {
+            outGood("Took: " + ((System.currentTimeMillis() - startTime) / 1000.0) + " seconds to run this queue. "
+                    + (runTime / 1000.0) + " seconds were spent in execution.");
         }
         running = false;
         return true;
