@@ -180,13 +180,13 @@ public class CommandEntry {
         waitFor = wf;
         scriptName = scrName;
         if (args.size() < cmd.getMinimumArguments()) {
-            throw new ErrorInducedException("Not enough arguments for command '" + originalLine
-                    + "', expected: " + ColorSet.emphasis + cmd.getArguments());
+            throw new ErrorInducedException("Not enough arguments for command '" + ColorSet.emphasis + originalLine
+                    + ColorSet.warning + "', expected: " + ColorSet.emphasis + cmd.getArguments());
         }
         int max = cmd.getMaximumArguments();
         if (max >= 0 && args.size() > max) {
-            throw new ErrorInducedException("Too many arguments for command '" + originalLine
-                    + "', expected: " + ColorSet.emphasis + cmd.getArguments());
+            throw new ErrorInducedException("Too many arguments for command '" + ColorSet.emphasis + originalLine
+                    + ColorSet.warning + "', expected: " + ColorSet.emphasis + cmd.getArguments());
         }
     }
 }

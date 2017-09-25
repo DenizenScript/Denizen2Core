@@ -223,7 +223,7 @@ public class Denizen2Core {
         List<String> dat = CoreUtilities.split(str, '@', 2);
         String typed = dat.get(0);
         if (!customSaveLoaders.containsKey(typed)) {
-            error.run("No save loader for the specified type: " + typed + "!");
+            error.run("No save loader for the specified type: " + ColorSet.emphasis + typed + ColorSet.warning + "!");
             return new NullTag();
         }
         return customSaveLoaders.get(typed).apply(error, dat.get(1));
@@ -464,7 +464,7 @@ public class Denizen2Core {
                     if (tab.bits.length > 0) {
                         AbstractTagBase start = tagBases.get(CoreUtilities.toLowerCase(tab.bits[0].key));
                         if (start == null) {
-                            error.run("Invalid tag start: " + tab.bits[0].key + "!");
+                            error.run("Invalid tag start: " + ColorSet.emphasis + tab.bits[0].key + ColorSet.warning + "!");
                         }
                         tab.setStart(start);
                     }

@@ -147,10 +147,11 @@ public class CommandQueue {
     public void handleError(CommandEntry entry, String error) {
         String emsg;
         if (entry == null) {
-            emsg = "Error in queue " + qID + ", while handling an unknown command: " + error;
+            emsg = "Error in queue " + ColorSet.emphasis + qID + ColorSet.warning + ", while handling an unknown command: " + error;
         }
         else {
-            emsg = "Error in queue " + qID + ", while handling command '" + entry.originalLine + "': " + error;
+            emsg = "Error in queue " +ColorSet.emphasis +  qID + ColorSet.warning
+                    + ", while handling command '" + ColorSet.emphasis + entry.originalLine + ColorSet.warning + "': " + error;
         }
         // TODO: Error event.
         if (shouldShowError()) {
