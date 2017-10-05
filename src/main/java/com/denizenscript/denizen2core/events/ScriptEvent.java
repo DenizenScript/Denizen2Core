@@ -211,7 +211,10 @@ public abstract class ScriptEvent implements Cloneable {
     // In the example above, "require" is a switch, and the long tag is the switch argument.
     // -->
 
+    public ScriptEventData curRun = null;
+
     public void subRun(ScriptEventData data) {
+        curRun = data;
         HashMap<String, AbstractTagObject> defs = getDefinitions(data);
         MapTag defmap = new MapTag(defs);
         HashMap<String, AbstractTagObject> contextHelper = new HashMap<>();
@@ -247,6 +250,7 @@ public abstract class ScriptEvent implements Cloneable {
         CommandQueue queue = css.toQueue();
         CommandStackEntry cse = queue.commandStack.peek();
         cse.setDefinition("context", defmap);
+        cse.sendDeterminesTo = this;
         queue.start();
         for (Map.Entry<String, AbstractTagObject> entry : queue.determinations.getInternal().entrySet()) {
             applyDetermination(cse.getDebugMode().showMinimal, entry.getKey(), entry.getValue());

@@ -1,10 +1,12 @@
 package com.denizenscript.denizen2core.commands.queuecommands;
 
+import com.denizenscript.denizen2core.events.ScriptEvent;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.objects.BooleanTag;
 import com.denizenscript.denizen2core.commands.AbstractCommand;
 import com.denizenscript.denizen2core.commands.CommandEntry;
 import com.denizenscript.denizen2core.commands.CommandQueue;
+import com.denizenscript.denizen2core.tags.objects.MapTag;
 import com.denizenscript.denizen2core.utilities.CoreUtilities;
 import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
 
@@ -60,7 +62,14 @@ public class DetermineCommand extends AbstractCommand {
         if (entry.arguments.size() > 1) {
             ato = entry.getArgumentObject(queue, 1);
         }
-        queue.determinations.getInternal().put(det, ato);
+        ScriptEvent sendTo = queue.commandStack.peek().sendDeterminesTo;
+        if (sendTo != null) {
+            sendTo.applyDetermination(true, det, ato);
+            queue.commandStack.peek().definitions.put("context", new MapTag(sendTo.getDefinitions(sendTo.curRun)));
+        }
+        else {
+            queue.determinations.getInternal().put(det, ato);
+        }
         if (queue.shouldShowGood()) {
             queue.outGood("Determined '" + ColorSet.emphasis + det
                     + ColorSet.good + "' as '" + ColorSet.emphasis + ato.debug()

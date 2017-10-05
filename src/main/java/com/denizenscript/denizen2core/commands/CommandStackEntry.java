@@ -1,6 +1,7 @@
 package com.denizenscript.denizen2core.commands;
 
 import com.denizenscript.denizen2core.Denizen2Core;
+import com.denizenscript.denizen2core.events.ScriptEvent;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.utilities.ErrorInducedException;
 import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
@@ -29,6 +30,8 @@ public class CommandStackEntry implements Cloneable {
     private DebugMode dbMode = DebugMode.FULL;
 
     public HashMap<String, AbstractTagObject> definitions = new HashMap<>();
+
+    public ScriptEvent sendDeterminesTo = null;
 
     public void setDefinition(String str, AbstractTagObject obj) {
         definitions.put(CoreUtilities.toLowerCase(str), obj);
