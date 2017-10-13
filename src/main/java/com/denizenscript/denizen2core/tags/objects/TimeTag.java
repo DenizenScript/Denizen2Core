@@ -7,7 +7,9 @@ import com.denizenscript.denizen2core.utilities.Function2;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class TimeTag extends AbstractTagObject {
 
@@ -141,6 +143,13 @@ public class TimeTag extends AbstractTagObject {
 
     public static TimeTag getFor(Action<String> error, AbstractTagObject text) {
         return (text instanceof TimeTag) ? (TimeTag) text : getFor(error, text.toString());
+    }
+
+    public static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss[z]", Locale.ENGLISH);
+
+    @Override
+    public String debug() {
+        return internal.format(dateFormatter);
     }
 
     @Override

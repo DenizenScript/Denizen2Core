@@ -40,7 +40,7 @@ public class CoreUtilities {
         while (except != null) {
             sb.append((first ? "" : "Caused by: ") + except.toString() + "\n");
             for (StackTraceElement ste : except.getStackTrace()) {
-                sb.append(ste.toString() + "\n");
+                sb.append("    at " + ste.toString() + "\n");
             }
             if (except.getCause() == except) {
                 return sb.toString();
