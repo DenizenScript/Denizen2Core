@@ -3,6 +3,7 @@ package com.denizenscript.denizen2core.tags.objects;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.TagData;
 import com.denizenscript.denizen2core.tags.handlers.EscapeTagBase;
+import com.denizenscript.denizen2core.utilities.CoreUtilities;
 import com.denizenscript.denizen2core.utilities.Function2;
 import com.denizenscript.denizen2core.utilities.Action;
 
@@ -141,6 +142,25 @@ public class TextTag extends AbstractTagObject {
         // @Example "abc" .matches_regex[[a-z]+] returns "true".
         // -->
         handlers.put("matches_regex", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.matches(dat.getNextModifier().toString())));
+        // <--[tag]
+        // @Name TextTag.contains_text[<TextTag>]
+        // @Updated 2017/10/17
+        // @Group Text Details
+        // @ReturnType BooleanTag
+        // @Returns whether the text contains the specified text. Case-Insensitive.
+        // @Example "abc" .contains_text[B] returns "true".
+        // -->
+        handlers.put("contains_text", (dat, obj) -> new BooleanTag(CoreUtilities.toLowerCase(((TextTag) obj).internal)
+                .contains(CoreUtilities.toLowerCase(dat.getNextModifier().toString()))));
+        // <--[tag]
+        // @Name TextTag.contains_text_cased[<TextTag>]
+        // @Updated 2017/10/17
+        // @Group Text Details
+        // @ReturnType BooleanTag
+        // @Returns whether the text contains the specified text. Case Sensitive.
+        // @Example "abc" .contains_text_cased[b] returns "true".
+        // -->
+        handlers.put("contains_text_cased", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.contains(dat.getNextModifier().toString())));
         // <--[tag]
         // @Name TextTag.equals[<TextTag>]
         // @Updated 2016/12/05

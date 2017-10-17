@@ -47,7 +47,7 @@ public class YamlTag extends AbstractTagObject {
         // @Group Identification
         // @ReturnType TextTag
         // @Returns the name of the YAML file.
-        // @Example "test" .id returns "test".
+        // @Example "test" .name returns "test".
         // -->
         handlers.put("name", (dat, obj) -> {
             return new TextTag(((YamlTag) obj).name);
