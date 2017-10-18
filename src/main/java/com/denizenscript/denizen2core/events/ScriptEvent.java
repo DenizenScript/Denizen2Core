@@ -259,24 +259,24 @@ public abstract class ScriptEvent implements Cloneable {
 
     public void run() {
         for (ScriptEventData data : usages) {
-            if (matches(data)) {
-                if (cancelled) {
-                    String ic = data.switches.get("ignorecancelled");
-                    if (ic == null || !CoreUtilities.toLowerCase(ic).equals("true")) {
-                        continue;
+            try {
+                if (matches(data)) {
+                    if (cancelled) {
+                        String ic = data.switches.get("ignorecancelled");
+                        if (ic == null || !CoreUtilities.toLowerCase(ic).equals("true")) {
+                            continue;
+                        }
                     }
-                }
-                try {
                     subRun(data);
                 }
-                catch (Exception ex) {
-                    if (ex instanceof ErrorInducedException) {
-                        Debug.error(ex.getMessage());
-                    }
-                    else {
-                        Debug.error("Problem parsing script event '" + getName() + "':");
-                        Debug.exception(ex);
-                    }
+            }
+            catch (Exception ex) {
+                if (ex instanceof ErrorInducedException) {
+                    Debug.error(ex.getMessage());
+                }
+                else {
+                    Debug.error("Problem parsing script event '" + getName() + "':");
+                    Debug.exception(ex);
                 }
             }
         }
