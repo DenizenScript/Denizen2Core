@@ -37,6 +37,14 @@ public class SystemTagBase extends AbstractTagBase {
 
     static {
         // <--[tag]
+        // @Name SystemTag.pi
+        // @Updated 2017/10/18
+        // @Group Utilities
+        // @ReturnType NumberTag
+        // @Returns Pi.
+        // -->
+        handlers.put("pi", (dat, obj) -> new NumberTag(Math.PI));
+        // <--[tag]
         // @Name SystemTag.current_time
         // @Updated 2016/08/26
         // @Group Utilities

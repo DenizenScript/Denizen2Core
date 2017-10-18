@@ -500,6 +500,26 @@ public class NumberTag extends AbstractTagObject {
         handlers.put("truncate", (dat, obj) -> {
             return new NumberTag(truncate(((NumberTag) obj).internal));
         });
+        // <--[tag]
+        // @Name NumberTag.to_radians
+        // @Updated 2017/10/18
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the number converted from degrees to radians.
+        // -->
+        handlers.put("to_radians", (dat, obj) -> {
+            return new NumberTag(Math.toRadians(((NumberTag) obj).internal));
+        });
+        // <--[tag]
+        // @Name NumberTag.to_degrees
+        // @Updated 2017/10/18
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the number converted from radians to degrees.
+        // -->
+        handlers.put("to_degrees", (dat, obj) -> {
+            return new NumberTag(Math.toDegrees(((NumberTag) obj).internal));
+        });
     }
 
     private static double truncate(double val) {
