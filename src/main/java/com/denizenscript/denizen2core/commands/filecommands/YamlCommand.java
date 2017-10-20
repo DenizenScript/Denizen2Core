@@ -118,6 +118,10 @@ public class YamlCommand extends AbstractCommand {
                 FileInputStream fis = new FileInputStream(f);
                 String t = CoreUtilities.streamToString(fis);
                 fis.close();
+                if (t == null) {
+                    queue.handleError(entry, "Cannot load from that path ('" + path + "'), it appears to not be valid.");
+                    return;
+                }
                 YAMLConfiguration config = YAMLConfiguration.load(t);
                 Denizen2Core.filesLoadedByScripts.put(id, config);
                 if (queue.shouldShowGood()) {
