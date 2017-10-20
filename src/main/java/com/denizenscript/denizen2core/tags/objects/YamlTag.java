@@ -144,7 +144,8 @@ public class YamlTag extends AbstractTagObject {
         // @Returns the contents of the YAML key, as a list of keys.
         // -->
         handlers.put("list_keys", (dat, obj) -> {
-            Set<StringHolder> val = ((YamlTag) obj).internal.getConfigurationSection(dat.getNextModifier().toString()).getKeys(false);
+            Set<StringHolder> val = ((YamlTag) obj).internal.getConfigurationSection(
+                    dat.hasNextModifier() ? dat.getNextModifier().toString(): "").getKeys(false);
             if (val == null) {
                 if (!dat.hasFallback()) {
                     dat.error.run("No valid keys at the specified YAML key! Does it exist?");
