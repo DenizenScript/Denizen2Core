@@ -8,6 +8,7 @@ import com.denizenscript.denizen2core.tags.AbstractTagObject;
 public class TimeTagBase extends AbstractTagBase {
 
     // <--[tagbase]
+// @Since 0.3.0
     // @Base time[<TimeTag>]
     // @Group Common Base Types
     // @ReturnType TimeTag

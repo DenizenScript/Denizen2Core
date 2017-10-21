@@ -11,6 +11,7 @@ import java.util.HashMap;
 public class DurationTag extends AbstractTagObject {
 
     // <--[explanation]
+// @Since 0.3.0
     // @Name Duration Tags
     // @Group Tags
     // @Description
@@ -20,6 +21,7 @@ public class DurationTag extends AbstractTagObject {
     // -->
 
     // <--[object]
+// @Since 0.3.0
     // @Type DurationTag
     // @SubType NumberTag
     // @Group Mathematics
@@ -46,6 +48,7 @@ public class DurationTag extends AbstractTagObject {
 
     static {
         // <--[tag]
+// @Since 0.3.0
         // @Name DurationTag.add_duration[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -58,6 +61,7 @@ public class DurationTag extends AbstractTagObject {
             return new DurationTag(((DurationTag) obj).internal + two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name DurationTag.subtract_duration[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics

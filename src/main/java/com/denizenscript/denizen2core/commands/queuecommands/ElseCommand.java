@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class ElseCommand extends AbstractCommand {
 
     // <--[command]
+// @Since 0.3.0
     // @Name else
     // @Arguments ["if" <if comparisons>]
     // @Short runs a block of code if-and-only-if the comparisons return true, or no comparison is specified, and the preceding if did not run.

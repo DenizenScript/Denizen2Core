@@ -7,6 +7,7 @@ import com.denizenscript.denizen2core.utilities.yaml.YAMLConfiguration;
 public class YamlDataScript extends CommandScript {
 
     // <--[explanation]
+// @Since 0.3.0
     // @Name Yaml Data Scripts
     // @Group Script Types
     // @Description

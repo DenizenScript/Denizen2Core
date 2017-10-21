@@ -7,6 +7,7 @@ import com.denizenscript.denizen2core.commands.CommandEntry;
 public class MarkCommand extends AbstractCommand {
 
     // <--[command]
+// @Since 0.3.0
     // @Name mark
     // @Arguments <name>
     // @Short marks a code location for the goto command.

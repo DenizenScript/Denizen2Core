@@ -16,6 +16,7 @@ import java.util.Set;
 public class ScriptTag extends AbstractTagObject {
 
     // <--[object]
+// @Since 0.3.0
     // @Type ScriptTag
     // @SubType TextTag
     // @Group Script Systems
@@ -36,6 +37,7 @@ public class ScriptTag extends AbstractTagObject {
 
     static {
         // <--[tag]
+// @Since 0.3.0
         // @Name ScriptTag.title
         // @Updated 2016/08/26
         // @Group Identification
@@ -47,6 +49,7 @@ public class ScriptTag extends AbstractTagObject {
             return new TextTag(((ScriptTag) obj).internal.title);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name ScriptTag.has_yaml_key[<TextTag>]
         // @Updated 2017/04/27
         // @Group Identification
@@ -57,6 +60,7 @@ public class ScriptTag extends AbstractTagObject {
             return new BooleanTag(((ScriptTag) obj).internal.contents.contains(dat.getNextModifier().toString()));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name ScriptTag.is_yaml_list[<TextTag>]
         // @Updated 2017/04/27
         // @Group Identification
@@ -67,6 +71,7 @@ public class ScriptTag extends AbstractTagObject {
             return new BooleanTag(((ScriptTag) obj).internal.contents.isList(dat.getNextModifier().toString()));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name ScriptTag.yaml_key[<TextTag>]
         // @Updated 2017/02/19
         // @Group Identification
@@ -106,6 +111,7 @@ public class ScriptTag extends AbstractTagObject {
             return list;
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name ScriptTag.list_keys[<TextTag>]
         // @Updated 2017/02/19
         // @Group Identification
@@ -128,6 +134,7 @@ public class ScriptTag extends AbstractTagObject {
             return list;
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name ScriptTag.time_ran
         // @Updated 2017/01/30
         // @Group Identification
@@ -138,6 +145,7 @@ public class ScriptTag extends AbstractTagObject {
             return new DurationTag(((ScriptTag) obj).internal.nsUsed / 1000000000.0);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name ScriptTag.ticks_ran
         // @Updated 2017/01/30
         // @Group Identification

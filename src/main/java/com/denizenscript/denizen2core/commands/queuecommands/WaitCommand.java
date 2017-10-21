@@ -8,6 +8,7 @@ import com.denizenscript.denizen2core.tags.objects.DurationTag;
 public class WaitCommand extends AbstractCommand {
 
     // <--[command]
+// @Since 0.3.0
     // @Name wait
     // @Arguments <duration>
     // @Short causes the current queue to wait for a duration.

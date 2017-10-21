@@ -16,6 +16,7 @@ import java.util.Map;
 public class MapTag extends AbstractTagObject {
 
     // <--[object]
+// @Since 0.3.0
     // @Type MapTag
     // @SubType TextTag
     // @Group Mathematics
@@ -40,6 +41,7 @@ public class MapTag extends AbstractTagObject {
 
     static {
         // <--[tag]
+// @Since 0.3.0
         // @Name MapTag.get[<TextTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -56,6 +58,7 @@ public class MapTag extends AbstractTagObject {
             return ato;
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name MapTag.size
         // @Updated 2016/12/05
         // @Group Mathematics

@@ -8,6 +8,7 @@ import com.denizenscript.denizen2core.tags.objects.NullTag;
 public class DefTagBase extends AbstractTagBase {
 
     // <--[tagbase]
+// @Since 0.3.0
     // @Base def[<TextTag>]
     // @Group Definitions
     // @ReturnType Dynamic

@@ -18,6 +18,7 @@ public class RepeatCommand extends AbstractCommand {
     }
 
     // <--[command]
+// @Since 0.3.0
     // @Name repeat
     // @Arguments "stop"/"next"/<times>
     // @Short runs a block of code the specified number of types.

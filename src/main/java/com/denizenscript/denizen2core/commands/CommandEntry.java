@@ -4,9 +4,9 @@ import com.denizenscript.denizen2core.Denizen2Core;
 import com.denizenscript.denizen2core.arguments.Argument;
 import com.denizenscript.denizen2core.commands.commoncommands.DebugInvalidCommand;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
+import com.denizenscript.denizen2core.utilities.CoreUtilities;
 import com.denizenscript.denizen2core.utilities.ErrorInducedException;
 import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
-import com.denizenscript.denizen2core.utilities.CoreUtilities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +22,7 @@ public class CommandEntry {
     public final List<Argument> arguments;
 
     // <--[explanation]
+// @Since 0.3.0
     // @Name Named Arguments
     // @Group Commands
     // @Description
@@ -57,6 +58,7 @@ public class CommandEntry {
     public List<CommandEntry> innerCommandBlock;
 
     // <--[explanation]
+// @Since 0.3.0
     // @Name Saved Commands
     // @Group Commands
     // @Description

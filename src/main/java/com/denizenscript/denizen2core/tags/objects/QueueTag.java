@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class QueueTag extends AbstractTagObject {
 
     // <--[object]
+// @Since 0.3.0
     // @Type QueueTag
     // @SubType TextTag
     // @Group Script Systems
@@ -33,6 +34,7 @@ public class QueueTag extends AbstractTagObject {
 
     static {
         // <--[tag]
+// @Since 0.3.0
         // @Name QueueTag.id
         // @Updated 2016/08/26
         // @Group Identification
@@ -44,6 +46,7 @@ public class QueueTag extends AbstractTagObject {
             return new IntegerTag(((QueueTag) obj).internal.qID);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name QueueTag.running
         // @Updated 2016/08/26
         // @Group Information
@@ -55,6 +58,7 @@ public class QueueTag extends AbstractTagObject {
             return new BooleanTag(((QueueTag) obj).internal.running);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name QueueTag.determinations
         // @Updated 2016/08/27
         // @Group Information
@@ -66,6 +70,7 @@ public class QueueTag extends AbstractTagObject {
             return ((QueueTag) obj).internal.determinations;
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name QueueTag.current_script
         // @Updated 2016/08/26
         // @Group Information
@@ -81,6 +86,7 @@ public class QueueTag extends AbstractTagObject {
             return new ScriptTag(cs);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name QueueTag.base_script
         // @Updated 2016/08/26
         // @Group Information
@@ -99,6 +105,7 @@ public class QueueTag extends AbstractTagObject {
             return new ScriptTag(cs);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name QueueTag.has_definition[<TextTag>]
         // @Updated 2016/08/26
         // @Group Information
@@ -110,6 +117,7 @@ public class QueueTag extends AbstractTagObject {
             return new BooleanTag(((QueueTag) obj).internal.commandStack.peek().hasDefinition(dat.getNextModifier().toString()));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name QueueTag.definition[<TextTag>]
         // @Updated 2016/08/26
         // @Group Information

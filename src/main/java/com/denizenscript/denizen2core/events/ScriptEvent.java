@@ -50,6 +50,7 @@ public abstract class ScriptEvent implements Cloneable {
     }
 
     // <--[explanation]
+// @Since 0.3.0
     // @Name Script Event Priority
     // @Group Events
     // @Description
@@ -168,6 +169,7 @@ public abstract class ScriptEvent implements Cloneable {
     }
 
     // <--[explanation]
+// @Since 0.3.0
     // @Name Script Event Cancellation
     // @Group Events
     // @Description
@@ -185,6 +187,7 @@ public abstract class ScriptEvent implements Cloneable {
     public boolean cancelled = false;
 
     // <--[explanation]
+// @Since 0.3.0
     // @Name Script Event Requirements
     // @Group Events
     // @Description
@@ -196,6 +199,7 @@ public abstract class ScriptEvent implements Cloneable {
     // -->
 
     // <--[explanation]
+// @Since 0.3.0
     // @Name Script Event Switches
     // @Group Events
     // @Description

@@ -9,6 +9,7 @@ import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
 public class UndefineCommand extends AbstractCommand {
 
     // <--[command]
+// @Since 0.3.0
     // @Name undefine
     // @Arguments <definition> [queue]
     // @Short Defines a value on the current queue.

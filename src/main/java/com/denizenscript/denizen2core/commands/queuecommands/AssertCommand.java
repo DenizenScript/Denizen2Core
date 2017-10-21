@@ -8,6 +8,7 @@ import com.denizenscript.denizen2core.commands.CommandQueue;
 public class AssertCommand extends AbstractCommand {
 
     // <--[command]
+// @Since 0.3.0
     // @Name assert
     // @Arguments <required boolean> <error message>
     // @Short throws an error if the specified boolean is false.

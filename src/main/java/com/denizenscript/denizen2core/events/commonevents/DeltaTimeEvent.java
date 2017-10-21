@@ -5,6 +5,7 @@ import com.denizenscript.denizen2core.events.ScriptEvent;
 public class DeltaTimeEvent extends ScriptEvent {
 
     // <--[event]
+// @Since 0.3.0
     // @Events
     // delta time secondly
     // delta time minutely

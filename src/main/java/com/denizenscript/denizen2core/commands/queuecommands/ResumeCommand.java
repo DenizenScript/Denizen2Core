@@ -8,6 +8,7 @@ import com.denizenscript.denizen2core.tags.objects.QueueTag;
 public class ResumeCommand extends AbstractCommand {
 
     // <--[command]
+// @Since 0.3.0
     // @Name resume
     // @Arguments <queue>
     // @Short resumes the specified queue.

@@ -8,6 +8,7 @@ import com.denizenscript.denizen2core.tags.objects.DurationTag;
 public class DurationTagBase extends AbstractTagBase {
 
     // <--[tagbase]
+// @Since 0.3.0
     // @Base duration[<DurationTag>]
     // @Group Common Base Types
     // @ReturnType DurationTag

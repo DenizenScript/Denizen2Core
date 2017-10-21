@@ -14,6 +14,7 @@ import java.util.Locale;
 public class TimeTag extends AbstractTagObject {
 
     // <--[object]
+// @Since 0.3.0
     // @Type TimeTag
     // @SubType IntegerTag
     // @Group Mathematics
@@ -35,6 +36,7 @@ public class TimeTag extends AbstractTagObject {
 
     static {
         // <--[tag]
+// @Since 0.3.0
         // @Name TimeTag.year
         // @Updated 2016/08/26
         // @Group General Information
@@ -44,6 +46,7 @@ public class TimeTag extends AbstractTagObject {
         // -->
         handlers.put("year", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.getYear()));
         // <--[tag]
+// @Since 0.3.0
         // @Name TimeTag.month
         // @Updated 2016/08/26
         // @Group General Information
@@ -53,6 +56,7 @@ public class TimeTag extends AbstractTagObject {
         // -->
         handlers.put("month", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.getMonthValue()));
         // <--[tag]
+// @Since 0.3.0
         // @Name TimeTag.month_name
         // @Updated 2016/08/26
         // @Group General Information
@@ -62,6 +66,7 @@ public class TimeTag extends AbstractTagObject {
         // -->
         handlers.put("month_name", (dat, obj) -> new TextTag(((TimeTag) obj).internal.getMonth().name()));
         // <--[tag]
+// @Since 0.3.0
         // @Name TimeTag.day
         // @Updated 2016/08/26
         // @Group General Information
@@ -71,6 +76,7 @@ public class TimeTag extends AbstractTagObject {
         // -->
         handlers.put("day", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.getDayOfMonth()));
         // <--[tag]
+// @Since 0.3.0
         // @Name TimeTag.day_of_year
         // @Updated 2016/08/26
         // @Group General Information
@@ -80,6 +86,7 @@ public class TimeTag extends AbstractTagObject {
         // -->
         handlers.put("day_of_year", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.getDayOfYear()));
         // <--[tag]
+// @Since 0.3.0
         // @Name TimeTag.day_of_week
         // @Updated 2016/08/26
         // @Group General Information
@@ -89,6 +96,7 @@ public class TimeTag extends AbstractTagObject {
         // -->
         handlers.put("day_of_week", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.getDayOfWeek().getValue()));
         // <--[tag]
+// @Since 0.3.0
         // @Name TimeTag.day_of_week_name
         // @Updated 2016/08/26
         // @Group General Information
@@ -97,6 +105,7 @@ public class TimeTag extends AbstractTagObject {
         // -->
         handlers.put("day_of_week_name", (dat, obj) -> new TextTag(((TimeTag) obj).internal.getDayOfWeek().name()));
         // <--[tag]
+// @Since 0.3.0
         // @Name TimeTag.hour
         // @Updated 2016/08/26
         // @Group General Information
@@ -105,6 +114,7 @@ public class TimeTag extends AbstractTagObject {
         // -->
         handlers.put("hour", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.getHour()));
         // <--[tag]
+// @Since 0.3.0
         // @Name TimeTag.minute
         // @Updated 2016/08/26
         // @Group General Information
@@ -113,6 +123,7 @@ public class TimeTag extends AbstractTagObject {
         // -->
         handlers.put("minute", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.getMinute()));
         // <--[tag]
+// @Since 0.3.0
         // @Name TimeTag.second
         // @Updated 2016/08/26
         // @Group General Information
@@ -121,6 +132,7 @@ public class TimeTag extends AbstractTagObject {
         // -->
         handlers.put("second", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.getSecond()));
         // <--[tag]
+// @Since 0.3.0
         // @Name TimeTag.total_milliseconds
         // @Updated 2016/08/26
         // @Group General Information

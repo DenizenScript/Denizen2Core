@@ -8,6 +8,7 @@ import com.denizenscript.denizen2core.tags.objects.NullTag;
 public class NullTagBase extends AbstractTagBase {
 
     // <--[tagbase]
+// @Since 0.3.0
     // @Base null
     // @Group Common Base Types
     // @ReturnType NullTag

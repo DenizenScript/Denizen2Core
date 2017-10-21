@@ -9,6 +9,7 @@ import com.denizenscript.denizen2core.tags.objects.BooleanTag;
 public class ReloadCommand extends AbstractCommand {
 
     // <--[command]
+// @Since 0.3.0
     // @Name reload
     // @Arguments [debug boolean]
     // @Short reloads the script engine, recalculating any scripts available.

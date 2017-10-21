@@ -15,6 +15,7 @@ import java.util.Set;
 
 public class YamlTag extends AbstractTagObject {
     // <--[object]
+// @Since 0.3.0
     // @Type YamlTag
     // @SubType TextTag
     // @Group Script Data
@@ -42,6 +43,7 @@ public class YamlTag extends AbstractTagObject {
 
     static {
         // <--[tag]
+// @Since 0.3.0
         // @Name YamlTag.name
         // @Updated 2017/02/19
         // @Group Identification
@@ -53,6 +55,7 @@ public class YamlTag extends AbstractTagObject {
             return new TextTag(((YamlTag) obj).name);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name YamlTag.read[<TextTag>]
         // @Updated 2017/02/19
         // @Group Data
@@ -70,6 +73,7 @@ public class YamlTag extends AbstractTagObject {
             return new TextTag(val);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name YamlTag.read_object[<TextTag>]
         // @Updated 2017/05/20
         // @Group Data
@@ -96,6 +100,7 @@ public class YamlTag extends AbstractTagObject {
             return Denizen2Core.loadFromSaved(dat.error, val);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name YamlTag.has_key[<TextTag>]
         // @Updated 2017/02/24
         // @Group Data
@@ -106,6 +111,7 @@ public class YamlTag extends AbstractTagObject {
             return new BooleanTag(((YamlTag) obj).internal.contains(dat.getNextModifier().toString()));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name YamlTag.is_list[<TextTag>]
         // @Updated 2017/04/27
         // @Group Data
@@ -116,6 +122,7 @@ public class YamlTag extends AbstractTagObject {
             return new BooleanTag(((YamlTag) obj).internal.isList(dat.getNextModifier().toString()));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name YamlTag.read_list[<TextTag>]
         // @Updated 2017/02/19
         // @Group Data
@@ -137,6 +144,7 @@ public class YamlTag extends AbstractTagObject {
             return list;
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name YamlTag.list_keys[<TextTag>]
         // @Updated 2017/02/19
         // @Group Data
@@ -145,7 +153,7 @@ public class YamlTag extends AbstractTagObject {
         // -->
         handlers.put("list_keys", (dat, obj) -> {
             Set<StringHolder> val = ((YamlTag) obj).internal.getConfigurationSection(
-                    dat.hasNextModifier() ? dat.getNextModifier().toString(): "").getKeys(false);
+                    dat.hasNextModifier() ? dat.getNextModifier().toString() : "").getKeys(false);
             if (val == null) {
                 if (!dat.hasFallback()) {
                     dat.error.run("No valid keys at the specified YAML key! Does it exist?");

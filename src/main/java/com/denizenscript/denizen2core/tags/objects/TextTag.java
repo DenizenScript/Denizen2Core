@@ -14,6 +14,7 @@ import java.util.Map;
 public class TextTag extends AbstractTagObject {
 
     // <--[object]
+// @Since 0.3.0
     // @Type TextTag
     // @SubType NONE
     // @Group Mathematics
@@ -35,6 +36,7 @@ public class TextTag extends AbstractTagObject {
 
     static {
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.to_integer
         // @Updated 2016/08/26
         // @Group Text Modification
@@ -44,6 +46,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("to_integer", (dat, obj) -> IntegerTag.getFor(dat.error, ((TextTag) obj).internal));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.to_number
         // @Updated 2016/08/26
         // @Group Text Modification
@@ -53,6 +56,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("to_number", (dat, obj) -> NumberTag.getFor(dat.error, ((TextTag) obj).internal));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.to_boolean
         // @Updated 2016/08/26
         // @Group Text Modification
@@ -62,6 +66,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("to_boolean", (dat, obj) -> BooleanTag.getFor(dat.error, ((TextTag) obj).internal));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.to_upper
         // @Updated 2016/12/05
         // @Group Text Modification
@@ -71,6 +76,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("to_upper", (dat, obj) -> new TextTag(((TextTag) obj).internal.toUpperCase(Locale.ENGLISH)));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.to_lower
         // @Updated 2016/12/05
         // @Group Text Modification
@@ -80,6 +86,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("to_lower", (dat, obj) -> new TextTag(((TextTag) obj).internal.toLowerCase(Locale.ENGLISH)));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.is_integer
         // @Updated 2016/12/05
         // @Group Text Details
@@ -89,6 +96,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("is_integer", (dat, obj) -> new BooleanTag(IntegerTag.getFor(TextTag::doNothing, ((TextTag) obj).internal) != null));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.is_number
         // @Updated 2016/12/05
         // @Group Text Details
@@ -98,6 +106,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("is_number", (dat, obj) -> new BooleanTag(NumberTag.getFor(TextTag::doNothing, ((TextTag) obj).internal) != null));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.is_boolean
         // @Updated 2016/12/05
         // @Group Text Details
@@ -107,6 +116,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("is_boolean", (dat, obj) -> new BooleanTag(BooleanTag.getFor(TextTag::doNothing, ((TextTag) obj).internal) != null));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.escaped
         // @Updated 2016/09/28
         // @Group Escaping
@@ -116,6 +126,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("escaped", (dat, obj) -> new TextTag(EscapeTagBase.escape(((TextTag) obj).internal)));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.unescaped
         // @Updated 2016/09/28
         // @Group Escaping
@@ -125,6 +136,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("unescaped", (dat, obj) -> new TextTag(EscapeTagBase.unescape(((TextTag) obj).internal)));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.length
         // @Updated 2016/12/05
         // @Group Text Details
@@ -134,6 +146,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("length", (dat, obj) -> new IntegerTag(((TextTag) obj).internal.length()));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.matches_regex
         // @Updated 2017/04/27
         // @Group Text Details
@@ -143,6 +156,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("matches_regex", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.matches(dat.getNextModifier().toString())));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.contains_text[<TextTag>]
         // @Updated 2017/10/17
         // @Group Text Details
@@ -153,6 +167,7 @@ public class TextTag extends AbstractTagObject {
         handlers.put("contains_text", (dat, obj) -> new BooleanTag(CoreUtilities.toLowerCase(((TextTag) obj).internal)
                 .contains(CoreUtilities.toLowerCase(dat.getNextModifier().toString()))));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.contains_text_cased[<TextTag>]
         // @Updated 2017/10/17
         // @Group Text Details
@@ -162,6 +177,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("contains_text_cased", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.contains(dat.getNextModifier().toString())));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.equals[<TextTag>]
         // @Updated 2016/12/05
         // @Group Text Details
@@ -171,6 +187,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("equals", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.equalsIgnoreCase(dat.getNextModifier().toString())));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.equals_cased[<TextTag>]
         // @Updated 2016/12/05
         // @Group Text Details
@@ -180,6 +197,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("equals_cased", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.equals(dat.getNextModifier().toString())));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.starts_with_cased[<TextTag>]
         // @Updated 2016/12/05
         // @Group Text Details
@@ -189,6 +207,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("starts_with_cased", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.startsWith(dat.getNextModifier().toString())));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.ends_with_cased[<TextTag>]
         // @Updated 2017/02/17
         // @Group Text Details
@@ -198,6 +217,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("ends_with_cased", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.endsWith(dat.getNextModifier().toString())));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.index_of_cased[<TextTag>]
         // @Updated 2017/02/24
         // @Group Text Details
@@ -207,6 +227,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("index_of_cased", (dat, obj) -> new IntegerTag(((TextTag) obj).internal.indexOf(dat.getNextModifier().toString()) + 1));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.last_index_of_cased[<TextTag>]
         // @Updated 2017/02/24
         // @Group Text Details
@@ -216,6 +237,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("last_index_of_cased", (dat, obj) -> new IntegerTag(((TextTag) obj).internal.lastIndexOf(dat.getNextModifier().toString()) + 1));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.char_at[<IntegerTag>]
         // @Updated 2016/12/05
         // @Group Text Details
@@ -235,6 +257,7 @@ public class TextTag extends AbstractTagObject {
             return new TextTag(String.valueOf(((TextTag) obj).internal.charAt(i)));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.to_list_of_characters
         // @Updated 2016/12/05
         // @Group Text Details
@@ -251,6 +274,7 @@ public class TextTag extends AbstractTagObject {
             return list;
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.replace[<MapTag>]
         // @Updated 2016/12/05
         // @Group Text Modification
@@ -267,6 +291,7 @@ public class TextTag extends AbstractTagObject {
             return new TextTag(temp);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.after[<TextTag>]
         // @Updated 2017/02/12
         // @Group Text Modification
@@ -276,6 +301,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("after", (dat, obj) -> new TextTag(((TextTag) obj).after(dat.getNextModifier().toString())));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.before[<TextTag>]
         // @Updated 2017/02/12
         // @Group Text Modification
@@ -285,6 +311,7 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("before", (dat, obj) -> new TextTag(((TextTag) obj).before(dat.getNextModifier().toString())));
         // <--[tag]
+// @Since 0.3.0
         // @Name TextTag.substring[<ListTag>]
         // @Updated 2016/12/05
         // @Group Text Modification

@@ -8,6 +8,7 @@ import com.denizenscript.denizen2core.tags.objects.BooleanTag;
 public class BooleanTagBase extends AbstractTagBase {
 
     // <--[tagbase]
+// @Since 0.3.0
     // @Base boolean[<BooleanTag>]
     // @Group Common Base Types
     // @ReturnType BooleanTag

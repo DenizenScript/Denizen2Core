@@ -8,6 +8,7 @@ import com.denizenscript.denizen2core.tags.objects.NumberTag;
 public class NumberTagBase extends AbstractTagBase {
 
     // <--[tagbase]
+// @Since 0.3.0
     // @Base number[<NumberTag>]
     // @Group Common Base Types
     // @ReturnType NumberTag

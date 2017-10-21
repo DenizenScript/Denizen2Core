@@ -150,7 +150,7 @@ public class CommandQueue {
             emsg = "Error in queue " + ColorSet.emphasis + qID + ColorSet.warning + ", while handling an unknown command: " + error;
         }
         else {
-            emsg = "Error in queue " +ColorSet.emphasis +  qID + ColorSet.warning
+            emsg = "Error in queue " + ColorSet.emphasis + qID + ColorSet.warning
                     + ", while handling command '" + ColorSet.emphasis + entry.originalLine + ColorSet.warning + "': " + error;
         }
         // TODO: Error event.

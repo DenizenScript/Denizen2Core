@@ -11,6 +11,7 @@ import java.util.HashMap;
 public class BooleanTag extends AbstractTagObject {
 
     // <--[object]
+// @Since 0.3.0
     // @Type BooleanTag
     // @SubType TextTag
     // @Group Mathematics
@@ -31,6 +32,7 @@ public class BooleanTag extends AbstractTagObject {
 
     static {
         // <--[tag]
+// @Since 0.3.0
         // @Name BooleanTag.not
         // @Updated 2016/08/26
         // @Group Boolean Logic
@@ -43,6 +45,7 @@ public class BooleanTag extends AbstractTagObject {
             return new BooleanTag(!((BooleanTag) obj).getInternal());
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name BooleanTag.and[<BooleanTag>]
         // @Updated 2016/08/26
         // @Group Boolean Logic
@@ -57,6 +60,7 @@ public class BooleanTag extends AbstractTagObject {
             return new BooleanTag(((BooleanTag) obj).getInternal() && BooleanTag.getFor(dat.error, dat.getNextModifier()).getInternal());
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name BooleanTag.or[<BooleanTag>]
         // @Updated 2016/08/26
         // @Group Boolean Logic
@@ -71,6 +75,7 @@ public class BooleanTag extends AbstractTagObject {
             return new BooleanTag(((BooleanTag) obj).getInternal() && BooleanTag.getFor(dat.error, dat.getNextModifier()).getInternal());
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name BooleanTag.xor[<BooleanTag>]
         // @Updated 2016/08/26
         // @Group Boolean Logic

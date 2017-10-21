@@ -8,6 +8,7 @@ import com.denizenscript.denizen2core.tags.objects.ListTag;
 public class ListTagBase extends AbstractTagBase {
 
     // <--[tagbase]
+// @Since 0.3.0
     // @Base list[<ListTag>]
     // @Group Common Base Types
     // @ReturnType ListTag

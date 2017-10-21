@@ -9,6 +9,7 @@ import com.denizenscript.denizen2core.tags.AbstractTagBase;
 public class ScriptTagBase extends AbstractTagBase {
 
     // <--[tagbase]
+// @Since 0.3.0
     // @Base script[<ScriptTag>]
     // @Modifier optional
     // @Group Definitions

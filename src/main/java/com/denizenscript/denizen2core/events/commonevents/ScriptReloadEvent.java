@@ -5,6 +5,7 @@ import com.denizenscript.denizen2core.events.ScriptEvent;
 public class ScriptReloadEvent extends ScriptEvent {
 
     // <--[event]
+// @Since 0.3.0
     // @Events
     // scripts reloaded
     //

@@ -8,6 +8,7 @@ import com.denizenscript.denizen2core.tags.objects.TextTag;
 public class SaveTagBase extends AbstractTagBase {
 
     // <--[tagbase]
+// @Since 0.3.0
     // @Base save[<Dynamic>]
     // @Group Definitions
     // @ReturnType TextTag

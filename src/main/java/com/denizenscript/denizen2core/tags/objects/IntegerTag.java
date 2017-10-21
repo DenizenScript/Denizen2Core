@@ -10,6 +10,7 @@ import java.util.HashMap;
 public class IntegerTag extends AbstractTagObject {
 
     // <--[object]
+// @Since 0.3.0
     // @Type IntegerTag
     // @SubType NumberTag
     // @Group Mathematics
@@ -31,6 +32,7 @@ public class IntegerTag extends AbstractTagObject {
 
     static {
         // <--[tag]
+// @Since 0.3.0
         // @Name IntegerTag.add_integer[<IntegerTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -43,6 +45,7 @@ public class IntegerTag extends AbstractTagObject {
             return new IntegerTag(((IntegerTag) obj).internal + two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name IntegerTag.subtract_integer[<IntegerTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -55,6 +58,7 @@ public class IntegerTag extends AbstractTagObject {
             return new IntegerTag(((IntegerTag) obj).internal - two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name IntegerTag.multiply_integer[<IntegerTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -67,6 +71,7 @@ public class IntegerTag extends AbstractTagObject {
             return new IntegerTag(((IntegerTag) obj).internal * two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name IntegerTag.divide_integer[<IntegerTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -79,6 +84,7 @@ public class IntegerTag extends AbstractTagObject {
             return new IntegerTag(((IntegerTag) obj).internal / two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name IntegerTag.modulo_integer[<IntegerTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -91,6 +97,7 @@ public class IntegerTag extends AbstractTagObject {
             return new IntegerTag(((IntegerTag) obj).internal % two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name IntegerTag.maximum_integer[<IntegerTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -103,6 +110,7 @@ public class IntegerTag extends AbstractTagObject {
             return new IntegerTag(Math.max(((IntegerTag) obj).internal, two.internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name IntegerTag.minimum_integer[<IntegerTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -115,6 +123,7 @@ public class IntegerTag extends AbstractTagObject {
             return new IntegerTag(Math.min(((IntegerTag) obj).internal, two.internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name IntegerTag.absolute_value_integer
         // @Updated 2016/08/26
         // @Group Mathematics

@@ -11,6 +11,7 @@ import java.util.HashMap;
 public class NumberTag extends AbstractTagObject {
 
     // <--[object]
+// @Since 0.3.0
     // @Type NumberTag
     // @SubType TextTag
     // @Group Mathematics
@@ -32,6 +33,7 @@ public class NumberTag extends AbstractTagObject {
 
     static {
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.is_greater_than[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -44,6 +46,7 @@ public class NumberTag extends AbstractTagObject {
             return new BooleanTag(((NumberTag) obj).internal > two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.is_greater_than_or_equal_to[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -56,6 +59,7 @@ public class NumberTag extends AbstractTagObject {
             return new BooleanTag(((NumberTag) obj).internal >= two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.is_less_than[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -68,6 +72,7 @@ public class NumberTag extends AbstractTagObject {
             return new BooleanTag(((NumberTag) obj).internal < two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.is_less_than_or_equal_to[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -85,6 +90,7 @@ public class NumberTag extends AbstractTagObject {
             return new BooleanTag(((NumberTag) obj).internal == two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.add[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -97,6 +103,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(((NumberTag) obj).internal + two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.+[<NumberTag>]
         // @Updated 2016/12/11
         // @Group Mathematics
@@ -109,6 +116,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(((NumberTag) obj).internal + two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.subtract[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -121,6 +129,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(((NumberTag) obj).internal - two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.sub[<NumberTag>]
         // @Updated 2017/01/29
         // @Group Mathematics
@@ -133,6 +142,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(((NumberTag) obj).internal - two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.-[<NumberTag>]
         // @Updated 2016/12/11
         // @Group Mathematics
@@ -145,6 +155,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(((NumberTag) obj).internal - two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.multiply[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -157,6 +168,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(((NumberTag) obj).internal * two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.mul[<NumberTag>]
         // @Updated 2017/01/29
         // @Group Mathematics
@@ -169,6 +181,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(((NumberTag) obj).internal * two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.*[<NumberTag>]
         // @Updated 2016/12/11
         // @Group Mathematics
@@ -181,6 +194,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(((NumberTag) obj).internal * two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.divide[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -193,6 +207,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(((NumberTag) obj).internal / two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.div[<NumberTag>]
         // @Updated 2017/01/29
         // @Group Mathematics
@@ -205,6 +220,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(((NumberTag) obj).internal / two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag./[<NumberTag>]
         // @Updated 2016/12/11
         // @Group Mathematics
@@ -217,6 +233,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(((NumberTag) obj).internal / two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.modulo[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -229,6 +246,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(((NumberTag) obj).internal % two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.mod[<NumberTag>]
         // @Updated 2017/01/29
         // @Group Mathematics
@@ -241,6 +259,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(((NumberTag) obj).internal % two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.%[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -253,6 +272,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(((NumberTag) obj).internal % two.internal);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.maximum[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -265,6 +285,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.max(((NumberTag) obj).internal, two.internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.minimum[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -277,6 +298,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.min(((NumberTag) obj).internal, two.internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.log[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -289,6 +311,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.log(((NumberTag) obj).internal) / Math.log(two.internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.power[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -301,6 +324,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.pow(((NumberTag) obj).internal, two.internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.^[<NumberTag>]
         // @Updated 2016/12/11
         // @Group Mathematics
@@ -313,6 +337,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.pow(((NumberTag) obj).internal, two.internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.absolute_value
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -324,6 +349,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.abs(((NumberTag) obj).internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.cosine
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -335,6 +361,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.cos(((NumberTag) obj).internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.sine
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -346,6 +373,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.sin(((NumberTag) obj).internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.arccosine
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -357,6 +385,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.acos(((NumberTag) obj).internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.arcsine
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -368,6 +397,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.asin(((NumberTag) obj).internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.arctangent
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -379,6 +409,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.atan(((NumberTag) obj).internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.tangent
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -390,6 +421,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.tan(((NumberTag) obj).internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.atan2[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -402,6 +434,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.atan2(((NumberTag) obj).internal, two.internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.round
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -413,6 +446,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.round(((NumberTag) obj).internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.round_up
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -424,6 +458,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.ceil(((NumberTag) obj).internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.round_down
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -435,6 +470,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.floor(((NumberTag) obj).internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.sign
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -446,6 +482,7 @@ public class NumberTag extends AbstractTagObject {
             return new IntegerTag((int) Math.signum(((NumberTag) obj).internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.hyberbolic_sine
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -457,6 +494,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.sinh(((NumberTag) obj).internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.hyberbolic_cosine
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -468,6 +506,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.cosh(((NumberTag) obj).internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.hyberbolic_tangent
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -479,6 +518,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.tanh(((NumberTag) obj).internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.square_root
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -490,6 +530,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.sqrt(((NumberTag) obj).internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.truncate
         // @Updated 2016/08/26
         // @Group Mathematics
@@ -501,6 +542,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(truncate(((NumberTag) obj).internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.to_radians
         // @Updated 2017/10/18
         // @Group Mathematics
@@ -511,6 +553,7 @@ public class NumberTag extends AbstractTagObject {
             return new NumberTag(Math.toRadians(((NumberTag) obj).internal));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name NumberTag.to_degrees
         // @Updated 2017/10/18
         // @Group Mathematics

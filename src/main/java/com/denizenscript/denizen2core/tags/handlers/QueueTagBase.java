@@ -9,6 +9,7 @@ import com.denizenscript.denizen2core.tags.objects.QueueTag;
 public class QueueTagBase extends AbstractTagBase {
 
     // <--[tagbase]
+// @Since 0.3.0
     // @Base queue[<QueueTag>]
     // @Modifier optional
     // @Group Definitions

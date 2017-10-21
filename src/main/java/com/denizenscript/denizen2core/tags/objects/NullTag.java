@@ -10,6 +10,7 @@ import java.util.HashMap;
 public class NullTag extends AbstractTagObject {
 
     // <--[object]
+// @Since 0.3.0
     // @Type NullTag
     // @SubType TextTag
     // @Group Mathematics

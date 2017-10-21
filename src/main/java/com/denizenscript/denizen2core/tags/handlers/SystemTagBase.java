@@ -19,6 +19,7 @@ import java.util.Map;
 public class SystemTagBase extends AbstractTagBase {
 
     // <--[tagbase]
+// @Since 0.3.0
     // @Base system
     // @Group Utilities
     // @ReturnType SystemTag
@@ -37,6 +38,7 @@ public class SystemTagBase extends AbstractTagBase {
 
     static {
         // <--[tag]
+// @Since 0.3.0
         // @Name SystemTag.pi
         // @Updated 2017/10/18
         // @Group Utilities
@@ -45,6 +47,7 @@ public class SystemTagBase extends AbstractTagBase {
         // -->
         handlers.put("pi", (dat, obj) -> new NumberTag(Math.PI));
         // <--[tag]
+// @Since 0.3.0
         // @Name SystemTag.current_time
         // @Updated 2016/08/26
         // @Group Utilities
@@ -53,6 +56,7 @@ public class SystemTagBase extends AbstractTagBase {
         // -->
         handlers.put("current_time", (dat, obj) -> new TimeTag(LocalDateTime.now(Clock.systemUTC())));
         // <--[tag]
+// @Since 0.3.0
         // @Name SystemTag.current_time_milliseconds
         // @Updated 2016/12/16
         // @Group Utilities
@@ -61,6 +65,7 @@ public class SystemTagBase extends AbstractTagBase {
         // -->
         handlers.put("current_time_milliseconds", (dat, obj) -> new IntegerTag(System.currentTimeMillis()));
         // <--[tag]
+// @Since 0.3.0
         // @Name SystemTag.core_version
         // @Updated 2016/08/26
         // @Group Denizen2
@@ -69,6 +74,7 @@ public class SystemTagBase extends AbstractTagBase {
         // -->
         handlers.put("core_version", (dat, obj) -> new TextTag(Denizen2Core.version));
         // <--[tag]
+// @Since 0.3.0
         // @Name SystemTag.implementation
         // @Updated 2016/08/26
         // @Group Denizen2
@@ -77,6 +83,7 @@ public class SystemTagBase extends AbstractTagBase {
         // -->
         handlers.put("implementation", (dat, obj) -> new TextTag(Denizen2Core.getImplementation().getImplementationName()));
         // <--[tag]
+// @Since 0.3.0
         // @Name SystemTag.implementation_version
         // @Updated 2016/08/26
         // @Group Denizen2
@@ -85,6 +92,7 @@ public class SystemTagBase extends AbstractTagBase {
         // -->
         handlers.put("implementation_version", (dat, obj) -> new TextTag(Denizen2Core.getImplementation().getImplementationVersion()));
         // <--[tag]
+// @Since 0.3.0
         // @Name SystemTag.queues
         // @Updated 2016/08/26
         // @Group Denizen2
@@ -99,6 +107,7 @@ public class SystemTagBase extends AbstractTagBase {
             return lt;
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name SystemTag.yaml_files
         // @Updated 2017/02/24
         // @Group Denizen2
@@ -115,6 +124,7 @@ public class SystemTagBase extends AbstractTagBase {
             return lt;
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name SystemTag.has_yaml[<TextTag>]
         // @Updated 2017/02/24
         // @Group Denizen2
@@ -126,6 +136,7 @@ public class SystemTagBase extends AbstractTagBase {
             return new BooleanTag(Denizen2Core.filesLoadedByScripts.containsKey(CoreUtilities.toLowerCase(name)));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name SystemTag.has_file[<TextTag>]
         // @Updated 2017/02/16
         // @Group Denizen2
@@ -148,6 +159,7 @@ public class SystemTagBase extends AbstractTagBase {
             }
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name SystemTag.random_decimal_in_range[<ListTag>]
         // @Updated 2017/05/05
         // @Group Random
@@ -169,6 +181,7 @@ public class SystemTagBase extends AbstractTagBase {
             return new NumberTag((CoreUtilities.random.nextDouble() * (b - a)) + a);
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name SystemTag.random_integer_in_range[<ListTag>]
         // @Updated 2017/05/05
         // @Group Random
@@ -190,6 +203,7 @@ public class SystemTagBase extends AbstractTagBase {
             return new IntegerTag((CoreUtilities.random.nextInt((int) (b - a)) + a));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name SystemTag.random_integer_massive
         // @Updated 2017/05/05
         // @Group Random
@@ -200,6 +214,7 @@ public class SystemTagBase extends AbstractTagBase {
             return new IntegerTag((CoreUtilities.random.nextLong()));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name SystemTag.random_decimal_gaussian
         // @Updated 2017/05/05
         // @Group Random
@@ -210,6 +225,7 @@ public class SystemTagBase extends AbstractTagBase {
             return new NumberTag((CoreUtilities.random.nextGaussian()));
         });
         // <--[tag]
+// @Since 0.3.0
         // @Name SystemTag.random_boolean
         // @Updated 2017/05/05
         // @Group Random

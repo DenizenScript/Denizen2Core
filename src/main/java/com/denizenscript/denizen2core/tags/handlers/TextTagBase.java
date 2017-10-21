@@ -8,6 +8,7 @@ import com.denizenscript.denizen2core.tags.objects.TextTag;
 public class TextTagBase extends AbstractTagBase {
 
     // <--[explanation]
+// @Since 0.3.0
     // @Name Text Tags
     // @Group Tags
     // @Description
@@ -17,6 +18,7 @@ public class TextTagBase extends AbstractTagBase {
     // -->
 
     // <--[tagbase]
+// @Since 0.3.0
     // @Base text[<TextTag>]
     // @Group Common Base Types
     // @ReturnType TextTag
