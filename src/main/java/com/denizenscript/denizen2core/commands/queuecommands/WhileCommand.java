@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class WhileCommand extends AbstractCommand {
 
     // <--[command]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Name while
     // @Arguments 'start'/'stop'/'next' [if comparisons]
     // @Short runs a block of code repeatedly for so long as the comparisons return true.

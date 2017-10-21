@@ -29,7 +29,7 @@ public abstract class CommandScript {
     }
 
     // <--[explanation]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Name Debug Modes
     // @Group Script Options
     // @Description
@@ -96,7 +96,7 @@ public abstract class CommandScript {
     }
 
     // <--[explanation]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Name Executable Script Section
     // @Group Script Options
     // @Description

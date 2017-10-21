@@ -9,7 +9,7 @@ import com.denizenscript.denizen2core.utilities.CoreUtilities;
 public class GotoCommand extends AbstractCommand {
 
     // <--[command]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Name goto
     // @Arguments <name>
     // @Short jumps to a code location specified by the mark command.

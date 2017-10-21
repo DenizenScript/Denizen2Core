@@ -8,7 +8,7 @@ import com.denizenscript.denizen2core.tags.objects.YamlTag;
 public class YamlTagBase extends AbstractTagBase {
 
     // <--[tagbase]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Base yaml[<BooleanTag>]
     // @Group Common Base Types
     // @ReturnType YamlTag

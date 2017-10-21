@@ -18,7 +18,7 @@ import java.util.List;
 public class YamlCommand extends AbstractCommand {
 
     // <--[command]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Name yaml
     // @Arguments <id> 'create'/'load'/'save'/'set'/'setobject'/'remove'/'close' [path] [value]
     // @Short handles and manipulates YAML-formatted data.

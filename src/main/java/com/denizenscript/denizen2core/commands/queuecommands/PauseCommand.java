@@ -8,7 +8,7 @@ import com.denizenscript.denizen2core.tags.objects.QueueTag;
 public class PauseCommand extends AbstractCommand {
 
     // <--[command]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Name pause
     // @Arguments [queue]
     // @Short pauses the current queue, or the one specified if available.

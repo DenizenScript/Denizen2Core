@@ -8,7 +8,7 @@ import com.denizenscript.denizen2core.tags.objects.TextTag;
 public class EscapeTagBase extends AbstractTagBase {
 
     // <--[explanation]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @name Escaping
     // @group Escaping
     // @description
@@ -38,7 +38,7 @@ public class EscapeTagBase extends AbstractTagBase {
     // -->
 
     // <--[tagbase]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Base escape[<TextTag>]
     // @Group Escaping
     // @ReturnType TextTag

@@ -8,7 +8,7 @@ import com.denizenscript.denizen2core.utilities.yaml.YAMLConfiguration;
 public class ProcedureScript extends CommandScript {
 
     // <--[explanation]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Name Procedure Scripts
     // @Group Script Types
     // @Description

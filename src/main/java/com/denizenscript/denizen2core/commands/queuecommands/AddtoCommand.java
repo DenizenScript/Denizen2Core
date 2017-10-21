@@ -13,7 +13,7 @@ import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
 public class AddtoCommand extends AbstractCommand {
 
     // <--[command]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Name addto
     // @Arguments <definition> 'raw/parsed/list/map' <values>
     // @Short Adds all input to a definition, optionally parsing tags.

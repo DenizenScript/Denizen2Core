@@ -10,7 +10,7 @@ import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
 public class DefineCommand extends AbstractCommand {
 
     // <--[command]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Name define
     // @Arguments <definition> <value> [queue]
     // @Short Defines a value on the current queue.

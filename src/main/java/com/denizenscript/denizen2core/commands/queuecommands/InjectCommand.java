@@ -13,7 +13,7 @@ import java.util.List;
 public class InjectCommand extends AbstractCommand {
 
     // <--[command]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Name inject
     // @Arguments <script>
     // @Short injects a script into the current queue.

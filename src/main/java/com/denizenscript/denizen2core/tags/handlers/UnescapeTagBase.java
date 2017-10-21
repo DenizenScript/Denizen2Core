@@ -8,7 +8,7 @@ import com.denizenscript.denizen2core.tags.AbstractTagBase;
 public class UnescapeTagBase extends AbstractTagBase {
 
     // <--[tagbase]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Base unescape[<TextTag>]
     // @Group Escaping
     // @ReturnType TextTag

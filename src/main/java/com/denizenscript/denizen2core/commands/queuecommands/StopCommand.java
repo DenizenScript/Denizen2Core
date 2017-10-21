@@ -8,7 +8,7 @@ import com.denizenscript.denizen2core.tags.objects.QueueTag;
 public class StopCommand extends AbstractCommand {
 
     // <--[command]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Name stop
     // @Arguments [queue]
     // @Short stops the current queue, or the one specified if available.

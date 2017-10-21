@@ -8,7 +8,7 @@ import com.denizenscript.denizen2core.tags.objects.IntegerTag;
 public class IntegerTagBase extends AbstractTagBase {
 
     // <--[tagbase]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Base integer[<IntegerTag>]
     // @Group Common Base Types
     // @ReturnType IntegerTag

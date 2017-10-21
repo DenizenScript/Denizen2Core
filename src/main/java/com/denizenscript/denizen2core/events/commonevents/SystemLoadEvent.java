@@ -5,7 +5,7 @@ import com.denizenscript.denizen2core.events.ScriptEvent;
 public class SystemLoadEvent extends ScriptEvent {
 
     // <--[event]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Events
     // system loaded
     //

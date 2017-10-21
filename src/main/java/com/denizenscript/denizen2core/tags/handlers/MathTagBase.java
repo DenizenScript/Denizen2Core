@@ -12,7 +12,7 @@ import java.util.List;
 public class MathTagBase extends AbstractTagBase {
 
     // <--[tagbase]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Base math[<TextTag>]
     // @Group Common Base Types
     // @ReturnType IntegerTag

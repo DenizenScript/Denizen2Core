@@ -8,7 +8,7 @@ import com.denizenscript.denizen2core.tags.objects.BooleanTag;
 public class DefExistsTagBase extends AbstractTagBase {
 
     // <--[tagbase]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Base def_exists[<TextTag>]
     // @Group Definitions
     // @ReturnType BooleanTag

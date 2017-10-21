@@ -16,7 +16,7 @@ import java.util.List;
 public class ListTag extends AbstractTagObject {
 
     // <--[object]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Type ListTag
     // @SubType TextTag
     // @Group Mathematics
@@ -41,7 +41,7 @@ public class ListTag extends AbstractTagObject {
 
     static {
         // <--[tag]
-// @Since 0.3.0
+        // @Since 0.3.0
         // @Name ListTag.get[<IntegerTag>]
         // @Updated 2016/08/26
         // @Group Lists
@@ -61,7 +61,7 @@ public class ListTag extends AbstractTagObject {
             return ((ListTag) obj).internal.get(i);
         });
         // <--[tag]
-// @Since 0.3.0
+        // @Since 0.3.0
         // @Name ListTag.contains[<TextTag>]
         // @Updated 2017/03/08
         // @Group Lists
@@ -80,7 +80,7 @@ public class ListTag extends AbstractTagObject {
             return new BooleanTag(false);
         });
         // <--[tag]
-// @Since 0.3.0
+        // @Since 0.3.0
         // @Name ListTag.contains_cased[<TextTag>]
         // @Updated 2017/03/08
         // @Group Lists
@@ -99,7 +99,7 @@ public class ListTag extends AbstractTagObject {
             return new BooleanTag(false);
         });
         // <--[tag]
-// @Since 0.3.0
+        // @Since 0.3.0
         // @Name ListTag.size
         // @Updated 2016/11/24
         // @Group Lists
@@ -109,7 +109,7 @@ public class ListTag extends AbstractTagObject {
         // -->
         handlers.put("size", (dat, obj) -> new IntegerTag(((ListTag) obj).getInternal().size()));
         // <--[tag]
-// @Since 0.3.0
+        // @Since 0.3.0
         // @Name ListTag.random
         // @Updated 2016/09/28
         // @Group Randomization

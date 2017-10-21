@@ -22,7 +22,7 @@ public class CommandEntry {
     public final List<Argument> arguments;
 
     // <--[explanation]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Name Named Arguments
     // @Group Commands
     // @Description
@@ -58,7 +58,7 @@ public class CommandEntry {
     public List<CommandEntry> innerCommandBlock;
 
     // <--[explanation]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Name Saved Commands
     // @Group Commands
     // @Description

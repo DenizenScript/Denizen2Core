@@ -13,7 +13,7 @@ import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
 public class DetermineCommand extends AbstractCommand {
 
     // <--[command]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Name determine
     // @Arguments <determination> [value]
     // @Short Defines a value on the current queue.

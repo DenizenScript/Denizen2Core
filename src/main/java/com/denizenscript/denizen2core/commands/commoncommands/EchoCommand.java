@@ -7,7 +7,7 @@ import com.denizenscript.denizen2core.commands.CommandQueue;
 public class EchoCommand extends AbstractCommand {
 
     // <--[command]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Name echo
     // @Arguments <text to echo>
     // @Short echoes text back to the input command line.

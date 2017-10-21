@@ -24,7 +24,7 @@ public class IfCommand extends AbstractCommand {
     }
 
     // <--[command]
-// @Since 0.3.0
+    // @Since 0.3.0
     // @Name if
     // @Arguments <if comparisons>
     // @Short runs a block of code if-and-only-if the comparisons return true.
