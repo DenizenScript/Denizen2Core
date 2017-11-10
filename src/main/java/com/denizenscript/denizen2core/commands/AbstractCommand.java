@@ -28,6 +28,18 @@ public abstract class AbstractCommand {
         return false;
     }
 
+    public boolean allowsBlock() {
+        return false;
+    }
+
+    public boolean blockIsCustom() {
+        return false;
+    }
+
+    public void customBlockHandle(CommandEntry entry, String scrName, List<Object> innards, int istart, List<CommandEntry> entries) {
+        // Do nothing!
+    }
+
     public CommandEntry GetFollower(CommandEntry entry) {
         Argument arg = new Argument();
         arg.addBit(new TextArgumentBit("\0CALLBACK", false));

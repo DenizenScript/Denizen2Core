@@ -30,6 +30,7 @@ public class ElseCommand extends AbstractCommand {
     //   - echo "This won't show"
     // - else:
     //   - echo "hi"
+    // @Example
     // # This example always echoes "hi".
     // - if true:
     //   - echo "hi"
@@ -59,6 +60,11 @@ public class ElseCommand extends AbstractCommand {
 
     @Override
     public boolean isProcedural() {
+        return true;
+    }
+
+    @Override
+    public boolean allowsBlock() {
         return true;
     }
 

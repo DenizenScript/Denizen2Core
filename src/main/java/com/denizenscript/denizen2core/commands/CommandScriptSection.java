@@ -1,5 +1,6 @@
 package com.denizenscript.denizen2core.commands;
 
+import com.denizenscript.denizen2core.commands.commoncommands.DebugInvalidCommand;
 import com.denizenscript.denizen2core.utilities.ErrorInducedException;
 import com.denizenscript.denizen2core.utilities.Tuple;
 import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
@@ -77,7 +78,7 @@ public class CommandScriptSection {
         }
     }
 
-    private static List<CommandEntry> getEntries(String scrName, List<Object> lines, int istart) {
+    public static List<CommandEntry> getEntries(String scrName, List<Object> lines, int istart) {
         List<CommandEntry> entries = new ArrayList<>();
         for (Object obj : lines) {
             if (obj instanceof String) {
@@ -91,19 +92,27 @@ public class CommandScriptSection {
                 Object key = map.keySet().iterator().next();
                 List<Object> innards = (List<Object>) map.get(key);
                 CommandEntry cent = CommandEntry.forLine(scrName, key.toString());
+                if (!cent.command.allowsBlock() && cent.command != DebugInvalidCommand.instance) {
+                    throw new ErrorInducedException("Invalid command line - gave block, but command was not expecting a block!");
+                }
                 cent.ownIndex = istart;
                 entries.add(cent);
                 istart++;
-                List<CommandEntry> block = getEntries(scrName, innards, istart);
-                cent.blockStart = istart;
-                istart += block.size();
-                cent.blockEnd = istart - 1;
-                List<CommandEntry> toinj = new ArrayList<>(block);
-                int bc = block.size();
-                cent.command.adaptBlockFollowers(cent, toinj, block);
-                istart += (toinj.size() - bc);
-                cent.innerCommandBlock = block;
-                entries.addAll(toinj);
+                if (cent.command.blockIsCustom()) {
+                    cent.command.customBlockHandle(cent, scrName, innards, istart, entries);
+                }
+                else {
+                    List<CommandEntry> block = getEntries(scrName, innards, istart);
+                    cent.blockStart = istart;
+                    istart += block.size();
+                    cent.blockEnd = istart - 1;
+                    List<CommandEntry> toinj = new ArrayList<>(block);
+                    int bc = block.size();
+                    cent.command.adaptBlockFollowers(cent, toinj, block);
+                    istart += (toinj.size() - bc);
+                    cent.innerCommandBlock = block;
+                    entries.addAll(toinj);
+                }
             }
         }
         return entries;

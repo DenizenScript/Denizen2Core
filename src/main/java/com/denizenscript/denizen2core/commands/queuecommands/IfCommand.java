@@ -71,6 +71,11 @@ public class IfCommand extends AbstractCommand {
         return true;
     }
 
+    @Override
+    public boolean allowsBlock() {
+        return true;
+    }
+
     public static boolean getBool(Action<String> error, AbstractTagObject obj) {
         boolean negate = false;
         if (obj instanceof TextTag && obj.toString().startsWith("!")) {

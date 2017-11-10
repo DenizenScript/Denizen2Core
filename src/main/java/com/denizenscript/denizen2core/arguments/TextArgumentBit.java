@@ -24,7 +24,7 @@ public class TextArgumentBit extends ArgumentBit {
         wasQuoted = quoted;
     }
 
-    public final AbstractTagObject value;
+    public AbstractTagObject value;
 
     public final boolean wasQuoted;
 

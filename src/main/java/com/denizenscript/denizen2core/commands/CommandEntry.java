@@ -57,6 +57,8 @@ public class CommandEntry {
 
     public List<CommandEntry> innerCommandBlock;
 
+    public Object specialLocalData = null;
+
     // <--[explanation]
     // @Since 0.3.0
     // @Name Saved Commands
@@ -166,6 +168,7 @@ public class CommandEntry {
         }
         AbstractCommand tcmd = Denizen2Core.commands.get(cmd);
         if (tcmd == null) {
+            // Intentionally no error!
             return new CommandEntry(scrName, DebugInvalidCommand.instance, fargs, nameds, input, fargs.get(0).toString(), false);
         }
         fargs.remove(0);

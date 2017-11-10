@@ -152,6 +152,7 @@ public class Denizen2Core {
         // Queue Commands
         register(new AddtoCommand());
         register(new AssertCommand());
+        register(new ChooseCommand());
         register(new DefineCommand());
         register(new DetermineCommand());
         register(new ElseCommand());

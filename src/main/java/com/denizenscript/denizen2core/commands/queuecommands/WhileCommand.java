@@ -56,6 +56,11 @@ public class WhileCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean allowsBlock() {
+        return true;
+    }
+
+    @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
         if (entry.arguments.get(0).toString().equals("\0CALLBACK")) {
             CommandEntry orig = queue.commandStack.peek().entries[entry.blockStart - 1];
