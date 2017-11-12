@@ -162,6 +162,7 @@ public class Denizen2Core {
         register(new InjectCommand());
         register(new MarkCommand());
         register(new PauseCommand());
+        register(new RandomCommand());
         register(new RepeatCommand());
         register(new RequireCommand());
         register(new ResumeCommand());

@@ -2,57 +2,61 @@ package com.denizenscript.denizen2core.commands.queuecommands;
 
 import com.denizenscript.denizen2core.arguments.Argument;
 import com.denizenscript.denizen2core.arguments.TextArgumentBit;
-import com.denizenscript.denizen2core.commands.*;
-import com.denizenscript.denizen2core.tags.objects.IntegerTag;
+import com.denizenscript.denizen2core.commands.AbstractCommand;
+import com.denizenscript.denizen2core.commands.CommandEntry;
+import com.denizenscript.denizen2core.commands.CommandQueue;
+import com.denizenscript.denizen2core.commands.CommandScriptSection;
 import com.denizenscript.denizen2core.tags.objects.TextTag;
 import com.denizenscript.denizen2core.utilities.CoreUtilities;
 import com.denizenscript.denizen2core.utilities.ErrorInducedException;
-import com.denizenscript.denizen2core.utilities.Tuple;
+import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
 
 import java.util.*;
 
-public class ChooseCommand extends AbstractCommand {
+public class RandomCommand extends AbstractCommand {
 
     // <--[command]
     // @Since 0.4.0
-    // @Name choose
-    // @Arguments <choice>
-    // @Short selects and runs the sub-block matching the given choice, or the default sub-block.
+    // @Name random
+    // @Arguments
+    // @Short selects and runs a randomly chosen sub-block, based on given weights.
     // @Updated 2017/11/10
     // @Group Queue
     // @Procedural true
-    // @Minimum 1
+    // @Minimum 0
     // @Maximum 2
     // @Description
-    // Selects and runs the sub-block matching the given choice, or the default sub-block.
+    // Selects and runs a randomly chosen sub-block, based on given weights.
     // TODO: Explain more!
     // @Example
-    // # This example always echoes "hi".
-    // - choose 3:
-    //   - case 3:
-    //     - echo "hi"
+    // # This example will either echo "A" or "B".
+    // - random:
+    //   - chance 1:
+    //     - echo "A"
+    //   - chance 1:
+    //     - echo "b"
     // @Example
-    // # This example always echoes "hi".
-    // - choose 4:
-    //   - case 3:
-    //     - echo "nope"
-    //   - default:
-    //     - echo "hi"
+    // # This example will tend to echo "A", but sometimes as well echo "B"
+    // - random:
+    //   - chance 10:
+    //     - echo "A"
+    //   - chance 1:
+    //     - echo "b"
     // -->
 
     @Override
     public String getName() {
-        return "choose";
+        return "random";
     }
 
     @Override
     public String getArguments() {
-        return "<choice>";
+        return "";
     }
 
     @Override
     public int getMinimumArguments() {
-        return 1;
+        return 0;
     }
 
     @Override
@@ -75,31 +79,42 @@ public class ChooseCommand extends AbstractCommand {
         return true;
     }
 
+    public static class Choice {
+        double chance;
+        int start;
+    }
+
     @Override
     public void customBlockHandle(CommandEntry entry, String scrName, List<Object> innards, int istart, List<CommandEntry> entries) {
-        Map<String, Integer> choices = new HashMap<>();
+        List<Choice> choices = new ArrayList<>();
         entry.specialLocalData = choices;
         List<TextArgumentBit> fixmes = new ArrayList<>();
+        if (innards.size() == 0) {
+            throw new ErrorInducedException("Empty random command?");
+        }
         for (Object obj : innards) {
             if (!(obj instanceof Map)) {
-                throw new ErrorInducedException("Entry to a 'choose' command is not a map: " + obj);
+                throw new ErrorInducedException("Entry to a 'random' command is not a map: " + obj);
             }
             String name = ((String) ((Map) obj).keySet().iterator().next()).trim();
             List<Object> vals = (List<Object>) ((Map) obj).get(name);
             List<CommandEntry> ce = CommandScriptSection.getEntries(scrName, vals, istart);
             entries.addAll(ce);
-            if (name.startsWith("case")) {
-                name = name.substring("case ".length());
+            if (name.startsWith("chance")) {
+                name = name.substring("chance ".length());
                 if ((name.endsWith("\"") && name.startsWith("\"")) || name.endsWith("\'") && name.startsWith("\'")) {
                     name = name.substring(1, name.length() - 1);
                 }
-                choices.put(CoreUtilities.toLowerCase(name), istart);
-            }
-            else if (CoreUtilities.toLowerCase(name).equals("default")) {
-                choices.put("\0DEFAULT", istart);
+                Choice c = new Choice();
+                c.chance = Double.parseDouble(name);
+                if (c.chance <= 0) {
+                    throw new ErrorInducedException("Invalid chance (Must be greater than zero): " + c.chance);
+                }
+                c.start = istart;
+                choices.add(c);
             }
             else {
-                throw new ErrorInducedException("Ridiculous choose command input: " + name);
+                throw new ErrorInducedException("Ridiculous random command input: " + name);
             }
             istart += ce.size();
             Argument arg = new Argument();
@@ -129,30 +144,28 @@ public class ChooseCommand extends AbstractCommand {
             return;
         }
         if (entry.specialLocalData == null) {
-            queue.handleError(entry, "Mis-constructed choose command?");
+            queue.handleError(entry, "Mis-constructed random command?");
             return;
         }
-        String choice = CoreUtilities.toLowerCase(entry.getArgumentObject(queue, 0).toString());
-        Map<String, Integer> choices = (Map<String, Integer>) entry.specialLocalData;
-        Integer ix = choices.get(choice);
-        if (ix == null) {
-            ix = choices.get("\0DEFAULT");
-            if (ix == null) {
-                if (queue.shouldShowGood()) {
-                    queue.outGood("No matching choice for CHOOSE command.");
-                }
-                queue.commandStack.peek().goTo(entry.blockEnd + 1);
-                return;
-            }
-            if (queue.shouldShowGood()) {
-                queue.outGood("DEFAULT choice for CHOOSE command.");
-            }
+        List<Choice> choices = (List<Choice>) entry.specialLocalData;
+        double d = 0;
+        for (Choice c : choices) {
+            d += c.chance;
         }
-        else {
-            if (queue.shouldShowGood()) {
-                queue.outGood("Found matching choice for CHOOSE command.");
+        double chosen = CoreUtilities.random.nextDouble() * d;
+        final double ch2 = chosen;
+        Choice finalc = choices.get(0);
+        for (Choice c : choices) {
+            if (chosen <= c.chance) {
+                finalc = c;
+                break;
             }
+            chosen -= c.chance;
         }
-        queue.commandStack.peek().goTo(ix);
+        if (queue.shouldShowGood()) {
+            queue.outGood("Random command rolled " + ColorSet.emphasis + ch2 + ColorSet.good + " / " + ColorSet.emphasis + d + ColorSet.good
+                    + " -> selected choice with weight " + ColorSet.emphasis + finalc.chance);
+        }
+        queue.commandStack.peek().goTo(finalc.start);
     }
 }
