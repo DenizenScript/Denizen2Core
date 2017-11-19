@@ -7,7 +7,7 @@ For a reference implementation, see [https://github.com/DenizenScript/Denizen2Co
 
 For a Minecraft/Sponge implementation, see [https://github.com/DenizenScript/Denizen2Sponge](https://github.com/DenizenScript/Denizen2Sponge).
 
-For builds, see [http://jci.denizenscript.com/job/Denizen2Core/](http://jci.denizenscript.com/job/Denizen2Core/).
+For builds, see [http://ci.citizensnpcs.co/job/Denizen2Core/](http://ci.citizensnpcs.co/job/Denizen2Core/).
 
 Discuss on our forums at [http://forum.denizenscript.com/](http://forum.denizenscript.com/).
 
@@ -29,7 +29,7 @@ You can do basically whatever you want, except you may not hold any developer li
 
 The MIT License (MIT)
 
-Copyright (c) 2016 The Denizen Script Team
+Copyright (c) 2016-2017 The Denizen Script Team
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
