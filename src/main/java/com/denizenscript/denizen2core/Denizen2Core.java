@@ -312,7 +312,8 @@ public class Denizen2Core {
             Iterator<Path> pathi = paths.iterator();
             while (pathi.hasNext()) {
                 Path p = pathi.next();
-                if (!CoreUtilities.toLowerCase(p.toString()).endsWith(".yml")) {
+                if ((!CoreUtilities.toLowerCase(p.toString()).endsWith(".yml")) &&
+                    (!CoreUtilities.toLowerCase(p.toString()).endsWith(".yaml"))) {
                     continue;
                 }
                 File f = p.toFile();
