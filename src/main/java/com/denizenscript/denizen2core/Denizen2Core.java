@@ -263,8 +263,38 @@ public class Denizen2Core {
         }
         CommandScript script = getter.apply(scriptName, section);
         if (script.init()) {
-            getImplementation().outputGood("Loaded script '" + ColorSet.emphasis + scriptName + ColorSet.good + "'");
-            currentScripts.put(scriptName, script);
+            // Check for potential script dupes by comparing versions
+            if (currentScripts.containsKey(scriptName)) {
+                int versionCompare = ScriptHelper.versionCompare(script.version, currentScripts.get(scriptName).version);
+                if (versionCompare > 0) {
+                    // If this script is a higher version than the currentScripts version, then replace it out, and set
+                    // the 'old' script to override mode.
+                    CommandScript oldVersion = currentScripts.get(scriptName);
+                    oldVersion.override = true;
+                    currentScripts.put(scriptName + "_" + oldVersion.version, oldVersion);
+                    currentScripts.put(scriptName, script);
+                    getImplementation().outputGood("Loaded script '" + ColorSet.emphasis + scriptName + ColorSet.good + "'" + (!script.version.equals("0") ? ", v" + script.version : ""));
+                } else if (versionCompare == 0) {
+                    // If this script has the same version, it's likely a duplicate. Ignore it, but warn the user.
+                    getImplementation().outputInfo(ColorSet.warning + "Tried to load script '" + ColorSet.emphasis + scriptName + ColorSet.warning + "', but another script with this name and version has already been loaded. This script has been ignored.");
+                    script.exit();
+                } else if (versionCompare < 0) {
+                    // If this script has a lower version, no need to replace the current version, but instead
+                    // load it as a lower version.
+                    if (currentScripts.containsKey(scriptName + "_" + script.version)) {
+                        script.override = true;
+                        getImplementation().outputInfo(ColorSet.warning + "Tried to load script '" + ColorSet.emphasis + scriptName + ColorSet.warning + "', but another script with this name and version has already been loaded. This script has been ignored.");
+                    } else {
+                        script.override = true;
+                        currentScripts.put(scriptName + "_" + script.version, script);
+                        getImplementation().outputGood("Loaded script '" + ColorSet.emphasis + scriptName + ColorSet.good + "'" + (!script.version.equals("0") ? ", v" + script.version : ""));
+                    }
+                }
+            } else {
+                // Script should be loaded as is, no other versions are currently loaded
+                getImplementation().outputGood("Loaded script '" + ColorSet.emphasis + scriptName + ColorSet.good + "'" + (!script.version.equals("0") ? ", v" + script.version : ""));
+                currentScripts.put(scriptName, script);
+            }
         }
         else {
             Debug.error("Failed to load script '" + ColorSet.emphasis + scriptName + ColorSet.warning + "'!");
@@ -275,7 +305,7 @@ public class Denizen2Core {
         try {
             YAMLConfiguration config = YAMLConfiguration.load(ScriptHelper.clearComments(contents));
             if (config == null) {
-                Debug.error("Invalid YAML for script " + ColorSet.emphasis + fileName);
+                Debug.error("Invalid script syntax: " + ColorSet.emphasis + fileName + ", skipping.");
                 return;
             }
             Set<StringHolder> strs = config.getKeys(false);
@@ -292,7 +322,7 @@ public class Denizen2Core {
     public static void start() {
         File addonsFolder = getImplementation().getAddonsFolder();
         if (!addonsFolder.exists()) {
-            Debug.error("Addons folder non-existent!");
+            Debug.error("Addons folder cannot be found! No add-ons will be loaded.");
         }
         else {
             addons.addAll(AddonLoader.loadAddons(addonsFolder));
@@ -305,16 +335,19 @@ public class Denizen2Core {
         File folder = getImplementation().getScriptsFolder();
         try {
             if (!folder.exists()) {
-                Debug.error("Scripts folder non-existent!");
+                Debug.error("Root scripts folder cannot be found! No scripts will be loaded.");
                 return;
             }
             Stream<Path> paths = Files.walk(folder.toPath(), FileVisitOption.FOLLOW_LINKS);
             Iterator<Path> pathi = paths.iterator();
             while (pathi.hasNext()) {
                 Path p = pathi.next();
-                if (!CoreUtilities.toLowerCase(p.toString()).endsWith(".yml")) {
+                // Non-valid syntax will filter out bad files upon loadFile(...), but script files that are currently
+                // disabled by the user should have a '.disabled' extension. The loader will ignore these files.
+                if (CoreUtilities.toLowerCase(p.toString()).endsWith(".disabled")) {
                     continue;
                 }
+                // Attempt to load file
                 File f = p.toFile();
                 if (f.exists() && !f.isDirectory()) {
                     FileInputStream fis = new FileInputStream(f);
