@@ -42,4 +42,11 @@ public class WorldScript extends CommandScript {
         }
         return false;
     }
+
+    @Override
+    public boolean exit() {
+        ScriptEvent.currentWorldScripts.remove(this);
+        return true;
+    }
+
 }

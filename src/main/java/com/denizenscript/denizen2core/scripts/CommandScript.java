@@ -1,5 +1,6 @@
 package com.denizenscript.denizen2core.scripts;
 
+import com.denizenscript.denizen2core.Denizen2Core;
 import com.denizenscript.denizen2core.commands.CommandScriptSection;
 import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
 import com.denizenscript.denizen2core.utilities.debugging.Debug;
@@ -21,11 +22,17 @@ public abstract class CommandScript {
 
     public long ticksRan = 0;
 
+    public final String version;
+
+    // When override is true, a newer version of this script has been loaded.
+    public boolean override = false;
+
     public final HashMap<String, CommandScriptSection> sections = new HashMap<>();
 
     public CommandScript(String name, YAMLConfiguration section) {
         title = name;
         contents = section;
+        version = section.getString("version", "0");
     }
 
     // <--[explanation]
@@ -92,6 +99,12 @@ public abstract class CommandScript {
                 }
             }
         }
+        return true;
+    }
+
+    // Can be called to 'de-initialize' a script TODO: Possibly call this 'deinitialize', or 'deinit'?
+    public boolean exit() {
+        // TODO: Remove from currentScripts?
         return true;
     }
 

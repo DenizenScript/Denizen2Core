@@ -71,6 +71,18 @@ public class ScriptTag extends AbstractTagObject {
             return new BooleanTag(((ScriptTag) obj).internal.contents.isList(dat.getNextModifier().toString()));
         });
         // <--[tag]
+        // @Since 0.4.0
+        // @Name ScriptTag.version
+        // @Updated 2018/04/90
+        // @Group Identification
+        // @ReturnType TextTag
+        // @Returns the version of the script, as set by its version key. If no version is specified, returns '0'
+        // -->
+        handlers.put("version", (dat, obj) -> {
+            String val = ((ScriptTag) obj).internal.version;
+            return new TextTag(val);
+        });
+        // <--[tag]
         // @Since 0.3.0
         // @Name ScriptTag.yaml_key[<TextTag>]
         // @Updated 2017/02/19

@@ -20,24 +20,27 @@ public class RunCommand extends AbstractCommand {
     // <--[command]
     // @Since 0.3.0
     // @Name run
-    // @Arguments <script> [definition map]
+    // @Arguments <script> [definition map] [--version (TextTag)]
     // @Short Runs a script as a new queue.
-    // @Updated 2016/04/06
+    // @Updated 2018/04/09
     // @Group Queue
     // @Minimum 1
-    // @Maximum 2
+    // @Maximum 3
     // @Tag <[run_queue]> (QueueTag) returns the ran queue.
     // @Save run_queue (QueueTag) returns the queue that was created and ran.
     // @Description
     // Runs a script as a new queue.
     // Optionally add definitions to pass to the new queue.
-    // TODO: Explain more!
+    // Specify a version to ensure a specific version of the script is to be executed.
     // @Example
-    // # This example runs the script "test".
-    // - run test
+    // # This example runs the script "testScript".
+    // - run testScript
     // @Example
-    // # This example runs the script "test" and echoes back its results after it finishes.
-    // - &run test
+    // # This example runs the script "testScript", specifically version "2.0".
+    // - run testScript --version 2.0
+    // @Example
+    // # This example runs the script "testScript" and echoes back its results after it finishes.
+    // - &run testScript
     // - echo <[run_queue].determinations>
     // @Example
     // # This example runs the script "mytask" with definitions "banana" (set to "2")
@@ -52,7 +55,7 @@ public class RunCommand extends AbstractCommand {
 
     @Override
     public String getArguments() {
-        return "<script> [definition map]";
+        return "<script> [definition map] [--version (TextTag)]";
     }
 
     @Override
@@ -62,7 +65,7 @@ public class RunCommand extends AbstractCommand {
 
     @Override
     public int getMaximumArguments() {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -75,23 +78,37 @@ public class RunCommand extends AbstractCommand {
         AbstractTagObject scriptobj = entry.getArgumentObject(queue, 0);
         String scriptName = scriptobj.toString();
         List<String> bits = CoreUtilities.split(scriptName, '.', 2);
-        CommandScript script = Denizen2Core.currentScripts.get(CoreUtilities.toLowerCase(bits.get(0)));
+
+        CommandScript script;
+        if (entry.namedArgs.containsKey("version")) {
+            script = Denizen2Core.currentScripts.get(CoreUtilities.toLowerCase(bits.get(0)));
+            if (script != null && !script.version.equals(entry.namedArgs.get("version"))) {
+                script = Denizen2Core.currentScripts.get(CoreUtilities.toLowerCase(bits.get(0)) + "_" + entry.namedArgs.get("version"));
+                if (script == null) {
+                    queue.handleError(entry, "The script was found, but the specified version does not match! Run aborted.");
+                    return;
+                }
+            }
+        } else {
+            script = Denizen2Core.currentScripts.get(CoreUtilities.toLowerCase(bits.get(0)));
+        }
+
         if (script == null) {
-            queue.handleError(entry, "Invalid script name!");
+            queue.handleError(entry, "The specified script was not found! Run aborted.");
             return;
         }
         if (!(script instanceof TaskScript)) {
-            queue.handleError(entry, "Trying to run a non-task typed script!");
+            queue.handleError(entry, "Trying to run a non-task typed script! Run aborted.");
             return;
         }
         TaskScript task = (TaskScript) script;
         CommandScriptSection section = task.getSection(bits.size() > 1 ? bits.get(1) : null);
         if (section == null) {
-            queue.handleError(entry, "Invalid script section!");
+            queue.handleError(entry, "Invalid script section! Run aborted.");
             return;
         }
         if (queue.shouldShowGood()) {
-            queue.outGood("Running script: " + ColorSet.emphasis + script.title);
+            queue.outGood("Running script: " + ColorSet.emphasis + script.title + (entry.namedArgs.containsKey("version") ? " v" + script.version : ""));
         }
         CommandQueue nq = section.toQueue();
         if (entry.waitFor) {

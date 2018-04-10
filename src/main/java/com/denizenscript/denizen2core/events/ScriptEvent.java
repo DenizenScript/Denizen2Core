@@ -122,6 +122,15 @@ public abstract class ScriptEvent implements Cloneable {
                 data.eventPath = res.toString().trim();
                 if (couldMatch(data)) {
                     try {
+
+                        // If the script has been overridden, its events will not trigger.
+                        if (script.override) {
+                            Debug.info(ColorSet.warning + "Script '" + ColorSet.emphasis + script.title  +
+                                    " v" + script.version + ColorSet.warning +"' has a world script that has been overridden by version " +
+                                    Denizen2Core.currentScripts.get(script.title).version + ". As a result, this world script will not trigger.");
+                            continue;
+                        }
+
                         usages.add(data);
                         if (generalDebug) {
                             Debug.good("Script event match: " + ColorSet.emphasis + getName()
