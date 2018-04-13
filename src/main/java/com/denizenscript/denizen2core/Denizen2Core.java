@@ -312,7 +312,14 @@ public class Denizen2Core {
             Iterator<Path> pathi = paths.iterator();
             while (pathi.hasNext()) {
                 Path p = pathi.next();
-                if (!CoreUtilities.toLowerCase(p.toString()).endsWith(".yml")) {
+                if (Files.isDirectory(p)) {
+                    continue;
+                }
+                if (!CoreUtilities.toLowerCase(p.toString()).endsWith(".dsc")) {
+                    if (!CoreUtilities.toLowerCase(p.toString()).endsWith(".disable")) {
+                        Debug.error("File with path in scripts folder '" + p.toString() + "' is invalid. "
+                                + "Script files must end in .dsc, ignored files must end in .disable");
+                    }
                     continue;
                 }
                 File f = p.toFile();
