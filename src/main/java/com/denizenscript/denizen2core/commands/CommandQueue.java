@@ -127,7 +127,8 @@ public class CommandQueue {
         }
         if (shouldDebugStart) {
             outGood("Took: " + ColorSet.emphasis + ((System.currentTimeMillis() - startTime) / 1000.0)
-                    + ColorSet.good + " seconds to run this queue. "
+                    + ColorSet.good + " seconds to run queue " + ColorSet.emphasis + qID
+                    + ColorSet.good + ". "
                     + ColorSet.emphasis + (runTime / 1000.0)
                     + ColorSet.good + " seconds were spent in execution.");
         }

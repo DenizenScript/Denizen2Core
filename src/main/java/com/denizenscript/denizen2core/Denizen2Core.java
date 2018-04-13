@@ -60,7 +60,7 @@ public class Denizen2Core {
             Debug.exception(ex);
         }
         if (config == null) {
-            version = "UNKNOWN (Error reading version file!)";
+            version = "UNKNOWN (Error reading version file! Possibly a corrupt jar?)";
         }
         else {
             version = config.getString("VERSION", "UNKNOWN") + " (build " + config.getString("BUILD_NUMBER", "UNKNOWN") + ")";
@@ -135,7 +135,8 @@ public class Denizen2Core {
         // Enforce a reasonable locale on the machine - to prevent format errors
         // Note that US is chosen primarily as it is:
         // - the most likely to be used by a user of Denizen2 anyway (All Denizen2 info is EN-US)
-        // - The least likely to screw with commonly accepted (international) formatting
+        // - the least likely to screw with commonly accepted (international) formatting
+        // This also helps ensure related text will be in English, to ensure all Denizen2 helpers can read output from foreign servers.
         if (implementation.enforceLocale()) {
             Locale.setDefault(Locale.US);
         }
@@ -225,7 +226,8 @@ public class Denizen2Core {
         List<String> dat = CoreUtilities.split(str, '@', 2);
         String typed = dat.get(0);
         if (!customSaveLoaders.containsKey(typed)) {
-            error.run("No save loader for the specified type: " + ColorSet.emphasis + typed + ColorSet.warning + "!");
+            error.run("No save loader for the specified type: " + ColorSet.emphasis + typed + ColorSet.warning + "! "
+                    + "May be invalid input to a saves loader?");
             return new NullTag();
         }
         return customSaveLoaders.get(typed).apply(error, dat.get(1));
@@ -258,7 +260,8 @@ public class Denizen2Core {
         String type = CoreUtilities.toLowerCase(section.getString("type", "_not set_"));
         Function2<String, YAMLConfiguration, CommandScript> getter = scriptTypeGetters.get(type);
         if (getter == null) {
-            Debug.error("Unknown type '" + type + "' for script " + scriptName);
+            Debug.error("Unknown type '" + ColorSet.emphasis + type + ColorSet.warning + "' for script '" + ColorSet.emphasis + scriptName
+                    + ColorSet.warning + "' ... see documentation regarding valid script types!");
             return;
         }
         CommandScript script = getter.apply(scriptName, section);
@@ -267,7 +270,8 @@ public class Denizen2Core {
             currentScripts.put(scriptName, script);
         }
         else {
-            Debug.error("Failed to load script '" + ColorSet.emphasis + scriptName + ColorSet.warning + "'!");
+            Debug.error("Failed to load script '" + ColorSet.emphasis + scriptName + ColorSet.warning + "'! See documentation regarding "
+                    + "scripts of type " + ColorSet.emphasis + type);
         }
     }
 
@@ -275,7 +279,9 @@ public class Denizen2Core {
         try {
             YAMLConfiguration config = YAMLConfiguration.load(ScriptHelper.clearComments(contents));
             if (config == null) {
-                Debug.error("Invalid YAML for script " + ColorSet.emphasis + fileName);
+                Debug.error("Invalid YAML for script '" + ColorSet.emphasis + fileName + ColorSet.warning
+                        + "'... the script file may be empty, or unable to load entirely. If it's intentionally empty, "
+                        + "change its extension to '.disable'!");
                 return;
             }
             Set<StringHolder> strs = config.getKeys(false);
@@ -292,7 +298,7 @@ public class Denizen2Core {
     public static void start() {
         File addonsFolder = getImplementation().getAddonsFolder();
         if (!addonsFolder.exists()) {
-            Debug.error("Addons folder non-existent!");
+            Debug.error("Addons folder non-existent! Something may have gone wrong during engine setup. Check file permissions!");
         }
         else {
             addons.addAll(AddonLoader.loadAddons(addonsFolder));
@@ -305,7 +311,7 @@ public class Denizen2Core {
         File folder = getImplementation().getScriptsFolder();
         try {
             if (!folder.exists()) {
-                Debug.error("Scripts folder non-existent!");
+                Debug.error("Scripts folder non-existent! Something may have gone wrong during engine setup. Check file permissions!");
                 return;
             }
             Stream<Path> paths = Files.walk(folder.toPath(), FileVisitOption.FOLLOW_LINKS);
@@ -317,7 +323,7 @@ public class Denizen2Core {
                 }
                 if (!CoreUtilities.toLowerCase(p.toString()).endsWith(".dsc")) {
                     if (!CoreUtilities.toLowerCase(p.toString()).endsWith(".disable")) {
-                        Debug.error("File with path in scripts folder '" + p.toString() + "' is invalid. "
+                        Debug.error("File with path in scripts folder '" + ColorSet.emphasis + p.toString() + ColorSet.warning + "' is invalid. "
                                 + "Script files must end in .dsc, ignored files must end in .disable");
                     }
                     continue;
@@ -347,12 +353,12 @@ public class Denizen2Core {
         for (DenizenAddon addon : addons) {
             AddonInfo addonInfo = addon.getAddonInfo();
             try {
-                Debug.info("Disabling addon " + addonInfo.getName() + " " + addonInfo.getVersion());
+                Debug.info("Disabling addon " + ColorSet.emphasis + addonInfo.getName() + " " + addonInfo.getVersion());
                 addon.disable();
-                Debug.good("Successfully disabled " + addonInfo.getName() + " " + addonInfo.getVersion());
+                Debug.good("Successfully disabled " + ColorSet.emphasis + addonInfo.getName() + " " + addonInfo.getVersion());
             }
             catch (Exception e) {
-                Debug.error("Failed to disable addon " + addonInfo.getName() + " " + addonInfo.getVersion());
+                Debug.error("Failed to disable addon " + ColorSet.emphasis + addonInfo.getName() + " " + addonInfo.getVersion());
             }
         }
         addons.clear();
