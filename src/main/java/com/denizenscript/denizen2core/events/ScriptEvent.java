@@ -145,6 +145,7 @@ public abstract class ScriptEvent implements Cloneable {
             sort();
         }
         else if (loaded) {
+            loaded = false;
             disable();
         }
     }
