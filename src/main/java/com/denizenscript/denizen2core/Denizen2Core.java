@@ -342,6 +342,15 @@ public class Denizen2Core {
         for (ScriptEvent event : events) {
             event.init();
         }
+        for (WorldScript script : ScriptEvent.currentWorldScripts) {
+            Set<StringHolder> evts = script.contents.getConfigurationSection("events").getKeys(false);
+            for (StringHolder evt : evts) {
+                if (!script.eventsConfirmed.contains(evt)) {
+                    Debug.error("Script event went unmatched: " + ColorSet.emphasis + script.title + ".events." + evt.str
+                            + ColorSet.warning + "!");
+                }
+            }
+        }
     }
 
     public static void unload() {

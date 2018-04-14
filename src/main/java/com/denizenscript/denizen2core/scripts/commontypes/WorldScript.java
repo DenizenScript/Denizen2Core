@@ -6,6 +6,8 @@ import com.denizenscript.denizen2core.scripts.CommandScript;
 import com.denizenscript.denizen2core.utilities.CoreUtilities;
 import com.denizenscript.denizen2core.utilities.yaml.YAMLConfiguration;
 
+import java.util.HashSet;
+
 public class WorldScript extends CommandScript {
 
     // <--[explanation]
@@ -42,4 +44,6 @@ public class WorldScript extends CommandScript {
         }
         return false;
     }
+
+    public final HashSet<String> eventsConfirmed = new HashSet<>();
 }

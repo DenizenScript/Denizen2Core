@@ -123,6 +123,7 @@ public abstract class ScriptEvent implements Cloneable {
                 if (couldMatch(data)) {
                     try {
                         usages.add(data);
+                        script.eventsConfirmed.add(evt.str);
                         if (generalDebug) {
                             Debug.good("Script event match: " + ColorSet.emphasis + getName()
                                     + ColorSet.good + " matched for: " + ColorSet.emphasis + script.title + "." + evt.str
