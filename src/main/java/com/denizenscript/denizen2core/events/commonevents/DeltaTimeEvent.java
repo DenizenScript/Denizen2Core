@@ -37,7 +37,7 @@ public class DeltaTimeEvent extends ScriptEvent {
 
     @Override
     public boolean matches(ScriptEventData data) {
-        return data.eventPath.startsWith("delta time secondly") || (((second % 60) == 0) && data.eventPath.startsWith("delta time minutely'"));
+        return data.eventPath.startsWith("delta time secondly") || (((second % 60) == 0) && data.eventPath.startsWith("delta time minutely"));
     }
 
     public void call(long sec) {
