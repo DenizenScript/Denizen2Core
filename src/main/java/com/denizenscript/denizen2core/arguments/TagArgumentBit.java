@@ -9,6 +9,7 @@ import com.denizenscript.denizen2core.DebugMode;
 import com.denizenscript.denizen2core.commands.CommandQueue;
 import com.denizenscript.denizen2core.tags.AbstractTagBase;
 import com.denizenscript.denizen2core.utilities.Action;
+import com.denizenscript.denizen2core.utilities.debugging.Debug;
 
 import java.util.HashMap;
 
@@ -66,9 +67,15 @@ public class TagArgumentBit extends ArgumentBit {
         if (res instanceof NullTag && fallback != null) {
             res = fallback.parse(queue, vars, mode, error);
         }
-        if (queue.shouldShowGood()) {
-            queue.outGood("Filled tag '" + ColorSet.emphasis + getString() + ColorSet.good
-                    + "' with '" + ColorSet.emphasis + res.debug() + ColorSet.good + "'.");
+        if (mode.showFull) {
+            String outp = "Filled tag '" + ColorSet.emphasis + getString() + ColorSet.good
+                    + "' with '" + ColorSet.emphasis + res.debug() + ColorSet.good + "'.";
+            if (queue != null) {
+                queue.outGood(outp);
+            }
+            else {
+                Debug.good(outp);
+            }
         }
         return res;
     }
