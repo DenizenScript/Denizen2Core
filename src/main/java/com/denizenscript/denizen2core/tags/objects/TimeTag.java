@@ -6,10 +6,7 @@ import com.denizenscript.denizen2core.tags.TagData;
 import com.denizenscript.denizen2core.utilities.Action;
 import com.denizenscript.denizen2core.utilities.Function2;
 
-import java.time.DateTimeException;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Locale;
@@ -52,6 +49,12 @@ public class TimeTag extends AbstractTagObject implements Denizen2Core.IntegerFo
     public final static HashMap<String, Function2<TagData, AbstractTagObject, AbstractTagObject>> handlers = new HashMap<>();
 
     static {
+        // TODO: Tags to add:
+        // duration_until[<TimeTag>] returns Duration (basically a subtract)
+        // subtract_duration[<DurationTag>] returns TimeTag
+        // add_duration[<DurationTag>] return TimeTag
+        // ...
+
         // <--[tag]
         // @Since 0.3.0
         // @Name TimeTag.year
@@ -148,6 +151,112 @@ public class TimeTag extends AbstractTagObject implements Denizen2Core.IntegerFo
         // @Returns the second of the minute represented by this date.
         // -->
         handlers.put("second", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.getSecond()));
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name TimeTag.year_local[<zone>]
+        // @Updated 2018/06/09
+        // @Group General Information
+        // @ReturnType IntegerTag
+        // @Returns the year represented by this date, for the specified locality zone (or the system default locality zone if not specified).
+        // @Example "0" .year returns "1970".
+        // -->
+        handlers.put("year_local", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.atZone(
+                dat.hasNextModifier() ? ZoneId.of(dat.getNextModifier().toString()) : ZoneId.systemDefault()).getYear()));
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name TimeTag.month_local[<zone>]
+        // @Updated 2018/06/09
+        // @Group General Information
+        // @ReturnType IntegerTag
+        // @Returns the month represented by this date, for the specified locality zone (or the system default locality zone if not specified).
+        // @Example "0" .month returns "1".
+        // -->
+        handlers.put("month_local", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.atZone(
+                dat.hasNextModifier() ? ZoneId.of(dat.getNextModifier().toString()) : ZoneId.systemDefault()).getMonthValue()));
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name TimeTag.month_name_local[<zone>]
+        // @Updated 2018/06/09
+        // @Group General Information
+        // @ReturnType TextTag
+        // @Returns the name of the month represented by this date, for the specified locality zone (or the system default locality zone if not specified).
+        // @Example "0" .month returns "JANUARY".
+        // -->
+        handlers.put("month_name_local", (dat, obj) -> new TextTag(((TimeTag) obj).internal.atZone(
+                dat.hasNextModifier() ? ZoneId.of(dat.getNextModifier().toString()) : ZoneId.systemDefault()).getMonth().name()));
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name TimeTag.day_local[<zone>]
+        // @Updated 2018/06/09
+        // @Group General Information
+        // @ReturnType IntegerTag
+        // @Returns the day represented by this date, for the specified locality zone (or the system default locality zone if not specified).
+        // @Example "0" .day returns "1".
+        // -->
+        handlers.put("day_local", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.atZone(
+                dat.hasNextModifier() ? ZoneId.of(dat.getNextModifier().toString()) : ZoneId.systemDefault()).getDayOfMonth()));
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name TimeTag.day_of_year_local[<zone>]
+        // @Updated 2018/06/09
+        // @Group General Information
+        // @ReturnType IntegerTag
+        // @Returns the day of the year represented by this date, for the specified locality zone (or the system default locality zone if not specified).
+        // @Example "0" .day_of_year returns "1".
+        // -->
+        handlers.put("day_of_year_local", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.atZone(
+                dat.hasNextModifier() ? ZoneId.of(dat.getNextModifier().toString()) : ZoneId.systemDefault()).getDayOfYear()));
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name TimeTag.day_of_week_local[<zone>]
+        // @Updated 2018/06/09
+        // @Group General Information
+        // @ReturnType IntegerTag
+        // @Returns the day of the week represented by this date, for the specified locality zone (or the system default locality zone if not specified).
+        // @Example "0" .day_of_week returns "1".
+        // -->
+        handlers.put("day_of_week_local", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.atZone(
+                dat.hasNextModifier() ? ZoneId.of(dat.getNextModifier().toString()) : ZoneId.systemDefault()).getDayOfWeek().getValue()));
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name TimeTag.day_of_week_name_local[<zone>]
+        // @Updated 2018/06/09
+        // @Group General Information
+        // @ReturnType IntegerTag
+        // @Returns the name of the day of the week represented by this date, for the specified locality zone (or the system default locality zone if not specified).
+        // -->
+        handlers.put("day_of_week_name_local", (dat, obj) -> new TextTag(((TimeTag) obj).internal.atZone(
+                dat.hasNextModifier() ? ZoneId.of(dat.getNextModifier().toString()) : ZoneId.systemDefault()).getDayOfWeek().name()));
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name TimeTag.hour_local[<zone>]
+        // @Updated 2018/06/09
+        // @Group General Information
+        // @ReturnType IntegerTag
+        // @Returns the hour of the day represented by this date, for the specified locality zone (or the system default locality zone if not specified).
+        // -->
+        handlers.put("hour_local", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.atZone(
+                dat.hasNextModifier() ? ZoneId.of(dat.getNextModifier().toString()) : ZoneId.systemDefault()).getHour()));
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name TimeTag.minute_local[<zone>]
+        // @Updated 2018/06/09
+        // @Group General Information
+        // @ReturnType IntegerTag
+        // @Returns the minute of the hour represented by this date, for the specified locality zone (or the system default locality zone if not specified).
+        // -->
+        handlers.put("minute_local", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.atZone(
+                dat.hasNextModifier() ? ZoneId.of(dat.getNextModifier().toString()) : ZoneId.systemDefault()).getMinute()));
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name TimeTag.second_local[<zone>]
+        // @Updated 2018/06/09
+        // @Group General Information
+        // @ReturnType IntegerTag
+        // @Returns the second of the minute represented by this date, for the specified locality zone (or the system default locality zone if not specified).
+        // -->
+        handlers.put("second_local", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.atZone(
+                dat.hasNextModifier() ? ZoneId.of(dat.getNextModifier().toString()) : ZoneId.systemDefault()).getSecond()));
         // <--[tag]
         // @Since 0.3.0
         // @Name TimeTag.total_milliseconds

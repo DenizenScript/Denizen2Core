@@ -55,7 +55,7 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
     static {
         // <--[tag]
         // @Since 0.3.0
-        // @Name DurationTag.add_duration[<NumberTag>]
+        // @Name DurationTag.add_duration[<DurationTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType DurationTag
@@ -68,7 +68,7 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
         });
         // <--[tag]
         // @Since 0.3.0
-        // @Name DurationTag.subtract_duration[<NumberTag>]
+        // @Name DurationTag.subtract_duration[<DurationTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType DurationTag
