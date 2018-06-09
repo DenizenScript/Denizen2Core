@@ -49,10 +49,25 @@ public class IntegerTag extends AbstractTagObject implements Denizen2Core.Intege
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the integer plus another integer.
+        // @Note also known as ".add_int[<IntegerTag>]".
         // @Example "1" .add_integer[1] returns "2".
         // -->
         handlers.put("add_integer", (dat, obj) -> {
             IntegerTag two = IntegerTag.getFor(dat.checkedError, dat.getNextModifier());
+            return new IntegerTag(((IntegerTag) obj).internal + two.internal);
+        });
+        // <--[tag]
+        // @Since 0.4.0
+        // @Name IntegerTag.add_int[<IntegerTag>]
+        // @Updated 2018/06/09
+        // @Group Mathematics
+        // @ReturnType IntegerTag
+        // @Returns the integer plus another integer.
+        // @Note also known as ".add_integer[<IntegerTag>]".
+        // @Example "1" .add_int[1] returns "2".
+        // -->
+        handlers.put("add_int", (dat, obj) -> {
+            IntegerTag two = IntegerTag.getFor(dat.error, dat.getNextModifier());
             return new IntegerTag(((IntegerTag) obj).internal + two.internal);
         });
         // <--[tag]
@@ -62,10 +77,25 @@ public class IntegerTag extends AbstractTagObject implements Denizen2Core.Intege
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the integer minus another integer.
+        // @Note also known as ".sub_int[<IntegerTag>]".
         // @Example "1" .subtract_integer[1] returns "0".
         // -->
         handlers.put("subtract_integer", (dat, obj) -> {
             IntegerTag two = IntegerTag.getFor(dat.checkedError, dat.getNextModifier());
+            return new IntegerTag(((IntegerTag) obj).internal - two.internal);
+        });
+        // <--[tag]
+        // @Since 0.4.0
+        // @Name IntegerTag.sub_int[<IntegerTag>]
+        // @Updated 2018/06/09
+        // @Group Mathematics
+        // @ReturnType IntegerTag
+        // @Returns the integer minus another integer.
+        // @Note also known as ".subtract_integer[<IntegerTag>]".
+        // @Example "1" .sub_int[1] returns "0".
+        // -->
+        handlers.put("sub_int", (dat, obj) -> {
+            IntegerTag two = IntegerTag.getFor(dat.error, dat.getNextModifier());
             return new IntegerTag(((IntegerTag) obj).internal - two.internal);
         });
         // <--[tag]
@@ -75,10 +105,25 @@ public class IntegerTag extends AbstractTagObject implements Denizen2Core.Intege
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the integer times another integer.
+        // @Note also known as ".mul_int[<IntegerTag>]".
         // @Example "1" .multiply_integer[1] returns "1".
         // -->
         handlers.put("multiply_integer", (dat, obj) -> {
             IntegerTag two = IntegerTag.getFor(dat.checkedError, dat.getNextModifier());
+            return new IntegerTag(((IntegerTag) obj).internal * two.internal);
+        });
+        // <--[tag]
+        // @Since 0.4.0
+        // @Name IntegerTag.mul_int[<IntegerTag>]
+        // @Updated 2018/06/09
+        // @Group Mathematics
+        // @ReturnType IntegerTag
+        // @Returns the integer times another integer.
+        // @Note also known as ".multiply_integer[<IntegerTag>]".
+        // @Example "1" .mul_int[1] returns "1".
+        // -->
+        handlers.put("mul_int", (dat, obj) -> {
+            IntegerTag two = IntegerTag.getFor(dat.error, dat.getNextModifier());
             return new IntegerTag(((IntegerTag) obj).internal * two.internal);
         });
         // <--[tag]
@@ -88,10 +133,25 @@ public class IntegerTag extends AbstractTagObject implements Denizen2Core.Intege
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the integer divided by another integer.
+        // @Note also known as ".div_int[<IntegerTag>]".
         // @Example "1" .divide_integer[1] returns "1".
         // -->
         handlers.put("divide_integer", (dat, obj) -> {
             IntegerTag two = IntegerTag.getFor(dat.checkedError, dat.getNextModifier());
+            return new IntegerTag(((IntegerTag) obj).internal / two.internal);
+        });
+        // <--[tag]
+        // @Since 0.4.0
+        // @Name IntegerTag.div_int[<IntegerTag>]
+        // @Updated 2018/06/09
+        // @Group Mathematics
+        // @ReturnType IntegerTag
+        // @Returns the integer divided by another integer.
+        // @Note also known as ".divide_integer[<IntegerTag>]".
+        // @Example "1" .div_int[1] returns "1".
+        // -->
+        handlers.put("div_int", (dat, obj) -> {
+            IntegerTag two = IntegerTag.getFor(dat.error, dat.getNextModifier());
             return new IntegerTag(((IntegerTag) obj).internal / two.internal);
         });
         // <--[tag]
@@ -101,10 +161,25 @@ public class IntegerTag extends AbstractTagObject implements Denizen2Core.Intege
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the integer modulo another integer.
+        // @Note also known as ".mod_int[<IntegerTag>]".
         // @Example "1" .modulo_integer[1] returns "0".
         // -->
         handlers.put("modulo_integer", (dat, obj) -> {
             IntegerTag two = IntegerTag.getFor(dat.checkedError, dat.getNextModifier());
+            return new IntegerTag(((IntegerTag) obj).internal % two.internal);
+        });
+        // <--[tag]
+        // @Since 0.4.0
+        // @Name IntegerTag.mod_int[<IntegerTag>]
+        // @Updated 2018/06/09
+        // @Group Mathematics
+        // @ReturnType IntegerTag
+        // @Returns the integer modulo another integer.
+        // @Note also known as ".modulo_integer[<IntegerTag>]".
+        // @Example "1" .mod_int[1] returns "0".
+        // -->
+        handlers.put("mod_int", (dat, obj) -> {
+            IntegerTag two = IntegerTag.getFor(dat.error, dat.getNextModifier());
             return new IntegerTag(((IntegerTag) obj).internal % two.internal);
         });
         // <--[tag]
@@ -114,10 +189,25 @@ public class IntegerTag extends AbstractTagObject implements Denizen2Core.Intege
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns whichever is bigger: this integer, or the specified integer.
+        // @Note also known as ".max_int[<IntegerTag>]".
         // @Example "1" .maximum_integer[2] returns "2".
         // -->
         handlers.put("maximum_integer", (dat, obj) -> {
             IntegerTag two = IntegerTag.getFor(dat.checkedError, dat.getNextModifier());
+            return new IntegerTag(Math.max(((IntegerTag) obj).internal, two.internal));
+        });
+        // <--[tag]
+        // @Since 0.4.0
+        // @Name IntegerTag.max_int[<IntegerTag>]
+        // @Updated 2018/06/09
+        // @Group Mathematics
+        // @ReturnType IntegerTag
+        // @Returns whichever is bigger: this integer, or the specified integer.
+        // @Note also known as ".maximum_integer[<IntegerTag>]".
+        // @Example "1" .max_int[2] returns "2".
+        // -->
+        handlers.put("max_int", (dat, obj) -> {
+            IntegerTag two = IntegerTag.getFor(dat.error, dat.getNextModifier());
             return new IntegerTag(Math.max(((IntegerTag) obj).internal, two.internal));
         });
         // <--[tag]
@@ -127,10 +217,25 @@ public class IntegerTag extends AbstractTagObject implements Denizen2Core.Intege
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns whichever is smaller: this integer, or the specified integer.
+        // @Note also known as ".min_int[<IntegerTag>]".
         // @Example "1" .minimum_integer[2] returns "1".
         // -->
         handlers.put("minimum_integer", (dat, obj) -> {
             IntegerTag two = IntegerTag.getFor(dat.checkedError, dat.getNextModifier());
+            return new IntegerTag(Math.min(((IntegerTag) obj).internal, two.internal));
+        });
+        // <--[tag]
+        // @Since 0.4.0
+        // @Name IntegerTag.min_int[<IntegerTag>]
+        // @Updated 2018/06/09
+        // @Group Mathematics
+        // @ReturnType IntegerTag
+        // @Returns whichever is smaller: this integer, or the specified integer.
+        // @Note also known as ".minimum_integer[<IntegerTag>]".
+        // @Example "1" .min_int[2] returns "1".
+        // -->
+        handlers.put("min_int", (dat, obj) -> {
+            IntegerTag two = IntegerTag.getFor(dat.error, dat.getNextModifier());
             return new IntegerTag(Math.min(((IntegerTag) obj).internal, two.internal));
         });
         // <--[tag]
@@ -140,11 +245,21 @@ public class IntegerTag extends AbstractTagObject implements Denizen2Core.Intege
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the absolute value of this integer.
+        // @Note also known as ".abse_int[<IntegerTag>]".
         // @Example "-1" .absolute_value_integer returns "1".
         // -->
-        handlers.put("absolute_value_integer", (dat, obj) -> {
-            return new IntegerTag(Math.abs(((IntegerTag) obj).internal));
-        });
+        handlers.put("absolute_value_integer", (dat, obj) -> new IntegerTag(Math.abs(((IntegerTag) obj).internal)));
+        // <--[tag]
+        // @Since 0.4.0
+        // @Name IntegerTag.abs_int
+        // @Updated 2018/06/09
+        // @Group Mathematics
+        // @ReturnType IntegerTag
+        // @Returns the absolute value of this integer.
+        // @Note also known as ".absolute_value_integer[<IntegerTag>]".
+        // @Example "-1" .abs_int returns "1".
+        // -->
+        handlers.put("abs_int", (dat, obj) -> new IntegerTag(Math.abs(((IntegerTag) obj).internal)));
     }
 
     public static IntegerTag getFor(Action<String> error, String text) {

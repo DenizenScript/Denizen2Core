@@ -9,6 +9,7 @@ import com.denizenscript.denizen2core.utilities.Function2;
 import com.denizenscript.denizen2core.arguments.TextArgumentBit;
 import com.denizenscript.denizen2core.utilities.Action;
 import com.denizenscript.denizen2core.utilities.CoreUtilities;
+import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,13 +64,120 @@ public class ListTag extends AbstractTagObject {
         handlers.put("get", (dat, obj) -> {
             IntegerTag ind = IntegerTag.getFor(dat.checkedError, dat.getNextModifier());
             int i = (int) ind.getInternal() - 1;
-            if (i < 0 || i >= ((ListTag) obj).internal.size()) {
+            List<AbstractTagObject> list = ((ListTag) obj).internal;
+            if (i < 0 || i >= list.size()) {
                 if (!dat.hasFallback()) {
-                    dat.error.run("Invalid ListTag.GET[...] index!");
+                    dat.error.run(".get[] with input " + ColorSet.emphasis
+                            + ind.debug() + ColorSet.good + " for list of length "
+                            + ColorSet.emphasis + list.size() + ColorSet.good
+                            + " failed, index out of bounds!");
                 }
                 return NullTag.NULL;
             }
-            return ((ListTag) obj).internal.get(i);
+            return list.get(i);
+        });
+        // <--[tag]
+        // @Since 0.4.0
+        // @Name ListTag.first
+        // @Updated 2018/06/08
+        // @Group Lists
+        // @ReturnType Dynamic
+        // @Returns the first object in the list.
+        // @Example "one|two|three|" .first returns "one".
+        // -->
+        handlers.put("first", (dat, obj) -> {
+            List<AbstractTagObject> list = ((ListTag) obj).internal;
+            if (list.isEmpty()) {
+                if (!dat.hasFallback()) {
+                    dat.error.run(".first failed, list is empty!");
+                }
+                return NullTag.NULL;
+            }
+            return list.get(0);
+        });
+        // <--[tag]
+        // @Since 0.4.0
+        // @Name ListTag.last
+        // @Updated 2018/06/08
+        // @Group Lists
+        // @ReturnType Dynamic
+        // @Returns the last object in the list.
+        // @Example "one|two|three|" .last returns "three".
+        // -->
+        handlers.put("last", (dat, obj) -> {
+            List<AbstractTagObject> list = ((ListTag) obj).internal;
+            if (list.isEmpty()) {
+                if (!dat.hasFallback()) {
+                    dat.error.run(".last failed, list is empty!");
+                }
+                return NullTag.NULL;
+            }
+            return list.get(list.size() - 1);
+        });
+        // <--[tag]
+        // @Since 0.4.0
+        // @Name ListTag.find_first[<Dynamic>]
+        // @Updated 2018/06/09
+        // @Group Lists
+        // @ReturnType IntegerTag
+        // @Returns the position of the first object in the list that matches the input, or 0 if there were no matches.
+        // @Example "one|two|three|" .last returns "three".
+        // -->
+        handlers.put("find_first", (dat, obj) -> {
+            List<AbstractTagObject> list = ((ListTag) obj).internal;
+            if (list.isEmpty()) {
+                if (!dat.hasFallback()) {
+                    dat.error.run(".find_first[] failed, list is empty!");
+                }
+                return NullTag.NULL;
+            }
+            int i = list.indexOf(dat.getNextModifier());
+            return new IntegerTag(i + 1);
+        });
+        // <--[tag]
+        // @Since 0.4.0
+        // @Name ListTag.find_last[<Dynamic>]
+        // @Updated 2018/06/09
+        // @Group Lists
+        // @ReturnType IntegerTag
+        // @Returns the position of the last object in the list that matches the input, or 0 if there were no matches.
+        // @Example "one|two|three|" .last returns "three".
+        // -->
+        handlers.put("find_last", (dat, obj) -> {
+            List<AbstractTagObject> list = ((ListTag) obj).internal;
+            if (list.isEmpty()) {
+                if (!dat.hasFallback()) {
+                    dat.error.run(".find_last[] failed, list is empty!");
+                }
+                return NullTag.NULL;
+            }
+            int i = list.lastIndexOf(dat.getNextModifier());
+            return new IntegerTag(i + 1);
+        });
+        // <--[tag]
+        // @Since 0.4.0
+        // @Name ListTag.sublist[<ListTag>]
+        // @Updated 2018/06/08
+        // @Group Lists
+        // @ReturnType ListTag<Dynamic>
+        // @Returns a sublist of objects from the list with positions between the two values specified.
+        // @Example "one|two|three|four|five|" .sublist[2|4] returns "two|three|four|".
+        // -->
+        handlers.put("sublist", (dat, obj) -> {
+            ListTag input = ListTag.getFor(dat.error, dat.getNextModifier());
+            int i = (int) IntegerTag.getFor(dat.error, input.internal.get(0)).getInternal() - 1;
+            int j = (int) IntegerTag.getFor(dat.error, input.internal.get(1)).getInternal() - 1;
+            List<AbstractTagObject> list = ((ListTag) obj).internal;
+            if (i < 0 || j >= list.size() || i > j) {
+                if (!dat.hasFallback()) {
+                    dat.error.run(".sublist[] with input " + ColorSet.emphasis
+                            + input.debug() + ColorSet.good + " for list of length "
+                            + ColorSet.emphasis + list.size() + ColorSet.good
+                            + " failed, indices out of bounds!");
+                }
+                return NullTag.NULL;
+            }
+            return new ListTag(list.subList(i, j));
         });
         // <--[tag]
         // @Since 0.5.0
@@ -145,10 +253,10 @@ public class ListTag extends AbstractTagObject {
         // -->
         handlers.put("contains", (dat, obj) -> {
             String contain_check = CoreUtilities.toLowerCase(dat.getNextModifier().toString());
-            ListTag list = (ListTag) obj;
-            for (int i = 0; i < list.getInternal().size(); i++) {
-                if (CoreUtilities.toLowerCase(list.getInternal().get(i).toString()).equals(contain_check)) {
-                    return BooleanTag.TRUE;
+            List<AbstractTagObject> list = ((ListTag) obj).internal;
+            for (AbstractTagObject aList : list) {
+                if (CoreUtilities.toLowerCase(aList.toString()).equals(contain_check)) {
+                    return BooleanTag.getForBoolean(true);
                 }
             }
             return BooleanTag.FALSE;
@@ -164,10 +272,10 @@ public class ListTag extends AbstractTagObject {
         // -->
         handlers.put("contains_cased", (dat, obj) -> {
             String contain_check = dat.getNextModifier().toString();
-            ListTag list = (ListTag) obj;
-            for (int i = 0; i < list.getInternal().size(); i++) {
-                if (list.getInternal().get(i).toString().equals(contain_check)) {
-                    return BooleanTag.TRUE;
+            List<AbstractTagObject> list = ((ListTag) obj).internal;
+            for (AbstractTagObject aList : list) {
+                if (aList.toString().equals(contain_check)) {
+                    return BooleanTag.getForBoolean(true);
                 }
             }
             return BooleanTag.FALSE;
@@ -192,14 +300,15 @@ public class ListTag extends AbstractTagObject {
         // @Example "one|two|three|" .random might return "one", "two", or "three".
         // -->
         handlers.put("random", (dat, obj) -> {
-            int size = ((ListTag) obj).internal.size();
+            List<AbstractTagObject> list = ((ListTag) obj).internal;
+            int size = list.size();
             if (size <= 0) {
                 if (!dat.hasFallback()) {
-                    dat.error.run("Empty list can't be read from for random tag!");
+                    dat.error.run(".random failed, list is empty!");
                 }
                 return NullTag.NULL;
             }
-            return ((ListTag) obj).internal.get(CoreUtilities.random.nextInt(size));
+            return list.get(CoreUtilities.random.nextInt(size));
         });
     }
 
