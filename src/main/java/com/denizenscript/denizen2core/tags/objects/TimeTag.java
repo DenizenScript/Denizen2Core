@@ -1,25 +1,28 @@
 package com.denizenscript.denizen2core.tags.objects;
 
+import com.denizenscript.denizen2core.Denizen2Core;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.TagData;
 import com.denizenscript.denizen2core.utilities.Action;
 import com.denizenscript.denizen2core.utilities.Function2;
 
+import java.time.DateTimeException;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Locale;
 
-public class TimeTag extends AbstractTagObject {
+public class TimeTag extends AbstractTagObject implements Denizen2Core.IntegerForm, Denizen2Core.NumberForm {
 
     // <--[object]
     // @Since 0.3.0
     // @Type TimeTag
     // @SubType IntegerTag
     // @Group Mathematics
-    // @Description Represents a date-time. Indentified as an integer number, representing milliseconds since Jan 1st, 1970, 00:00 UTC.
-    // @Note All time values are UTC!
+    // @Description Represents a date-time. Identified as an integer number, representing milliseconds since Jan 1st, 1970, 00:00 UTC.
+    // @Note All time values are UTC, except where explicitly localized!
     // -->
 
     private LocalDateTime internal;
@@ -30,6 +33,20 @@ public class TimeTag extends AbstractTagObject {
 
     public LocalDateTime getInternal() {
         return internal;
+    }
+
+    @Override
+    public long getIntegerForm() {
+        return getInternalInteger();
+    }
+
+    @Override
+    public double getNumberForm() {
+        return getInternalInteger();
+    }
+
+    public long getInternalInteger() {
+        return internal.toInstant(ZoneOffset.UTC).toEpochMilli();
     }
 
     public final static HashMap<String, Function2<TagData, AbstractTagObject, AbstractTagObject>> handlers = new HashMap<>();
@@ -142,19 +159,35 @@ public class TimeTag extends AbstractTagObject {
         handlers.put("total_milliseconds", (dat, obj) -> new IntegerTag(((TimeTag) obj).internal.toInstant(ZoneOffset.UTC).toEpochMilli()));
     }
 
+    public static TimeTag getForInteger(Action<String> error, long val) {
+        try {
+            return new TimeTag(LocalDateTime.ofInstant(Instant.ofEpochMilli(val), ZoneOffset.UTC));
+        }
+        catch (DateTimeException ex) {
+            error.run("Invalid TimeTag input (invalid datetime result)!");
+            return null;
+        }
+    }
+
     public static TimeTag getFor(Action<String> error, String text) {
         try {
             long l = Long.parseLong(text);
-            return new TimeTag(LocalDateTime.ofEpochSecond(l, 0, ZoneOffset.UTC));
+            return getForInteger(error, l);
         }
         catch (NumberFormatException ex) {
-            error.run("Invalid TimeTag input!");
+            error.run("Invalid TimeTag input (not an integer)!");
             return null;
         }
     }
 
     public static TimeTag getFor(Action<String> error, AbstractTagObject text) {
-        return (text instanceof TimeTag) ? (TimeTag) text : getFor(error, text.toString());
+        if (text instanceof TimeTag) {
+            return (TimeTag) text;
+        }
+        if (text instanceof Denizen2Core.IntegerForm) {
+            return getForInteger(error, ((Denizen2Core.IntegerForm) text).getIntegerForm());
+        }
+        return getFor(error, text.toString());
     }
 
     public static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss[z]", Locale.ENGLISH);
@@ -171,7 +204,7 @@ public class TimeTag extends AbstractTagObject {
 
     @Override
     public AbstractTagObject handleElseCase(TagData data) {
-        return new IntegerTag(internal.toInstant(ZoneOffset.UTC).toEpochMilli());
+        return new IntegerTag(getInternalInteger());
     }
 
     @Override
@@ -181,6 +214,6 @@ public class TimeTag extends AbstractTagObject {
 
     @Override
     public String toString() {
-        return String.valueOf(internal.toEpochSecond(ZoneOffset.UTC));
+        return String.valueOf(getInternalInteger());
     }
 }

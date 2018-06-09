@@ -47,6 +47,14 @@ import java.util.stream.Stream;
  */
 public class Denizen2Core {
 
+    public interface IntegerForm {
+        long getIntegerForm();
+    }
+
+    public interface NumberForm {
+        double getNumberForm();
+    }
+
     public final static String version;
 
     static {

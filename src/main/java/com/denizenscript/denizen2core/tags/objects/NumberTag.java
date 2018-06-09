@@ -1,5 +1,6 @@
 package com.denizenscript.denizen2core.tags.objects;
 
+import com.denizenscript.denizen2core.Denizen2Core;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.TagData;
 import com.denizenscript.denizen2core.utilities.Function2;
@@ -8,7 +9,7 @@ import com.denizenscript.denizen2core.utilities.CoreUtilities;
 
 import java.util.HashMap;
 
-public class NumberTag extends AbstractTagObject {
+public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberForm {
 
     // <--[object]
     // @Since 0.3.0
@@ -26,6 +27,11 @@ public class NumberTag extends AbstractTagObject {
     }
 
     public double getInternal() {
+        return internal;
+    }
+
+    @Override
+    public double getNumberForm() {
         return internal;
     }
 
@@ -584,7 +590,13 @@ public class NumberTag extends AbstractTagObject {
     }
 
     public static NumberTag getFor(Action<String> error, AbstractTagObject text) {
-        return (text instanceof NumberTag) ? (NumberTag) text : getFor(error, text.toString());
+        if (text instanceof NumberTag) {
+            return (NumberTag) text;
+        }
+        if (text instanceof Denizen2Core.NumberForm) {
+            return new NumberTag(((Denizen2Core.NumberForm) text).getNumberForm());
+        }
+        return getFor(error, text.toString());
     }
 
     @Override

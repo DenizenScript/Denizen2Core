@@ -1,5 +1,6 @@
 package com.denizenscript.denizen2core.tags.objects;
 
+import com.denizenscript.denizen2core.Denizen2Core;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.TagData;
 import com.denizenscript.denizen2core.utilities.Function2;
@@ -8,7 +9,7 @@ import com.denizenscript.denizen2core.utilities.CoreUtilities;
 
 import java.util.HashMap;
 
-public class DurationTag extends AbstractTagObject {
+public class DurationTag extends AbstractTagObject implements Denizen2Core.NumberForm {
 
     // <--[explanation]
     // @Since 0.3.0
@@ -37,6 +38,11 @@ public class DurationTag extends AbstractTagObject {
     }
 
     public double getInternal() {
+        return internal;
+    }
+
+    @Override
+    public double getNumberForm() {
         return internal;
     }
 
@@ -105,7 +111,13 @@ public class DurationTag extends AbstractTagObject {
     }
 
     public static DurationTag getFor(Action<String> error, AbstractTagObject text) {
-        return (text instanceof DurationTag) ? (DurationTag) text : getFor(error, text.toString());
+        if (text instanceof DurationTag) {
+            return (DurationTag) text;
+        }
+        if (text instanceof Denizen2Core.NumberForm) {
+            return new DurationTag(((Denizen2Core.NumberForm) text).getNumberForm());
+        }
+        return getFor(error, text.toString());
     }
 
     @Override

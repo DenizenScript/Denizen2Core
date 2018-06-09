@@ -64,7 +64,7 @@ public class EscapeTagBase extends AbstractTagBase {
                 .replace(".", "&dot").replace("\\", "&bs")
                 .replace("'", "&sq").replace("\"", "&quo")
                 .replace("!", "&exc").replace("/", "&fs")
-                .replace("#", "&ns").replace("§", "&ss");
+                .replace("#", "&ns").replace("\u00A7", "&ss");
     }
 
     /**
@@ -86,7 +86,7 @@ public class EscapeTagBase extends AbstractTagBase {
                 .replace("&co", ":").replace("&at", "@")
                 .replace("&dot", ".").replace("&bs", "\\")
                 .replace("&quo", "\"").replace("&exc", "!")
-                .replace("&fs", "/").replace("&ss", "§")
+                .replace("&fs", "/").replace("&ss", "\u00A7")
                 .replace("&ns", "#").replace("&amp", "&");
     }
 

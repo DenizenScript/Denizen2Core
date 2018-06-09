@@ -10,7 +10,7 @@ import com.denizenscript.denizen2core.utilities.Function2;
 
 import java.util.HashMap;
 
-public class QueueTag extends AbstractTagObject {
+public class QueueTag extends AbstractTagObject implements Denizen2Core.IntegerForm, Denizen2Core.NumberForm {
 
     // <--[object]
     // @Since 0.3.0
@@ -28,6 +28,16 @@ public class QueueTag extends AbstractTagObject {
 
     public CommandQueue getInternal() {
         return internal;
+    }
+
+    @Override
+    public long getIntegerForm() {
+        return internal.qID;
+    }
+
+    @Override
+    public double getNumberForm() {
+        return internal.qID;
     }
 
     public final static HashMap<String, Function2<TagData, AbstractTagObject, AbstractTagObject>> handlers = new HashMap<>();
@@ -130,25 +140,35 @@ public class QueueTag extends AbstractTagObject {
         });
     }
 
+    public static QueueTag getForID(Action<String> error, long id) {
+        for (CommandQueue queue : Denizen2Core.queues) {
+            if (queue.qID == id) {
+                return new QueueTag(queue);
+            }
+        }
+        error.run("Unknown queue specified!");
+        return null;
+    }
+
     public static QueueTag getFor(Action<String> error, String text) {
         try {
             long l = Long.parseLong(text);
-            for (CommandQueue queue : Denizen2Core.queues) {
-                if (queue.qID == l) {
-                    return new QueueTag(queue);
-                }
-            }
-            error.run("Unknown queue specified!");
-            return null;
+            return getForID(error, l);
         }
         catch (NumberFormatException ex) {
-            error.run("Invalid IntegerTag input!");
+            error.run("Invalid QueueTag input (not an integer)!");
             return null;
         }
     }
 
     public static QueueTag getFor(Action<String> error, AbstractTagObject text) {
-        return (text instanceof QueueTag) ? (QueueTag) text : getFor(error, text.toString());
+        if (text instanceof QueueTag) {
+            return (QueueTag) text;
+        }
+        if (text instanceof Denizen2Core.IntegerForm) {
+            return getForID(error, ((Denizen2Core.IntegerForm) text).getIntegerForm());
+        }
+        return getFor(error, text.toString());
     }
 
     @Override
