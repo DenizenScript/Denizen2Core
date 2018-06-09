@@ -2,8 +2,7 @@ package com.denizenscript.denizen2core.arguments;
 
 import com.denizenscript.denizen2core.commands.CommandQueue;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
-import com.denizenscript.denizen2core.tags.objects.IntegerTag;
-import com.denizenscript.denizen2core.tags.objects.TextTag;
+import com.denizenscript.denizen2core.tags.objects.*;
 import com.denizenscript.denizen2core.DebugMode;
 import com.denizenscript.denizen2core.utilities.Action;
 
@@ -12,16 +11,42 @@ import java.util.HashMap;
 public class TextArgumentBit extends ArgumentBit {
 
     public TextArgumentBit(String inputText, boolean quoted) {
-        AbstractTagObject obj;
+        wasQuoted = quoted;
         try {
-            Long l = Long.parseLong(inputText);
-            obj = new IntegerTag(l);
+            long l = Long.parseLong(inputText);
+            if (String.valueOf(l).equals(inputText)) {
+                value = new IntegerTag(l);
+                return;
+            }
         }
         catch (NumberFormatException ex) {
-            obj = new TextTag(inputText);
+            // Ignore
         }
-        value = obj;
-        wasQuoted = quoted;
+        try {
+            double d = Double.parseDouble(inputText);
+            if (String.valueOf(d).equals(inputText)) {
+                value = new NumberTag(d);
+                return;
+            }
+        }
+        catch (NumberFormatException ex) {
+            // Ignore
+        }
+        ListTag ltTest = ListTag.getFor(TextArgumentBit::noAction, inputText);
+        if (ltTest != null && ltTest.toString().equals(inputText)) {
+            value = ltTest;
+            return;
+        }
+        MapTag mtTest = MapTag.getFor(TextArgumentBit::noAction, inputText);
+        if (mtTest != null && mtTest.toString().equals(inputText)) {
+            value = mtTest;
+            return;
+        }
+        value = new TextTag(inputText);
+    }
+
+    public static void noAction(String err) {
+        // Ignore
     }
 
     public AbstractTagObject value;

@@ -1,5 +1,10 @@
 package com.denizenscript.denizen2core.utilities.yaml;
 
+import com.denizenscript.denizen2core.arguments.TextArgumentBit;
+import com.denizenscript.denizen2core.tags.AbstractTagObject;
+import com.denizenscript.denizen2core.tags.objects.ListTag;
+import com.denizenscript.denizen2core.tags.objects.MapTag;
+import com.denizenscript.denizen2core.tags.objects.TextTag;
 import com.denizenscript.denizen2core.utilities.CoreUtilities;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
@@ -223,6 +228,36 @@ public class YAMLConfiguration {
             return false;
         }
         return true;
+    }
+
+    public AbstractTagObject objectFor(Object obj) {
+        if (obj instanceof List) {
+            return listify((List<Object>) obj);
+        }
+        if (obj instanceof Map) {
+            return mapify((Map<Object, Object>) obj);
+        }
+        return new TextArgumentBit(obj.toString(), false).value;
+    }
+
+    public MapTag mapify(Map<Object, Object> map) {
+        MapTag mt = new MapTag();
+        for (Map.Entry<Object, Object> entry : map.entrySet()) {
+            mt.getInternal().put(CoreUtilities.toLowerCase(entry.getKey().toString()), objectFor(entry.getValue()));
+        }
+        return mt;
+    }
+
+    public ListTag listify(List<Object> list) {
+        ListTag lt = new ListTag();
+        for (Object obj : list) {
+            lt.getInternal().add(objectFor(obj));
+        }
+        return lt;
+    }
+
+    public ListTag getListTag(String path) {
+        return listify(getList(path));
     }
 
     public List<Object> getList(String path) {
