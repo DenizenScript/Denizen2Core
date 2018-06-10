@@ -65,7 +65,7 @@ public class QueueTag extends AbstractTagObject implements Denizen2Core.IntegerF
         // @Example "1" .running may return "true".
         // -->
         handlers.put("running", (dat, obj) -> {
-            return new BooleanTag(((QueueTag) obj).internal.running);
+            return BooleanTag.getForBoolean(((QueueTag) obj).internal.running);
         });
         // <--[tag]
         // @Since 0.3.0
@@ -91,7 +91,7 @@ public class QueueTag extends AbstractTagObject implements Denizen2Core.IntegerF
         handlers.put("current_script", (dat, obj) -> {
             CommandScript cs = ((QueueTag) obj).internal.commandStack.peek().originalScript;
             if (cs == null) {
-                return new NullTag();
+                return NullTag.NULL;
             }
             return new ScriptTag(cs);
         });
@@ -106,11 +106,11 @@ public class QueueTag extends AbstractTagObject implements Denizen2Core.IntegerF
         // -->
         handlers.put("base_script", (dat, obj) -> {
             if (((QueueTag) obj).internal.commandStack.size() == 0) {
-                return new NullTag();
+                return NullTag.NULL;
             }
             CommandScript cs = ((QueueTag) obj).internal.commandStack.firstElement().originalScript;
             if (cs == null) {
-                return new NullTag();
+                return NullTag.NULL;
             }
             return new ScriptTag(cs);
         });
@@ -124,7 +124,7 @@ public class QueueTag extends AbstractTagObject implements Denizen2Core.IntegerF
         // @Example "1" .has_definition[value] may return "true".
         // -->
         handlers.put("has_definition", (dat, obj) -> {
-            return new BooleanTag(((QueueTag) obj).internal.commandStack.peek().hasDefinition(dat.getNextModifier().toString()));
+            return BooleanTag.getForBoolean(((QueueTag) obj).internal.commandStack.peek().hasDefinition(dat.getNextModifier().toString()));
         });
         // <--[tag]
         // @Since 0.3.0

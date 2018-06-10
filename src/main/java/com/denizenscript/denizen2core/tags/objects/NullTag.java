@@ -4,10 +4,15 @@ import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.TagData;
 import com.denizenscript.denizen2core.utilities.Action;
 import com.denizenscript.denizen2core.utilities.Function2;
+import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
 
 import java.util.HashMap;
 
 public class NullTag extends AbstractTagObject {
+
+    public final static NullTag NULL = new NullTag();
+
+    public final static String STRING_VAL = "&{NULL}";
 
     // <--[object]
     // @Since 0.3.0
@@ -29,15 +34,26 @@ public class NullTag extends AbstractTagObject {
 
     @Override
     public AbstractTagObject handleElseCase(TagData data) {
-        return new TextTag(toString());
+        return new TextTag(STRING_VAL);
+    }
+
+    @Override
+    public AbstractTagObject handle(TagData data) {
+        if (data.remaining() > 0 && !data.hasFallback()) {
+            data.error.run("Tag " + ColorSet.emphasis + data.bits[data.currentIndex() - 1].key
+                    + ColorSet.warning + " returned a NullTag, causing tag "
+                    + ColorSet.emphasis + data.bits[data.currentIndex()]
+                    + ColorSet.warning + " to fail.");
+        }
+        return this;
     }
 
     public static NullTag getFor(Action<String> error, String text) {
-        return new NullTag();
+        return NULL;
     }
 
     public static NullTag getFor(Action<String> error, AbstractTagObject text) {
-        return (text instanceof NullTag) ? (NullTag) text : getFor(error, text.toString());
+        return NULL;
     }
 
     @Override
@@ -47,6 +63,6 @@ public class NullTag extends AbstractTagObject {
 
     @Override
     public String toString() {
-        return "&{NULL}";
+        return STRING_VAL;
     }
 }

@@ -31,7 +31,7 @@ public class DefTagBase extends AbstractTagBase {
             if (!data.hasFallback()) {
                 data.error.run("Invalid definition name: '" + def + "'!");
             }
-            return new NullTag();
+            return NullTag.NULL;
         }
         return obj.handle(data.shrink());
     }

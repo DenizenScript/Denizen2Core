@@ -56,7 +56,7 @@ public class ListTag extends AbstractTagObject {
                 if (!dat.hasFallback()) {
                     dat.error.run("Invalid ListTag.GET[...] index!");
                 }
-                return new NullTag();
+                return NullTag.NULL;
             }
             return ((ListTag) obj).internal.get(i);
         });
@@ -74,10 +74,10 @@ public class ListTag extends AbstractTagObject {
             ListTag list = (ListTag) obj;
             for (int i = 0; i < list.getInternal().size(); i++) {
                 if (CoreUtilities.toLowerCase(list.getInternal().get(i).toString()).equals(contain_check)) {
-                    return new BooleanTag(true);
+                    return BooleanTag.getForBoolean(true);
                 }
             }
-            return new BooleanTag(false);
+            return BooleanTag.getForBoolean(false);
         });
         // <--[tag]
         // @Since 0.3.0
@@ -93,10 +93,10 @@ public class ListTag extends AbstractTagObject {
             ListTag list = (ListTag) obj;
             for (int i = 0; i < list.getInternal().size(); i++) {
                 if (list.getInternal().get(i).toString().equals(contain_check)) {
-                    return new BooleanTag(true);
+                    return BooleanTag.getForBoolean(true);
                 }
             }
-            return new BooleanTag(false);
+            return BooleanTag.getForBoolean(false);
         });
         // <--[tag]
         // @Since 0.3.0
@@ -123,7 +123,7 @@ public class ListTag extends AbstractTagObject {
                 if (!dat.hasFallback()) {
                     dat.error.run("Empty list can't be read from for random tag!");
                 }
-                return new NullTag();
+                return NullTag.NULL;
             }
             return ((ListTag) obj).internal.get(CoreUtilities.random.nextInt(size));
         });
@@ -150,8 +150,7 @@ public class ListTag extends AbstractTagObject {
                 break;
             }
             String data = EscapeTagBase.unescape(strs.get(i));
-            TextArgumentBit tab = new TextArgumentBit(data, false);
-            lt.internal.add(tab.value);
+            lt.internal.add(new TextArgumentBit(data, false, false).value);
         }
         return lt;
     }

@@ -11,6 +11,10 @@ import java.util.HashMap;
 public class TextArgumentBit extends ArgumentBit {
 
     public TextArgumentBit(String inputText, boolean quoted) {
+        this(inputText, quoted, true);
+    }
+
+    public TextArgumentBit(String inputText, boolean quoted, boolean depthAllowed) {
         wasQuoted = quoted;
         try {
             long l = Long.parseLong(inputText);
@@ -32,15 +36,17 @@ public class TextArgumentBit extends ArgumentBit {
         catch (NumberFormatException ex) {
             // Ignore
         }
-        ListTag ltTest = ListTag.getFor(TextArgumentBit::noAction, inputText);
-        if (ltTest != null && ltTest.toString().equals(inputText)) {
-            value = ltTest;
-            return;
-        }
-        MapTag mtTest = MapTag.getFor(TextArgumentBit::noAction, inputText);
-        if (mtTest != null && mtTest.toString().equals(inputText)) {
-            value = mtTest;
-            return;
+        if (depthAllowed) {
+            ListTag ltTest = ListTag.getFor(TextArgumentBit::noAction, inputText);
+            if (ltTest != null && ltTest.toString().equals(inputText)) {
+                value = ltTest;
+                return;
+            }
+            MapTag mtTest = MapTag.getFor(TextArgumentBit::noAction, inputText);
+            if (mtTest != null && mtTest.toString().equals(inputText)) {
+                value = mtTest;
+                return;
+            }
         }
         value = new TextTag(inputText);
     }

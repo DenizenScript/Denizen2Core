@@ -86,7 +86,7 @@ public class ForeachCommand extends AbstractCommand {
                 queue.commandStack.peek().goTo(entry.blockStart);
             }
             else {
-                queue.commandStack.peek().setDefinition(fcd.resName, new NullTag());
+                queue.commandStack.peek().removeDefinition(fcd.resName);
                 if (queue.shouldShowGood()) {
                     queue.outGood("Foreach completed!");
                 }

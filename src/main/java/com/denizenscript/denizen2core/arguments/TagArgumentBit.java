@@ -58,7 +58,7 @@ public class TagArgumentBit extends ArgumentBit {
             if (fallback == null) {
                 error.run("Invalid tag bits -> empty tag, or invalid base: " + ColorSet.emphasis + (bits.length > 0 ? bits[0] : ""));
             }
-            res = new NullTag();
+            res = NullTag.NULL;
         }
         else {
             TagData data = new TagData(error, bits, fallback, vars, mode, queue);

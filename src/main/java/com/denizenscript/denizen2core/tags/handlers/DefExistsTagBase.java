@@ -28,8 +28,8 @@ public class DefExistsTagBase extends AbstractTagBase {
             obj = data.currentQueue.commandStack.peek().getDefinition(def);
         }
         if (obj == null) {
-            return new BooleanTag(false).handle(data.shrink());
+            return BooleanTag.getForBoolean(false).handle(data.shrink());
         }
-        return new BooleanTag(true).handle(data.shrink());
+        return BooleanTag.getForBoolean(true).handle(data.shrink());
     }
 }

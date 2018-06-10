@@ -94,7 +94,7 @@ public class TextTag extends AbstractTagObject {
         // @Returns whether the text can be parsed as an integer.
         // @Example "1" .is_integer returns "true".
         // -->
-        handlers.put("is_integer", (dat, obj) -> new BooleanTag(IntegerTag.getFor(TextTag::doNothing, ((TextTag) obj).internal) != null));
+        handlers.put("is_integer", (dat, obj) -> BooleanTag.getForBoolean(IntegerTag.getFor(TextTag::doNothing, ((TextTag) obj).internal) != null));
         // <--[tag]
         // @Since 0.3.0
         // @Name TextTag.is_number
@@ -104,7 +104,7 @@ public class TextTag extends AbstractTagObject {
         // @Returns whether the text can be parsed as a number.
         // @Example "1" .is_number returns "true".
         // -->
-        handlers.put("is_number", (dat, obj) -> new BooleanTag(NumberTag.getFor(TextTag::doNothing, ((TextTag) obj).internal) != null));
+        handlers.put("is_number", (dat, obj) -> BooleanTag.getForBoolean(NumberTag.getFor(TextTag::doNothing, ((TextTag) obj).internal) != null));
         // <--[tag]
         // @Since 0.3.0
         // @Name TextTag.is_boolean
@@ -114,7 +114,7 @@ public class TextTag extends AbstractTagObject {
         // @Returns whether the text can be parsed as a boolean.
         // @Example "true" .is_boolean returns "true".
         // -->
-        handlers.put("is_boolean", (dat, obj) -> new BooleanTag(BooleanTag.getFor(TextTag::doNothing, ((TextTag) obj).internal) != null));
+        handlers.put("is_boolean", (dat, obj) -> BooleanTag.getForBoolean(BooleanTag.getFor(TextTag::doNothing, ((TextTag) obj).internal) != null));
         // <--[tag]
         // @Since 0.3.0
         // @Name TextTag.escaped
@@ -154,7 +154,7 @@ public class TextTag extends AbstractTagObject {
         // @Returns whether the text matches a Regular Expression.
         // @Example "abc" .matches_regex[[a-z]+] returns "true".
         // -->
-        handlers.put("matches_regex", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.matches(dat.getNextModifier().toString())));
+        handlers.put("matches_regex", (dat, obj) -> BooleanTag.getForBoolean(((TextTag) obj).internal.matches(dat.getNextModifier().toString())));
         // <--[tag]
         // @Since 0.5.0
         // @Name TextTag.contains_any_text[<ListTag>]
@@ -202,7 +202,7 @@ public class TextTag extends AbstractTagObject {
         // @Returns whether the text contains the specified text. Case-Insensitive.
         // @Example "abc" .contains_text[B] returns "true".
         // -->
-        handlers.put("contains_text", (dat, obj) -> new BooleanTag(CoreUtilities.toLowerCase(((TextTag) obj).internal)
+        handlers.put("contains_text", (dat, obj) -> BooleanTag.getForBoolean(CoreUtilities.toLowerCase(((TextTag) obj).internal)
                 .contains(CoreUtilities.toLowerCase(dat.getNextModifier().toString()))));
         // <--[tag]
         // @Since 0.3.0
@@ -213,7 +213,7 @@ public class TextTag extends AbstractTagObject {
         // @Returns whether the text contains the specified text. Case Sensitive.
         // @Example "abc" .contains_text_cased[b] returns "true".
         // -->
-        handlers.put("contains_text_cased", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.contains(dat.getNextModifier().toString())));
+        handlers.put("contains_text_cased", (dat, obj) -> BooleanTag.getForBoolean(((TextTag) obj).internal.contains(dat.getNextModifier().toString())));
         // <--[tag]
         // @Since 0.3.0
         // @Name TextTag.equals[<TextTag>]
@@ -223,7 +223,7 @@ public class TextTag extends AbstractTagObject {
         // @Returns whether the two sets of text are equal. Case-Insensitive.
         // @Example "abc" .equals[abc] returns "true".
         // -->
-        handlers.put("equals", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.equalsIgnoreCase(dat.getNextModifier().toString())));
+        handlers.put("equals", (dat, obj) -> BooleanTag.getForBoolean(((TextTag) obj).internal.equalsIgnoreCase(dat.getNextModifier().toString())));
         // <--[tag]
         // @Since 0.3.0
         // @Name TextTag.equals_cased[<TextTag>]
@@ -233,7 +233,7 @@ public class TextTag extends AbstractTagObject {
         // @Returns whether the two sets of text are equal. Case Sensitive.
         // @Example "abc" .equals_cased[abc] returns "true".
         // -->
-        handlers.put("equals_cased", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.equals(dat.getNextModifier().toString())));
+        handlers.put("equals_cased", (dat, obj) -> BooleanTag.getForBoolean(((TextTag) obj).internal.equals(dat.getNextModifier().toString())));
         // <--[tag]
         // @Since 0.3.0
         // @Name TextTag.starts_with_cased[<TextTag>]
@@ -243,7 +243,7 @@ public class TextTag extends AbstractTagObject {
         // @Returns whether the the text starts with the specified text. Case Sensitive.
         // @Example "abc" .starts_with_cased[a] returns "true".
         // -->
-        handlers.put("starts_with_cased", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.startsWith(dat.getNextModifier().toString())));
+        handlers.put("starts_with_cased", (dat, obj) -> BooleanTag.getForBoolean(((TextTag) obj).internal.startsWith(dat.getNextModifier().toString())));
         // <--[tag]
         // @Since 0.3.0
         // @Name TextTag.ends_with_cased[<TextTag>]
@@ -253,7 +253,7 @@ public class TextTag extends AbstractTagObject {
         // @Returns whether the the text ends with the specified text. Case Sensitive.
         // @Example "abc" .ends_with_cased[c] returns "true".
         // -->
-        handlers.put("ends_with_cased", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.endsWith(dat.getNextModifier().toString())));
+        handlers.put("ends_with_cased", (dat, obj) -> BooleanTag.getForBoolean(((TextTag) obj).internal.endsWith(dat.getNextModifier().toString())));
         // <--[tag]
         // @Since 0.3.0
         // @Name TextTag.index_of_cased[<TextTag>]
@@ -290,7 +290,7 @@ public class TextTag extends AbstractTagObject {
                 if (!dat.hasFallback()) {
                     dat.error.run("Invalid TextTag.CHAR_AT[...] index!");
                 }
-                return new NullTag();
+                return NullTag.NULL;
             }
             return new TextTag(String.valueOf(((TextTag) obj).internal.charAt(i)));
         });
@@ -363,7 +363,7 @@ public class TextTag extends AbstractTagObject {
                 if (!dat.hasFallback()) {
                     dat.error.run("Invalid input!");
                 }
-                return new NullTag();
+                return NullTag.NULL;
             }
             int i1 = (int) IntegerTag.getFor(dat.error, inputinds.getInternal().get(0)).getInternal() - 1;
             int i2 = (int) IntegerTag.getFor(dat.error, inputinds.getInternal().get(1)).getInternal();
@@ -429,7 +429,7 @@ public class TextTag extends AbstractTagObject {
     @Override
     public AbstractTagObject handleElseCase(TagData data) {
         data.error.run("Unknown tag part '" + data.getNext() + "'!");
-        return new NullTag();
+        return NullTag.NULL;
     }
 
     @Override

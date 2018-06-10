@@ -33,13 +33,13 @@ public class ProcedureTagBase extends AbstractTagBase {
         MapTag mt = MapTag.getFor(data.error, data.getNextModifier());
         if (!mt.getInternal().containsKey("script")) {
             data.error.run("Missing script: setting in the procedure tag modifier!");
-            return new NullTag();
+            return NullTag.NULL;
         }
         String sname = CoreUtilities.toLowerCase(mt.getInternal().get("script").toString());
         CommandScript script = Denizen2Core.currentScripts.get(sname);
         if (script == null || !(script instanceof ProcedureScript)) {
             data.error.run("Invalid procedure script name!");
-            return new NullTag();
+            return NullTag.NULL;
         }
         ProcedureScript pscript = (ProcedureScript) script;
         CommandQueue queue = pscript.getSection(mt.getInternal().containsKey("path") ?

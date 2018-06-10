@@ -68,7 +68,7 @@ public class YamlTag extends AbstractTagObject {
                 if (!dat.hasFallback()) {
                     dat.error.run("No valid text at the specified YAML key! Does it exist?");
                 }
-                return new NullTag();
+                return NullTag.NULL;
             }
             return new TextTag(val);
         });
@@ -95,7 +95,7 @@ public class YamlTag extends AbstractTagObject {
                 if (!dat.hasFallback()) {
                     dat.error.run("No valid text at the specified YAML key! Does it exist?");
                 }
-                return new NullTag();
+                return NullTag.NULL;
             }
             return Denizen2Core.loadFromSaved(dat.error, val);
         });
@@ -108,7 +108,7 @@ public class YamlTag extends AbstractTagObject {
         // @Returns whether the YAML has the specified key.
         // -->
         handlers.put("has_key", (dat, obj) -> {
-            return new BooleanTag(((YamlTag) obj).internal.contains(dat.getNextModifier().toString()));
+            return BooleanTag.getForBoolean(((YamlTag) obj).internal.contains(dat.getNextModifier().toString()));
         });
         // <--[tag]
         // @Since 0.3.0
@@ -119,7 +119,7 @@ public class YamlTag extends AbstractTagObject {
         // @Returns whether the YAML has the specified key and it is a list typed YAML key.
         // -->
         handlers.put("is_list", (dat, obj) -> {
-            return new BooleanTag(((YamlTag) obj).internal.isList(dat.getNextModifier().toString()));
+            return BooleanTag.getForBoolean(((YamlTag) obj).internal.isList(dat.getNextModifier().toString()));
         });
         // <--[tag]
         // @Since 0.3.0
@@ -135,7 +135,7 @@ public class YamlTag extends AbstractTagObject {
                 if (!dat.hasFallback()) {
                     dat.error.run("No valid list at the specified YAML key! Does it exist?");
                 }
-                return new NullTag();
+                return NullTag.NULL;
             }
             ListTag list = new ListTag();
             for (String str : val) {
@@ -158,7 +158,7 @@ public class YamlTag extends AbstractTagObject {
                 if (!dat.hasFallback()) {
                     dat.error.run("No valid keys at the specified YAML key! Does it exist?");
                 }
-                return new NullTag();
+                return NullTag.NULL;
             }
             ListTag list = new ListTag();
             for (StringHolder str : val) {

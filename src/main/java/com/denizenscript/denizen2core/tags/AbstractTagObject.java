@@ -22,7 +22,7 @@ public abstract class AbstractTagObject {
         if (ato != null) {
             return ato.handle(data);
         }
-        return new NullTag();
+        return NullTag.NULL;
     }
 
     public abstract AbstractTagObject handleElseCase(TagData data);

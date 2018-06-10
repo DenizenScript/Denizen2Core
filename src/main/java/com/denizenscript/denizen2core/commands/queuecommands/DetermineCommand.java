@@ -59,7 +59,7 @@ public class DetermineCommand extends AbstractCommand {
     @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
         String det = CoreUtilities.toLowerCase(entry.getArgumentObject(queue, 0).toString());
-        AbstractTagObject ato = new BooleanTag(true);
+        AbstractTagObject ato = BooleanTag.getForBoolean(true);
         if (entry.arguments.size() > 1) {
             ato = entry.getArgumentObject(queue, 1);
         }

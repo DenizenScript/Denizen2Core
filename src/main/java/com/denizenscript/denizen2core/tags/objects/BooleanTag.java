@@ -18,9 +18,13 @@ public class BooleanTag extends AbstractTagObject {
     // @Description Represents a true or false value. Identified as exactly "true" or "false".
     // -->
 
-    public static BooleanTag TRUE = new BooleanTag(true);
+    public final static BooleanTag TRUE = new BooleanTag(true);
 
-    public static BooleanTag FALSE = new BooleanTag(false);
+    public final static BooleanTag FALSE = new BooleanTag(false);
+
+    public static BooleanTag getForBoolean(boolean val) {
+        return val ? TRUE : FALSE;
+    }
 
     private boolean internal;
 
@@ -45,9 +49,7 @@ public class BooleanTag extends AbstractTagObject {
         // @Example "true" .not returns "false".
         // @Example "false" .not returns "true".
         // -->
-        handlers.put("not", (dat, obj) -> {
-            return new BooleanTag(!((BooleanTag) obj).getInternal());
-        });
+        handlers.put("not", (dat, obj) -> getForBoolean(!((BooleanTag) obj).getInternal()));
         // <--[tag]
         // @Since 0.3.0
         // @Name BooleanTag.and[<BooleanTag>]
@@ -61,7 +63,7 @@ public class BooleanTag extends AbstractTagObject {
         // @Example "false" .and[false] returns "false".
         // -->
         handlers.put("and", (dat, obj) -> {
-            return new BooleanTag(((BooleanTag) obj).getInternal() && BooleanTag.getFor(dat.error, dat.getNextModifier()).getInternal());
+            return getForBoolean(((BooleanTag) obj).getInternal() && BooleanTag.getFor(dat.error, dat.getNextModifier()).getInternal());
         });
         // <--[tag]
         // @Since 0.3.0
@@ -76,7 +78,7 @@ public class BooleanTag extends AbstractTagObject {
         // @Example "false" .or[false] returns "false".
         // -->
         handlers.put("or", (dat, obj) -> {
-            return new BooleanTag(((BooleanTag) obj).getInternal() && BooleanTag.getFor(dat.error, dat.getNextModifier()).getInternal());
+            return getForBoolean(((BooleanTag) obj).getInternal() && BooleanTag.getFor(dat.error, dat.getNextModifier()).getInternal());
         });
         // <--[tag]
         // @Since 0.3.0
@@ -91,17 +93,17 @@ public class BooleanTag extends AbstractTagObject {
         // @Example "false" .xor[false] returns "false".
         // -->
         handlers.put("xor", (dat, obj) -> {
-            return new BooleanTag(((BooleanTag) obj).getInternal() != BooleanTag.getFor(dat.error, dat.getNextModifier()).getInternal());
+            return getForBoolean(((BooleanTag) obj).getInternal() != BooleanTag.getFor(dat.error, dat.getNextModifier()).getInternal());
         });
     }
 
     public static BooleanTag getFor(Action<String> error, String text) {
         String nt = CoreUtilities.toLowerCase(text);
         if (nt.equals("true")) {
-            return new BooleanTag(true);
+            return TRUE;
         }
         if (nt.equals("false")) {
-            return new BooleanTag(false);
+            return FALSE;
         }
         error.run("Invalid boolean value!");
         return null;

@@ -56,7 +56,7 @@ public class ScriptTag extends AbstractTagObject {
         // @Returns whether the YAML has the specified key.
         // -->
         handlers.put("has_yaml_key", (dat, obj) -> {
-            return new BooleanTag(((ScriptTag) obj).internal.contents.contains(dat.getNextModifier().toString()));
+            return BooleanTag.getForBoolean(((ScriptTag) obj).internal.contents.contains(dat.getNextModifier().toString()));
         });
         // <--[tag]
         // @Since 0.3.0
@@ -67,7 +67,7 @@ public class ScriptTag extends AbstractTagObject {
         // @Returns whether the YAML has the specified key and it is a list typed YAML key.
         // -->
         handlers.put("is_yaml_list", (dat, obj) -> {
-            return new BooleanTag(((ScriptTag) obj).internal.contents.isList(dat.getNextModifier().toString()));
+            return BooleanTag.getForBoolean(((ScriptTag) obj).internal.contents.isList(dat.getNextModifier().toString()));
         });
         // <--[tag]
         // @Since 0.3.0
@@ -84,7 +84,7 @@ public class ScriptTag extends AbstractTagObject {
                 if (!dat.hasFallback()) {
                     dat.error.run("No contents for the specified YAML key! Does it exist in the script?");
                 }
-                return new NullTag();
+                return NullTag.NULL;
             }
             return new TextTag(val);
         });
@@ -101,7 +101,7 @@ public class ScriptTag extends AbstractTagObject {
                 if (!dat.hasFallback()) {
                     dat.error.run("No valid list at the specified YAML key! Does it exist?");
                 }
-                return new NullTag();
+                return NullTag.NULL;
             }
             return val;
         });
@@ -120,7 +120,7 @@ public class ScriptTag extends AbstractTagObject {
                 if (!dat.hasFallback()) {
                     dat.error.run("No valid keys at the specified YAML key! Does it exist?");
                 }
-                return new NullTag();
+                return NullTag.NULL;
             }
             ListTag list = new ListTag();
             for (StringHolder str : val) {

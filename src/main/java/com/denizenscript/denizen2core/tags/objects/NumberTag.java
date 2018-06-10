@@ -49,7 +49,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // -->
         handlers.put("is_greater_than", (dat, obj) -> {
             NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
-            return new BooleanTag(((NumberTag) obj).internal > two.internal);
+            return BooleanTag.getForBoolean(((NumberTag) obj).internal > two.internal);
         });
         // <--[tag]
         // @Since 0.3.0
@@ -62,7 +62,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // -->
         handlers.put("is_greater_than_or_equal_to", (dat, obj) -> {
             NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
-            return new BooleanTag(((NumberTag) obj).internal >= two.internal);
+            return BooleanTag.getForBoolean(((NumberTag) obj).internal >= two.internal);
         });
         // <--[tag]
         // @Since 0.3.0
@@ -75,7 +75,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // -->
         handlers.put("is_less_than", (dat, obj) -> {
             NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
-            return new BooleanTag(((NumberTag) obj).internal < two.internal);
+            return BooleanTag.getForBoolean(((NumberTag) obj).internal < two.internal);
         });
         // <--[tag]
         // @Since 0.3.0
@@ -88,12 +88,12 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // -->
         handlers.put("is_less_than_or_equal_to", (dat, obj) -> {
             NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
-            return new BooleanTag(((NumberTag) obj).internal <= two.internal);
+            return BooleanTag.getForBoolean(((NumberTag) obj).internal <= two.internal);
         });
         // Documented in TextTag.
         handlers.put("equals", (dat, obj) -> {
             NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
-            return new BooleanTag(((NumberTag) obj).internal == two.internal);
+            return BooleanTag.getForBoolean(((NumberTag) obj).internal == two.internal);
         });
         // <--[tag]
         // @Since 0.3.0

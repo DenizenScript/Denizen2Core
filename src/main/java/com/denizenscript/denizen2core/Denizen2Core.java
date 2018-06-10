@@ -181,7 +181,7 @@ public class Denizen2Core {
         register(new WaitCommand());
         register(new WhileCommand());
         // Common Tag Handlers
-        register(new BooleanTagBase());
+        register(BooleanTag.getForBooleanBase());
         register(new DefExistsTagBase());
         register(new DefTagBase());
         register(new DurationTagBase());
@@ -236,7 +236,7 @@ public class Denizen2Core {
         if (!customSaveLoaders.containsKey(typed)) {
             error.run("No save loader for the specified type: " + ColorSet.emphasis + typed + ColorSet.warning + "! "
                     + "May be invalid input to a saves loader?");
-            return new NullTag();
+            return NullTag.NULL;
         }
         return customSaveLoaders.get(typed).apply(error, dat.get(1));
     }

@@ -53,7 +53,7 @@ public class MapTag extends AbstractTagObject {
             String key = dat.getNextModifier().toString();
             AbstractTagObject ato = ((MapTag) obj).internal.get(CoreUtilities.toLowerCase(key));
             if (ato == null) {
-                return new NullTag();
+                return NullTag.NULL;
             }
             return ato;
         });
@@ -102,7 +102,7 @@ public class MapTag extends AbstractTagObject {
             }
             String key = CoreUtilities.toLowerCase(EscapeTagBase.unescape(datums.get(0)));
             String data = EscapeTagBase.unescape(datums.get(1));
-            TextArgumentBit tab = new TextArgumentBit(data, false);
+            TextArgumentBit tab = new TextArgumentBit(data, false, false);
             lt.internal.put(key, tab.value);
         }
         return lt;

@@ -22,6 +22,6 @@ public class NullTagBase extends AbstractTagBase {
 
     @Override
     public AbstractTagObject handle(TagData data) {
-        return new NullTag().handle(data.shrink());
+        return NullTag.NULL.handle(data.shrink());
     }
 }

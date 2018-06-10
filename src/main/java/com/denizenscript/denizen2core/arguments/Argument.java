@@ -55,7 +55,7 @@ public class Argument {
         }
         StringBuilder sb = new StringBuilder();
         for (ArgumentBit bit : bits) {
-            sb.append(bit.parse(queue, vars, mode, error));
+            sb.append(bit.parse(queue, vars, mode, error).toString());
         }
         return new TextTag(sb.toString());
     }

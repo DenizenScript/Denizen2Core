@@ -34,12 +34,12 @@ public class MathTagBase extends AbstractTagBase {
         List<MathHelper.MathOperation> mops = MathHelper.parse(input, err);
         if (mops == null) {
             data.error.run("Invalid math statement (parsing): " + err.toString());
-            return new NullTag();
+            return NullTag.NULL;
         }
         String vf = MathHelper.verify(mops, MathHelper.baseFunctions);
         if (vf != null) {
             data.error.run("Invalid math statement (verification): " + vf);
-            return new NullTag();
+            return NullTag.NULL;
         }
         return new NumberTag(MathHelper.calculate(mops, MathHelper.baseFunctions)).handle(data.shrink());
     }

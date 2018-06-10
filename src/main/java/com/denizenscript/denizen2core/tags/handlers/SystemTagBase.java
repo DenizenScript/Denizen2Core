@@ -133,7 +133,7 @@ public class SystemTagBase extends AbstractTagBase {
         // -->
         handlers.put("has_yaml", (dat, obj) -> {
             String name = dat.getNextModifier().toString();
-            return new BooleanTag(Denizen2Core.filesLoadedByScripts.containsKey(CoreUtilities.toLowerCase(name)));
+            return BooleanTag.getForBoolean(Denizen2Core.filesLoadedByScripts.containsKey(CoreUtilities.toLowerCase(name)));
         });
         // <--[tag]
         // @Since 0.3.0
@@ -147,15 +147,15 @@ public class SystemTagBase extends AbstractTagBase {
             String path = dat.getNextModifier().toString();
             if (!Denizen2Core.getImplementation().isSafePath(path)) {
                 dat.error.run("Cannot load from that path ('" + path + "'), it's marked un-safe.");
-                return new NullTag();
+                return NullTag.NULL;
             }
             try {
                 File f = new File(Denizen2Core.getImplementation().getScriptDataFolder(), path);
-                return new BooleanTag(f.exists());
+                return BooleanTag.getForBoolean(f.exists());
             }
             catch (Exception e) {
                 dat.error.run("Failed to read YAML file: " + e.getClass().getCanonicalName() + ": " + e.getMessage());
-                return new NullTag();
+                return NullTag.NULL;
             }
         });
         // <--[tag]
@@ -170,13 +170,13 @@ public class SystemTagBase extends AbstractTagBase {
             ListTag inp = ListTag.getFor(dat.error, dat.getNextModifier());
             if (inp.getInternal().size() != 2) {
                 dat.error.run("Invalid input! Not a list of size 2!");
-                return new NullTag();
+                return NullTag.NULL;
             }
             double a = NumberTag.getFor(dat.error, inp.getInternal().get(0)).getInternal();
             double b = NumberTag.getFor(dat.error, inp.getInternal().get(1)).getInternal();
             if (b < a) {
                 dat.error.run("Invalid input! Second number less than first!");
-                return new NullTag();
+                return NullTag.NULL;
             }
             return new NumberTag((CoreUtilities.random.nextDouble() * (b - a)) + a);
         });
@@ -192,13 +192,13 @@ public class SystemTagBase extends AbstractTagBase {
             ListTag inp = ListTag.getFor(dat.error, dat.getNextModifier());
             if (inp.getInternal().size() != 2) {
                 dat.error.run("Invalid input! Not a list of size 2!");
-                return new NullTag();
+                return NullTag.NULL;
             }
             long a = IntegerTag.getFor(dat.error, inp.getInternal().get(0)).getInternal();
             long b = IntegerTag.getFor(dat.error, inp.getInternal().get(1)).getInternal();
             if (b < a) {
                 dat.error.run("Invalid input! Second number less than first!");
-                return new NullTag();
+                return NullTag.NULL;
             }
             return new IntegerTag((CoreUtilities.random.nextInt((int) (b - a)) + a));
         });
@@ -233,7 +233,7 @@ public class SystemTagBase extends AbstractTagBase {
         // @Returns a randomly selected true or false value.
         // -->
         handlers.put("random_boolean", (dat, obj) -> {
-            return new BooleanTag((CoreUtilities.random.nextBoolean()));
+            return BooleanTag.getForBoolean((CoreUtilities.random.nextBoolean()));
         });
     }
 

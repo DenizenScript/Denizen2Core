@@ -31,7 +31,7 @@ public class ScriptTagBase extends AbstractTagBase {
                 return new ScriptTag(data.currentQueue.commandStack.peek().originalScript).handle(data.shrink());
             }
             data.error.run("No current script available!");
-            return new NullTag();
+            return NullTag.NULL;
         }
         return ScriptTag.getFor(data.error, data.getNextModifier()).handle(data.shrink());
     }

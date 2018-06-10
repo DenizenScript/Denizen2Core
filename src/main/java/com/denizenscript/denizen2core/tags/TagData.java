@@ -4,7 +4,9 @@ import com.denizenscript.denizen2core.DebugMode;
 import com.denizenscript.denizen2core.arguments.Argument;
 import com.denizenscript.denizen2core.arguments.TagBit;
 import com.denizenscript.denizen2core.commands.CommandQueue;
+import com.denizenscript.denizen2core.tags.objects.NullTag;
 import com.denizenscript.denizen2core.utilities.Action;
+import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
 
 import java.util.HashMap;
 
@@ -43,6 +45,10 @@ public class TagData {
         return this;
     }
 
+    public int currentIndex() {
+        return cInd;
+    }
+
     public int remaining() {
         return bits.length - cInd;
     }
@@ -56,6 +62,10 @@ public class TagData {
     }
 
     public AbstractTagObject getNextModifier() {
+        if (bits[cInd].variable == null) {
+            error.run("No tag modifier given when required for tag part " + ColorSet.emphasis + bits[cInd].key);
+            return NullTag.NULL;
+        }
         return bits[cInd].variable.parse(currentQueue, variables, dbmode, error);
     }
 }

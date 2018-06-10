@@ -29,7 +29,7 @@ public class QueueTagBase extends AbstractTagBase {
                 return new QueueTag(data.currentQueue).handle(data.shrink());
             }
             data.error.run("No queue available!");
-            return new NullTag();
+            return NullTag.NULL;
         }
         return QueueTag.getFor(data.error, data.getNextModifier()).handle(data.shrink());
     }

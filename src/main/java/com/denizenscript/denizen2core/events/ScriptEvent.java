@@ -153,7 +153,7 @@ public abstract class ScriptEvent implements Cloneable {
     public HashMap<String, AbstractTagObject> getDefinitions(ScriptEventData data) {
         HashMap<String, AbstractTagObject> defs = new HashMap<>();
         defs.put("priority", new IntegerTag(data.priority));
-        defs.put("cancelled", new BooleanTag(cancelled));
+        defs.put("cancelled", BooleanTag.getForBoolean(cancelled));
         return defs;
     }
 

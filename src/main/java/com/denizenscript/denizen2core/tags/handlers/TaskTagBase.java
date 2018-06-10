@@ -33,18 +33,18 @@ public class TaskTagBase extends AbstractTagBase {
         MapTag mt = MapTag.getFor(data.error, data.getNextModifier());
         if (!mt.getInternal().containsKey("script")) {
             data.error.run("Missing script: setting in the task tag modifier!");
-            return new NullTag();
+            return NullTag.NULL;
         }
         String sname = CoreUtilities.toLowerCase(mt.getInternal().get("script").toString());
         CommandScript script = Denizen2Core.currentScripts.get(sname);
         if (script == null || !(script instanceof TaskScript)) {
             data.error.run("Invalid task script name!");
-            return new NullTag();
+            return NullTag.NULL;
         }
         TaskScript pscript = (TaskScript) script;
         if (pscript.isTaggable == TaskScript.TaggableType.NONE) {
             data.error.run("Task script specified is not taggable!");
-            return new NullTag();
+            return NullTag.NULL;
         }
         // TODO: Implemenet always vs. on?!
         CommandQueue queue = pscript.getSection(mt.getInternal().containsKey("path") ?
