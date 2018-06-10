@@ -181,7 +181,7 @@ public class Denizen2Core {
         register(new WaitCommand());
         register(new WhileCommand());
         // Common Tag Handlers
-        register(BooleanTag.getForBooleanBase());
+        register(new BooleanTagBase());
         register(new DefExistsTagBase());
         register(new DefTagBase());
         register(new DurationTagBase());
