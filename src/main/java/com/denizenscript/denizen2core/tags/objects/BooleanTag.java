@@ -18,6 +18,10 @@ public class BooleanTag extends AbstractTagObject {
     // @Description Represents a true or false value. Identified as exactly "true" or "false".
     // -->
 
+    public static BooleanTag TRUE = new BooleanTag(true);
+
+    public static BooleanTag FALSE = new BooleanTag(false);
+
     private boolean internal;
 
     public BooleanTag(boolean bo) {

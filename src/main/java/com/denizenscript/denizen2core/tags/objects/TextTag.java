@@ -156,6 +156,44 @@ public class TextTag extends AbstractTagObject {
         // -->
         handlers.put("matches_regex", (dat, obj) -> new BooleanTag(((TextTag) obj).internal.matches(dat.getNextModifier().toString())));
         // <--[tag]
+        // @Since 0.5.0
+        // @Name TextTag.contains_any_text[<ListTag>]
+        // @Updated 2018/06/09
+        // @Group Text Details
+        // @ReturnType BooleanTag
+        // @Returns whether the text contains any of the specified text values. Case-Insensitive.
+        // @Example "abc" .contains_any_text[nope|B] returns "true".
+        // -->
+        handlers.put("contains_any_text", (dat, obj) -> {
+            ListTag lt = ListTag.getFor(dat.error, dat.getNextModifier());
+            String inp = CoreUtilities.toLowerCase(((TextTag) obj).internal);
+            for (AbstractTagObject ato : lt.getInternal()) {
+                if (!inp.contains(CoreUtilities.toLowerCase(ato.toString()))) {
+                    return BooleanTag.FALSE;
+                }
+            }
+            return BooleanTag.TRUE;
+        });
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name TextTag.contains_any_text_cased[<ListTag>]
+        // @Updated 2018/06/09
+        // @Group Text Details
+        // @ReturnType BooleanTag
+        // @Returns whether the text contains any of the specified text value. Case Sensitive.
+        // @Example "abc" .contains_any_text_cased[nope|b] returns "true".
+        // -->
+        handlers.put("contains_any_text_cased", (dat, obj) -> {
+            ListTag lt = ListTag.getFor(dat.error, dat.getNextModifier());
+            String inp = ((TextTag) obj).internal;
+            for (AbstractTagObject ato : lt.getInternal()) {
+                if (!inp.contains(ato.toString())) {
+                    return BooleanTag.FALSE;
+                }
+            }
+            return BooleanTag.TRUE;
+        });
+        // <--[tag]
         // @Since 0.3.0
         // @Name TextTag.contains_text[<TextTag>]
         // @Updated 2017/10/17
