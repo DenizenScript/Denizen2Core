@@ -121,6 +121,16 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
         handlers.put("in_days", (dat, obj) -> new NumberTag(((DurationTag) obj).internal * (1.0 / (60.0 * 60.0 * 24.0))));
         // <--[tag]
         // @Since 0.5.0
+        // @Name DurationTag.in_weeks
+        // @Updated 2018/06/10
+        // @Group Conversion
+        // @ReturnType NumberTag
+        // @Returns the duration converted to weeks.
+        // @Example "604800" .in_weeks returns "1".
+        // -->
+        handlers.put("in_weeks", (dat, obj) -> new NumberTag(((DurationTag) obj).internal * (1.0 / (60.0 * 60.0 * 24.0 * 7.0))));
+        // <--[tag]
+        // @Since 0.5.0
         // @Name DurationTag.formatted[<TextTag>]
         // @Updated 2018/06/09
         // @Group Formatting
@@ -129,9 +139,11 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
         // and formatted based on input. This tag will replace duration codes with their actual values.
         // Duration codes start with "#", followed by the unit and mode letters. Valid unit letters are:
         // t (thousandth of a second/millisecond), s (second), m (minute), h (hour), d (day) and w (week).
-        // Valid mode letters are: p (precise/total decimal), t (total integer), d (decimal) and i (integer).
+        // Valid mode letters are: p (precise/total decimal), t (total integer), d (remaining decimal),
+        // i (remaining integer) and f (full length remaining integer).
         // @Example "8250.350" .formatted[#hi h, #mi m, #si s and #td ms (#sp seconds in total)]
         // returns "2 h, 17 m, 30 s and 350 ms (8250.35 seconds in total)".
+        // @Example "29200" .formatted[#hf:#mf] returns "08:06".
         // -->
         handlers.put("formatted", (dat, obj) -> {
             String input = TextTag.getFor(dat.error, dat.getNextModifier()).getInternal();
@@ -142,6 +154,7 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
                 input = input.replace("#tt", String.valueOf(tp));
                 input = input.replace("#td", String.valueOf(td));
                 input = input.replace("#ti", String.valueOf(td));
+                input = input.replace("#tf", String.format("%03d", td));
             }
             double sp = tp * (1.0 / 1000.0);
             if (input.contains("#s")) {
@@ -150,6 +163,7 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
                 input = input.replace("#st", String.valueOf((int) sp));
                 input = input.replace("#sd", String.valueOf(sd));
                 input = input.replace("#si", String.valueOf((int) sd));
+                input = input.replace("#sf", String.format("%02d", (int) sd));
             }
             double mp = sp * (1.0 / 60.0);
             if (input.contains("#m")) {
@@ -158,6 +172,7 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
                 input = input.replace("#mt", String.valueOf((int) mp));
                 input = input.replace("#md", String.valueOf(md));
                 input = input.replace("#mi", String.valueOf((int) md));
+                input = input.replace("#mf", String.format("%02d", (int) md));
             }
             double hp = mp * (1.0 / 60.0);
             if (input.contains("#h")) {
@@ -166,6 +181,7 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
                 input = input.replace("#ht", String.valueOf((int) hp));
                 input = input.replace("#hd", String.valueOf(hd));
                 input = input.replace("#hi", String.valueOf((int) hd));
+                input = input.replace("#hf", String.format("%02d", (int) hd));
             }
             double dp = hp * (1.0 / 24.0);
             if (input.contains("#d")) {
@@ -174,6 +190,7 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
                 input = input.replace("#dt", String.valueOf((int) dp));
                 input = input.replace("#dd", String.valueOf(dd));
                 input = input.replace("#di", String.valueOf((int) dd));
+                input = input.replace("#df", String.valueOf((int) dd));
             }
             double wp = dp * (1.0 / 7.0);
             if (input.contains("#w")) {
@@ -181,6 +198,7 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
                 input = input.replace("#wt", String.valueOf((int) wp));
                 input = input.replace("#wd", String.valueOf(wp));
                 input = input.replace("#wi", String.valueOf((int) wp));
+                input = input.replace("#wf", String.valueOf((int) wp));
             }
             return new TextTag(input);
         });

@@ -52,9 +52,7 @@ public class QueueTag extends AbstractTagObject implements Denizen2Core.IntegerF
         // @Returns the integer ID of the queue.
         // @Example "1" .id returns "1".
         // -->
-        handlers.put("id", (dat, obj) -> {
-            return new IntegerTag(((QueueTag) obj).internal.qID);
-        });
+        handlers.put("id", (dat, obj) -> new IntegerTag(((QueueTag) obj).internal.qID));
         // <--[tag]
         // @Since 0.3.0
         // @Name QueueTag.running
@@ -64,9 +62,7 @@ public class QueueTag extends AbstractTagObject implements Denizen2Core.IntegerF
         // @Returns whether the queue is still running.
         // @Example "1" .running may return "true".
         // -->
-        handlers.put("running", (dat, obj) -> {
-            return BooleanTag.getForBoolean(((QueueTag) obj).internal.running);
-        });
+        handlers.put("running", (dat, obj) -> BooleanTag.getForBoolean(((QueueTag) obj).internal.running));
         // <--[tag]
         // @Since 0.3.0
         // @Name QueueTag.determinations
@@ -76,9 +72,7 @@ public class QueueTag extends AbstractTagObject implements Denizen2Core.IntegerF
         // @Returns a map of all determinations on the queue.
         // @Example "1" .determinations may return "a:b|1:2|".
         // -->
-        handlers.put("determinations", (dat, obj) -> {
-            return ((QueueTag) obj).internal.determinations;
-        });
+        handlers.put("determinations", (dat, obj) -> ((QueueTag) obj).internal.determinations);
         // <--[tag]
         // @Since 0.3.0
         // @Name QueueTag.current_script
@@ -123,9 +117,7 @@ public class QueueTag extends AbstractTagObject implements Denizen2Core.IntegerF
         // @Returns whether the queue has the specified definition.
         // @Example "1" .has_definition[value] may return "true".
         // -->
-        handlers.put("has_definition", (dat, obj) -> {
-            return BooleanTag.getForBoolean(((QueueTag) obj).internal.commandStack.peek().hasDefinition(dat.getNextModifier().toString()));
-        });
+        handlers.put("has_definition", (dat, obj) -> BooleanTag.getForBoolean(((QueueTag) obj).internal.commandStack.peek().hasDefinition(dat.getNextModifier().toString())));
         // <--[tag]
         // @Since 0.3.0
         // @Name QueueTag.definition[<TextTag>]
@@ -135,9 +127,7 @@ public class QueueTag extends AbstractTagObject implements Denizen2Core.IntegerF
         // @Returns the value of the specified definition on the queue.
         // @Example "1" .definition[value] may return "3".
         // -->
-        handlers.put("definition", (dat, obj) -> {
-            return ((QueueTag) obj).internal.commandStack.peek().getDefinition(dat.getNextModifier().toString());
-        });
+        handlers.put("definition", (dat, obj) -> ((QueueTag) obj).internal.commandStack.peek().getDefinition(dat.getNextModifier().toString()));
     }
 
     public static QueueTag getForID(Action<String> error, long id) {

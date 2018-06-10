@@ -223,9 +223,7 @@ public class SystemTagBase extends AbstractTagBase {
         // @ReturnType IntegerTag
         // @Returns a random integer number, from a range of all possible 64 bit integers! (Including negatives!)
         // -->
-        handlers.put("random_integer_massive", (dat, obj) -> {
-            return new IntegerTag((CoreUtilities.random.nextLong()));
-        });
+        handlers.put("random_integer_massive", (dat, obj) -> new IntegerTag((CoreUtilities.random.nextLong())));
         // <--[tag]
         // @Since 0.3.0
         // @Name SystemTag.random_decimal_gaussian
@@ -234,9 +232,7 @@ public class SystemTagBase extends AbstractTagBase {
         // @ReturnType NumberTag
         // @Returns a random gaussian-distributed decimal number. (IE random negative or positive, tends to be in range -1 to 1, but sometimes goes outside.)
         // -->
-        handlers.put("random_decimal_gaussian", (dat, obj) -> {
-            return new NumberTag((CoreUtilities.random.nextGaussian()));
-        });
+        handlers.put("random_decimal_gaussian", (dat, obj) -> new NumberTag((CoreUtilities.random.nextGaussian())));
         // <--[tag]
         // @Since 0.3.0
         // @Name SystemTag.random_boolean
@@ -245,9 +241,7 @@ public class SystemTagBase extends AbstractTagBase {
         // @ReturnType BooleanTag
         // @Returns a randomly selected true or false value.
         // -->
-        handlers.put("random_boolean", (dat, obj) -> {
-            return BooleanTag.getForBoolean((CoreUtilities.random.nextBoolean()));
-        });
+        handlers.put("random_boolean", (dat, obj) -> BooleanTag.getForBoolean((CoreUtilities.random.nextBoolean())));
     }
 
     @Override

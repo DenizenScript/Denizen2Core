@@ -256,7 +256,7 @@ public class ListTag extends AbstractTagObject {
             List<AbstractTagObject> list = ((ListTag) obj).internal;
             for (AbstractTagObject aList : list) {
                 if (CoreUtilities.toLowerCase(aList.toString()).equals(contain_check)) {
-                    return BooleanTag.getForBoolean(true);
+                    return BooleanTag.TRUE;
                 }
             }
             return BooleanTag.FALSE;
@@ -275,7 +275,7 @@ public class ListTag extends AbstractTagObject {
             List<AbstractTagObject> list = ((ListTag) obj).internal;
             for (AbstractTagObject aList : list) {
                 if (aList.toString().equals(contain_check)) {
-                    return BooleanTag.getForBoolean(true);
+                    return BooleanTag.TRUE;
                 }
             }
             return BooleanTag.FALSE;
