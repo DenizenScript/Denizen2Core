@@ -80,7 +80,7 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
             return new DurationTag(((DurationTag) obj).internal - two.internal);
         });
         // <--[tag]
-        // @Since 0.4.0
+        // @Since 0.5.0
         // @Name DurationTag.in_seconds
         // @Updated 2018/06/09
         // @Group Conversion
@@ -90,7 +90,7 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
         // -->
         handlers.put("in_seconds", (dat, obj) -> new NumberTag(((DurationTag) obj).internal));
         // <--[tag]
-        // @Since 0.4.0
+        // @Since 0.5.0
         // @Name DurationTag.in_minutes
         // @Updated 2018/06/09
         // @Group Conversion
@@ -100,7 +100,7 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
         // -->
         handlers.put("in_minutes", (dat, obj) -> new NumberTag(((DurationTag) obj).internal * (1.0 / 60.0)));
         // <--[tag]
-        // @Since 0.4.0
+        // @Since 0.5.0
         // @Name DurationTag.in_hours
         // @Updated 2018/06/09
         // @Group Conversion
@@ -110,7 +110,7 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
         // -->
         handlers.put("in_hours", (dat, obj) -> new NumberTag(((DurationTag) obj).internal * (1.0 / (60.0 * 60.0))));
         // <--[tag]
-        // @Since 0.4.0
+        // @Since 0.5.0
         // @Name DurationTag.in_days
         // @Updated 2018/06/09
         // @Group Conversion
@@ -120,7 +120,7 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
         // -->
         handlers.put("in_days", (dat, obj) -> new NumberTag(((DurationTag) obj).internal * (1.0 / (60.0 * 60.0 * 24.0))));
         // <--[tag]
-        // @Since 0.4.0
+        // @Since 0.5.0
         // @Name DurationTag.formatted[<TextTag>]
         // @Updated 2018/06/09
         // @Group Formatting
@@ -129,8 +129,9 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
         // and formatted based on input. This tag will replace duration codes with their actual values.
         // Duration codes start with "#", followed by the unit and mode letters. Valid unit letters are:
         // t (thousandth of a second/millisecond), s (second), m (minute), h (hour), d (day) and w (week).
-        // Valid mode letters are: p (precise/total double), t (total integer), d (double) and i (integer).
-        // @Example "8250.350" .formatted[#hi h, #mi m, #si s and #td ms (#sp seconds in total)] returns "2 h, 17 m, 30 s and 350.0 ms (8250.35 seconds in total)".
+        // Valid mode letters are: p (precise/total decimal), t (total integer), d (decimal) and i (integer).
+        // @Example "8250.350" .formatted[#hi h, #mi m, #si s and #td ms (#sp seconds in total)]
+        // returns "2 h, 17 m, 30 s and 350 ms (8250.35 seconds in total)".
         // -->
         handlers.put("formatted", (dat, obj) -> {
             String input = TextTag.getFor(dat.error, dat.getNextModifier()).getInternal();

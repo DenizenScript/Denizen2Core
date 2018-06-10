@@ -306,8 +306,8 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
             return new NumberTag(Math.max(((NumberTag) obj).internal, two.internal));
         });
         // <--[tag]
-        // @Since 0.4.0
-        // @Name NumberTag.maximum[<NumberTag>]
+        // @Since 0.5.0
+        // @Name NumberTag.max[<NumberTag>]
         // @Updated 2018/06/09
         // @Group Mathematics
         // @ReturnType NumberTag
@@ -334,7 +334,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
             return new NumberTag(Math.min(((NumberTag) obj).internal, two.internal));
         });
         // <--[tag]
-        // @Since 0.4.0
+        // @Since 0.5.0
         // @Name NumberTag.min[<NumberTag>]
         // @Updated 2018/06/09
         // @Group Mathematics
@@ -361,7 +361,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
             return new NumberTag(Math.log(((NumberTag) obj).internal) / Math.log(two.internal));
         });
         // <--[tag]
-        // @Since 0.4.0
+        // @Since 0.5.0
         // @Name NumberTag.natural_log
         // @Updated 2018/06/09
         // @Group Mathematics
@@ -370,15 +370,15 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Note also known as ".ln".
         // @Example "2.71828" .natural_log returns "1".
         // -->
-        handlers.put("natural_logarithm", (dat, obj) -> new NumberTag(Math.log(((NumberTag) obj).internal)));
+        handlers.put("natural_log", (dat, obj) -> new NumberTag(Math.log(((NumberTag) obj).internal)));
         // <--[tag]
-        // @Since 0.4.0
+        // @Since 0.5.0
         // @Name NumberTag.ln
         // @Updated 2018/06/09
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the natural logarithm (base: e) of this number.
-        // @Note also known as ".natural_logarithm".
+        // @Note also known as ".natural_log".
         // @Example "2.71828" .ln returns "1".
         // -->
         handlers.put("ln", (dat, obj) -> new NumberTag(Math.log(((NumberTag) obj).internal)));
@@ -422,7 +422,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // -->
         handlers.put("absolute_value", (dat, obj) -> new NumberTag(Math.abs(((NumberTag) obj).internal)));
         // <--[tag]
-        // @Since 0.4.0
+        // @Since 0.5.0
         // @Name NumberTag.abs
         // @Updated 2018/06/09
         // @Group Mathematics
@@ -516,7 +516,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // -->
         handlers.put("round", (dat, obj) -> new IntegerTag(Math.round(((NumberTag) obj).internal)));
         // <--[tag]
-        // @Since 0.4.0
+        // @Since 0.5.0
         // @Name NumberTag.round_to_places[<IntegerTag>]
         // @Updated 2018/06/09
         // @Group Mathematics
@@ -530,7 +530,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
             return new NumberTag(Math.round(((NumberTag) obj).internal * coef) / coef);
         });
         // <--[tag]
-        // @Since 0.4.0
+        // @Since 0.5.0
         // @Name NumberTag.round_to[<NumberTag>]
         // @Updated 2018/06/09
         // @Group Mathematics

@@ -67,9 +67,9 @@ public class ListTag extends AbstractTagObject {
             List<AbstractTagObject> list = ((ListTag) obj).internal;
             if (i < 0 || i >= list.size()) {
                 if (!dat.hasFallback()) {
-                    dat.error.run(".get[] with input " + ColorSet.emphasis
-                            + ind.debug() + ColorSet.good + " for list of length "
-                            + ColorSet.emphasis + list.size() + ColorSet.good
+                    dat.error.run("ListTag.get[] with input " + ColorSet.emphasis
+                            + ind.debug() + ColorSet.warning + " for list of length "
+                            + ColorSet.emphasis + list.size() + ColorSet.warning
                             + " failed, index out of bounds!");
                 }
                 return NullTag.NULL;
@@ -77,7 +77,7 @@ public class ListTag extends AbstractTagObject {
             return list.get(i);
         });
         // <--[tag]
-        // @Since 0.4.0
+        // @Since 0.5.0
         // @Name ListTag.first
         // @Updated 2018/06/08
         // @Group Lists
@@ -89,14 +89,14 @@ public class ListTag extends AbstractTagObject {
             List<AbstractTagObject> list = ((ListTag) obj).internal;
             if (list.isEmpty()) {
                 if (!dat.hasFallback()) {
-                    dat.error.run(".first failed, list is empty!");
+                    dat.error.run("ListTag.first failed, list is empty!");
                 }
                 return NullTag.NULL;
             }
             return list.get(0);
         });
         // <--[tag]
-        // @Since 0.4.0
+        // @Since 0.5.0
         // @Name ListTag.last
         // @Updated 2018/06/08
         // @Group Lists
@@ -108,26 +108,26 @@ public class ListTag extends AbstractTagObject {
             List<AbstractTagObject> list = ((ListTag) obj).internal;
             if (list.isEmpty()) {
                 if (!dat.hasFallback()) {
-                    dat.error.run(".last failed, list is empty!");
+                    dat.error.run("ListTag.last failed, list is empty!");
                 }
                 return NullTag.NULL;
             }
             return list.get(list.size() - 1);
         });
         // <--[tag]
-        // @Since 0.4.0
+        // @Since 0.5.0
         // @Name ListTag.find_first[<Dynamic>]
         // @Updated 2018/06/09
         // @Group Lists
         // @ReturnType IntegerTag
         // @Returns the position of the first object in the list that matches the input, or 0 if there were no matches.
-        // @Example "one|two|three|" .last returns "three".
+        // @Example "one|two|one|" .find_first[one] returns "1".
         // -->
         handlers.put("find_first", (dat, obj) -> {
             List<AbstractTagObject> list = ((ListTag) obj).internal;
             if (list.isEmpty()) {
                 if (!dat.hasFallback()) {
-                    dat.error.run(".find_first[] failed, list is empty!");
+                    dat.error.run("ListTag.find_first[] failed, list is empty!");
                 }
                 return NullTag.NULL;
             }
@@ -135,19 +135,19 @@ public class ListTag extends AbstractTagObject {
             return new IntegerTag(i + 1);
         });
         // <--[tag]
-        // @Since 0.4.0
+        // @Since 0.5.0
         // @Name ListTag.find_last[<Dynamic>]
         // @Updated 2018/06/09
         // @Group Lists
         // @ReturnType IntegerTag
         // @Returns the position of the last object in the list that matches the input, or 0 if there were no matches.
-        // @Example "one|two|three|" .last returns "three".
+        // @Example "one|two|one|" .find_last[one] returns "3".
         // -->
         handlers.put("find_last", (dat, obj) -> {
             List<AbstractTagObject> list = ((ListTag) obj).internal;
             if (list.isEmpty()) {
                 if (!dat.hasFallback()) {
-                    dat.error.run(".find_last[] failed, list is empty!");
+                    dat.error.run("ListTag.find_last[] failed, list is empty!");
                 }
                 return NullTag.NULL;
             }
@@ -155,7 +155,7 @@ public class ListTag extends AbstractTagObject {
             return new IntegerTag(i + 1);
         });
         // <--[tag]
-        // @Since 0.4.0
+        // @Since 0.5.0
         // @Name ListTag.sublist[<ListTag>]
         // @Updated 2018/06/08
         // @Group Lists
@@ -170,9 +170,9 @@ public class ListTag extends AbstractTagObject {
             List<AbstractTagObject> list = ((ListTag) obj).internal;
             if (i < 0 || j >= list.size() || i > j) {
                 if (!dat.hasFallback()) {
-                    dat.error.run(".sublist[] with input " + ColorSet.emphasis
-                            + input.debug() + ColorSet.good + " for list of length "
-                            + ColorSet.emphasis + list.size() + ColorSet.good
+                    dat.error.run("ListTag.sublist[] with input " + ColorSet.emphasis
+                            + input.debug() + ColorSet.warning + " for list of length "
+                            + ColorSet.emphasis + list.size() + ColorSet.warning
                             + " failed, indices out of bounds!");
                 }
                 return NullTag.NULL;
@@ -304,7 +304,7 @@ public class ListTag extends AbstractTagObject {
             int size = list.size();
             if (size <= 0) {
                 if (!dat.hasFallback()) {
-                    dat.error.run(".random failed, list is empty!");
+                    dat.error.run("ListTag.random failed, list is empty!");
                 }
                 return NullTag.NULL;
             }

@@ -43,16 +43,20 @@ public class SystemTagBase extends AbstractTagBase {
         // @Updated 2017/10/18
         // @Group Utilities
         // @ReturnType NumberTag
-        // @Returns Pi.
+        // @Returns the approximate value of mathematical constant pi,
+        // which is the ratio of a circle's circumference to its diameter.
+        // This returns the constant value "3.14159265358979323846" as a NumberTag.
         // -->
         handlers.put("pi", (dat, obj) -> new NumberTag(Math.PI));
         // <--[tag]
-        // @Since 0.4.0
+        // @Since 0.5.0
         // @Name SystemTag.e
         // @Updated 2018/06/09
         // @Group Utilities
         // @ReturnType NumberTag
-        // @Returns e.
+        // @Returns the approximate value of mathematical constant e,
+        // which is the base number for natural logarithms. This returns
+        // the constant value "2.71828182845904523536" as a NumberTag.
         // -->
         handlers.put("e", (dat, obj) -> new NumberTag(Math.E));
         // <--[tag]
