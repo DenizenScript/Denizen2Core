@@ -245,7 +245,7 @@ public class IntegerTag extends AbstractTagObject implements Denizen2Core.Intege
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the absolute value of this integer.
-        // @Note also known as ".abse_int[<IntegerTag>]".
+        // @Note also known as ".abs_int[<IntegerTag>]".
         // @Example "-1" .absolute_value_integer returns "1".
         // -->
         handlers.put("absolute_value_integer", (dat, obj) -> new IntegerTag(Math.abs(((IntegerTag) obj).internal)));
