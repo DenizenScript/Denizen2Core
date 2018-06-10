@@ -20,7 +20,7 @@ public class ProcedureTagBase extends AbstractTagBase {
     // @Base procedure[<MapTag>]
     // @Group Scripts
     // @ReturnType MapTag
-    // @Returns the result of a procedure script.
+    // @Returns the result of a procedure script. Input a map with key "script" set the correct script, and "path" as an optional sub-path. Other keys will be sent as context.
     // -->
 
     @Override
@@ -49,7 +49,11 @@ public class ProcedureTagBase extends AbstractTagBase {
         context.remove("script");
         context.remove("path");
         queue.commandStack.peek().setDefinition("context", new MapTag(context));
+        queue.specialErrorHandler = (s) -> {
+            data.error.run("Procedure script gave error: " + s);
+        };
         queue.start();
+        queue.specialErrorHandler = null;
         return new MapTag(queue.determinations.getInternal()).handle(data.shrink());
     }
 }

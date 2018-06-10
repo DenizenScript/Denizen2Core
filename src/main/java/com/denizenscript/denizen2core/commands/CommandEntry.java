@@ -111,6 +111,7 @@ public class CommandEntry {
     }
 
     public static CommandEntry forLine(String scrName, String input) {
+        // TODO: use trickery to identify own line-number in file
         input = input.replace('\0', ' ');
         ArrayList<Argument> fargs = new ArrayList<>();
         boolean quoted = false;

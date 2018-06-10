@@ -8,16 +8,18 @@ import com.denizenscript.denizen2core.utilities.debugging.Debug;
 import com.denizenscript.denizen2core.utilities.AbstractSender;
 import com.denizenscript.denizen2core.utilities.Action;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
 
 /**
  * Represents a set of executing commands.
  */
 public class CommandQueue {
 
-    public final Stack<CommandStackEntry> commandStack = new Stack<>();
+    public final ArrayDeque<CommandStackEntry> commandStack = new ArrayDeque<>();
 
     public Action<String> error = this::handleError;
+
+    public Action<String> specialErrorHandler = null;
 
     public Action<CommandQueue> onStop;
 
@@ -64,7 +66,7 @@ public class CommandQueue {
         startTime = System.currentTimeMillis();
         qID = Denizen2Core.cqID++;
         if (!run(0)) {
-            Denizen2Core.queues.add(this);
+            Denizen2Core.queues.add(this); // TODO: Maybe this should be added to the queue list somewhere for lookup reasons before first-run?
         }
     }
 
@@ -141,18 +143,46 @@ public class CommandQueue {
     }
 
     public void handleError(String error) {
-        handleError((currentEntry.getIndex() > 0 && currentEntry.getIndex() - 1 < currentEntry.entries.length) ?
+        handleError(currentEntry != null && (currentEntry.getIndex() > 0 && currentEntry.getIndex() - 1 < currentEntry.entries.length) ?
                 currentEntry.entries[currentEntry.getIndex() - 1] : null, error);
     }
 
     public void handleError(CommandEntry entry, String error) {
-        String emsg;
-        if (entry == null) {
-            emsg = "Error in queue " + ColorSet.emphasis + qID + ColorSet.warning + ", while handling an unknown command: " + error;
+        String emsg = "Script error occurred: " + error + "\n  in queue " + ColorSet.emphasis + qID + ColorSet.warning;
+        if (currentEntry != null) {
+            emsg += ", in script '" + ColorSet.emphasis + currentEntry.scriptTitle + ColorSet.warning + "'";
         }
         else {
-            emsg = "Error in queue " + ColorSet.emphasis + qID + ColorSet.warning
-                    + ", while handling command '" + ColorSet.emphasis + entry.originalLine + ColorSet.warning + "': " + error;
+            emsg += ", in an unknown script";
+        }
+        if (entry == null) {
+            emsg += ", while handling an unknown command: " + ColorSet.warning;
+        }
+        else {
+            emsg += ", while handling command '" + ColorSet.emphasis + entry.originalLine + ColorSet.warning
+                    + "': " + ColorSet.warning;
+        }
+        if (!commandStack.isEmpty()) {
+            commandStack.pop();
+            // TODO: Try/catch commands
+            while (!commandStack.isEmpty()) {
+                CommandStackEntry cse = commandStack.pop();
+                int index = cse.getIndex() - 1;
+                if (index < 0 || index >= cse.entries.length) {
+                    emsg += "\n  while handling an invalid/unknown position within script '"
+                            + ColorSet.emphasis + cse.scriptTitle + ColorSet.warning + "'";
+                }
+                else {
+                    CommandEntry cseEntry = cse.entries[index];
+                    emsg += "\n  in script '" + ColorSet.emphasis + cse.scriptTitle + ColorSet.warning
+                            + "', while handling command '" + ColorSet.emphasis
+                            + cseEntry.originalLine + ColorSet.warning + "'";
+                }
+            }
+        }
+        if (specialErrorHandler != null) {
+            stop();
+            throw new ErrorInducedException(emsg);
         }
         // TODO: Error event.
         if (shouldShowError()) {

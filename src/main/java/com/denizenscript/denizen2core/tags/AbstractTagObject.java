@@ -10,13 +10,17 @@ public abstract class AbstractTagObject {
     public abstract HashMap<String, Function2<TagData, AbstractTagObject, AbstractTagObject>> getHandlers();
 
     public AbstractTagObject handle(TagData data) {
+        if (data.returnsTracked[data.currentIndex() - 1] == null) {
+            data.returnsTracked[data.currentIndex() - 1] = this;
+        }
         if (data.remaining() == 0) {
             return this;
         }
         String type = data.getNext();
-        Function2<TagData, AbstractTagObject, AbstractTagObject> handle = getHandlers().get(type);
-        if (handle != null) {
-            return handle.apply(data, this).handle(data.shrink());
+        Function2<TagData, AbstractTagObject, AbstractTagObject> tagAction = getHandlers().get(type);
+        if (tagAction != null) {
+            AbstractTagObject curVal = tagAction.apply(data, this);
+            return curVal.handle(data.shrink());
         }
         AbstractTagObject ato = handleElseCase(data);
         if (ato != null) {

@@ -61,7 +61,7 @@ public class TagArgumentBit extends ArgumentBit {
             res = NullTag.NULL;
         }
         else {
-            TagData data = new TagData(error, bits, fallback, vars, mode, queue);
+            TagData data = new TagData(error, bits, fallback, vars, mode, queue, this);
             res = start.handle(data);
         }
         if (res instanceof NullTag && fallback != null) {

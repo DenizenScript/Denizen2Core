@@ -105,10 +105,10 @@ public class QueueTag extends AbstractTagObject implements Denizen2Core.IntegerF
         // @Example "1" .base_script may return "MyTask".
         // -->
         handlers.put("base_script", (dat, obj) -> {
-            if (((QueueTag) obj).internal.commandStack.size() == 0) {
+            if (((QueueTag) obj).internal.commandStack.isEmpty()) {
                 return NullTag.NULL;
             }
-            CommandScript cs = ((QueueTag) obj).internal.commandStack.firstElement().originalScript;
+            CommandScript cs = ((QueueTag) obj).internal.commandStack.peekFirst().originalScript;
             if (cs == null) {
                 return NullTag.NULL;
             }
@@ -193,10 +193,10 @@ public class QueueTag extends AbstractTagObject implements Denizen2Core.IntegerF
 
     @Override
     public String debug() {
-        if (internal.commandStack.size() == 0) {
+        if (internal.commandStack.isEmpty()) {
             return toString();
         }
-        CommandScript cs = internal.commandStack.firstElement().originalScript;
+        CommandScript cs = internal.commandStack.peekFirst().originalScript;
         return toString() + "/" + cs.title;
     }
 }

@@ -108,6 +108,9 @@ public class CommandStackEntry implements Cloneable {
             catch (Exception ex) {
                 if (ex instanceof ErrorInducedException) {
                     if (ex.getMessage() != null) {
+                        if (queue.specialErrorHandler != null) {
+                            queue.specialErrorHandler.run(ex.getMessage());
+                        }
                         try {
                             queue.handleError("Error running script: " + ex.getMessage());
                         }

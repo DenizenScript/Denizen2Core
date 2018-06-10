@@ -6,6 +6,7 @@ import com.denizenscript.denizen2core.tags.handlers.EscapeTagBase;
 import com.denizenscript.denizen2core.utilities.CoreUtilities;
 import com.denizenscript.denizen2core.utilities.Function2;
 import com.denizenscript.denizen2core.utilities.Action;
+import com.denizenscript.denizen2core.utilities.debugging.ColorSet;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -428,7 +429,18 @@ public class TextTag extends AbstractTagObject {
 
     @Override
     public AbstractTagObject handleElseCase(TagData data) {
-        data.error.run("Unknown tag part '" + data.getNext() + "'!");
+        if (!data.hasFallback()) {
+            if (data.currentIndex() > 0 && data.returnsTracked[data.currentIndex() - 1] != null) {
+                data.error.run("Unknown tag part '" + ColorSet.emphasis + data.getNext()
+                        + ColorSet.warning + "' - tag was of type: "
+                        + ColorSet.emphasis + data.returnsTracked[data.currentIndex() - 1].getTagTypeName()
+                        + ColorSet.warning);
+            }
+            else {
+                data.error.run("Unknown tag part '" + ColorSet.emphasis + data.getNext()
+                        + ColorSet.warning + "' - exact original tag type is unknown.");
+            }
+        }
         return NullTag.NULL;
     }
 
