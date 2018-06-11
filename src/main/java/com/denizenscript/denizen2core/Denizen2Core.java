@@ -353,7 +353,7 @@ public class Denizen2Core {
         for (WorldScript script : ScriptEvent.currentWorldScripts) {
             Set<StringHolder> evts = script.contents.getConfigurationSection("events").getKeys(false);
             for (StringHolder evt : evts) {
-                if (!script.eventsConfirmed.contains(evt)) {
+                if (!script.eventsConfirmed.contains(evt.str)) {
                     Debug.error("Script event went unmatched: " + ColorSet.emphasis + script.title + ".events." + evt.str
                             + ColorSet.warning + "!");
                 }
