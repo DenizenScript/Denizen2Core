@@ -268,7 +268,7 @@ public abstract class ScriptEvent implements Cloneable {
             try {
                 if (matches(data)) {
                     if (cancelled) {
-                        String ic = data.switches.get("ignorecancelled");
+                        String ic = data.switches.get("ignorecancelled"); // TODO: Special case this to a boolean variable rather than a constant get lookup?
                         if (ic == null || !CoreUtilities.toLowerCase(ic).equals("true")) {
                             continue;
                         }

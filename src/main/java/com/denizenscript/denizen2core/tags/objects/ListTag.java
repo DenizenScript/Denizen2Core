@@ -1,6 +1,7 @@
 package com.denizenscript.denizen2core.tags.objects;
 
 import com.denizenscript.denizen2core.Denizen2Core;
+import com.denizenscript.denizen2core.arguments.Argument;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.TagData;
 import com.denizenscript.denizen2core.tags.handlers.EscapeTagBase;
@@ -33,6 +34,10 @@ public class ListTag extends AbstractTagObject {
         internal = new ArrayList<>(inty);
     }
 
+    public ListTag(int capacity) {
+        internal = new ArrayList<>(capacity);
+    }
+
     public List<AbstractTagObject> getInternal() {
         return internal;
     }
@@ -61,6 +66,69 @@ public class ListTag extends AbstractTagObject {
             return ((ListTag) obj).internal.get(i);
         });
         // <--[tag]
+        // @Since 0.5.0
+        // @Name ListTag.parse[<Tag>]
+        // @Updated 2018/06/10
+        // @Group Loops
+        // @ReturnType ListTag
+        // @Returns a list of all entries in this list, parsed by a tag (use definition 'parse_value').
+        // @Example "one|two|three|" .parse[<[parse_value].to_upper[o]>] returns "ONE|TWO|THREE|".
+        // -->
+        handlers.put("parse", (dat, obj) -> {
+            if (!dat.hasNextModifier()) {
+                if (!dat.hasFallback()) {
+                    dat.error.run("ListTag.parse requires a modifier input!");
+                }
+                return NullTag.NULL;
+            }
+            Action<String> errorHandle = (s) -> {
+                dat.error.run("Failed to handle tag within a ListTag.parse run: " + s);
+            };
+            Argument arg = dat.bits[dat.currentIndex()].variable;
+            ListTag original = (ListTag) obj;
+            ListTag result = new ListTag(original.internal.size());
+            HashMap<String, AbstractTagObject> vars = dat.variables == null ? new HashMap<>() : new HashMap<>(dat.variables);
+            for (AbstractTagObject ato : original.internal) {
+                vars.put("parse_value", ato);
+                AbstractTagObject outp = arg.parse(dat.currentQueue, vars, dat.dbmode, errorHandle);
+                result.internal.add(outp);
+            }
+            return result;
+        });
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name ListTag.filter[<BooleanTag>]
+        // @Updated 2018/06/10
+        // @Group Loops
+        // @ReturnType ListTag
+        // @Returns a list of all entries in this list that pass a boolean test (use definition 'filter_value').
+        // @Example "one|two|three|four|" .filter[<[filter_value].contains_text[o]>] returns "one|two|four|".
+        // -->
+        handlers.put("filter", (dat, obj) -> {
+            if (!dat.hasNextModifier()) {
+                if (!dat.hasFallback()) {
+                    dat.error.run("ListTag.filter requires a modifier input!");
+                }
+                return NullTag.NULL;
+            }
+            Action<String> errorHandle = (s) -> {
+                dat.error.run("Failed to handle tag within a ListTag.filter run: " + s);
+            };
+            Argument arg = dat.bits[dat.currentIndex()].variable;
+            ListTag original = (ListTag) obj;
+            ListTag result = new ListTag(original.internal.size());
+            HashMap<String, AbstractTagObject> vars = dat.variables == null ? new HashMap<>() : new HashMap<>(dat.variables);
+            for (AbstractTagObject ato : original.internal) {
+                vars.put("filter_value", ato);
+                AbstractTagObject outp = arg.parse(dat.currentQueue, vars, dat.dbmode, errorHandle);
+                BooleanTag bt = BooleanTag.getFor(errorHandle, outp);
+                if (bt.getInternal()) {
+                    result.internal.add(ato);
+                }
+            }
+            return result;
+        });
+        // <--[tag]
         // @Since 0.3.0
         // @Name ListTag.contains[<TextTag>]
         // @Updated 2017/03/08
@@ -74,10 +142,10 @@ public class ListTag extends AbstractTagObject {
             ListTag list = (ListTag) obj;
             for (int i = 0; i < list.getInternal().size(); i++) {
                 if (CoreUtilities.toLowerCase(list.getInternal().get(i).toString()).equals(contain_check)) {
-                    return BooleanTag.getForBoolean(true);
+                    return BooleanTag.TRUE;
                 }
             }
-            return BooleanTag.getForBoolean(false);
+            return BooleanTag.FALSE;
         });
         // <--[tag]
         // @Since 0.3.0
@@ -93,10 +161,10 @@ public class ListTag extends AbstractTagObject {
             ListTag list = (ListTag) obj;
             for (int i = 0; i < list.getInternal().size(); i++) {
                 if (list.getInternal().get(i).toString().equals(contain_check)) {
-                    return BooleanTag.getForBoolean(true);
+                    return BooleanTag.TRUE;
                 }
             }
-            return BooleanTag.getForBoolean(false);
+            return BooleanTag.FALSE;
         });
         // <--[tag]
         // @Since 0.3.0

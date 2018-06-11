@@ -131,7 +131,8 @@ public class TagData {
 
     public AbstractTagObject getNextModifier() {
         if (bits[cInd].variable == null) {
-            error.run("No tag modifier given when required for tag part " + ColorSet.emphasis + bits[cInd].key);
+            error.run("No tag modifier given when required for tag part '"
+                    + ColorSet.emphasis + bits[cInd].key + ColorSet.warning + "'.");
             return NullTag.NULL;
         }
         AbstractTagObject ato = bits[cInd].variable.parse(currentQueue, variables, dbmode, error);
