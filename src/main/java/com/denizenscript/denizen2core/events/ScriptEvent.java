@@ -1,5 +1,6 @@
 package com.denizenscript.denizen2core.events;
 
+import com.denizenscript.denizen2core.DebugMode;
 import com.denizenscript.denizen2core.tags.AbstractTagObject;
 import com.denizenscript.denizen2core.tags.objects.BooleanTag;
 import com.denizenscript.denizen2core.tags.objects.MapTag;
@@ -16,6 +17,7 @@ import com.denizenscript.denizen2core.utilities.CoreUtilities;
 import com.denizenscript.denizen2core.utilities.ErrorInducedException;
 import com.denizenscript.denizen2core.utilities.debugging.Debug;
 import com.denizenscript.denizen2core.utilities.yaml.StringHolder;
+import com.denizenscript.denizen2core.utilities.yaml.YAMLConfiguration;
 
 import java.util.*;
 
@@ -42,11 +44,15 @@ public abstract class ScriptEvent implements Cloneable {
 
         public String eventPath = null;
 
+        public boolean ignoreCancelled = false;
+
         public int priority = 0;
 
         public List<Argument> requirements = new ArrayList<>();
 
         public HashMap<String, String> switches = new HashMap<>();
+
+        public CommandScriptSection scriptSection = null;
     }
 
     // <--[explanation]
@@ -64,16 +70,7 @@ public abstract class ScriptEvent implements Cloneable {
     // -->
 
     public void sort() {
-        for (ScriptEventData path : usages) {
-            String gotten = path.switches.get("priority");
-            path.priority = gotten == null ? 0 : (int) IntegerTag.getFor((e) -> {
-                throw new RuntimeException("Invalid integer specified: " + e);
-            }, gotten).getInternal();
-        }
-        Collections.sort(usages, (t1, t2) -> {
-            int rel = t1.priority - t2.priority;
-            return rel < 0 ? -1 : (rel > 0 ? 1 : 0);
-        });
+        usages.sort(Comparator.comparingInt((t) -> t.priority));
     }
 
     // TODO: Determinations
@@ -93,35 +90,56 @@ public abstract class ScriptEvent implements Cloneable {
         usages.clear();
         for (WorldScript script : currentWorldScripts) {
             if (!script.contents.contains("events")) {
-                Debug.error("Invalid world script: " + script.title + ": missing events section!");
+                Debug.error("Invalid world script: " + ColorSet.emphasis + script.title + ColorSet.warning + ": missing events section!");
                 continue;
             }
-            Set<StringHolder> evts = script.contents.getConfigurationSection("events").getKeys(false);
+            YAMLConfiguration eventsBlock = script.contents.getConfigurationSection("events");
+            if (eventsBlock == null) {
+                Debug.error("Invalid world script: " + ColorSet.emphasis + script.title + ColorSet.warning + ": malformed events section!");
+                continue;
+            }
+            Set<StringHolder> evts = eventsBlock.getKeys(false);
             for (StringHolder evt : evts) {
                 if (evt.str.length() < "on ".length()) {
                     continue;
                 }
                 ScriptEventData data = new ScriptEventData();
-                data.script = script;
-                data.rawPath = evt.str.substring("on ".length());
-                StringBuilder res = new StringBuilder();
-                for (String possible : CoreUtilities.split(data.rawPath, ' ')) {
-                    List<String> split = CoreUtilities.split(possible, ':', 2);
-                    String low = CoreUtilities.toLowerCase(split.get(0));
-                    if (split.size() > 1 && low.equals("require")) {
-                        data.requirements.add(Denizen2Core.splitToArgument(split.get(1).replace("&dot", ".")
-                                .replace("&amp", "&"), false, false, this::error));
+                try {
+                    data.script = script;
+                    data.rawPath = evt.str.substring("on ".length());
+                    StringBuilder res = new StringBuilder();
+                    for (String possible : CoreUtilities.split(data.rawPath, ' ')) {
+                        List<String> split = CoreUtilities.split(possible, ':', 2);
+                        String low = CoreUtilities.toLowerCase(split.get(0));
+                        if (split.size() > 1) {
+                            String val = split.get(1);
+                            if (low.equals("require")) {
+                                data.requirements.add(Denizen2Core.splitToArgument(val.replace("&dot", ".")
+                                        .replace("&amp", "&"), false, false, this::error));
+                            }
+                            else if (low.equals("ignorecancelled")) {
+                                data.ignoreCancelled = CoreUtilities.toLowerCase(val).equals("true");
+                            }
+                            else if (low.equals("priority")) {
+                                data.priority = (int) IntegerTag.getFor(this::error, val).getInternal();
+                            }
+                            else {
+                                data.switches.put(low, val);
+                            }
+                        }
+                        else {
+                            res.append(possible).append(" ");
+                        }
                     }
-                    else if (split.size() > 1) {
-                        data.switches.put(low, split.get(1));
-                    }
-                    else {
-                        res.append(possible).append(" ");
-                    }
+                    data.eventPath = res.toString().trim();
                 }
-                data.eventPath = res.toString().trim();
-                if (couldMatch(data)) {
-                    try {
+                catch (ErrorInducedException ex) {
+                        Debug.error("While managing script event " + ColorSet.emphasis + getName() + ColorSet.warning
+                                + ", tried to process " + ColorSet.emphasis + script.title + "." + evt.str
+                                + ColorSet.warning + ", but got error: " + ex.getMessage());
+                    }
+                try {
+                    if (couldMatch(data)) {
                         usages.add(data);
                         script.eventsConfirmed.add(evt.str);
                         if (generalDebug) {
@@ -130,10 +148,11 @@ public abstract class ScriptEvent implements Cloneable {
                                     + ColorSet.good + "!");
                         }
                     }
-                    catch (ErrorInducedException ex) {
-                        Debug.error("While managing script event " + getName() + ", tried to match "
-                                + script.title + "." + evt.str + ", but got error: " + ex.getMessage());
-                    }
+                }
+                catch (ErrorInducedException ex) {
+                    Debug.error("While managing script event " + ColorSet.emphasis + getName() + ColorSet.warning
+                            + ", tried to match " + ColorSet.emphasis + script.title + "." + evt.str
+                            + ColorSet.warning + ", but got error: " + ex.getMessage());
                 }
             }
         }
@@ -225,20 +244,24 @@ public abstract class ScriptEvent implements Cloneable {
         MapTag defmap = new MapTag(defs);
         HashMap<String, AbstractTagObject> contextHelper = new HashMap<>();
         contextHelper.put("context", defmap);
-        CommandScriptSection css = data.script.getSection("events.on " + data.rawPath);
-        if (css == null) {
-            if (Denizen2Core.getImplementation().generalDebug()) {
-                Debug.info("Script Event path: " + data.rawPath + " failed to load...");
+        if (data.scriptSection == null) {
+            data.scriptSection = data.script.getSection("events.on " + data.rawPath);
+            if (data.scriptSection == null) {
+                if (Denizen2Core.getImplementation().generalDebug()) {
+                    Debug.info("Script Event path: " + data.rawPath + " failed to load...");
+                }
+                return; // Something went wrong. Perhaps the script didn't load, or had an error?
             }
-            return; // Something went wrong. Perhaps the script didn't load?
         }
+        CommandScriptSection css = data.scriptSection;
+        DebugMode dbm = css.created.getDebugMode();
         for (Argument req : data.requirements) {
-            if (css.created.getDebugMode().showFull) {
+            if (dbm.showFull) {
                 Debug.info("Checking requirement: " + req.toString());
             }
             CommandQueue q = FakeQueueHelper.genFakeQueueFor(contextHelper, this::error);
-            BooleanTag bt = BooleanTag.getFor(this::error, req.parse(q, contextHelper, css.created.getDebugMode(), this::error));
-            if (css.created.getDebugMode().showFull) {
+            BooleanTag bt = BooleanTag.getFor(this::error, req.parse(q, contextHelper, dbm, this::error));
+            if (dbm.showFull) {
                 Debug.info("Requirement result: " + bt.getInternal());
             }
             if (!bt.getInternal()) {
@@ -267,11 +290,8 @@ public abstract class ScriptEvent implements Cloneable {
         for (ScriptEventData data : usages) {
             try {
                 if (matches(data)) {
-                    if (cancelled) {
-                        String ic = data.switches.get("ignorecancelled"); // TODO: Special case this to a boolean variable rather than a constant get lookup?
-                        if (ic == null || !CoreUtilities.toLowerCase(ic).equals("true")) {
-                            continue;
-                        }
+                    if (cancelled && !data.ignoreCancelled) {
+                        continue;
                     }
                     subRun(data);
                 }

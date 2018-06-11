@@ -45,6 +45,12 @@ public class ListTag extends AbstractTagObject {
     public final static HashMap<String, Function2<TagData, AbstractTagObject, AbstractTagObject>> handlers = new HashMap<>();
 
     static {
+        // TODO: Tags to add:
+        // sort_numeric[<Tag>] returns ListTag of the current list, sorted numerically. Optionally specify a tag (of parse/filter style) to get a sort key.
+        // sort_alphabetical[<Tag>] returns ListTag of the current list, sorted alphabetically. Optionally specify a tag (of parse/filter style) to get a sort key.
+        // sort_alphanumeric[<Tag>] returns ListTag of the current list, sorted alphanumerically. Optionally specify a tag (of parse/filter style) to get a sort key.
+        // ...
+
         // <--[tag]
         // @Since 0.3.0
         // @Name ListTag.get[<IntegerTag>]

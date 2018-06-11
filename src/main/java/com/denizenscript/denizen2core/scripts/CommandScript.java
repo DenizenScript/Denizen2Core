@@ -26,6 +26,7 @@ public abstract class CommandScript {
     public CommandScript(String name, YAMLConfiguration section) {
         title = name;
         contents = section;
+        dbMode = calculateDebugMode();
     }
 
     // <--[explanation]
@@ -35,9 +36,9 @@ public abstract class CommandScript {
     // @Description
     // There are three different debug modes any script can have.
     //
-    // FULL: All debug output is shown.
-    // MINIMAL: (Recommended!) only errors are shown.
-    // NONE: Nothing at all is shown.
+    // FULL: (Best while working on a script!) All debug output is shown.
+    // MINIMAL: (Recommended (when not still testing)!) only errors are shown.
+    // NONE: (Only for very special cases!) Nothing at all is shown.
     //
     // You can set these in any script container like this example
     // <@code>
@@ -52,7 +53,13 @@ public abstract class CommandScript {
     // TODO: Explain better
     // -->
 
+    public DebugMode dbMode;
+
     public DebugMode getDebugMode() {
+        return dbMode;
+    }
+
+    public DebugMode calculateDebugMode() {
         String dbm = CoreUtilities.toUpperCase(contents.getString("debug", "FULL"));
         if (dbm.equals("TRUE")) {
             return DebugMode.FULL;

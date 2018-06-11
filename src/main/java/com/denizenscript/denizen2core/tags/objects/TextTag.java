@@ -36,6 +36,11 @@ public class TextTag extends AbstractTagObject {
     public final static HashMap<String, Function2<TagData, AbstractTagObject, AbstractTagObject>> handlers = new HashMap<>();
 
     static {
+        // TODO: Tags to add:
+        // distance[<TextTag>] return IntegerTag of the Levenshtein distance between the two text values.
+        // replace_regex[<ListTag>] returns TextTag of the text after process a regex replacement, input is "regex|replacement" (maybe a cleaner input method? Regex in a list tag requires escaping)
+        // ...
+
         // <--[tag]
         // @Since 0.3.0
         // @Name TextTag.to_integer
