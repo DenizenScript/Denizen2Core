@@ -6,6 +6,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 /**
  * Useful utility methods.
@@ -24,6 +25,33 @@ public class CoreUtilities {
             return input;
         }
         return input.substring(ind + sep.length());
+    }
+
+    public static int count(String input, char countMe) {
+        char[] data = input.toCharArray();
+        int res = 0;
+        for (int i = 0; i < data.length; i++) {
+            if (data[i] == countMe) {
+                res++;
+            }
+        }
+        return res;
+    }
+
+    public static UUID tryGetUUID(String name) throws NumberFormatException {
+        List<String> components = split(name, '-');
+        if (components.size() != 5) {
+            return null;
+        }
+        long mostSigBits = Long.parseLong(components.get(0), 16);
+        mostSigBits <<= 16;
+        mostSigBits |= Long.parseLong(components.get(1), 16);
+        mostSigBits <<= 16;
+        mostSigBits |= Long.parseLong(components.get(2), 16);
+        long leastSigBits = Long.parseLong(components.get(3), 16);
+        leastSigBits <<= 48;
+        leastSigBits |= Long.parseLong(components.get(4), 16);
+        return new UUID(mostSigBits, leastSigBits);
     }
 
     public static String doubleToString(double input) {
