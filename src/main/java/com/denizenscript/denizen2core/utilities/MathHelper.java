@@ -132,7 +132,7 @@ public class MathHelper {
                     for (int i = 0; i < func.getValue().one; i++) {
                         m.stk.pop();
                     }
-                    m.stk.push(Double.valueOf(0)); // Ain't this one fun. IntelliJ warning here is wrong.
+                    m.stk.push(0.0);
                 }));
             }
             if (calcInternal(mops, tfunc).stk.size() != 1) {

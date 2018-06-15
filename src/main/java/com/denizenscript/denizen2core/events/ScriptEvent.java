@@ -134,10 +134,10 @@ public abstract class ScriptEvent implements Cloneable {
                     data.eventPath = res.toString().trim();
                 }
                 catch (ErrorInducedException ex) {
-                        Debug.error("While managing script event " + ColorSet.emphasis + getName() + ColorSet.warning
-                                + ", tried to process " + ColorSet.emphasis + script.title + "." + evt.str
-                                + ColorSet.warning + ", but got error: " + ex.getMessage());
-                    }
+                    Debug.error("While managing script event " + ColorSet.emphasis + getName() + ColorSet.warning
+                            + ", tried to process " + ColorSet.emphasis + script.title + "." + evt.str
+                            + ColorSet.warning + ", but got error: " + ex.getMessage());
+                }
                 try {
                     if (couldMatch(data)) {
                         usages.add(data);
