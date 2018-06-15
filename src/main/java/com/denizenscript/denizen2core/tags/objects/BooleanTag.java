@@ -63,7 +63,7 @@ public class BooleanTag extends AbstractTagObject {
         // @Example "false" .and[false] returns "false".
         // -->
         handlers.put("and", (dat, obj) -> {
-            return getForBoolean(((BooleanTag) obj).getInternal() && BooleanTag.getFor(dat.error, dat.getNextModifier()).getInternal());
+            return getForBoolean(((BooleanTag) obj).getInternal() && BooleanTag.getFor(dat.checkedError, dat.getNextModifier()).getInternal());
         });
         // <--[tag]
         // @Since 0.3.0
@@ -78,7 +78,7 @@ public class BooleanTag extends AbstractTagObject {
         // @Example "false" .or[false] returns "false".
         // -->
         handlers.put("or", (dat, obj) -> {
-            return getForBoolean(((BooleanTag) obj).getInternal() && BooleanTag.getFor(dat.error, dat.getNextModifier()).getInternal());
+            return getForBoolean(((BooleanTag) obj).getInternal() && BooleanTag.getFor(dat.checkedError, dat.getNextModifier()).getInternal());
         });
         // <--[tag]
         // @Since 0.3.0
@@ -93,7 +93,7 @@ public class BooleanTag extends AbstractTagObject {
         // @Example "false" .xor[false] returns "false".
         // -->
         handlers.put("xor", (dat, obj) -> {
-            return getForBoolean(((BooleanTag) obj).getInternal() != BooleanTag.getFor(dat.error, dat.getNextModifier()).getInternal());
+            return getForBoolean(((BooleanTag) obj).getInternal() != BooleanTag.getFor(dat.checkedError, dat.getNextModifier()).getInternal());
         });
     }
 

@@ -63,7 +63,7 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
         // @Example "1" .add_duration[1] returns "2".
         // -->
         handlers.put("add_duration", (dat, obj) -> {
-            DurationTag two = DurationTag.getFor(dat.error, dat.getNextModifier());
+            DurationTag two = DurationTag.getFor(dat.checkedError, dat.getNextModifier());
             return new DurationTag(((DurationTag) obj).internal + two.internal);
         });
         // <--[tag]
@@ -76,7 +76,7 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
         // @Example "1" .subtract_duration[1] returns "0".
         // -->
         handlers.put("subtract_duration", (dat, obj) -> {
-            DurationTag two = DurationTag.getFor(dat.error, dat.getNextModifier());
+            DurationTag two = DurationTag.getFor(dat.checkedError, dat.getNextModifier());
             return new DurationTag(((DurationTag) obj).internal - two.internal);
         });
     }

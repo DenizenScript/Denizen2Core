@@ -13,6 +13,9 @@ import java.util.HashMap;
 
 public class TagData {
 
+    public class TagDataEscalateException extends RuntimeException {
+    }
+
     private int cInd = 0;
 
     public TagData(Action<String> err, TagBit[] b, Argument fb, HashMap<String, AbstractTagObject> vars, DebugMode dbm,
@@ -27,6 +30,7 @@ public class TagData {
         backingError = err;
         originalTab = tab;
         error = this::handleError;
+        checkedError = this::handleCheckedGetForError;
     }
 
     public final TagArgumentBit originalTab;
@@ -36,6 +40,8 @@ public class TagData {
     public final CommandQueue currentQueue;
 
     public final Action<String> error;
+
+    public final Action<String> checkedError;
 
     public final TagBit[] bits;
 
@@ -97,6 +103,13 @@ public class TagData {
         tag.append(ColorSet.emphasis);
         tag.append(">");
         return tag.toString();
+    }
+
+    public void handleCheckedGetForError(String err) {
+        if (!hasFallback()) {
+            error.run(err);
+        }
+        throw new TagDataEscalateException();
     }
 
     public void handleError(String err) {

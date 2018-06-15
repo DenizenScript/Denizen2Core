@@ -48,7 +48,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .is_greater_than[2] returns "false".
         // -->
         handlers.put("is_greater_than", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return BooleanTag.getForBoolean(((NumberTag) obj).internal > two.internal);
         });
         // <--[tag]
@@ -61,7 +61,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .is_greater_than_or_equal_to[2] returns "false".
         // -->
         handlers.put("is_greater_than_or_equal_to", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return BooleanTag.getForBoolean(((NumberTag) obj).internal >= two.internal);
         });
         // <--[tag]
@@ -74,7 +74,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .is_less_than[2] returns "false".
         // -->
         handlers.put("is_less_than", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return BooleanTag.getForBoolean(((NumberTag) obj).internal < two.internal);
         });
         // <--[tag]
@@ -87,12 +87,12 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .is_less_than_or_equal_to[2] returns "false".
         // -->
         handlers.put("is_less_than_or_equal_to", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return BooleanTag.getForBoolean(((NumberTag) obj).internal <= two.internal);
         });
         // Documented in TextTag.
         handlers.put("equals", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return BooleanTag.getForBoolean(((NumberTag) obj).internal == two.internal);
         });
         // <--[tag]
@@ -105,7 +105,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .add[1] returns "2".
         // -->
         handlers.put("add", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(((NumberTag) obj).internal + two.internal);
         });
         // <--[tag]
@@ -118,7 +118,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .+[1] returns "2".
         // -->
         handlers.put("+", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(((NumberTag) obj).internal + two.internal);
         });
         // <--[tag]
@@ -131,7 +131,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .subtract[1] returns "0".
         // -->
         handlers.put("subtract", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(((NumberTag) obj).internal - two.internal);
         });
         // <--[tag]
@@ -144,7 +144,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .sub[1] returns "0".
         // -->
         handlers.put("sub", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(((NumberTag) obj).internal - two.internal);
         });
         // <--[tag]
@@ -157,7 +157,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .-[1] returns "0".
         // -->
         handlers.put("-", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(((NumberTag) obj).internal - two.internal);
         });
         // <--[tag]
@@ -170,7 +170,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .multiply[1] returns "1".
         // -->
         handlers.put("multiply", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(((NumberTag) obj).internal * two.internal);
         });
         // <--[tag]
@@ -183,7 +183,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .mul[1] returns "1".
         // -->
         handlers.put("mul", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(((NumberTag) obj).internal * two.internal);
         });
         // <--[tag]
@@ -196,7 +196,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .*[1] returns "1".
         // -->
         handlers.put("*", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(((NumberTag) obj).internal * two.internal);
         });
         // <--[tag]
@@ -209,7 +209,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .divide[1] returns "1".
         // -->
         handlers.put("divide", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(((NumberTag) obj).internal / two.internal);
         });
         // <--[tag]
@@ -222,7 +222,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .div[1] returns "1".
         // -->
         handlers.put("div", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(((NumberTag) obj).internal / two.internal);
         });
         // <--[tag]
@@ -235,7 +235,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" ./[1] returns "1".
         // -->
         handlers.put("/", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(((NumberTag) obj).internal / two.internal);
         });
         // <--[tag]
@@ -248,7 +248,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .modulo[1] returns "0".
         // -->
         handlers.put("modulo", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(((NumberTag) obj).internal % two.internal);
         });
         // <--[tag]
@@ -261,7 +261,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .mod[1] returns "0".
         // -->
         handlers.put("mod", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(((NumberTag) obj).internal % two.internal);
         });
         // <--[tag]
@@ -274,7 +274,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .%[1] returns "0".
         // -->
         handlers.put("%", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(((NumberTag) obj).internal % two.internal);
         });
         // <--[tag]
@@ -287,7 +287,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .maximum[2] returns "2".
         // -->
         handlers.put("maximum", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(Math.max(((NumberTag) obj).internal, two.internal));
         });
         // <--[tag]
@@ -300,7 +300,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "1" .maximum[2] returns "1".
         // -->
         handlers.put("minimum", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(Math.min(((NumberTag) obj).internal, two.internal));
         });
         // <--[tag]
@@ -313,7 +313,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "2" .log[2] returns "1".
         // -->
         handlers.put("log", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(Math.log(((NumberTag) obj).internal) / Math.log(two.internal));
         });
         // <--[tag]
@@ -326,7 +326,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "2" .power[2] returns "4".
         // -->
         handlers.put("power", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(Math.pow(((NumberTag) obj).internal, two.internal));
         });
         // <--[tag]
@@ -339,7 +339,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "2" .^[2] returns "4".
         // -->
         handlers.put("^", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(Math.pow(((NumberTag) obj).internal, two.internal));
         });
         // <--[tag]
@@ -436,7 +436,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Example "0" .atan2[1] returns "0".
         // -->
         handlers.put("atan2", (dat, obj) -> {
-            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
+            NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
             return new NumberTag(Math.atan2(((NumberTag) obj).internal, two.internal));
         });
         // <--[tag]

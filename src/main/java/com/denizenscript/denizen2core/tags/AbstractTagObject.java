@@ -19,8 +19,13 @@ public abstract class AbstractTagObject {
         String type = data.getNext();
         Function2<TagData, AbstractTagObject, AbstractTagObject> tagAction = getHandlers().get(type);
         if (tagAction != null) {
-            AbstractTagObject curVal = tagAction.apply(data, this);
-            return curVal.handle(data.shrink());
+            try {
+                AbstractTagObject curVal = tagAction.apply(data, this);
+                return curVal.handle(data.shrink());
+            }
+            catch (TagData.TagDataEscalateException e) {
+                return NullTag.NULL;
+            }
         }
         AbstractTagObject ato = handleElseCase(data);
         if (ato != null) {

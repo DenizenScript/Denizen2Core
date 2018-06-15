@@ -167,13 +167,13 @@ public class SystemTagBase extends AbstractTagBase {
         // @Returns a random decimal number larger than the first number and smaller than the second number input.
         // -->
         handlers.put("random_decimal_in_range", (dat, obj) -> {
-            ListTag inp = ListTag.getFor(dat.error, dat.getNextModifier());
+            ListTag inp = ListTag.getFor(dat.checkedError, dat.getNextModifier());
             if (inp.getInternal().size() != 2) {
                 dat.error.run("Invalid input! Not a list of size 2!");
                 return NullTag.NULL;
             }
-            double a = NumberTag.getFor(dat.error, inp.getInternal().get(0)).getInternal();
-            double b = NumberTag.getFor(dat.error, inp.getInternal().get(1)).getInternal();
+            double a = NumberTag.getFor(dat.checkedError, inp.getInternal().get(0)).getInternal();
+            double b = NumberTag.getFor(dat.checkedError, inp.getInternal().get(1)).getInternal();
             if (b < a) {
                 dat.error.run("Invalid input! Second number less than first!");
                 return NullTag.NULL;
@@ -189,13 +189,13 @@ public class SystemTagBase extends AbstractTagBase {
         // @Returns a random integer number larger than the first number and smaller than the second number input.
         // -->
         handlers.put("random_integer_in_range", (dat, obj) -> {
-            ListTag inp = ListTag.getFor(dat.error, dat.getNextModifier());
+            ListTag inp = ListTag.getFor(dat.checkedError, dat.getNextModifier());
             if (inp.getInternal().size() != 2) {
                 dat.error.run("Invalid input! Not a list of size 2!");
                 return NullTag.NULL;
             }
-            long a = IntegerTag.getFor(dat.error, inp.getInternal().get(0)).getInternal();
-            long b = IntegerTag.getFor(dat.error, inp.getInternal().get(1)).getInternal();
+            long a = IntegerTag.getFor(dat.checkedError, inp.getInternal().get(0)).getInternal();
+            long b = IntegerTag.getFor(dat.checkedError, inp.getInternal().get(1)).getInternal();
             if (b < a) {
                 dat.error.run("Invalid input! Second number less than first!");
                 return NullTag.NULL;

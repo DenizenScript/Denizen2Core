@@ -61,7 +61,7 @@ public class ListTag extends AbstractTagObject {
         // @Example "one|two|three|" .get[1] returns "one".
         // -->
         handlers.put("get", (dat, obj) -> {
-            IntegerTag ind = IntegerTag.getFor(dat.error, dat.getNextModifier());
+            IntegerTag ind = IntegerTag.getFor(dat.checkedError, dat.getNextModifier());
             int i = (int) ind.getInternal() - 1;
             if (i < 0 || i >= ((ListTag) obj).internal.size()) {
                 if (!dat.hasFallback()) {

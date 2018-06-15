@@ -50,7 +50,7 @@ public class TextTag extends AbstractTagObject {
         // @Returns the text parsed as an integer.
         // @Example "1" .to_integer returns "1".
         // -->
-        handlers.put("to_integer", (dat, obj) -> IntegerTag.getFor(dat.error, ((TextTag) obj).internal));
+        handlers.put("to_integer", (dat, obj) -> IntegerTag.getFor(dat.checkedError, ((TextTag) obj).internal));
         // <--[tag]
         // @Since 0.3.0
         // @Name TextTag.to_number
@@ -60,7 +60,7 @@ public class TextTag extends AbstractTagObject {
         // @Returns the text parsed as a number.
         // @Example "1" .to_number returns "1".
         // -->
-        handlers.put("to_number", (dat, obj) -> NumberTag.getFor(dat.error, ((TextTag) obj).internal));
+        handlers.put("to_number", (dat, obj) -> NumberTag.getFor(dat.checkedError, ((TextTag) obj).internal));
         // <--[tag]
         // @Since 0.3.0
         // @Name TextTag.to_boolean
@@ -70,7 +70,7 @@ public class TextTag extends AbstractTagObject {
         // @Returns the text parsed as a boolean.
         // @Example "true" .to_boolean returns "true".
         // -->
-        handlers.put("to_boolean", (dat, obj) -> BooleanTag.getFor(dat.error, ((TextTag) obj).internal));
+        handlers.put("to_boolean", (dat, obj) -> BooleanTag.getFor(dat.checkedError, ((TextTag) obj).internal));
         // <--[tag]
         // @Since 0.3.0
         // @Name TextTag.to_upper
@@ -171,7 +171,7 @@ public class TextTag extends AbstractTagObject {
         // @Example "abc" .contains_any_text[nope|B] returns "true".
         // -->
         handlers.put("contains_any_text", (dat, obj) -> {
-            ListTag lt = ListTag.getFor(dat.error, dat.getNextModifier());
+            ListTag lt = ListTag.getFor(dat.checkedError, dat.getNextModifier());
             String inp = CoreUtilities.toLowerCase(((TextTag) obj).internal);
             for (AbstractTagObject ato : lt.getInternal()) {
                 if (!inp.contains(CoreUtilities.toLowerCase(ato.toString()))) {
@@ -190,7 +190,7 @@ public class TextTag extends AbstractTagObject {
         // @Example "abc" .contains_any_text_cased[nope|b] returns "true".
         // -->
         handlers.put("contains_any_text_cased", (dat, obj) -> {
-            ListTag lt = ListTag.getFor(dat.error, dat.getNextModifier());
+            ListTag lt = ListTag.getFor(dat.checkedError, dat.getNextModifier());
             String inp = ((TextTag) obj).internal;
             for (AbstractTagObject ato : lt.getInternal()) {
                 if (!inp.contains(ato.toString())) {
@@ -290,7 +290,7 @@ public class TextTag extends AbstractTagObject {
         // @Example "abc" .char_at[1] returns "a".
         // -->
         handlers.put("char_at", (dat, obj) -> {
-            IntegerTag ind = IntegerTag.getFor(dat.error, dat.getNextModifier());
+            IntegerTag ind = IntegerTag.getFor(dat.checkedError, dat.getNextModifier());
             int i = (int) ind.getInternal() - 1;
             if (i < 0 || i >= ((TextTag) obj).internal.length()) {
                 if (!dat.hasFallback()) {
@@ -327,7 +327,7 @@ public class TextTag extends AbstractTagObject {
         // @Example "abc" .replace[b:d] returns "abc".
         // -->
         handlers.put("replace", (dat, obj) -> {
-            MapTag map = MapTag.getFor(dat.error, dat.getNextModifier());
+            MapTag map = MapTag.getFor(dat.checkedError, dat.getNextModifier());
             String temp = ((TextTag) obj).internal;
             for (Map.Entry<String, AbstractTagObject> entry : map.getInternal().entrySet()) {
                 temp = temp.replace(entry.getKey(), entry.getValue().toString());
@@ -364,15 +364,15 @@ public class TextTag extends AbstractTagObject {
         // @Example "abc" .substring[1|2] returns "ab".
         // -->
         handlers.put("substring", (dat, obj) -> {
-            ListTag inputinds = ListTag.getFor(dat.error, dat.getNextModifier());
+            ListTag inputinds = ListTag.getFor(dat.checkedError, dat.getNextModifier());
             if (inputinds.getInternal().size() != 2) {
                 if (!dat.hasFallback()) {
                     dat.error.run("Invalid input!");
                 }
                 return NullTag.NULL;
             }
-            int i1 = (int) IntegerTag.getFor(dat.error, inputinds.getInternal().get(0)).getInternal() - 1;
-            int i2 = (int) IntegerTag.getFor(dat.error, inputinds.getInternal().get(1)).getInternal();
+            int i1 = (int) IntegerTag.getFor(dat.checkedError, inputinds.getInternal().get(0)).getInternal() - 1;
+            int i2 = (int) IntegerTag.getFor(dat.checkedError, inputinds.getInternal().get(1)).getInternal();
             String text = ((TextTag) obj).internal;
             if (i1 < 0) {
                 i1 = 0;
