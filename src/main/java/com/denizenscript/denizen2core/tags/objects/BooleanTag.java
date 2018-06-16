@@ -67,7 +67,7 @@ public class BooleanTag extends AbstractTagObject {
         // <--[tag]
         // @Since 0.3.0
         // @Name BooleanTag.or[<BooleanTag>]
-        // @Updated 2016/08/26
+        // @Updated 2018/06/16
         // @Group Boolean Logic
         // @ReturnType BooleanTag
         // @Returns whether this boolean or the input boolean are 'true'.

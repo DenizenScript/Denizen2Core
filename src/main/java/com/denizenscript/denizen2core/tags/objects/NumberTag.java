@@ -16,14 +16,14 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
     // @Type NumberTag
     // @SubType TextTag
     // @Group Mathematics
-    // @Description Represents a decimal number. Identified as a number with a decimal point.
+    // @Description Represents a decimal number. Identified as a decimal number with a decimal point.
     // @Note The number is internally stored as a 64-bit signed floating point number (a 'double').
     // -->
 
     private double internal;
 
-    public NumberTag(double inty) {
-        internal = inty;
+    public NumberTag(double num) {
+        internal = num;
     }
 
     public double getInternal() {
@@ -306,9 +306,9 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
             return new NumberTag(Math.max(((NumberTag) obj).internal, two.internal));
         });
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name NumberTag.max[<NumberTag>]
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns whichever is bigger: this number, or the specified number.
@@ -334,9 +334,9 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
             return new NumberTag(Math.min(((NumberTag) obj).internal, two.internal));
         });
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name NumberTag.min[<NumberTag>]
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns whichever is smaller: this number, or the specified number.
@@ -361,25 +361,25 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
             return new NumberTag(Math.log(((NumberTag) obj).internal) / Math.log(two.internal));
         });
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name NumberTag.natural_log
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the natural logarithm (base: e) of this number.
         // @Note also known as ".ln".
-        // @Example "2.71828" .natural_log returns "1".
+        // @Example "2.71828" .natural_log returns approximate "1".
         // -->
         handlers.put("natural_log", (dat, obj) -> new NumberTag(Math.log(((NumberTag) obj).internal)));
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name NumberTag.ln
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the natural logarithm (base: e) of this number.
         // @Note also known as ".natural_log".
-        // @Example "2.71828" .ln returns "1".
+        // @Example "2.71828" .ln returns approximately "1".
         // -->
         handlers.put("ln", (dat, obj) -> new NumberTag(Math.log(((NumberTag) obj).internal)));
         // <--[tag]
@@ -422,9 +422,9 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // -->
         handlers.put("absolute_value", (dat, obj) -> new NumberTag(Math.abs(((NumberTag) obj).internal)));
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name NumberTag.abs
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the absolute value of this number.
@@ -516,9 +516,9 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // -->
         handlers.put("round", (dat, obj) -> new IntegerTag(Math.round(((NumberTag) obj).internal)));
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name NumberTag.round_to_places[<IntegerTag>]
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number rounded to the specified decimal place.
@@ -530,9 +530,9 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
             return new NumberTag(Math.round(((NumberTag) obj).internal * coef) / coef);
         });
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name NumberTag.round_to[<NumberTag>]
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number rounded to the specified precision.

@@ -118,7 +118,7 @@ public class QueueTag extends AbstractTagObject implements Denizen2Core.IntegerF
         // <--[tag]
         // @Since 0.3.0
         // @Name QueueTag.has_definition[<TextTag>]
-        // @Updated 2016/08/26
+        // @Updated 2018/06/16
         // @Group Information
         // @ReturnType BooleanTag
         // @Returns whether the queue has the specified definition.
@@ -127,7 +127,7 @@ public class QueueTag extends AbstractTagObject implements Denizen2Core.IntegerF
         handlers.put("has_definition", (dat, obj) -> {
             CommandStackEntry entry = ((QueueTag) obj).internal.commandStack.peek();
             if (entry == null) {
-                return NullTag.NULL;
+                return BooleanTag.FALSE;
             }
             String def = dat.getNextModifier().toString();
             return BooleanTag.getForBoolean(entry.hasDefinition(def));
@@ -135,7 +135,7 @@ public class QueueTag extends AbstractTagObject implements Denizen2Core.IntegerF
         // <--[tag]
         // @Since 0.3.0
         // @Name QueueTag.definition[<TextTag>]
-        // @Updated 2016/08/26
+        // @Updated 2018/06/16
         // @Group Information
         // @ReturnType Dynamic
         // @Returns the value of the specified definition on the queue.
@@ -144,6 +144,7 @@ public class QueueTag extends AbstractTagObject implements Denizen2Core.IntegerF
         handlers.put("definition", (dat, obj) -> {
             CommandStackEntry entry = ((QueueTag) obj).internal.commandStack.peek();
             if (entry == null) {
+                dat.error.run("QueueTag.definition[] cannot process, as the queue has stopped (and no definitions are retained)!");
                 return NullTag.NULL;
             }
             String def = dat.getNextModifier().toString();

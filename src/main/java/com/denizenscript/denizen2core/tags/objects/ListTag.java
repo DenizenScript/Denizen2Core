@@ -77,9 +77,9 @@ public class ListTag extends AbstractTagObject {
             return list.get(i);
         });
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name ListTag.first
-        // @Updated 2018/06/08
+        // @Updated 2018/06/16
         // @Group Lists
         // @ReturnType Dynamic
         // @Returns the first object in the list.
@@ -96,9 +96,9 @@ public class ListTag extends AbstractTagObject {
             return list.get(0);
         });
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name ListTag.last
-        // @Updated 2018/06/08
+        // @Updated 2018/06/16
         // @Group Lists
         // @ReturnType Dynamic
         // @Returns the last object in the list.
@@ -115,15 +115,15 @@ public class ListTag extends AbstractTagObject {
             return list.get(list.size() - 1);
         });
         // <--[tag]
-        // @Since 0.5.0
-        // @Name ListTag.find_first[<Dynamic>]
-        // @Updated 2018/06/09
-        // @Group Lists
+        // @Since 0.5.5
+        // @Name ListTag.find_cased[<Dynamic>]
+        // @Updated 2018/06/16
+        // @Group Searching
         // @ReturnType IntegerTag
-        // @Returns the position of the first object in the list that matches the input, or 0 if there were no matches.
+        // @Returns the position of the first object in the list that matches the input (via case-sensitive text equality), or -1 if there were no matches.
         // @Example "one|two|one|" .find_first[one] returns "1".
         // -->
-        handlers.put("find_first", (dat, obj) -> {
+        handlers.put("find_cased", (dat, obj) -> {
             List<AbstractTagObject> list = ((ListTag) obj).internal;
             if (list.isEmpty()) {
                 if (!dat.hasFallback()) {
@@ -131,16 +131,71 @@ public class ListTag extends AbstractTagObject {
                 }
                 return NullTag.NULL;
             }
-            int i = list.indexOf(dat.getNextModifier());
-            return new IntegerTag(i + 1);
+            String inp = dat.getNextModifier().toString();
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).toString().equals(inp)) {
+                    return new IntegerTag(i + 1);
+                }
+            }
+            return new IntegerTag(-1);
         });
         // <--[tag]
-        // @Since 0.5.0
-        // @Name ListTag.find_last[<Dynamic>]
-        // @Updated 2018/06/09
-        // @Group Lists
+        // @Since 0.5.5
+        // @Name ListTag.find_last_cased[<Dynamic>]
+        // @Updated 2018/06/16
+        // @Group Searching
         // @ReturnType IntegerTag
-        // @Returns the position of the last object in the list that matches the input, or 0 if there were no matches.
+        // @Returns the position of the last object in the list that matches the input (via case-sensitive text equality), or -1 if there were no matches.
+        // @Example "one|two|one|" .find_last[one] returns "3".
+        // -->
+        handlers.put("find_last_cased", (dat, obj) -> {
+            List<AbstractTagObject> list = ((ListTag) obj).internal;
+            if (list.isEmpty()) {
+                if (!dat.hasFallback()) {
+                    dat.error.run("ListTag.find_last[] failed, list is empty!");
+                }
+                return NullTag.NULL;
+            }
+            String inp = dat.getNextModifier().toString();
+            for (int i = list.size() - 1; i >= 0; i--) {
+                if (list.get(i).toString().equals(inp)) {
+                    return new IntegerTag(i + 1);
+                }
+            }
+            return new IntegerTag(-1);
+        });
+        // <--[tag]
+        // @Since 0.5.5
+        // @Name ListTag.find[<Dynamic>]
+        // @Updated 2018/06/16
+        // @Group Searching
+        // @ReturnType IntegerTag
+        // @Returns the position of the first object in the list that matches the input (via text equality), or -1 if there were no matches.
+        // @Example "one|two|one|" .find_first[one] returns "1".
+        // -->
+        handlers.put("find", (dat, obj) -> {
+            List<AbstractTagObject> list = ((ListTag) obj).internal;
+            if (list.isEmpty()) {
+                if (!dat.hasFallback()) {
+                    dat.error.run("ListTag.find_first[] failed, list is empty!");
+                }
+                return NullTag.NULL;
+            }
+            String inp = CoreUtilities.toLowerCase(dat.getNextModifier().toString());
+            for (int i = 0; i < list.size(); i++) {
+                if (CoreUtilities.toLowerCase(list.get(i).toString()).equals(inp)) {
+                    return new IntegerTag(i + 1);
+                }
+            }
+            return new IntegerTag(-1);
+        });
+        // <--[tag]
+        // @Since 0.5.5
+        // @Name ListTag.find_last[<Dynamic>]
+        // @Updated 2018/06/16
+        // @Group Searching
+        // @ReturnType IntegerTag
+        // @Returns the position of the last object in the list that matches the input (via text equality), or -1 if there were no matches.
         // @Example "one|two|one|" .find_last[one] returns "3".
         // -->
         handlers.put("find_last", (dat, obj) -> {
@@ -151,13 +206,18 @@ public class ListTag extends AbstractTagObject {
                 }
                 return NullTag.NULL;
             }
-            int i = list.lastIndexOf(dat.getNextModifier());
-            return new IntegerTag(i + 1);
+            String inp = CoreUtilities.toLowerCase(dat.getNextModifier().toString());
+            for (int i = list.size() - 1; i >= 0; i--) {
+                if (CoreUtilities.toLowerCase(list.get(i).toString()).equals(inp)) {
+                    return new IntegerTag(i + 1);
+                }
+            }
+            return new IntegerTag(-1);
         });
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name ListTag.sublist[<ListTag>]
-        // @Updated 2018/06/08
+        // @Updated 2018/06/16
         // @Group Lists
         // @ReturnType ListTag<Dynamic>
         // @Returns a sublist of objects from the list with positions between the two values specified.
@@ -246,7 +306,7 @@ public class ListTag extends AbstractTagObject {
         // @Since 0.3.0
         // @Name ListTag.contains[<TextTag>]
         // @Updated 2017/03/08
-        // @Group Lists
+        // @Group Searching
         // @ReturnType BooleanTag
         // @Returns whether the list contains the specified text, case insensitive.
         // @Example "one|two|three|" .contains[ONE] returns "true".
@@ -265,7 +325,7 @@ public class ListTag extends AbstractTagObject {
         // @Since 0.3.0
         // @Name ListTag.contains_cased[<TextTag>]
         // @Updated 2017/03/08
-        // @Group Lists
+        // @Group Searching
         // @ReturnType BooleanTag
         // @Returns whether the list contains the specified text, case sensitive.
         // @Example "one|two|three|" .contains_cased[one] returns "true".

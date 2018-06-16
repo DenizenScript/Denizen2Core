@@ -49,14 +49,14 @@ public class SystemTagBase extends AbstractTagBase {
         // -->
         handlers.put("pi", (dat, obj) -> new NumberTag(Math.PI));
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name SystemTag.e
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Utilities
         // @ReturnType NumberTag
-        // @Returns the approximate value of mathematical constant e,
+        // @Returns the approximate value of mathematical constant e (Euler's number),
         // which is the base number for natural logarithms. This returns
-        // the constant value "2.71828182845904523536" as a NumberTag.
+        // the constant value "2.7182818284590452354" as a NumberTag.
         // -->
         handlers.put("e", (dat, obj) -> new NumberTag(Math.E));
         // <--[tag]

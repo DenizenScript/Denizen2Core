@@ -57,9 +57,9 @@ public class IntegerTag extends AbstractTagObject implements Denizen2Core.Intege
             return new IntegerTag(((IntegerTag) obj).internal + two.internal);
         });
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name IntegerTag.add_int[<IntegerTag>]
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the integer plus another integer.
@@ -85,9 +85,9 @@ public class IntegerTag extends AbstractTagObject implements Denizen2Core.Intege
             return new IntegerTag(((IntegerTag) obj).internal - two.internal);
         });
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name IntegerTag.sub_int[<IntegerTag>]
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the integer minus another integer.
@@ -113,9 +113,9 @@ public class IntegerTag extends AbstractTagObject implements Denizen2Core.Intege
             return new IntegerTag(((IntegerTag) obj).internal * two.internal);
         });
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name IntegerTag.mul_int[<IntegerTag>]
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the integer times another integer.
@@ -141,9 +141,9 @@ public class IntegerTag extends AbstractTagObject implements Denizen2Core.Intege
             return new IntegerTag(((IntegerTag) obj).internal / two.internal);
         });
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name IntegerTag.div_int[<IntegerTag>]
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the integer divided by another integer.
@@ -169,9 +169,9 @@ public class IntegerTag extends AbstractTagObject implements Denizen2Core.Intege
             return new IntegerTag(((IntegerTag) obj).internal % two.internal);
         });
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name IntegerTag.mod_int[<IntegerTag>]
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the integer modulo another integer.
@@ -197,9 +197,9 @@ public class IntegerTag extends AbstractTagObject implements Denizen2Core.Intege
             return new IntegerTag(Math.max(((IntegerTag) obj).internal, two.internal));
         });
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name IntegerTag.max_int[<IntegerTag>]
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns whichever is bigger: this integer, or the specified integer.
@@ -225,9 +225,9 @@ public class IntegerTag extends AbstractTagObject implements Denizen2Core.Intege
             return new IntegerTag(Math.min(((IntegerTag) obj).internal, two.internal));
         });
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name IntegerTag.min_int[<IntegerTag>]
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns whichever is smaller: this integer, or the specified integer.
@@ -250,9 +250,9 @@ public class IntegerTag extends AbstractTagObject implements Denizen2Core.Intege
         // -->
         handlers.put("absolute_value_integer", (dat, obj) -> new IntegerTag(Math.abs(((IntegerTag) obj).internal)));
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name IntegerTag.abs_int
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Mathematics
         // @ReturnType IntegerTag
         // @Returns the absolute value of this integer.

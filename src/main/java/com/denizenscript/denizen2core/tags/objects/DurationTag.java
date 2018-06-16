@@ -80,9 +80,9 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
             return new DurationTag(((DurationTag) obj).internal - two.internal);
         });
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name DurationTag.in_seconds
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Conversion
         // @ReturnType NumberTag
         // @Returns the duration converted to seconds.
@@ -90,9 +90,9 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
         // -->
         handlers.put("in_seconds", (dat, obj) -> new NumberTag(((DurationTag) obj).internal));
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name DurationTag.in_minutes
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Conversion
         // @ReturnType NumberTag
         // @Returns the duration converted to minutes.
@@ -100,9 +100,9 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
         // -->
         handlers.put("in_minutes", (dat, obj) -> new NumberTag(((DurationTag) obj).internal * (1.0 / 60.0)));
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name DurationTag.in_hours
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Conversion
         // @ReturnType NumberTag
         // @Returns the duration converted to hours.
@@ -110,7 +110,7 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
         // -->
         handlers.put("in_hours", (dat, obj) -> new NumberTag(((DurationTag) obj).internal * (1.0 / (60.0 * 60.0))));
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name DurationTag.in_days
         // @Updated 2018/06/09
         // @Group Conversion
@@ -120,9 +120,9 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
         // -->
         handlers.put("in_days", (dat, obj) -> new NumberTag(((DurationTag) obj).internal * (1.0 / (60.0 * 60.0 * 24.0))));
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name DurationTag.in_weeks
-        // @Updated 2018/06/10
+        // @Updated 2018/06/16
         // @Group Conversion
         // @ReturnType NumberTag
         // @Returns the duration converted to weeks.
@@ -130,9 +130,9 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
         // -->
         handlers.put("in_weeks", (dat, obj) -> new NumberTag(((DurationTag) obj).internal * (1.0 / (60.0 * 60.0 * 24.0 * 7.0))));
         // <--[tag]
-        // @Since 0.5.0
+        // @Since 0.5.5
         // @Name DurationTag.formatted[<TextTag>]
-        // @Updated 2018/06/09
+        // @Updated 2018/06/16
         // @Group Formatting
         // @ReturnType TextTag
         // @Returns the duration, separated in weeks, days, hours, minutes, seconds and milliseconds,
