@@ -62,9 +62,8 @@ public class BooleanTag extends AbstractTagObject {
         // @Example "false" .and[true] returns "false".
         // @Example "false" .and[false] returns "false".
         // -->
-        handlers.put("and", (dat, obj) -> {
-            return getForBoolean(((BooleanTag) obj).getInternal() && BooleanTag.getFor(dat.checkedError, dat.getNextModifier()).getInternal());
-        });
+        handlers.put("and", (dat, obj) -> getForBoolean(((BooleanTag) obj).getInternal()
+                && BooleanTag.getFor(dat.error, dat.getNextModifier()).getInternal()));
         // <--[tag]
         // @Since 0.3.0
         // @Name BooleanTag.or[<BooleanTag>]
@@ -77,24 +76,23 @@ public class BooleanTag extends AbstractTagObject {
         // @Example "false" .or[true] returns "true".
         // @Example "false" .or[false] returns "false".
         // -->
-        handlers.put("or", (dat, obj) -> {
-            return getForBoolean(((BooleanTag) obj).getInternal() && BooleanTag.getFor(dat.checkedError, dat.getNextModifier()).getInternal());
-        });
+        handlers.put("or", (dat, obj) -> getForBoolean(((BooleanTag) obj).getInternal()
+                || BooleanTag.getFor(dat.error, dat.getNextModifier()).getInternal()));
         // <--[tag]
         // @Since 0.3.0
         // @Name BooleanTag.xor[<BooleanTag>]
         // @Updated 2016/08/26
         // @Group Boolean Logic
         // @ReturnType BooleanTag
-        // @Returns whether this boolean exclusive-or the input boolean are 'true'. Meaning, exactly one of the two must be true, and the other false.
+        // @Returns whether this boolean exclusive-or the input boolean are 'true'.
+        // Meaning, exactly one of the two must be true, and the other false.
         // @Example "true" .xor[true] returns "false".
         // @Example "true" .xor[false] returns "true".
         // @Example "false" .xor[true] returns "true".
         // @Example "false" .xor[false] returns "false".
         // -->
-        handlers.put("xor", (dat, obj) -> {
-            return getForBoolean(((BooleanTag) obj).getInternal() != BooleanTag.getFor(dat.checkedError, dat.getNextModifier()).getInternal());
-        });
+        handlers.put("xor", (dat, obj) -> getForBoolean(((BooleanTag) obj).getInternal()
+                != BooleanTag.getFor(dat.error, dat.getNextModifier()).getInternal()));
     }
 
     public static BooleanTag getFor(Action<String> error, String text) {

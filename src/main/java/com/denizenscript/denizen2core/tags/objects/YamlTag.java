@@ -51,9 +51,7 @@ public class YamlTag extends AbstractTagObject {
         // @Returns the name of the YAML file.
         // @Example "test" .name returns "test".
         // -->
-        handlers.put("name", (dat, obj) -> {
-            return new TextTag(((YamlTag) obj).name);
-        });
+        handlers.put("name", (dat, obj) -> new TextTag(((YamlTag) obj).name));
         // <--[tag]
         // @Since 0.3.0
         // @Name YamlTag.read[<TextTag>]
@@ -107,9 +105,7 @@ public class YamlTag extends AbstractTagObject {
         // @ReturnType BooleanTag
         // @Returns whether the YAML has the specified key.
         // -->
-        handlers.put("has_key", (dat, obj) -> {
-            return BooleanTag.getForBoolean(((YamlTag) obj).internal.contains(dat.getNextModifier().toString()));
-        });
+        handlers.put("has_key", (dat, obj) -> BooleanTag.getForBoolean(((YamlTag) obj).internal.contains(dat.getNextModifier().toString())));
         // <--[tag]
         // @Since 0.3.0
         // @Name YamlTag.is_list[<TextTag>]
@@ -118,9 +114,7 @@ public class YamlTag extends AbstractTagObject {
         // @ReturnType BooleanTag
         // @Returns whether the YAML has the specified key and it is a list typed YAML key.
         // -->
-        handlers.put("is_list", (dat, obj) -> {
-            return BooleanTag.getForBoolean(((YamlTag) obj).internal.isList(dat.getNextModifier().toString()));
-        });
+        handlers.put("is_list", (dat, obj) -> BooleanTag.getForBoolean(((YamlTag) obj).internal.isList(dat.getNextModifier().toString())));
         // <--[tag]
         // @Since 0.3.0
         // @Name YamlTag.read_list[<TextTag>]

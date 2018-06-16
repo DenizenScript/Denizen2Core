@@ -44,9 +44,7 @@ public class ScriptTag extends AbstractTagObject {
         // @Returns the title of the script.
         // @Example "MyTask" .title returns "MyTask".
         // -->
-        handlers.put("title", (dat, obj) -> {
-            return new TextTag(((ScriptTag) obj).internal.title);
-        });
+        handlers.put("title", (dat, obj) -> new TextTag(((ScriptTag) obj).internal.title));
         // <--[tag]
         // @Since 0.3.0
         // @Name ScriptTag.has_yaml_key[<TextTag>]
@@ -55,9 +53,7 @@ public class ScriptTag extends AbstractTagObject {
         // @ReturnType BooleanTag
         // @Returns whether the YAML has the specified key.
         // -->
-        handlers.put("has_yaml_key", (dat, obj) -> {
-            return BooleanTag.getForBoolean(((ScriptTag) obj).internal.contents.contains(dat.getNextModifier().toString()));
-        });
+        handlers.put("has_yaml_key", (dat, obj) -> BooleanTag.getForBoolean(((ScriptTag) obj).internal.contents.contains(dat.getNextModifier().toString())));
         // <--[tag]
         // @Since 0.3.0
         // @Name ScriptTag.is_yaml_list[<TextTag>]
@@ -66,9 +62,7 @@ public class ScriptTag extends AbstractTagObject {
         // @ReturnType BooleanTag
         // @Returns whether the YAML has the specified key and it is a list typed YAML key.
         // -->
-        handlers.put("is_yaml_list", (dat, obj) -> {
-            return BooleanTag.getForBoolean(((ScriptTag) obj).internal.contents.isList(dat.getNextModifier().toString()));
-        });
+        handlers.put("is_yaml_list", (dat, obj) -> BooleanTag.getForBoolean(((ScriptTag) obj).internal.contents.isList(dat.getNextModifier().toString())));
         // <--[tag]
         // @Since 0.3.0
         // @Name ScriptTag.yaml_key[<TextTag>]
@@ -136,9 +130,7 @@ public class ScriptTag extends AbstractTagObject {
         // @ReturnType DurationTag
         // @Returns the amount of time a script has ran for, in total.
         // -->
-        handlers.put("time_ran", (dat, obj) -> {
-            return new DurationTag(((ScriptTag) obj).internal.nsUsed / 1000000000.0);
-        });
+        handlers.put("time_ran", (dat, obj) -> new DurationTag(((ScriptTag) obj).internal.nsUsed / 1000000000.0));
         // <--[tag]
         // @Since 0.3.0
         // @Name ScriptTag.ticks_ran
@@ -147,9 +139,7 @@ public class ScriptTag extends AbstractTagObject {
         // @ReturnType IntegerTag
         // @Returns the number of ticks that the script has been run during.
         // -->
-        handlers.put("ticks_ran", (dat, obj) -> {
-            return new IntegerTag(((ScriptTag) obj).internal.ticksRan);
-        });
+        handlers.put("ticks_ran", (dat, obj) -> new IntegerTag(((ScriptTag) obj).internal.ticksRan));
     }
 
     public static ScriptTag getFor(Action<String> error, String text) {

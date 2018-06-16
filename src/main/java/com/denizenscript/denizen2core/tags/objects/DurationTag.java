@@ -79,6 +79,129 @@ public class DurationTag extends AbstractTagObject implements Denizen2Core.Numbe
             DurationTag two = DurationTag.getFor(dat.checkedError, dat.getNextModifier());
             return new DurationTag(((DurationTag) obj).internal - two.internal);
         });
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name DurationTag.in_seconds
+        // @Updated 2018/06/09
+        // @Group Conversion
+        // @ReturnType NumberTag
+        // @Returns the duration converted to seconds.
+        // @Example "40" .in_seconds returns "40".
+        // -->
+        handlers.put("in_seconds", (dat, obj) -> new NumberTag(((DurationTag) obj).internal));
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name DurationTag.in_minutes
+        // @Updated 2018/06/09
+        // @Group Conversion
+        // @ReturnType NumberTag
+        // @Returns the duration converted to minutes.
+        // @Example "72" .in_minutes returns "1.2".
+        // -->
+        handlers.put("in_minutes", (dat, obj) -> new NumberTag(((DurationTag) obj).internal * (1.0 / 60.0)));
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name DurationTag.in_hours
+        // @Updated 2018/06/09
+        // @Group Conversion
+        // @ReturnType NumberTag
+        // @Returns the duration converted to hours.
+        // @Example "1800" .in_hours returns "0.5".
+        // -->
+        handlers.put("in_hours", (dat, obj) -> new NumberTag(((DurationTag) obj).internal * (1.0 / (60.0 * 60.0))));
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name DurationTag.in_days
+        // @Updated 2018/06/09
+        // @Group Conversion
+        // @ReturnType NumberTag
+        // @Returns the duration converted to days.
+        // @Example "8640" .in_days returns "0.1".
+        // -->
+        handlers.put("in_days", (dat, obj) -> new NumberTag(((DurationTag) obj).internal * (1.0 / (60.0 * 60.0 * 24.0))));
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name DurationTag.in_weeks
+        // @Updated 2018/06/10
+        // @Group Conversion
+        // @ReturnType NumberTag
+        // @Returns the duration converted to weeks.
+        // @Example "604800" .in_weeks returns "1".
+        // -->
+        handlers.put("in_weeks", (dat, obj) -> new NumberTag(((DurationTag) obj).internal * (1.0 / (60.0 * 60.0 * 24.0 * 7.0))));
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name DurationTag.formatted[<TextTag>]
+        // @Updated 2018/06/09
+        // @Group Formatting
+        // @ReturnType TextTag
+        // @Returns the duration, separated in weeks, days, hours, minutes, seconds and milliseconds,
+        // and formatted based on input. This tag will replace duration codes with their actual values.
+        // Duration codes start with "#", followed by the unit and mode letters. Valid unit letters are:
+        // t (thousandth of a second/millisecond), s (second), m (minute), h (hour), d (day) and w (week).
+        // Valid mode letters are: p (precise/total decimal), t (total integer), d (remaining decimal),
+        // i (remaining integer) and f (full length remaining integer).
+        // @Example "8250.350" .formatted[#hi h, #mi m, #si s and #td ms (#sp seconds in total)]
+        // returns "2 h, 17 m, 30 s and 350 ms (8250.35 seconds in total)".
+        // @Example "29200" .formatted[#hf:#mf] returns "08:06".
+        // -->
+        handlers.put("formatted", (dat, obj) -> {
+            String input = TextTag.getFor(dat.error, dat.getNextModifier()).getInternal();
+            int tp = (int) (((DurationTag) obj).internal * 1000);
+            if (input.contains("#t")) {
+                int td = tp % 1000;
+                input = input.replace("#tp", String.valueOf(tp));
+                input = input.replace("#tt", String.valueOf(tp));
+                input = input.replace("#td", String.valueOf(td));
+                input = input.replace("#ti", String.valueOf(td));
+                input = input.replace("#tf", String.format("%03d", td));
+            }
+            double sp = tp * (1.0 / 1000.0);
+            if (input.contains("#s")) {
+                double sd = sp % 60;
+                input = input.replace("#sp", String.valueOf(sp));
+                input = input.replace("#st", String.valueOf((int) sp));
+                input = input.replace("#sd", String.valueOf(sd));
+                input = input.replace("#si", String.valueOf((int) sd));
+                input = input.replace("#sf", String.format("%02d", (int) sd));
+            }
+            double mp = sp * (1.0 / 60.0);
+            if (input.contains("#m")) {
+                double md = mp % 60;
+                input = input.replace("#mp", String.valueOf(mp));
+                input = input.replace("#mt", String.valueOf((int) mp));
+                input = input.replace("#md", String.valueOf(md));
+                input = input.replace("#mi", String.valueOf((int) md));
+                input = input.replace("#mf", String.format("%02d", (int) md));
+            }
+            double hp = mp * (1.0 / 60.0);
+            if (input.contains("#h")) {
+                double hd = hp % 24;
+                input = input.replace("#hp", String.valueOf(hp));
+                input = input.replace("#ht", String.valueOf((int) hp));
+                input = input.replace("#hd", String.valueOf(hd));
+                input = input.replace("#hi", String.valueOf((int) hd));
+                input = input.replace("#hf", String.format("%02d", (int) hd));
+            }
+            double dp = hp * (1.0 / 24.0);
+            if (input.contains("#d")) {
+                double dd = dp % 7;
+                input = input.replace("#dp", String.valueOf(dp));
+                input = input.replace("#dt", String.valueOf((int) dp));
+                input = input.replace("#dd", String.valueOf(dd));
+                input = input.replace("#di", String.valueOf((int) dd));
+                input = input.replace("#df", String.valueOf((int) dd));
+            }
+            double wp = dp * (1.0 / 7.0);
+            if (input.contains("#w")) {
+                input = input.replace("#wp", String.valueOf(wp));
+                input = input.replace("#wt", String.valueOf((int) wp));
+                input = input.replace("#wd", String.valueOf(wp));
+                input = input.replace("#wi", String.valueOf((int) wp));
+                input = input.replace("#wf", String.valueOf((int) wp));
+            }
+            return new TextTag(input);
+        });
     }
 
     public static DurationTag getFor(Action<String> error, String text) {

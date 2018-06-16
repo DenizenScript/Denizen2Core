@@ -102,6 +102,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number plus another number.
+        // @Note also known as ".+[<NumberTag>]".
         // @Example "1" .add[1] returns "2".
         // -->
         handlers.put("add", (dat, obj) -> {
@@ -115,6 +116,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number plus another number.
+        // @Note also known as ".add[<NumberTag>]".
         // @Example "1" .+[1] returns "2".
         // -->
         handlers.put("+", (dat, obj) -> {
@@ -128,6 +130,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number minus another number.
+        // @Note also known as ".sub[<NumberTag>]" and ".-[<NumberTag>]".
         // @Example "1" .subtract[1] returns "0".
         // -->
         handlers.put("subtract", (dat, obj) -> {
@@ -141,6 +144,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number minus another number.
+        // @Note also known as ".subtract[<NumberTag>]" and ".-[<NumberTag>]".
         // @Example "1" .sub[1] returns "0".
         // -->
         handlers.put("sub", (dat, obj) -> {
@@ -154,6 +158,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number minus another number.
+        // @Note also known as ".subtract[<NumberTag>]" and ".sub[<NumberTag>]".
         // @Example "1" .-[1] returns "0".
         // -->
         handlers.put("-", (dat, obj) -> {
@@ -167,6 +172,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number times another number.
+        // @Note also known as ".mul[<NumberTag>]" and ".*[<NumberTag>]".
         // @Example "1" .multiply[1] returns "1".
         // -->
         handlers.put("multiply", (dat, obj) -> {
@@ -180,6 +186,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number times another number.
+        // @Note also known as ".multiply[<NumberTag>]" and ".*[<NumberTag>]".
         // @Example "1" .mul[1] returns "1".
         // -->
         handlers.put("mul", (dat, obj) -> {
@@ -193,6 +200,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number times another number.
+        // @Note also known as ".multiply[<NumberTag>]" and ".mul[<NumberTag>]".
         // @Example "1" .*[1] returns "1".
         // -->
         handlers.put("*", (dat, obj) -> {
@@ -206,6 +214,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number divided by another number.
+        // @Note also known as ".div[<NumberTag>]" and "./[<NumberTag>]".
         // @Example "1" .divide[1] returns "1".
         // -->
         handlers.put("divide", (dat, obj) -> {
@@ -219,6 +228,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number divided by another number.
+        // @Note also known as ".divide[<NumberTag>]" and "./[<NumberTag>]".
         // @Example "1" .div[1] returns "1".
         // -->
         handlers.put("div", (dat, obj) -> {
@@ -232,6 +242,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number divided by another number.
+        // @Note also known as ".divide[<NumberTag>]" and ".div[<NumberTag>]".
         // @Example "1" ./[1] returns "1".
         // -->
         handlers.put("/", (dat, obj) -> {
@@ -245,6 +256,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number modulo another number.
+        // @Note also known as ".mod[<NumberTag>]" and ".%[<NumberTag>]".
         // @Example "1" .modulo[1] returns "0".
         // -->
         handlers.put("modulo", (dat, obj) -> {
@@ -258,6 +270,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number modulo another number.
+        // @Note also known as ".modulo[<NumberTag>]" and ".%[<NumberTag>]".
         // @Example "1" .mod[1] returns "0".
         // -->
         handlers.put("mod", (dat, obj) -> {
@@ -271,6 +284,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number modulo another number.
+        // @Note also known as ".modulo[<NumberTag>]" and ".mod[<NumberTag>]".
         // @Example "1" .%[1] returns "0".
         // -->
         handlers.put("%", (dat, obj) -> {
@@ -284,10 +298,25 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns whichever is bigger: this number, or the specified number.
+        // @Note also known as ".max[<NumberTag>]".
         // @Example "1" .maximum[2] returns "2".
         // -->
         handlers.put("maximum", (dat, obj) -> {
             NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
+            return new NumberTag(Math.max(((NumberTag) obj).internal, two.internal));
+        });
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name NumberTag.max[<NumberTag>]
+        // @Updated 2018/06/09
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns whichever is bigger: this number, or the specified number.
+        // @Note also known as ".maximum[<NumberTag>]".
+        // @Example "1" .max[2] returns "2".
+        // -->
+        handlers.put("max", (dat, obj) -> {
+            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
             return new NumberTag(Math.max(((NumberTag) obj).internal, two.internal));
         });
         // <--[tag]
@@ -297,10 +326,25 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns whichever is smaller: this number, or the specified number.
-        // @Example "1" .maximum[2] returns "1".
+        // @Note also known as ".min[<NumberTag>]".
+        // @Example "1" .minimum[2] returns "1".
         // -->
         handlers.put("minimum", (dat, obj) -> {
             NumberTag two = NumberTag.getFor(dat.checkedError, dat.getNextModifier());
+            return new NumberTag(Math.min(((NumberTag) obj).internal, two.internal));
+        });
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name NumberTag.min[<NumberTag>]
+        // @Updated 2018/06/09
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns whichever is smaller: this number, or the specified number.
+        // @Note also known as ".minimum[<NumberTag>]".
+        // @Example "1" .min[2] returns "1".
+        // -->
+        handlers.put("min", (dat, obj) -> {
+            NumberTag two = NumberTag.getFor(dat.error, dat.getNextModifier());
             return new NumberTag(Math.min(((NumberTag) obj).internal, two.internal));
         });
         // <--[tag]
@@ -317,12 +361,35 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
             return new NumberTag(Math.log(((NumberTag) obj).internal) / Math.log(two.internal));
         });
         // <--[tag]
+        // @Since 0.5.0
+        // @Name NumberTag.natural_log
+        // @Updated 2018/06/09
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the natural logarithm (base: e) of this number.
+        // @Note also known as ".ln".
+        // @Example "2.71828" .natural_log returns "1".
+        // -->
+        handlers.put("natural_log", (dat, obj) -> new NumberTag(Math.log(((NumberTag) obj).internal)));
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name NumberTag.ln
+        // @Updated 2018/06/09
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the natural logarithm (base: e) of this number.
+        // @Note also known as ".natural_log".
+        // @Example "2.71828" .ln returns "1".
+        // -->
+        handlers.put("ln", (dat, obj) -> new NumberTag(Math.log(((NumberTag) obj).internal)));
+        // <--[tag]
         // @Since 0.3.0
         // @Name NumberTag.power[<NumberTag>]
         // @Updated 2016/08/26
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number to the power of the specified number.
+        // @Note also known as ".^[<NumberTag>]".
         // @Example "2" .power[2] returns "4".
         // -->
         handlers.put("power", (dat, obj) -> {
@@ -336,6 +403,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the number to the power of the specified number.
+        // @Note also known as ".power[<NumberTag>]".
         // @Example "2" .^[2] returns "4".
         // -->
         handlers.put("^", (dat, obj) -> {
@@ -349,11 +417,21 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Group Mathematics
         // @ReturnType NumberTag
         // @Returns the absolute value of this number.
+        // @Note also known as ".abs".
         // @Example "-1" .absolute_value returns "1".
         // -->
-        handlers.put("absolute_value", (dat, obj) -> {
-            return new NumberTag(Math.abs(((NumberTag) obj).internal));
-        });
+        handlers.put("absolute_value", (dat, obj) -> new NumberTag(Math.abs(((NumberTag) obj).internal)));
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name NumberTag.abs
+        // @Updated 2018/06/09
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the absolute value of this number.
+        // @Note also known as ".absolute_value".
+        // @Example "-1" .abs returns "1".
+        // -->
+        handlers.put("abs", (dat, obj) -> new NumberTag(Math.abs(((NumberTag) obj).internal)));
         // <--[tag]
         // @Since 0.3.0
         // @Name NumberTag.cosine
@@ -363,9 +441,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Returns the cosine of this number.
         // @Example "3.14159" .cosine returns "-1".
         // -->
-        handlers.put("cosine", (dat, obj) -> {
-            return new NumberTag(Math.cos(((NumberTag) obj).internal));
-        });
+        handlers.put("cosine", (dat, obj) -> new NumberTag(Math.cos(((NumberTag) obj).internal)));
         // <--[tag]
         // @Since 0.3.0
         // @Name NumberTag.sine
@@ -375,9 +451,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Returns the sine of this number.
         // @Example "3.14159" .sine returns "0".
         // -->
-        handlers.put("sine", (dat, obj) -> {
-            return new NumberTag(Math.sin(((NumberTag) obj).internal));
-        });
+        handlers.put("sine", (dat, obj) -> new NumberTag(Math.sin(((NumberTag) obj).internal)));
         // <--[tag]
         // @Since 0.3.0
         // @Name NumberTag.arccosine
@@ -387,9 +461,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Returns the arccosine of this number.
         // @Example "1" .arccosine returns "0".
         // -->
-        handlers.put("arccosine", (dat, obj) -> {
-            return new NumberTag(Math.acos(((NumberTag) obj).internal));
-        });
+        handlers.put("arccosine", (dat, obj) -> new NumberTag(Math.acos(((NumberTag) obj).internal)));
         // <--[tag]
         // @Since 0.3.0
         // @Name NumberTag.arcsine
@@ -399,9 +471,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Returns the arcsine of this number.
         // @Example "0" .arcsine returns "0".
         // -->
-        handlers.put("arcsine", (dat, obj) -> {
-            return new NumberTag(Math.asin(((NumberTag) obj).internal));
-        });
+        handlers.put("arcsine", (dat, obj) -> new NumberTag(Math.asin(((NumberTag) obj).internal)));
         // <--[tag]
         // @Since 0.3.0
         // @Name NumberTag.arctangent
@@ -411,9 +481,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Returns the arctangent of this number.
         // @Example "0" .arctangent returns "0".
         // -->
-        handlers.put("arctangent", (dat, obj) -> {
-            return new NumberTag(Math.atan(((NumberTag) obj).internal));
-        });
+        handlers.put("arctangent", (dat, obj) -> new NumberTag(Math.atan(((NumberTag) obj).internal)));
         // <--[tag]
         // @Since 0.3.0
         // @Name NumberTag.tangent
@@ -423,9 +491,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Returns the tangent of this number.
         // @Example "3.14159" .tangent returns "0".
         // -->
-        handlers.put("tangent", (dat, obj) -> {
-            return new NumberTag(Math.tan(((NumberTag) obj).internal));
-        });
+        handlers.put("tangent", (dat, obj) -> new NumberTag(Math.tan(((NumberTag) obj).internal)));
         // <--[tag]
         // @Since 0.3.0
         // @Name NumberTag.atan2[<NumberTag>]
@@ -444,12 +510,37 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Name NumberTag.round
         // @Updated 2016/08/26
         // @Group Mathematics
-        // @ReturnType NumberTag
+        // @ReturnType IntegerTag
         // @Returns the number rounded to the closest whole number.
         // @Example "0.5" .round returns "1".
         // -->
-        handlers.put("round", (dat, obj) -> {
-            return new NumberTag(Math.round(((NumberTag) obj).internal));
+        handlers.put("round", (dat, obj) -> new IntegerTag(Math.round(((NumberTag) obj).internal)));
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name NumberTag.round_to_places[<IntegerTag>]
+        // @Updated 2018/06/09
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the number rounded to the specified decimal place.
+        // @Example "0.12345" .round_to_places[3] returns "0.123".
+        // -->
+        handlers.put("round_to_places", (dat, obj) -> {
+            IntegerTag places = IntegerTag.getFor(dat.error, dat.getNextModifier());
+            double coef = Math.pow(10, places.getInternal());
+            return new NumberTag(Math.round(((NumberTag) obj).internal * coef) / coef);
+        });
+        // <--[tag]
+        // @Since 0.5.0
+        // @Name NumberTag.round_to[<NumberTag>]
+        // @Updated 2018/06/09
+        // @Group Mathematics
+        // @ReturnType NumberTag
+        // @Returns the number rounded to the specified precision.
+        // @Example "0.12345" .round_to[0.005] returns "0.125".
+        // -->
+        handlers.put("round_to", (dat, obj) -> {
+            double precision = NumberTag.getFor(dat.error, dat.getNextModifier()).internal;
+            return new NumberTag(Math.round(((NumberTag) obj).internal / precision) * precision);
         });
         // <--[tag]
         // @Since 0.3.0
@@ -460,9 +551,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Returns the number rounded up.
         // @Example "0.5" .round_up returns "1".
         // -->
-        handlers.put("round_up", (dat, obj) -> {
-            return new NumberTag(Math.ceil(((NumberTag) obj).internal));
-        });
+        handlers.put("round_up", (dat, obj) -> new NumberTag(Math.ceil(((NumberTag) obj).internal)));
         // <--[tag]
         // @Since 0.3.0
         // @Name NumberTag.round_down
@@ -472,9 +561,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Returns the number rounded down.
         // @Example "0.5" .round_down returns "0".
         // -->
-        handlers.put("round_down", (dat, obj) -> {
-            return new NumberTag(Math.floor(((NumberTag) obj).internal));
-        });
+        handlers.put("round_down", (dat, obj) -> new NumberTag(Math.floor(((NumberTag) obj).internal)));
         // <--[tag]
         // @Since 0.3.0
         // @Name NumberTag.sign
@@ -484,9 +571,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Returns the sign of this number, which can be -1, 0, or 1.
         // @Example "-5" .sign returns "-1".
         // -->
-        handlers.put("sign", (dat, obj) -> {
-            return new IntegerTag((int) Math.signum(((NumberTag) obj).internal));
-        });
+        handlers.put("sign", (dat, obj) -> new IntegerTag((int) Math.signum(((NumberTag) obj).internal)));
         // <--[tag]
         // @Since 0.3.0
         // @Name NumberTag.hyberbolic_sine
@@ -496,9 +581,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Returns the hyperbolic sine of this number.
         // @Example "0" .hyberbolic_sine returns "0".
         // -->
-        handlers.put("hyberbolic_sine", (dat, obj) -> {
-            return new NumberTag(Math.sinh(((NumberTag) obj).internal));
-        });
+        handlers.put("hyberbolic_sine", (dat, obj) -> new NumberTag(Math.sinh(((NumberTag) obj).internal)));
         // <--[tag]
         // @Since 0.3.0
         // @Name NumberTag.hyberbolic_cosine
@@ -508,9 +591,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Returns the hyperbolic cosine of this number.
         // @Example "0" .hyberbolic_cosine returns "1".
         // -->
-        handlers.put("hyberbolic_cosine", (dat, obj) -> {
-            return new NumberTag(Math.cosh(((NumberTag) obj).internal));
-        });
+        handlers.put("hyberbolic_cosine", (dat, obj) -> new NumberTag(Math.cosh(((NumberTag) obj).internal)));
         // <--[tag]
         // @Since 0.3.0
         // @Name NumberTag.hyberbolic_tangent
@@ -520,9 +601,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Returns the hyperbolic tangent of this number.
         // @Example "0" .hyberbolic_tangent returns "0".
         // -->
-        handlers.put("hyberbolic_tangent", (dat, obj) -> {
-            return new NumberTag(Math.tanh(((NumberTag) obj).internal));
-        });
+        handlers.put("hyberbolic_tangent", (dat, obj) -> new NumberTag(Math.tanh(((NumberTag) obj).internal)));
         // <--[tag]
         // @Since 0.3.0
         // @Name NumberTag.square_root
@@ -532,9 +611,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Returns the square root of this number.
         // @Example "4" .square_root returns "2".
         // -->
-        handlers.put("square_root", (dat, obj) -> {
-            return new NumberTag(Math.sqrt(((NumberTag) obj).internal));
-        });
+        handlers.put("square_root", (dat, obj) -> new NumberTag(Math.sqrt(((NumberTag) obj).internal)));
         // <--[tag]
         // @Since 0.3.0
         // @Name NumberTag.truncate
@@ -544,9 +621,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @Returns the number, truncated (rounded towards zero).
         // @Example "-2.8" .truncate returns "-2".
         // -->
-        handlers.put("truncate", (dat, obj) -> {
-            return new NumberTag(truncate(((NumberTag) obj).internal));
-        });
+        handlers.put("truncate", (dat, obj) -> new NumberTag(truncate(((NumberTag) obj).internal)));
         // <--[tag]
         // @Since 0.3.0
         // @Name NumberTag.to_radians
@@ -555,9 +630,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @ReturnType NumberTag
         // @Returns the number converted from degrees to radians.
         // -->
-        handlers.put("to_radians", (dat, obj) -> {
-            return new NumberTag(Math.toRadians(((NumberTag) obj).internal));
-        });
+        handlers.put("to_radians", (dat, obj) -> new NumberTag(Math.toRadians(((NumberTag) obj).internal)));
         // <--[tag]
         // @Since 0.3.0
         // @Name NumberTag.to_degrees
@@ -566,9 +639,7 @@ public class NumberTag extends AbstractTagObject implements Denizen2Core.NumberF
         // @ReturnType NumberTag
         // @Returns the number converted from radians to degrees.
         // -->
-        handlers.put("to_degrees", (dat, obj) -> {
-            return new NumberTag(Math.toDegrees(((NumberTag) obj).internal));
-        });
+        handlers.put("to_degrees", (dat, obj) -> new NumberTag(Math.toDegrees(((NumberTag) obj).internal)));
     }
 
     private static double truncate(double val) {
