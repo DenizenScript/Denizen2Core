@@ -337,23 +337,43 @@ public class TextTag extends AbstractTagObject {
         // <--[tag]
         // @Since 0.3.0
         // @Name TextTag.after[<TextTag>]
-        // @Updated 2017/02/12
+        // @Updated 2018/06/17
         // @Group Text Modification
         // @ReturnType TextTag
-        // @Returns the text after the specified text.
+        // @Returns the text after the last instance of the specified text.
         // @Example "abc" .after[b] returns "c".
         // -->
-        handlers.put("after", (dat, obj) -> new TextTag(((TextTag) obj).after(dat.getNextModifier().toString())));
+        handlers.put("after", (dat, obj) -> new TextTag(((TextTag) obj).afterLast(dat.getNextModifier().toString())));
         // <--[tag]
         // @Since 0.3.0
         // @Name TextTag.before[<TextTag>]
-        // @Updated 2017/02/12
+        // @Updated 2018/06/17
         // @Group Text Modification
         // @ReturnType TextTag
-        // @Returns the text before the specified text.
+        // @Returns the text before the first instance of the specified text.
         // @Example "abc" .before[b] returns "a".
         // -->
-        handlers.put("before", (dat, obj) -> new TextTag(((TextTag) obj).before(dat.getNextModifier().toString())));
+        handlers.put("before", (dat, obj) -> new TextTag(((TextTag) obj).beforeFirst(dat.getNextModifier().toString())));
+        // <--[tag]
+        // @Since 0.5.5
+        // @Name TextTag.after_first[<TextTag>]
+        // @Updated 2018/06/17
+        // @Group Text Modification
+        // @ReturnType TextTag
+        // @Returns the text after the first instance of the specified text.
+        // @Example "abc" .after[b] returns "c".
+        // -->
+        handlers.put("after_first", (dat, obj) -> new TextTag(((TextTag) obj).afterFirst(dat.getNextModifier().toString())));
+        // <--[tag]
+        // @Since 0.5.5
+        // @Name TextTag.before_last[<TextTag>]
+        // @Updated 2018/06/17
+        // @Group Text Modification
+        // @ReturnType TextTag
+        // @Returns the text before the last instance of the specified text.
+        // @Example "abc" .before[b] returns "a".
+        // -->
+        handlers.put("before_last", (dat, obj) -> new TextTag(((TextTag) obj).beforeLast(dat.getNextModifier().toString())));
         // <--[tag]
         // @Since 0.3.0
         // @Name TextTag.substring[<ListTag>]
@@ -391,7 +411,7 @@ public class TextTag extends AbstractTagObject {
         });
     }
 
-    public String after(String inp) {
+    public String afterFirst(String inp) {
         int ind = internal.indexOf(inp);
         if (ind <= -1) {
             return internal;
@@ -401,8 +421,28 @@ public class TextTag extends AbstractTagObject {
         }
     }
 
-    public String before(String inp) {
+    public String beforeFirst(String inp) {
         int ind = internal.indexOf(inp);
+        if (ind <= -1) {
+            return internal;
+        }
+        else {
+            return internal.substring(0, ind);
+        }
+    }
+
+    public String afterLast(String inp) {
+        int ind = internal.lastIndexOf(inp);
+        if (ind <= -1) {
+            return internal;
+        }
+        else {
+            return internal.substring(ind + inp.length());
+        }
+    }
+
+    public String beforeLast(String inp) {
+        int ind = internal.lastIndexOf(inp);
         if (ind <= -1) {
             return internal;
         }
