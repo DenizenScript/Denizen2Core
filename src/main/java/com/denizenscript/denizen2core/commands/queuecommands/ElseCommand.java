@@ -71,14 +71,7 @@ public class ElseCommand extends AbstractCommand {
     @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
         if (entry.arguments.size() > 0 && entry.arguments.get(0).toString().equals("\0CALLBACK")) {
-            CommandStackEntry cse = queue.commandStack.peek();
-            CommandEntry ifentry = cse.entries[entry.blockStart - 1];
-            if (cse.getIndex() < cse.entries.length) {
-                CommandEntry elseentry = cse.entries[cse.getIndex()];
-                if (elseentry.command instanceof ElseCommand) {
-                    elseentry.setData(queue, ifentry.getData(queue));
-                }
-            }
+            IfCommand.jumpToEnd(queue.commandStack.peek());
             return;
         }
         if (!(entry.getData(queue) instanceof IfCommand.IfCommandData)) {

@@ -268,18 +268,23 @@ public class IfCommand extends AbstractCommand {
 
     private static final boolean DEBUG = false;
 
+    public static void jumpToEnd(CommandStackEntry cse) {
+        int spot = cse.getIndex();
+        while (spot < cse.entries.length) {
+            if (!(cse.entries[spot].command instanceof ElseCommand)
+                    || (cse.entries[spot].blockStart != spot)) {
+                cse.goTo(spot);
+                return;
+            }
+            spot = cse.entries[spot].blockEnd + 1;
+        }
+        cse.goTo(cse.entries.length);
+    }
+
     @Override
     public void execute(CommandQueue queue, CommandEntry entry) {
         if (entry.arguments.get(0).toString().equals("\0CALLBACK")) {
-            CommandStackEntry cse = queue.commandStack.peek();
-            CommandEntry ifentry = cse.entries[entry.blockStart - 1];
-            entry.setData(queue, ifentry.getData(queue));
-            if (cse.getIndex() < cse.entries.length) {
-                CommandEntry elseentry = cse.entries[cse.getIndex()];
-                if (elseentry.command instanceof ElseCommand) {
-                    elseentry.setData(queue, ifentry.getData(queue));
-                }
-            }
+            jumpToEnd(queue.commandStack.peek());
             return;
         }
         IfCommandData dat = new IfCommandData();
